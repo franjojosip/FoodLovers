@@ -1,1 +1,0 @@
-### FoodLovers application for Android
