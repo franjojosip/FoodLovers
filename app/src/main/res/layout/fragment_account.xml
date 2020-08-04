@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.main.view.ui.account.AccountFragment">
+
+    <data
+        android:layout_width="162dp"
+        android:layout_height="76dp">
+
+        <variable
+            name="viewmodel"
+            type="ht.ferit.fjjukic.foodlovers.ui.main.viewmodel.AccountViewModel" />
+    </data>
+
+    <ScrollView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                card_view:cardCornerRadius="6dp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="casual"
+                        android:text="@string/change_account_information"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="casual"
+                        android:text="@string/username"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="20sp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/et_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:hint="@string/username"
+                        android:text="@={viewmodel.currentUser.username}"
+                        android:importantForAutofill="no"
+                        android:inputType="text|textCapWords"
+                        android:padding="15dp"
+                        android:textSize="15sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_user_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="casual"
+                            android:text="@string/user_image"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="20sp"
+                            android:textStyle="italic" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_user_image"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_below="@+id/tv_user_image"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="20dp"
+                            android:background="@drawable/ic_account_circle_black_24dp"
+                            android:src="@{viewmodel.imagePath}"
+                            android:contentDescription="@string/user_image" />
+
+                        <Button
+                            android:id="@+id/btn_change_image"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_user_image"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toEndOf="@+id/iv_user_image"
+                            android:background="@color/colorSmoke"
+                            android:fontFamily="casual"
+                            android:text="@string/change_image"
+                            android:textColor="@color/colorWhite" />
+
+                        <Button
+                            android:id="@+id/btn_take_image"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/btn_change_image"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_toEndOf="@+id/iv_user_image"
+                            android:background="@color/colorSmoke"
+                            android:fontFamily="casual"
+                            android:text="@string/take_image"
+                            android:textColor="@color/colorWhite" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="30dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:fontFamily="casual"
+                            android:text="Location"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="20sp"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:id="@+id/tv_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="casual"
+                            android:text="@={viewmodel.location}"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="18sp" />
+
+                        <Button
+                            android:id="@+id/btn_change_location"
+                            android:layout_width="200dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:text="Change location"
+                            android:background="@color/colorSmoke"
+                            android:fontFamily="casual"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginBottom="10dp"
+                            android:textSize="20sp"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:fontFamily="casual"
+                            android:text="@string/old_email"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="20sp"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:id="@+id/tv_old_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="15dp"
+                            android:fontFamily="casual"
+                            android:text="@={viewmodel.currentUser.email}"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="18sp" />
+
+
+                        <TextView
+                            android:id="@+id/tv_new_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:fontFamily="casual"
+                            android:text="@string/new_email"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="20sp"
+                            android:textStyle="italic" />
+
+                        <EditText
+                            android:id="@+id/et_new_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:hint="@string/email"
+                            android:text="@={viewmodel.newEmail}"
+                            android:importantForAutofill="no"
+                            android:inputType="textEmailAddress"
+                            android:padding="15dp"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:fontFamily="casual"
+                            android:text="@string/password"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="20sp"
+                            android:textStyle="italic" />
+
+                        <EditText
+                            android:id="@+id/et_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:hint="@string/password"
+                            android:text="@={viewmodel.password}"
+                            android:importantForAutofill="no"
+                            android:inputType="textPassword"
+                            android:padding="15dp"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+
+                    <Button
+                        android:id="@+id/btn_update"
+                        android:layout_width="250dp"
+                        android:layout_height="55dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/login_btn"
+                        android:fontFamily="casual"
+                        android:text="@string/update"
+                        android:onClick="@{(v)-> viewmodel.changeInfo(v)}"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

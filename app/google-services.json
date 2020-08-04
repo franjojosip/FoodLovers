@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "45278168808",
+    "firebase_url": "https://foodlovers-95884.firebaseio.com",
+    "project_id": "foodlovers-95884",
+    "storage_bucket": "foodlovers-95884.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45278168808:android:344e50b7f8ac90fa536b5d",
+        "android_client_info": {
+          "package_name": "ht.ferit.fjjukic.foodlovers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "45278168808-87f41na6rf4123jvlrjm4mru01croefu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ht.ferit.fjjukic.foodlovers",
+            "certificate_hash": "a71d47dd75836aff8dea6230afc8be7f015aa83a"
+          }
+        },
+        {
+          "client_id": "45278168808-km78dtcohblvfuierg1n2lmn6gott86s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoO-PYNVMp-gA7rpuAVZbJQz7Lx5j72qQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "45278168808-km78dtcohblvfuierg1n2lmn6gott86s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

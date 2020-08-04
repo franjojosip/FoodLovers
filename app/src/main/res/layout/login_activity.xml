@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="ht.ferit.fjjukic.foodlovers.ui.main.viewmodel.AuthViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.view.LoginActivity">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:layout_above="@id/tv_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/food_icon"
+            android:fontFamily="casual"
+            android:contentDescription="@string/food_lovers" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tv_subtitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="casual"
+            android:text="@string/app_name"
+            android:textColor="@color/colorBlack"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/et_email"
+            android:layout_marginStart="25dp"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@id/et_password"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:padding="15dp"
+            android:text="@={viewmodel.email}"
+            android:textSize="15sp"
+            android:importantForAutofill="no"
+            />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:padding="15dp"
+            android:text="@={viewmodel.password}"
+            android:textSize="15sp"
+            android:importantForAutofill="no" />
+
+        <ImageView
+            android:id="@+id/iv_show_password"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_show_password"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:alpha="0.45"
+            android:contentDescription="@string/password" />
+
+        <TextView
+            android:id="@+id/tv_forgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_password"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:text="@string/forgot_password"
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorRed"
+            android:onClick="@{(v) -> viewmodel.goToResetPassword(v)}" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:layout_below="@id/tv_forgotPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/login_btn"
+            android:fontFamily="casual"
+            android:onClick="@{() -> viewmodel.login()}"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_login"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="casual"
+            android:onClick="@{(v) -> viewmodel.goToRegister(v)}"
+            android:text="@string/sign_up"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+</layout>
