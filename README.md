@@ -1,2 +1,2 @@
 # FoodLovers
-FoodLovers mobile application made in Android Studio with Kotlin
+FoodLovers mobile application written in Kotlin
