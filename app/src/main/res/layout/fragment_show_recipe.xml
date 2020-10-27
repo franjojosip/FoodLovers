@@ -26,21 +26,20 @@
             android:orientation="vertical"
             tools:ignore="UselessParent">
 
-
             <TextView
                 android:id="@id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="40dp"
-                android:layout_marginBottom="20dp"
-                android:fontFamily="casual"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="serif"
                 android:text="@={viewmodel.recipe.title}"
                 android:textAlignment="center"
                 android:textColor="@color/colorRed"
                 android:textSize="27sp"
-                android:textStyle="bold" />
+                android:textStyle="bold|italic" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -54,9 +53,8 @@
                     android:layout_height="280dp"
                     android:layout_margin="8dp"
                     android:contentDescription="@string/food_lovers"
-                    android:fontFamily="casual"
+                    android:fontFamily="serif"
                     android:scaleType="fitXY"
-                    android:src="@{viewmodel.recipe.imagePath}"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorBlack"
                     android:textSize="18sp"
@@ -73,14 +71,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
-                    android:fontFamily="casual"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="serif"
                     android:text="@string/difficulty_level"
                     android:textAlignment="center"
                     android:textColor="@color/colorBlack"
-                    android:textFontWeight="700"
-                    android:textSize="18sp"
+                    android:textSize="19sp"
                     android:textStyle="bold|italic" />
 
                 <TextView
@@ -89,8 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="casual"
+                    android:fontFamily="serif"
                     android:text="@{viewmodel.difficultyLevel.name}"
                     android:textAlignment="center"
                     android:textColor="@color/colorBlack"
@@ -101,12 +97,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    android:fontFamily="casual"
+                    android:fontFamily="serif"
                     android:text="@string/food_type"
                     android:textAlignment="center"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
+                    android:textSize="19sp"
                     android:textStyle="bold|italic" />
 
                 <TextView
@@ -115,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:fontFamily="casual"
+                    android:fontFamily="serif"
                     android:text="@{viewmodel.foodType.name}"
                     android:textAlignment="center"
                     android:textColor="@color/colorBlack"
@@ -126,13 +123,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    android:fontFamily="casual"
+                    android:fontFamily="serif"
                     android:text="@string/description"
                     android:textAlignment="center"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
+                    android:textFontWeight="700"
+                    android:textSize="19sp"
                     android:textStyle="bold|italic" />
 
                 <TextView
@@ -142,11 +140,11 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="40dp"
-                    android:fontFamily="casual"
+                    android:fontFamily="serif"
                     android:text="@={viewmodel.recipe.description}"
                     android:textAlignment="center"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="italic" />
 
             </LinearLayout>

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ht.ferit.fjjukic.foodlovers">
 
-    <!--Adding Read External Storage Permission And Internet Permission-->
+    <!-- Storage, Location and Internet Permission-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -26,18 +26,18 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
         <activity
-            android:name=".ui.main.view.NavigationActivity"
+            android:name=".ui.main.view.NavigationActivity" android:windowSoftInputMode="stateVisible|adjustPan"
+
             android:label="@string/title_activity_navigation" />
-        <activity android:name=".ui.main.view.LoginActivity">
+        <activity android:name=".ui.main.view.MainActivity" android:windowSoftInputMode="stateVisible|adjustPan"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.view.RegisterActivity" />
-        <activity android:name=".ui.main.view.ResetPasswordActivity" />
-        <activity android:name=".ui.main.view.MenuActivity" />
     </application>
 
 </manifest>

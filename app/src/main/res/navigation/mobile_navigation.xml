@@ -9,7 +9,6 @@
         android:name="ht.ferit.fjjukic.foodlovers.ui.main.view.ui.home.HomeFragment"
         android:label="Recipes"
         tools:layout="@layout/fragment_home">
-
     </fragment>
 
     <fragment

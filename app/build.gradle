@@ -75,9 +75,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     kapt "android.arch.lifecycle:compiler:1.1.1"
 
-    //Picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
-
     //Room
     implementation "android.arch.persistence.room:runtime:1.1.1"
     kapt "android.arch.persistence.room:compiler:1.1.1"
@@ -97,10 +94,16 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:2.2.18"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
 
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
     //Firebase
     implementation 'com.google.firebase:firebase-auth:19.3.2'
     implementation 'com.google.firebase:firebase-core:17.4.4'
     implementation 'com.google.firebase:firebase-database:19.3.1'
+    implementation 'com.google.firebase:firebase-storage:19.2.0'
+    implementation 'com.firebaseui:firebase-ui-storage:3.3.0'
+
 
     //Google maps
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -114,5 +117,4 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.19.0'
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation 'org.robolectric:robolectric:4.2.1'
-
 }

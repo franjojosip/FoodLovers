@@ -2,34 +2,25 @@ package ht.ferit.fjjukic.foodlovers.utils
 
 import android.content.Context
 import android.content.Intent
-import ht.ferit.fjjukic.foodlovers.ui.main.view.*
-
-fun Context.startLoginActivity() =
-    Intent(this, LoginActivity::class.java).also {
-        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(it)
-    }
-
-fun Context.startRegisterActivity() =
-    Intent(this, RegisterActivity::class.java).also {
-        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(it)
-    }
-
-fun Context.startResetPasswordActivity() =
-    Intent(this, ResetPasswordActivity::class.java).also {
-        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(it)
-    }
-
-fun Context.startMenuActivity() =
-    Intent(this, MenuActivity::class.java).also {
-        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(it)
-    }
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import ht.ferit.fjjukic.foodlovers.ui.main.view.MainActivity
+import ht.ferit.fjjukic.foodlovers.ui.main.view.NavigationActivity
 
 fun Context.startNavigationActivity() =
     Intent(this, NavigationActivity::class.java).also {
         it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(it)
     }
+
+fun Context.startMainActivity() =
+    Intent(this, MainActivity::class.java).also {
+        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(it)
+    }
+
+fun Context.hideKeyboard(view: View) {
+    (getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.apply {
+        hideSoftInputFromWindow(view.windowToken, 0)
+    }
+}

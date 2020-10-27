@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="ht.ferit.fjjukic.foodlovers.ui.main.viewmodel.AuthViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.main.view.ui.auth.RegisterFragment">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="120dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/food_icon"
+            android:contentDescription="@string/food_lovers"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="serif"
+            android:textStyle="italic"
+            android:text="@string/app_name"
+            android:textColor="@color/colorBlack"
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/username"
+            android:importantForAutofill="no"
+            android:inputType="text|textCapWords"
+            android:padding="15dp"
+            android:text="@={viewmodel.username}"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/email"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:padding="15dp"
+            android:text="@={viewmodel.email}"
+            android:textSize="15sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:text="@={viewmodel.password}"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/iv_show_password"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="30dp"
+                android:alpha="0.45"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/password"
+                android:padding="12dp"
+                android:src="@drawable/ic_show_password" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_repeat_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/repeat_password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:padding="15dp"
+            android:text="@={viewmodel.repeatPassword}"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/login_btn"
+            android:fontFamily="serif"
+            android:onClick="@{() -> viewmodel.register()}"
+            android:text="@string/register"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:fontFamily="serif"
+            android:text="@string/login_text"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</layout>

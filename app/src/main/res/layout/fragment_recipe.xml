@@ -14,181 +14,194 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:background="@drawable/recipe_background">
 
-            <LinearLayout
-                android:id="@+id/relativeLayout"
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="serif"
+                android:text="@string/recipe"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:textStyle="italic"
+                android:textSize="30sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="25dp"
-                    android:fontFamily="casual"
-                    android:text="@string/recipe"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="30sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:fontFamily="serif"
+                android:text="@string/name"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                android:textStyle="italic" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="casual"
-                    android:text="@string/name"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
-                    android:textStyle="italic" />
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="serif"
+                android:hint="@string/name"
+                android:importantForAutofill="no"
+                android:inputType="text|textCapSentences"
+                android:padding="15dp"
+                android:text="@={viewmodel.recipe.title}"
+                android:textSize="15sp" />
 
-                <EditText
-                    android:id="@+id/et_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/name"
-                    android:text="@={viewmodel.recipe.title}"
-                    android:importantForAutofill="no"
-                    android:inputType="text|textCapSentences"
-                    android:padding="15dp"
-                    android:textSize="15sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="@string/description"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                android:textStyle="italic" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="casual"
-                    android:text="@string/description"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
-                    android:textStyle="italic" />
+            <EditText
+                android:id="@+id/et_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="serif"
+                android:hint="@string/description"
+                android:importantForAutofill="no"
+                android:inputType="text|textMultiLine|textCapSentences"
+                android:padding="15dp"
+                android:text="@={viewmodel.recipe.description}"
+                android:textSize="15sp" />
 
-                <EditText
-                    android:id="@+id/et_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/description"
-                    android:text="@={viewmodel.recipe.description}"
-                    android:importantForAutofill="no"
-                    android:inputType="text|textMultiLine|textCapSentences"
-                    android:padding="15dp"
-                    android:textSize="15sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:fontFamily="serif"
+                android:text="@string/difficulty_level"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                android:textStyle="italic" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="casual"
-                    android:text="@string/difficulty_level"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
-                    android:textStyle="italic" />
-
-                <Button
-                    android:id="@+id/btnDifficultyLevelMenu"
-                    android:layout_width="200dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
-                    android:backgroundTint="@color/colorMenu"
-                    android:fontFamily="casual"
-                    android:importantForAutofill="no"
-                    android:padding="15dp"
-                    android:text="@{viewmodel.difficultyLevel.name}"
-                    android:hint="@string/select_level"
-                    android:textSize="15sp"
-                    android:textStyle="italic" />
+            <Button
+                android:id="@+id/btnDifficultyLevelMenu"
+                android:layout_width="200dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/colorMenu"
+                android:fontFamily="serif"
+                android:hint="@string/select_level"
+                android:importantForAutofill="no"
+                android:padding="15dp"
+                android:text="@{viewmodel.difficultyLevel.name}"
+                android:textSize="15sp"
+                android:textStyle="italic" />
 
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="casual"
-                    android:text="@string/food_type"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
-                    android:textStyle="italic" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:fontFamily="serif"
+                android:text="@string/food_type"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                android:textStyle="italic" />
 
-                <Button
-                    android:id="@+id/btnFoodTypeMenu"
-                    android:layout_width="200dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
-                    android:backgroundTint="@color/colorMenu"
-                    android:fontFamily="casual"
-                    android:importantForAutofill="no"
-                    android:padding="15dp"
-                    android:text="@{viewmodel.foodType.name}"
-                    android:hint="@string/select_food_type"
-                    android:textSize="15sp"
-                    android:textStyle="italic" />
+            <Button
+                android:id="@+id/btnFoodTypeMenu"
+                android:layout_width="200dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/colorMenu"
+                android:fontFamily="serif"
+                android:hint="@string/select_food_type"
+                android:importantForAutofill="no"
+                android:padding="15dp"
+                android:text="@{viewmodel.foodType.name}"
+                android:textSize="15sp"
+                android:textStyle="italic" />
 
-                <TextView
-                    android:id="@+id/tv_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="casual"
-                    android:text="@string/recipe_image"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
-                    android:textStyle="italic" />
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:fontFamily="serif"
+                android:text="@string/recipe_image"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                android:textStyle="italic" />
 
-                <Button
-                    android:id="@+id/btn_choose_image"
-                    android:layout_width="200dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="@color/colorMenu"
-                    android:fontFamily="casual"
-                    android:importantForAutofill="no"
-                    android:padding="15dp"
-                    android:text="@string/choose_image"
-                    android:textSize="15sp"
-                    android:textStyle="italic" />
+            <Button
+                android:id="@+id/btn_choose_image"
+                android:layout_width="200dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/colorMenu"
+                android:fontFamily="serif"
+                android:importantForAutofill="no"
+                android:padding="15dp"
+                android:text="@string/choose_image"
+                android:textSize="15sp"
+                android:textStyle="italic" />
 
-                <Button
-                    android:id="@+id/btn_action"
-                    android:layout_width="250dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/login_btn"
-                    android:fontFamily="casual"
-                    android:text="@{viewmodel.actionType}"
-                    android:onClick="@{(v)-> viewmodel.modifyRecipe(v)}"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="20sp" />
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="10dp"
+                android:contentDescription="@string/recipe_image" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_action"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/login_btn"
+                android:fontFamily="serif"
+                android:textStyle="italic"
+                android:onClick="@{() -> viewmodel.modifyRecipe()}"
+                android:text="@{viewmodel.actionType}"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
+
+        </LinearLayout>
     </ScrollView>
 </layout>

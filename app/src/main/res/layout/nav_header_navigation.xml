@@ -30,44 +30,41 @@
             android:layout_height="70dp"
             android:layout_marginBottom="25dp"
             android:background="@drawable/ic_account_circle_black_24dp"
-            android:contentDescription="@string/nav_header_desc"
-            android:src="@{viewmodel.user.imagePath}" />
+            android:contentDescription="@string/nav_header_desc"/>
 
         <TextView
             android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
             android:layout_marginStart="15dp"
-            android:fontFamily="casual"
+            android:fontFamily="serif"
             android:layout_toEndOf="@id/iv_user_image"
             android:hint="@string/username"
-            android:text="@={viewmodel.user.username}"
+            android:text="@={viewmodel.user.name}"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold" />
+            android:textColor="@color/colorWhite"/>
 
         <TextView
             android:id="@+id/tv_user_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:fontFamily="casual"
+            android:fontFamily="serif"
             android:hint="@string/email"
             android:layout_below="@id/tv_user_name"
             android:text="@={viewmodel.user.email}"
             android:layout_toEndOf="@id/iv_user_image"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold" />
+            android:textColor="@color/colorWhite"/>
         <TextView
             android:id="@+id/tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:fontFamily="casual"
+            android:fontFamily="serif"
             android:text="@={viewmodel.location}"
             android:layout_below="@id/tv_user_email"
             android:layout_toEndOf="@id/iv_user_image"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold" />
+            android:textColor="@color/colorWhite"/>
     </RelativeLayout>
 </layout>

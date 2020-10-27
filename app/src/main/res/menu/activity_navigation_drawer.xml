@@ -8,11 +8,6 @@
             android:icon="@drawable/ic_menu_home"
             android:title="@string/home" />
         <item
-            android:id="@+id/nav_menu"
-            android:icon="@drawable/ic_menu_menu"
-            android:title="@string/menu"
-            android:onClick="goToMenu"/>
-        <item
             android:id="@+id/nav_account"
             android:icon="@drawable/ic_menu_settings"
             android:title="@string/account"/>

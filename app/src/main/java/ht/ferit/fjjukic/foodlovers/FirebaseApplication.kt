@@ -2,10 +2,10 @@ package ht.ferit.fjjukic.foodlovers
 
 import android.app.Application
 import android.content.Context
-import ht.ferit.fjjukic.foodlovers.data.database.RecipeDatabase
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import ht.ferit.fjjukic.foodlovers.data.database.FirebaseDB
 import ht.ferit.fjjukic.foodlovers.data.firebase.FirebaseSource
-import ht.ferit.fjjukic.foodlovers.data.repository.DifficultyLevelRepository
-import ht.ferit.fjjukic.foodlovers.data.repository.FoodTypeRepository
 import ht.ferit.fjjukic.foodlovers.data.repository.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.data.repository.UserRepository
 import ht.ferit.fjjukic.foodlovers.ui.base.*
@@ -27,6 +27,7 @@ class FirebaseApplication : Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         ApplicationContext = this
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
     }
 
     override val kodein = Kodein.lazy {
@@ -34,50 +35,35 @@ class FirebaseApplication : Application(), KodeinAware {
 
         bind() from singleton { FirebaseSource() }
         bind() from singleton {
-            UserRepository(
+            UserRepository(FirebaseDB())
+        }
+        bind() from provider {
+            UserViewModelFactory(
                 instance(),
-                RecipeDatabase.getDatabase(applicationContext).userDao()
+                UserRepository(FirebaseDB())
             )
         }
-        bind() from provider { UserViewModelFactory(instance()) }
-        bind() from provider { LocationViewModelFactory(
-            UserRepository(
+        bind() from provider {
+            LocationViewModelFactory(
                 instance(),
-                RecipeDatabase.getDatabase(applicationContext).userDao()
-            )) }
-        bind() from provider { AuthViewModelFactory(instance()) }
+                UserRepository(FirebaseDB())
+            )
+        }
+        bind() from provider {
+            AuthViewModelFactory(
+                instance(),
+                UserRepository(FirebaseDB())
+            )
+        }
         bind() from provider {
             AccountViewModelFactory(
-                UserRepository(
-                    instance(),
-                    RecipeDatabase.getDatabase(applicationContext).userDao()
-                )
-            )
-        }
-        bind() from provider {
-            MenuViewModelFactory(
-                FoodTypeRepository(
-                    RecipeDatabase.getDatabase(
-                        applicationContext
-                    ).foodTypeDao()
-                )
-            )
-        }
-        bind() from provider {
-            HomeViewModelFactory(
-                UserRepository(
-                    instance(),
-                    RecipeDatabase.getDatabase(applicationContext).userDao()
-                )
+                instance(),
+                UserRepository(FirebaseDB())
             )
         }
         bind() from provider {
             RecipeViewModelFactory(
-                RecipeRepository(RecipeDatabase.getDatabase(applicationContext).recipeDao()),
-                FoodTypeRepository(RecipeDatabase.getDatabase(applicationContext).foodTypeDao()),
-                DifficultyLevelRepository(
-                    RecipeDatabase.getDatabase(applicationContext).difficultyLevelDao()
-                )
+                RecipeRepository(FirebaseDB())
             )
         }
 

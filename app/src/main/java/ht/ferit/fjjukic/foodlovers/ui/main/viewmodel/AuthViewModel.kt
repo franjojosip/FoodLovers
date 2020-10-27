@@ -1,19 +1,17 @@
 package ht.ferit.fjjukic.foodlovers.ui.main.viewmodel
 
-import android.view.View
 import androidx.lifecycle.ViewModel
-import com.google.android.gms.maps.model.LatLng
-import ht.ferit.fjjukic.foodlovers.data.model.User
+import ht.ferit.fjjukic.foodlovers.data.database.FirebaseDB
+import ht.ferit.fjjukic.foodlovers.data.firebase.FirebaseSource
+import ht.ferit.fjjukic.foodlovers.data.model.UserModel
 import ht.ferit.fjjukic.foodlovers.data.repository.UserRepository
 import ht.ferit.fjjukic.foodlovers.ui.common.AuthListener
-import ht.ferit.fjjukic.foodlovers.utils.startLoginActivity
-import ht.ferit.fjjukic.foodlovers.utils.startRegisterActivity
-import ht.ferit.fjjukic.foodlovers.utils.startResetPasswordActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class AuthViewModel(
+    private val firebaseSource: FirebaseSource,
     private val repository: UserRepository
 ) : ViewModel() {
     var email: String? = null
@@ -24,7 +22,7 @@ class AuthViewModel(
     var authListener: AuthListener? = null
 
     private val disposables = CompositeDisposable()
-    var firebaseUser = repository.currentUser()
+    var firebaseUser = firebaseSource.currentUser()
 
     fun login() {
         if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
@@ -32,7 +30,7 @@ class AuthViewModel(
             return
         }
 
-        val disposable = repository.login(email!!, password!!)
+        val disposable = firebaseSource.login(email!!, password!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -54,11 +52,21 @@ class AuthViewModel(
             return
         }
 
-        val disposable = repository.register(email!!, password!!)
+        val disposable = firebaseSource.register(email!!, password!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                repository.insert(User(email!!, username!!, "", 45.815399, 15.966568))
+                repository.insert(
+                    UserModel(
+                        "",
+                        firebaseSource.currentUser()!!.uid,
+                        username!!,
+                        email!!,
+                        "",
+                        45.815399.toString(),
+                        15.966568.toString()
+                    )
+                )
                 authListener?.onSuccess()
             }, {
                 authListener?.onFailure(it.message!!)
@@ -72,7 +80,7 @@ class AuthViewModel(
             return
         }
 
-        val disposable = repository.resetPassword(resetEmail!!)
+        val disposable = firebaseSource.resetPassword(resetEmail!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -83,22 +91,11 @@ class AuthViewModel(
         disposables.add(disposable)
     }
 
-    fun deleteUser(){
-        if(firebaseUser != null){
+    fun deleteUser() {
+        if (firebaseUser != null) {
             firebaseUser!!.delete()
+            FirebaseDB().deleteUser(firebaseUser!!.uid)
         }
-    }
-
-    fun goToRegister(view: View) {
-        view.context.startRegisterActivity()
-    }
-
-    fun goToLogin(view: View) {
-        view.context.startLoginActivity()
-    }
-
-    fun goToResetPassword(view: View) {
-        view.context.startResetPasswordActivity()
     }
 
     override fun onCleared() {

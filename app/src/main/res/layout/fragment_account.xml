@@ -43,12 +43,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="15dp"
-                        android:fontFamily="casual"
+                        android:layout_marginBottom="25dp"
+                        android:fontFamily="serif"
                         android:text="@string/change_account_information"
                         android:textAlignment="center"
                         android:textColor="@color/colorBlack"
-                        android:textSize="25sp" />
+                        android:textSize="25sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_user_name"
@@ -56,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:fontFamily="casual"
+                        android:fontFamily="serif"
                         android:text="@string/username"
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorBlack"
@@ -70,12 +71,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginBottom="20dp"
+                        android:fontFamily="serif"
                         android:hint="@string/username"
-                        android:text="@={viewmodel.currentUser.username}"
                         android:importantForAutofill="no"
                         android:inputType="text|textCapWords"
                         android:padding="15dp"
-                        android:textSize="15sp" />
+                        android:text="@={viewmodel.currentUser.name}"
+                        android:textSize="16sp" />
 
                     <RelativeLayout
                         android:id="@+id/linearLayout2"
@@ -89,7 +91,7 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginBottom="8dp"
-                            android:fontFamily="casual"
+                            android:fontFamily="serif"
                             android:text="@string/user_image"
                             android:textAlignment="viewStart"
                             android:textColor="@color/colorBlack"
@@ -97,7 +99,7 @@
                             android:textStyle="italic" />
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/iv_user_image"
+                            android:id="@+id/iv_account_image"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_below="@+id/tv_user_image"
@@ -105,8 +107,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_marginRight="20dp"
                             android:background="@drawable/ic_account_circle_black_24dp"
-                            android:src="@{viewmodel.imagePath}"
-                            android:contentDescription="@string/user_image" />
+                            android:contentDescription="@string/user_image"/>
 
                         <Button
                             android:id="@+id/btn_change_image"
@@ -116,11 +117,12 @@
                             android:layout_gravity="center"
                             android:layout_marginStart="40dp"
                             android:layout_marginTop="5dp"
-                            android:layout_toEndOf="@+id/iv_user_image"
+                            android:layout_toEndOf="@+id/iv_account_image"
                             android:background="@color/colorSmoke"
-                            android:fontFamily="casual"
+                            android:fontFamily="serif"
                             android:text="@string/change_image"
-                            android:textColor="@color/colorWhite" />
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="italic" />
 
                         <Button
                             android:id="@+id/btn_take_image"
@@ -130,11 +132,12 @@
                             android:layout_gravity="center"
                             android:layout_marginStart="40dp"
                             android:layout_marginTop="25dp"
-                            android:layout_toEndOf="@+id/iv_user_image"
+                            android:layout_toEndOf="@+id/iv_account_image"
                             android:background="@color/colorSmoke"
-                            android:fontFamily="casual"
+                            android:fontFamily="serif"
                             android:text="@string/take_image"
-                            android:textColor="@color/colorWhite" />
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="italic" />
 
                     </RelativeLayout>
 
@@ -149,7 +152,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:fontFamily="casual"
+                            android:fontFamily="serif"
                             android:text="Location"
                             android:textAlignment="viewStart"
                             android:textColor="@color/colorBlack"
@@ -164,32 +167,31 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginBottom="10dp"
-                            android:fontFamily="casual"
+                            android:fontFamily="serif"
                             android:text="@={viewmodel.location}"
                             android:textAlignment="viewStart"
                             android:textColor="@color/colorBlack"
-                            android:textSize="18sp" />
+                            android:textSize="17sp" />
 
                         <Button
                             android:id="@+id/btn_change_location"
-                            android:layout_width="200dp"
+                            android:layout_width="180dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center"
-                            android:text="Change location"
-                            android:background="@color/colorSmoke"
-                            android:fontFamily="casual"
-                            android:textAllCaps="false"
-                            android:textColor="@color/colorWhite"
                             android:layout_marginBottom="10dp"
-                            android:textSize="20sp"
-                            />
+                            android:background="@color/colorSmoke"
+                            android:fontFamily="serif"
+                            android:text="Change location"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="italic" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
                             android:layout_marginRight="20dp"
-                            android:fontFamily="casual"
+                            android:fontFamily="serif"
                             android:text="@string/old_email"
                             android:textAlignment="viewStart"
                             android:textColor="@color/colorBlack"
@@ -204,11 +206,11 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginBottom="15dp"
-                            android:fontFamily="casual"
+                            android:fontFamily="serif"
                             android:text="@={viewmodel.currentUser.email}"
                             android:textAlignment="viewStart"
                             android:textColor="@color/colorBlack"
-                            android:textSize="18sp" />
+                            android:textSize="17sp" />
 
 
                         <TextView
@@ -217,7 +219,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:fontFamily="casual"
+                            android:fontFamily="serif"
                             android:text="@string/new_email"
                             android:textAlignment="viewStart"
                             android:textColor="@color/colorBlack"
@@ -231,12 +233,13 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginBottom="20dp"
+                            android:fontFamily="serif"
                             android:hint="@string/email"
-                            android:text="@={viewmodel.newEmail}"
                             android:importantForAutofill="no"
                             android:inputType="textEmailAddress"
                             android:padding="15dp"
-                            android:textSize="15sp" />
+                            android:text="@={viewmodel.newEmail}"
+                            android:textSize="17sp" />
 
                         <TextView
                             android:id="@+id/tv_email"
@@ -244,7 +247,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:fontFamily="casual"
+                            android:fontFamily="serif"
                             android:text="@string/password"
                             android:textAlignment="viewStart"
                             android:textColor="@color/colorBlack"
@@ -258,12 +261,13 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginBottom="20dp"
+                            android:fontFamily="serif"
                             android:hint="@string/password"
-                            android:text="@={viewmodel.password}"
                             android:importantForAutofill="no"
                             android:inputType="textPassword"
                             android:padding="15dp"
-                            android:textSize="15sp" />
+                            android:text="@={viewmodel.password}"
+                            android:textSize="17sp" />
                     </LinearLayout>
 
 
@@ -276,12 +280,13 @@
                         android:layout_marginRight="20dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/login_btn"
-                        android:fontFamily="casual"
-                        android:text="@string/update"
+                        android:fontFamily="serif"
                         android:onClick="@{(v)-> viewmodel.changeInfo(v)}"
+                        android:text="@string/update"
                         android:textAllCaps="false"
                         android:textColor="@color/colorWhite"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textStyle="italic" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>

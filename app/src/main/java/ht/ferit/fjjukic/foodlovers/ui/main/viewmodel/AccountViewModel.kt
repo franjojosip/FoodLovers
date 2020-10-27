@@ -4,23 +4,26 @@ import android.location.Address
 import android.location.Geocoder
 import android.view.View
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseUser
-import ht.ferit.fjjukic.foodlovers.data.model.User
+import com.google.firebase.storage.FirebaseStorage
+import ht.ferit.fjjukic.foodlovers.data.firebase.FirebaseSource
+import ht.ferit.fjjukic.foodlovers.data.model.UserModel
 import ht.ferit.fjjukic.foodlovers.data.repository.UserRepository
 import ht.ferit.fjjukic.foodlovers.ui.common.AuthListener
-import ht.ferit.fjjukic.foodlovers.utils.startLoginActivity
-import ht.ferit.fjjukic.foodlovers.utils.startNavigationActivity
+import ht.ferit.fjjukic.foodlovers.ui.common.FirebaseDatabaseCallback
+import ht.ferit.fjjukic.foodlovers.utils.startMainActivity
 import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 
-
 class AccountViewModel(
-private val repository: UserRepository
+    private val firebaseSource: FirebaseSource,
+    private val repository: UserRepository
 ) : ViewModel() {
     var newEmail: String? = null
     var password: String? = null
@@ -29,13 +32,13 @@ private val repository: UserRepository
     var authListener: AuthListener? = null
 
     private val disposables = CompositeDisposable()
-    private var firebaseUser: FirebaseUser? = repository.currentUser()
-    var currentUser: MutableLiveData<User> = MutableLiveData()
+    var firebaseUser: FirebaseUser? = firebaseSource.currentUser()
+    var currentUser: MutableLiveData<UserModel> = MutableLiveData()
 
     fun changeInfo(view: View) {
         if (!newEmail.isNullOrEmpty()) {
             when {
-                currentUser.value!!.username.isEmpty() -> {
+                currentUser.value!!.name.isEmpty() -> {
                     authListener?.onFailure("Please check your username field!")
                 }
                 password.isNullOrEmpty() -> {
@@ -51,60 +54,83 @@ private val repository: UserRepository
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 firebaseUser!!.updateEmail(newEmail!!)
-                                    .addOnCompleteListener { task ->
-                                        if (task.isSuccessful) {
+                                    .addOnCompleteListener { innerTask ->
+                                        if (innerTask.isSuccessful) {
                                             currentUser.value!!.email = newEmail!!
                                             repository.update(currentUser.value!!)
+                                            updateFirebaseDBUser()
                                             authListener?.onSuccess()
-                                            repository.logout()
-                                            view.context.startLoginActivity()
-                                        } else authListener?.onFailure(task.exception.toString())
+                                            firebaseSource.logout()
+                                            view.context.startMainActivity()
+                                        } else authListener?.onFailure(innerTask.exception.toString())
                                     }
                             } else authListener?.onFailure(task.exception.toString())
                         }
                 }
             }
         } else {
-            if(currentUser.value!!.username.isEmpty()){
+            if (currentUser.value!!.name.isEmpty()) {
                 authListener?.onFailure("Please check your username field!")
-            }
-            else{
+            } else {
                 repository.update(currentUser.value!!)
-                Toast.makeText(view.context, "Successfully updated user info!", Toast.LENGTH_SHORT).show()
+                updateFirebaseDBUser()
+                Toast.makeText(view.context, "Successfully updated user info!", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
 
-    fun insert(user: User) = repository.insert(user)
-
-    fun get(email: String): LiveData<User> {
-        return repository.get(email)
-    }
+    fun insert(user: UserModel) = repository.insert(user)
 
     override fun onCleared() {
         super.onCleared()
         disposables.dispose()
     }
 
-    fun getUser() = repository.get(firebaseUser!!.email!!)
+    fun getUser(view: View): MutableLiveData<UserModel> {
+        if (currentUser.value == null) {
+            repository.get(firebaseUser!!.uid, object : FirebaseDatabaseCallback {
+                override fun <T : Any> onCallback(value: T?) {
+                    if (value != null) {
+                        currentUser.value = value as UserModel
+                        imagePath.value = value.imageUrl
+                        setLocation(view)
+                    }
+                }
+            })
+        }
+        return currentUser
+    }
+
+    fun getImagePath(): LiveData<String> {
+        return imagePath
+    }
 
     fun setImagePath(imageUrl: String) {
         imagePath.value = imageUrl
-        currentUser.value!!.imagePath = imageUrl
+        currentUser.value!!.imageUrl = imageUrl
     }
 
     fun setLocation(view: View) {
         val geoCoder = Geocoder(view.context, Locale.getDefault())
         val addressList: List<Address>? =
             geoCoder.getFromLocation(
-                currentUser.value!!.latitude, currentUser.value!!.longitude, 1
+                currentUser.value!!.latitude.toDouble(), currentUser.value!!.longitude.toDouble(), 1
             )
         if (addressList != null && addressList.isNotEmpty()) {
             location.value = "${addressList[0].countryName}, ${addressList[0].locality}"
         }
     }
 
-    fun getAll(): LiveData<List<User>> {
-        return repository.getAll()
+    private fun updateFirebaseDBUser() {
+        val user = currentUser.value
+        val fileName = firebaseUser!!.uid
+        val ref = FirebaseStorage.getInstance().getReference("images/$fileName.jpg")
+        ref.putFile(imagePath.value!!.toUri()).addOnSuccessListener {
+            ref.downloadUrl.addOnSuccessListener {
+                user!!.imageUrl = it.toString()
+                repository.update(user)
+            }
+        }
     }
 }

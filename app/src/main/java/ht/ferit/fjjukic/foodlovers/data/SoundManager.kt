@@ -8,7 +8,7 @@ class SoundManager {
     private var soundMap: HashMap<Int, Int> = HashMap()
     private var isLoaded: Boolean = false
 
-    init{
+    init {
         soundPool.setOnLoadCompleteListener { _, _, _ -> isLoaded = true }
     }
 

@@ -16,8 +16,8 @@ data class User(
     var latitude: Double,
     @ColumnInfo(name = "longitude")
     var longitude: Double
-){
-    @ColumnInfo(name="id")
+) {
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }

@@ -1,21 +1,23 @@
 package ht.ferit.fjjukic.foodlovers.ui.main.recycler
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.data.model.Recipe
+import ht.ferit.fjjukic.foodlovers.data.PreferenceManager
+import ht.ferit.fjjukic.foodlovers.data.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.ui.common.ActionListener
 
 class RecipeAdapter(private val actionListener: ActionListener) :
     RecyclerView.Adapter<RecipeHolder>() {
-    private val recipes: MutableList<Recipe> = mutableListOf()
-    private var filteredRecipes: MutableList<Recipe> = mutableListOf()
-    private val selectedLevel: Int = 0
-
+    private val recipes: MutableList<RecipeModel> = mutableListOf()
+    private var filteredRecipes: MutableList<RecipeModel> = mutableListOf()
+    private var context: Context? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeHolder {
         val recipeView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recipe_list_item, parent, false)
+        context = parent.context
         return RecipeHolder(
             recipeView
         )
@@ -25,28 +27,36 @@ class RecipeAdapter(private val actionListener: ActionListener) :
 
     override fun onBindViewHolder(holder: RecipeHolder, position: Int) {
         val recipe = filteredRecipes[position]
-        holder.bind(recipe, actionListener)
+        holder.bind(recipe, actionListener, context!!)
     }
 
-    fun refreshData(recipes: MutableList<Recipe>) {
+    fun refreshData(recipes: MutableList<RecipeModel>) {
         this.recipes.clear()
         this.recipes.addAll(recipes)
-        this.filteredRecipes.clear()
-        this.filteredRecipes.addAll(recipes)
-        this.notifyDataSetChanged()
+        filterData()
     }
 
-    fun filterData(id: Int){
-        when(id){
-            0 -> {
-                this.filteredRecipes.clear()
-                this.filteredRecipes.addAll(recipes)
+    fun filterData(phrase: String = "") {
+        val difficultyLevel = PreferenceManager().getDifficultyLevelID()
+        val foodType = PreferenceManager().getFoodTypeID()
+
+        this.filteredRecipes.clear()
+        this.filteredRecipes.addAll(recipes)
+
+        if (difficultyLevel != "0") {
+            this.filteredRecipes.removeAll {
+                it.difficultyLevelID != difficultyLevel
             }
-            else -> {
-                this.filteredRecipes.clear()
-                this.filteredRecipes.addAll(recipes.filter {
-                    it.difficultyLevelID == id
-                }.toMutableList())
+        }
+        if (foodType != "0") {
+            this.filteredRecipes.removeAll {
+                it.foodTypeID != foodType
+            }
+
+        }
+        if (phrase.isNotEmpty()) {
+            this.filteredRecipes.removeAll {
+                !it.title.contains(phrase, true)
             }
         }
         this.notifyDataSetChanged()

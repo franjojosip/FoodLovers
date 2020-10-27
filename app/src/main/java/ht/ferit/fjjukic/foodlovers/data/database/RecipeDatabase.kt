@@ -7,7 +7,11 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import ht.ferit.fjjukic.foodlovers.data.model.*
 
-@Database(entities = [Comment::class, Recipe::class, DifficultyLevel::class, FoodType::class, User::class], version = 3, exportSchema = false)
+@Database(
+    entities = [Comment::class, Recipe::class, DifficultyLevel::class, FoodType::class, User::class],
+    version = 3,
+    exportSchema = false
+)
 abstract class RecipeDatabase : RoomDatabase() {
 
     abstract fun difficultyLevelDao(): DifficultyLevelDao
@@ -40,17 +44,23 @@ abstract class RecipeDatabase : RoomDatabase() {
                     .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
-                            Thread(Runnable { prepopulateDb(context, getInstance(context)) }).start()
+                            Thread(Runnable { prepopulateDb(getInstance(context)) }).start()
                         }
                     })
                     .allowMainThreadQueries()
                     .build()
-                    .also{ INSTANCE = it}
+                    .also { INSTANCE = it }
             }
         }
 
-        private fun prepopulateDb(context: Context, db: RecipeDatabase) {
-            db.difficultyLevelDao().insertAll(listOf(DifficultyLevel("Easy"), DifficultyLevel("Normal"), DifficultyLevel("Hard")))
+        private fun prepopulateDb(db: RecipeDatabase) {
+            db.difficultyLevelDao().insertAll(
+                listOf(
+                    DifficultyLevel("Easy"),
+                    DifficultyLevel("Normal"),
+                    DifficultyLevel("Hard")
+                )
+            )
             db.foodTypeDao().insertAll(listOf(FoodType("Sweet"), FoodType("Salty")))
         }
     }

@@ -55,4 +55,8 @@
     <string name="notificationTitle">Saved image notification</string>
     <string name="google_maps_key">API_KEY</string>
     <string name="current_location">Last known location</string>
+    <string name="all_types">All Types</string>
+    <string name="all_levels">All Levels</string>
+    <string name="search_for_a_recipes">Search for a recipes</string>
+    <string name="find">Find</string>
 </resources>

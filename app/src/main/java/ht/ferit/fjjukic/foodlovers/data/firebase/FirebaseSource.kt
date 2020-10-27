@@ -46,20 +46,6 @@ class FirebaseSource {
                 }
         }
 
-    fun changeEmail(email: String) =
-        Completable.create { emitter ->
-            currentUser()!!.updateEmail(email)
-                .addOnCompleteListener {
-                    if (!emitter.isDisposed) {
-                        if (it.isSuccessful) {
-                            emitter.onComplete()
-                        } else
-                            emitter.onError(it.exception!!)
-                    }
-                }
-        }
-
-
     fun logout() = firebaseAuth.signOut()
 
     fun currentUser() = firebaseAuth.currentUser

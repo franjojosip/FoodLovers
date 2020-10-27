@@ -1,33 +1,37 @@
 package ht.ferit.fjjukic.foodlovers.data.repository
 
-import androidx.lifecycle.LiveData
-import ht.ferit.fjjukic.foodlovers.data.database.RecipeDao
-import ht.ferit.fjjukic.foodlovers.data.model.Recipe
+import ht.ferit.fjjukic.foodlovers.data.database.FirebaseDB
+import ht.ferit.fjjukic.foodlovers.data.model.RecipeModel
+import ht.ferit.fjjukic.foodlovers.ui.common.FirebaseDatabaseCallback
 
 class RecipeRepository(
-    private val recipeDao: RecipeDao
+    private val firebaseDB: FirebaseDB
 ) {
-    fun get(id: Int): LiveData<Recipe> {
-        return recipeDao.get(id)
-    }
+    fun getRecipe(id: String, callback: FirebaseDatabaseCallback) = firebaseDB.getRecipe(id, callback)
 
-    fun getAll(foodTypeID: Int): LiveData<List<Recipe>> {
-        return recipeDao.getAll(foodTypeID)
-    }
+    fun getRecipes(callback: FirebaseDatabaseCallback) = firebaseDB.getRecipes(callback)
 
-    fun insert(recipe: Recipe) {
-        recipeDao.insert(recipe)
-    }
+    fun insertRecipe(recipe: RecipeModel) = firebaseDB.postRecipe(recipe)
 
-    fun update(recipe: Recipe) {
-        recipeDao.update(recipe)
-    }
+    fun updateRecipe(recipe: RecipeModel) = firebaseDB.putRecipe(recipe)
 
-    fun delete(id:Int) {
-        recipeDao.delete(id)
-    }
+    fun deleteRecipe(id: String, callback: FirebaseDatabaseCallback) = firebaseDB.deleteRecipe(id, callback)
 
-    fun deleteAll() {
-        recipeDao.deleteAll()
-    }
+
+    fun getFoodTypes(callback: FirebaseDatabaseCallback) = firebaseDB.getFoodTypes(callback)
+
+    fun insertFoodType(name: String) = firebaseDB.postFoodType(name)
+
+    fun updateFoodType(oldName: String, newName: String) = firebaseDB.putFoodType(oldName, newName)
+
+    fun deleteFoodType(foodTypeId: String) = firebaseDB.deleteFoodType(foodTypeId)
+
+
+    fun getDifficultyLevels(callback: FirebaseDatabaseCallback) = firebaseDB.getDifficultyLevels(callback)
+
+    fun insertDifficultyLevel(name: String) = firebaseDB.postDifficultyLevel(name)
+
+    fun updateDifficultyLevel(oldName: String, newName: String) = firebaseDB.putDifficultyLevel(oldName, newName)
+
+    fun deleteDifficultyLevel(foodTypeId: String) = firebaseDB.deleteDifficultyLevel(foodTypeId)
 }

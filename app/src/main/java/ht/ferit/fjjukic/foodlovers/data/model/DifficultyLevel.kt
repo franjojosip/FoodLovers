@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "difficulty_level")
 data class DifficultyLevel(
-    @ColumnInfo(name="name")
+    @ColumnInfo(name = "name")
     var name: String
-){
-    @ColumnInfo(name="id")
+) {
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }

@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:fontFamily="casual"
+            android:fontFamily="serif-monospace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold" />

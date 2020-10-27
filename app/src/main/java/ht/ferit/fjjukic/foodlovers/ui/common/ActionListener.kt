@@ -1,6 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.ui.common
 
 interface ActionListener {
-    fun show(id: Int)
-    fun checkRecipe(id: Int)
+    fun show(id: String, userId: String, imageId: String)
+    fun checkRecipe(id: String)
 }

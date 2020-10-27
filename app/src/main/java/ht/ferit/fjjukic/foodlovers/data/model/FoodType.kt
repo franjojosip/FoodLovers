@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 data class FoodType(
     @ColumnInfo(name = "name")
     var name: String
-){
-    @ColumnInfo(name="id")
+) {
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }
