@@ -1,2 +1,2 @@
 ## FoodLovers mobile application written in Kotlin
-Application contains Firebase Database and Storage with MVVM architecture
+Application contains Firebase Database,Storage, MVVM architecture and Dao tests
