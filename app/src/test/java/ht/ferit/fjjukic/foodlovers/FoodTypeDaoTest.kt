@@ -1,14 +1,13 @@
 package ht.ferit.fjjukic.foodlovers
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import ht.ferit.fjjukic.foodlovers.data.database.FoodTypeDao
-import ht.ferit.fjjukic.foodlovers.data.database.RecipeDatabase
-import ht.ferit.fjjukic.foodlovers.data.model.FoodType
-import ht.ferit.fjjukic.foodlovers.observer.OneTimeObserver
+import ht.ferit.fjjukic.foodlovers.app_common.database.RecipeDatabase
+import ht.ferit.fjjukic.foodlovers.app_common.database.dao.FoodTypeDao
+import ht.ferit.fjjukic.foodlovers.app_common.model.db.FoodType
+import ht.ferit.fjjukic.foodlovers.observer.observeOnce
 import org.junit.*
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
@@ -19,8 +18,8 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config (manifest = Config.NONE)
 class FoodTypeDaoTest {
-    private var database: RecipeDatabase? = null
-    private var dao: FoodTypeDao? = null
+    private lateinit var database: RecipeDatabase
+    private lateinit var dao: FoodTypeDao
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -32,15 +31,15 @@ class FoodTypeDaoTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         database = Room.inMemoryDatabaseBuilder(context, RecipeDatabase::class.java)
             .allowMainThreadQueries().build()
-        dao = database!!.foodTypeDao()
+        dao = database.foodTypeDao()
     }
 
     @Test
     @Throws(Exception::class)
     fun insert() {
         val foodType = FoodType("Sweet")
-        dao!!.insert(foodType)
-        dao!!.getAll().observeOnce {
+        dao.insert(foodType)
+        dao.getAll().observeOnce {
             if(it.isNullOrEmpty()){
                 throw IllegalArgumentException("Value from database is null or empty")
             }
@@ -52,8 +51,8 @@ class FoodTypeDaoTest {
     @Throws(Exception::class)
     fun get() {
         val foodType = FoodType("Sweet")
-        dao!!.insert(foodType)
-        dao!!.getAll().observeOnce {
+        dao.insert(foodType)
+        dao.getAll().observeOnce {
             if(it.isNullOrEmpty()){
                 throw IllegalArgumentException("Value from database is null or empty")
             }
@@ -65,10 +64,10 @@ class FoodTypeDaoTest {
     @Throws(Exception::class)
     fun update() {
         val foodType = FoodType("Sweet")
-        dao!!.insert(foodType)
+        dao.insert(foodType)
         foodType.name = "Salty"
-        dao!!.update(foodType)
-        dao!!.getAll().observeOnce {
+        dao.update(foodType)
+        dao.getAll().observeOnce {
             if(it.isNullOrEmpty()){
                 throw IllegalArgumentException("Value from database is null or empty")
             }
@@ -80,9 +79,9 @@ class FoodTypeDaoTest {
     @Throws(Exception::class)
     fun delete() {
         val foodType = FoodType("Hard")
-        dao!!.insert(foodType)
-        dao!!.deleteAll()
-        dao!!.getAll().observeOnce {
+        dao.insert(foodType)
+        dao.deleteAll()
+        dao.getAll().observeOnce {
             if(it == null){
                 throw IllegalArgumentException("Value from database is null")
             }
@@ -93,11 +92,6 @@ class FoodTypeDaoTest {
     @After
     @Throws(Exception::class)
     fun tearDown() {
-        database!!.close()
-    }
-
-    private fun <T> LiveData<T>.observeOnce(onChangeHandler: (T?) -> Unit) {
-        val observer = OneTimeObserver(handler = onChangeHandler)
-        observe(observer, observer)
+        database.close()
     }
 }

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_first"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:enabled="false"
+        android:src="@drawable/step_check_state"
+        android:tag="step"
+        app:layout_constraintEnd_toStartOf="@id/line1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/playfair_display_regular"
+        android:maxWidth="100dp"
+        android:text="Main"
+        android:textColor="@color/color_stepper_number_current"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/iv_first"
+        app:layout_constraintStart_toStartOf="@id/iv_first"
+        app:layout_constraintTop_toBottomOf="@id/iv_first" />
+
+    <ImageView
+        android:id="@+id/line1"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginHorizontal="2dp"
+        android:background="@drawable/step_line_state"
+        android:enabled="false"
+        android:tag="line"
+        app:layout_constraintBottom_toBottomOf="@id/iv_first"
+        app:layout_constraintEnd_toStartOf="@id/iv_second"
+        app:layout_constraintStart_toEndOf="@id/iv_first"
+        app:layout_constraintTop_toTopOf="@id/iv_first" />
+
+    <ImageView
+        android:id="@+id/iv_second"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:enabled="false"
+        android:src="@drawable/step_check_state"
+        android:tag="step"
+        app:layout_constraintBottom_toBottomOf="@id/iv_first"
+        app:layout_constraintEnd_toStartOf="@id/line2"
+        app:layout_constraintStart_toEndOf="@id/line1"
+        app:layout_constraintTop_toTopOf="@id/iv_first" />
+
+    <TextView
+        android:id="@+id/tv_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/playfair_display_regular"
+        android:maxWidth="100dp"
+        android:text="Ingredients"
+        android:textColor="@color/color_stepper_number_current"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/iv_second"
+        app:layout_constraintStart_toStartOf="@id/iv_second"
+        app:layout_constraintTop_toBottomOf="@id/iv_second" />
+
+    <ImageView
+        android:id="@+id/line2"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginHorizontal="2dp"
+        android:background="@drawable/step_line_state"
+        android:enabled="false"
+        android:tag="line"
+        app:layout_constraintBottom_toBottomOf="@id/iv_first"
+        app:layout_constraintEnd_toStartOf="@id/iv_third"
+        app:layout_constraintStart_toEndOf="@id/iv_second"
+        app:layout_constraintTop_toTopOf="@id/iv_first" />
+
+    <ImageView
+        android:id="@+id/iv_third"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:enabled="false"
+        android:src="@drawable/step_check_state"
+        android:tag="step"
+        app:layout_constraintBottom_toBottomOf="@id/iv_first"
+        app:layout_constraintEnd_toStartOf="@id/line3"
+        app:layout_constraintStart_toEndOf="@id/line2"
+        app:layout_constraintTop_toTopOf="@id/iv_first" />
+
+    <TextView
+        android:id="@+id/tv_third"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/playfair_display_regular"
+        android:maxWidth="100dp"
+        android:text="Steps"
+        android:textColor="@color/color_stepper_number_current"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/iv_third"
+        app:layout_constraintStart_toStartOf="@id/iv_third"
+        app:layout_constraintTop_toBottomOf="@id/iv_third" />
+
+    <ImageView
+        android:id="@+id/line3"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginHorizontal="2dp"
+        android:background="@drawable/step_line_state"
+        android:enabled="false"
+        android:tag="line"
+        app:layout_constraintBottom_toBottomOf="@id/iv_first"
+        app:layout_constraintEnd_toStartOf="@id/iv_fourth"
+        app:layout_constraintStart_toEndOf="@+id/iv_third"
+        app:layout_constraintTop_toTopOf="@id/iv_first" />
+
+    <ImageView
+        android:id="@+id/iv_fourth"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="30dp"
+        android:enabled="false"
+        android:src="@drawable/step_check_state"
+        android:tag="step"
+        app:layout_constraintBottom_toBottomOf="@id/iv_first"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/line3"
+        app:layout_constraintTop_toTopOf="@id/iv_first" />
+
+    <TextView
+        android:id="@+id/tv_fourth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/playfair_display_regular"
+        android:maxWidth="100dp"
+        android:text="Preview"
+        android:textColor="@color/color_stepper_number_current"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/iv_fourth"
+        app:layout_constraintStart_toStartOf="@id/iv_fourth"
+        app:layout_constraintTop_toBottomOf="@id/iv_fourth" />
+
+</merge>

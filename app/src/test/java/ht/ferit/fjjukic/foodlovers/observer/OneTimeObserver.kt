@@ -1,9 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.observer
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.Observer
+import androidx.lifecycle.*
 
 class OneTimeObserver<T>(private val handler: (T?) -> Unit) : Observer<T>, LifecycleOwner {
     private val lifecycle = LifecycleRegistry(this)
@@ -17,4 +14,9 @@ class OneTimeObserver<T>(private val handler: (T?) -> Unit) : Observer<T>, Lifec
         handler(t)
         lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     }
+}
+
+fun <T> LiveData<T>.observeOnce(onChangeHandler: (T?) -> Unit) {
+    val observer = OneTimeObserver(handler = onChangeHandler)
+    observe(observer, observer)
 }

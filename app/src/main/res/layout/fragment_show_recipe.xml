@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.main.view.ui.recipe.ShowRecipeFragment">
+    tools:context=".app_recipe.view.ShowRecipeFragment">
 
     <data
         android:layout_width="162dp"
@@ -9,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="ht.ferit.fjjukic.foodlovers.ui.main.viewmodel.RecipeViewModel" />
+            type="ht.ferit.fjjukic.foodlovers.app_recipe.view_model.ShowRecipeViewModel" />
     </data>
 
     <ScrollView
@@ -37,7 +37,7 @@
                 android:fontFamily="serif"
                 android:text="@={viewmodel.recipe.title}"
                 android:textAlignment="center"
-                android:textColor="@color/colorRed"
+                android:textColor="@color/color_red"
                 android:textSize="27sp"
                 android:textStyle="bold|italic" />
 
@@ -52,11 +52,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
                     android:layout_margin="8dp"
-                    android:contentDescription="@string/food_lovers"
+                    android:contentDescription="@string/app_food_lovers_image"
                     android:fontFamily="serif"
                     android:scaleType="fitXY"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/color_black"
                     android:textSize="18sp"
                     android:textStyle="italic" />
             </androidx.cardview.widget.CardView>
@@ -74,9 +74,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
                     android:fontFamily="serif"
-                    android:text="@string/difficulty_level"
+                    android:text="@string/recipe_difficulty_level"
                     android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/color_black"
                     android:textSize="19sp"
                     android:textStyle="bold|italic" />
 
@@ -87,9 +87,9 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:fontFamily="serif"
-                    android:text="@{viewmodel.difficultyLevel.name}"
+                    android:text="@{viewmodel.recipe.difficultyLevelID}"
                     android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/color_black"
                     android:textSize="18sp"
                     android:textStyle="italic" />
 
@@ -100,9 +100,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
                     android:fontFamily="serif"
-                    android:text="@string/food_type"
+                    android:text="@string/recipe_food_type"
                     android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/color_black"
                     android:textSize="19sp"
                     android:textStyle="bold|italic" />
 
@@ -113,9 +113,9 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:fontFamily="serif"
-                    android:text="@{viewmodel.foodType.name}"
+                    android:text="@{viewmodel.recipe.foodTypeID}"
                     android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/color_black"
                     android:textSize="18sp"
                     android:textStyle="italic" />
 
@@ -126,10 +126,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
                     android:fontFamily="serif"
-                    android:text="@string/description"
+                    android:text="@string/recipe_description"
                     android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
-                    android:textFontWeight="700"
+                    android:textColor="@color/color_black"
                     android:textSize="19sp"
                     android:textStyle="bold|italic" />
 
@@ -143,7 +142,7 @@
                     android:fontFamily="serif"
                     android:text="@={viewmodel.recipe.description}"
                     android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/color_black"
                     android:textSize="16sp"
                     android:textStyle="italic" />
 

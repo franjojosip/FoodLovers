@@ -4,19 +4,10 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     tools:context=".ui.main.view.ui.NavigationActivity">
 
-    <data
-        android:layout_width="162dp"
-        android:layout_height="76dp">
-
-        <variable
-            name="viewmodel"
-            type="ht.ferit.fjjukic.foodlovers.ui.main.viewmodel.UserViewModel" />
-    </data>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_header_height"
-        android:background="@drawable/side_nav_bar"
+        android:background="@drawable/shape_side_nav_gradient"
         android:gravity="bottom"
         android:orientation="vertical"
         android:paddingStart="5dp"
@@ -29,42 +20,43 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginBottom="25dp"
-            android:background="@drawable/ic_account_circle_black_24dp"
-            android:contentDescription="@string/nav_header_desc"/>
+            android:background="@drawable/ic_account_circle_black_24dp" />
 
         <TextView
             android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
             android:layout_marginStart="15dp"
-            android:fontFamily="serif"
+            android:layout_marginBottom="2dp"
             android:layout_toEndOf="@id/iv_user_image"
+            android:ellipsize="end"
+            android:fontFamily="serif"
             android:hint="@string/username"
-            android:text="@={viewmodel.user.name}"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/color_white" />
 
         <TextView
             android:id="@+id/tv_user_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_user_name"
             android:layout_marginStart="15dp"
+            android:layout_toEndOf="@id/iv_user_image"
+            android:ellipsize="end"
             android:fontFamily="serif"
             android:hint="@string/email"
-            android:layout_below="@id/tv_user_name"
-            android:text="@={viewmodel.user.email}"
-            android:layout_toEndOf="@id/iv_user_image"
-            android:textColor="@color/colorWhite"/>
+            android:maxLines="1"
+            android:textColor="@color/color_white" />
+
         <TextView
             android:id="@+id/tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:fontFamily="serif"
-            android:text="@={viewmodel.location}"
             android:layout_below="@id/tv_user_email"
+            android:layout_marginStart="15dp"
             android:layout_toEndOf="@id/iv_user_image"
-            android:textColor="@color/colorWhite"/>
+            android:fontFamily="serif"
+            android:textColor="@color/color_white" />
     </RelativeLayout>
 </layout>

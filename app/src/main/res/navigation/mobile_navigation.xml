@@ -6,26 +6,26 @@
     app:startDestination="@+id/nav_home">
     <fragment
         android:id="@+id/nav_home"
-        android:name="ht.ferit.fjjukic.foodlovers.ui.main.view.ui.home.HomeFragment"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeFragment"
         android:label="Recipes"
         tools:layout="@layout/fragment_home">
     </fragment>
 
     <fragment
         android:id="@+id/nav_account"
-        android:name="ht.ferit.fjjukic.foodlovers.ui.main.view.ui.account.AccountFragment"
-        android:label="@string/account"
+        android:name="ht.ferit.fjjukic.foodlovers.app_account.view.AccountFragment"
+        android:label="@string/screen_profile"
         tools:layout="@layout/fragment_account" />
 
     <fragment
         android:id="@+id/nav_recipe"
-        android:name="ht.ferit.fjjukic.foodlovers.ui.main.view.ui.recipe.RecipeFragment"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.NewRecipeFragment"
         android:label="Add/Edit Recipe"
         tools:layout="@layout/fragment_recipe" />
 
     <fragment
         android:id="@+id/nav_show_recipe"
-        android:name="ht.ferit.fjjukic.foodlovers.ui.main.view.ui.recipe.ShowRecipeFragment"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.view.ShowRecipeFragment"
         android:label="Current Recipe"
         tools:layout="@layout/fragment_show_recipe" />
 
@@ -34,4 +34,16 @@
         android:name="ht.ferit.fjjukic.foodlovers.ui.main.view.ui.location.LocationFragment"
         android:label="Choose Location"
         tools:layout="@layout/fragment_location" />
+
+    <fragment
+        android:id="@+id/nav_change_username"
+        android:name="ht.ferit.fjjukic.foodlovers.app_account.change_username.view.ChangeUsernameFragment"
+        android:label="Change Username"
+        tools:layout="@layout/fragment_change_username" />
+
+    <fragment
+        android:id="@+id/nav_change_email"
+        android:name="ht.ferit.fjjukic.foodlovers.app_account.change_email.view.ChangeEmailFragment"
+        android:label="Change Email"
+        tools:layout="@layout/fragment_change_email" />
 </navigation>

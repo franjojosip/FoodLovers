@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <merge xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_ingredient_name"
+            style="@style/IngredientRoundedTextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="0.6"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toStartOf="@id/til_ingredient_amount"
+            app:layout_constraintHorizontal_weight="4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/PlaceholderTextAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Ingredient"
+                android:imeOptions="actionNext"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_ingredient_amount"
+            style="@style/IngredientRoundedTextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="0.4"
+            android:imeOptions="actionDone"
+            app:hintEnabled="false"
+            app:layout_constraintBottom_toBottomOf="@id/til_ingredient_name"
+            app:layout_constraintEnd_toStartOf="@id/iv_close"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@id/til_ingredient_name"
+            app:layout_constraintTop_toTopOf="@id/til_ingredient_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_amount"
+                style="@style/PlaceholderTextAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Amount"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_close_24"
+            android:visibility="invisible"
+            app:backgroundTint="@color/color_primary_dark"
+            app:layout_constraintBottom_toBottomOf="@id/til_ingredient_amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/til_ingredient_amount" />
+    </merge>
+</layout>
