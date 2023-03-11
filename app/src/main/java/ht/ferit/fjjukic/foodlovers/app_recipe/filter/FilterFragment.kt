@@ -19,11 +19,11 @@ class FilterFragment : BaseFragment<HomeViewModel, FragmentFilterBinding>() {
     override val layoutId: Int = R.layout.fragment_filter
 
     override fun init() {
-        setupUI()
-        setupClickListeners()
+        setScreen()
+        setListeners()
     }
 
-    private fun setupUI() {
+    private fun setScreen() {
         binding.cgCategories.setData(viewModel.getCategoryFilters())
         binding.cgTimes.setData(viewModel.getTimeFilters())
         binding.cgDifficulties.setData(viewModel.getDifficultyFilters())
@@ -35,7 +35,7 @@ class FilterFragment : BaseFragment<HomeViewModel, FragmentFilterBinding>() {
         binding.cgSorts.selectChips(viewModel.selectedSorts)
     }
 
-    private fun setupClickListeners() {
+    private fun setListeners() {
         binding.tvReset.setOnClickListener {
             binding.cgCategories.resetSelect()
             binding.cgTimes.resetSelect()

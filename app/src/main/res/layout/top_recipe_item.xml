@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
-                android:background="@drawable/ic_baseline_access_time_24"
+                android:background="@drawable/ic_time"
                 android:backgroundTint="@color/ic_time_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cv_image" />

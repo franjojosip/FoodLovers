@@ -22,7 +22,7 @@ abstract class BaseViewModel : ViewModel() {
     protected val _showDialog = SingleLiveData<DialogModel>()
     protected val _showMessage = SingleLiveData<MessageModel>()
 
-    private val _screenEvent = SingleLiveData<ScreenEvent>()
+    protected val _screenEvent = SingleLiveData<ScreenEvent>()
     val screenEvent: LiveData<ScreenEvent>
         get() = _screenEvent
 

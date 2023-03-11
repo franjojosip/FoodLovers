@@ -9,6 +9,9 @@
     <color name="color_white2">#FFFFFF</color>
     <color name="color_smoke">#7CA89D9D</color>
     <color name="color_red">#B7DD3D3D</color>
+    <color name="color_splash_title">#EFEDE8</color>
+    <color name="color_splash_btn">#EB9E7C3A</color>
+    <color name="color_profile_settings">#CEC3A365</color>
 
 
     <color name="color_text_input_layout">#B7858383</color>
@@ -50,8 +53,8 @@
     <color name="color_account_logout">#E65959</color>
     <color name="color_account_text">#656565</color>
 
-    <color name="color_btn_enabled">#B7DD3D3D</color>
-    <color name="color_btn_disabled">#66DD3D3D</color>
+    <color name="color_btn_enabled">#DD9E7C3A</color>
+    <color name="color_btn_disabled">#EB514121</color>
 
     <color name="color_recipe_title">#555555</color>
 
@@ -79,8 +82,10 @@
     <color name="ic_time_background">#ADBC3636</color>
 
     <color name="home_screen_see_all">#B5777676</color>
-    <color name="home_screen_background">#7CFBFAF5</color>
+    <color name="home_screen_background">#8FFFFFFF</color>
     <color name="home_screen_filter">#ADC8A796</color>
+
+    <color name="btn_create_recipe">#D8C69982</color>
 
     <color name="easy_difficulty_color">#A4247C1E</color>
     <color name="medium_difficulty_color">#B9B68F1D</color>

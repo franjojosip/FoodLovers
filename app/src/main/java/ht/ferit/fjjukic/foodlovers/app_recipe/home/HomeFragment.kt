@@ -4,16 +4,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.utils.navigateToScreen
+import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
-import ht.ferit.fjjukic.foodlovers.app_main.view.MainActivity
-import ht.ferit.fjjukic.foodlovers.app_recipe.filter.FilterFragment
+import ht.ferit.fjjukic.foodlovers.app_recipe.CategoryRecipesFragment
+import ht.ferit.fjjukic.foodlovers.app_recipe.HomeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.RecipeAdapter
-import ht.ferit.fjjukic.foodlovers.app_recipe.view.SearchFragment
+import ht.ferit.fjjukic.foodlovers.app_recipe.search.SearchFragment
+import ht.ferit.fjjukic.foodlovers.app_recipe.showrecipe.ShowRecipeFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeListener {
 
     companion object {
         const val TAG = "HomeFragment"
@@ -23,17 +26,17 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     override val layoutId: Int = R.layout.fragment_home
 
     private val categoryAdapter: RecipeAdapter by lazy {
-        RecipeAdapter().apply {
+        RecipeAdapter(this).apply {
             setData(viewModel.getCategories())
         }
     }
     private val todayChoiceAdapter: RecipeAdapter by lazy {
-        RecipeAdapter().apply {
+        RecipeAdapter(this).apply {
             setData(viewModel.getTodayChoiceRecipes())
         }
     }
     private val topRecipesAdapter: RecipeAdapter by lazy {
-        RecipeAdapter().apply {
+        RecipeAdapter(this).apply {
             setData(viewModel.getTopRecipes())
         }
     }
@@ -41,30 +44,35 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     private val snapHelper: LinearSnapHelper by lazy { LinearSnapHelper() }
 
     override fun init() {
-        setupListeners()
-        setupRecyclerView()
+        setListeners()
+        setScreen()
     }
 
-    private fun setupListeners() {
-        //TODO REMOVE THIS testScreen()
-
+    private fun setListeners() {
         binding.searchView.disableSearch()
         binding.searchView.handleViewClicked {
-            (activity as MainActivity).navigateToScreen(
+            activity?.navigateToScreen(
                 SearchFragment(),
                 SearchFragment.TAG
             )
         }
+
+        viewModel.actionNavigate.observeNotNull(viewLifecycleOwner) {
+            if (it is ActionNavigate.ShowRecipe) {
+                activity?.navigateToScreen(
+                    ShowRecipeFragment(it.id),
+                    ShowRecipeFragment.TAG
+                )
+            } else if (it is ActionNavigate.CategoryRecipes) {
+                activity?.navigateToScreen(
+                    CategoryRecipesFragment(it.category),
+                    CategoryRecipesFragment.TAG
+                )
+            }
+        }
     }
 
-    private fun testScreen() {
-        (activity as MainActivity).navigateToScreen(
-            SearchFragment(),
-            SearchFragment.TAG
-        )
-    }
-
-    private fun setupRecyclerView() {
+    private fun setScreen() {
         snapHelper.attachToRecyclerView(binding.categoryRecyclerView)
 
         binding.categoryRecyclerView.adapter = categoryAdapter
@@ -81,5 +89,13 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
         binding.topRecipeRecyclerView.adapter = topRecipesAdapter
         binding.topRecipeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    override fun onCategoryClicked(category: String) {
+        viewModel.onCategoryClicked(category)
+    }
+
+    override fun onRecipeClicked(id: String) {
+        viewModel.onRecipeClicked(id)
     }
 }

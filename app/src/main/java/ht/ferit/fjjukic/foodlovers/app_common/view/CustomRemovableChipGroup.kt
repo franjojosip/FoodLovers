@@ -1,5 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_common.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -25,13 +26,14 @@ class CustomRemovableChipGroup @JvmOverloads constructor(
     private var listener: RemovableClickListener? = null
 
     fun setData(items: List<FilterItem>) {
-        clearCheck()
+        removeAllViews()
         items.forEach { item ->
             addChip(item)
         }
     }
 
-    fun addChip(item: FilterItem) {
+    @SuppressLint("InflateParams")
+    private fun addChip(item: FilterItem) {
         val chip = LayoutInflater.from(context).inflate(R.layout.search_filter_chip, null) as Chip
         chip.id = View.generateViewId()
         chip.text = item.value

@@ -97,6 +97,12 @@
         <item name="boxStrokeWidth">1.5dp</item>
     </style>
 
+    <style name="stepEditTextStyle" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:textSize">24sp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
     <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
         <item name="colorControlActivated">@color/color_text_input_layout</item>
     </style>

@@ -4,17 +4,12 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ht.ferit.fjjukic.foodlovers.app_recipe.HomeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.*
-import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders.CategoryViewHolder
-import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders.TodayRecipeHolder
-import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders.TopRecipeViewHolder
-import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders.NoRecipesViewHolder
-import ht.ferit.fjjukic.foodlovers.databinding.CategoryItemBinding
-import ht.ferit.fjjukic.foodlovers.databinding.NoRecipesPlaceholderBinding
-import ht.ferit.fjjukic.foodlovers.databinding.RecipeListItemBinding
-import ht.ferit.fjjukic.foodlovers.databinding.TopRecipeItemBinding
+import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders.*
+import ht.ferit.fjjukic.foodlovers.databinding.*
 
-class RecipeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecipeAdapter(val listener: HomeListener? = null) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val data: MutableList<HomeScreenRecipe> = mutableListOf()
 
@@ -33,6 +28,12 @@ class RecipeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             3 -> NoRecipesViewHolder(
                 NoRecipesPlaceholderBinding.inflate(layoutInflater, parent, false)
             )
+            4 -> IngredientItemViewHolder(
+                IngredientListItemBinding.inflate(layoutInflater, parent, false)
+            )
+            5 -> StepItemViewHolder(
+                StepListItemBinding.inflate(layoutInflater, parent, false)
+            )
             else -> throw Exception("View type doesn't exist")
         }
     }
@@ -44,13 +45,19 @@ class RecipeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is TodayRecipeHolder -> {
-                holder.setData(data[position] as TodayChoiceRecipe)
+                holder.setData(data[position] as TodayChoiceRecipe, listener)
             }
             is TopRecipeViewHolder -> {
-                holder.setData(data[position] as TopRecipe)
+                holder.setData(data[position] as TopRecipe, listener)
             }
             is CategoryViewHolder -> {
-                holder.setData(data[position] as Category)
+                holder.setData(data[position] as Category, listener)
+            }
+            is IngredientItemViewHolder -> {
+                holder.setData(data[position] as IngredientUI)
+            }
+            is StepItemViewHolder -> {
+                holder.setData(data[position] as StepUI)
             }
         }
     }
@@ -61,6 +68,8 @@ class RecipeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             data[position] is TopRecipe -> 1
             data[position] is Category -> 2
             data[position] is NoRecipePlaceholder -> 3
+            data[position] is IngredientUI -> 4
+            data[position] is StepUI -> 5
             else -> throw Exception("Class doesn't exist")
         }
     }

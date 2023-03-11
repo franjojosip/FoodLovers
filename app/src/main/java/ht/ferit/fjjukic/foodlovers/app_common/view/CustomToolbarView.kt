@@ -3,17 +3,14 @@ package ht.ferit.fjjukic.foodlovers.app_common.view
 import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.res.ResourcesCompat
+import com.bumptech.glide.load.engine.Resource
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.databinding.CustomActionBarBinding
-import ht.ferit.fjjukic.foodlovers.databinding.SearchViewBinding
 
 class CustomToolbarView @JvmOverloads constructor(
     context: Context,
@@ -38,12 +35,16 @@ class CustomToolbarView @JvmOverloads constructor(
             if (drawableId != 0) {
                 val drawable = AppCompatResources.getDrawable(context, drawableId)
                 btnAction.setImageDrawable(drawable)
-                btnAction.backgroundTintList = ColorStateList.valueOf(R.color.color_search_text)
+                btnAction.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.color_search_text, null))
             }
             tvTitle.text = text
         } finally {
             ta.recycle()
         }
+    }
+
+    fun setTitle(title: String) {
+        findViewById<TextView>(R.id.tv_title).text = title
     }
 
     fun setupAction(action: () -> Unit){

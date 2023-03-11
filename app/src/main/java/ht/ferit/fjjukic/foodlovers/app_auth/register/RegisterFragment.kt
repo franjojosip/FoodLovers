@@ -70,7 +70,7 @@ class RegisterFragment : BaseFragment<AuthViewModel, FragmentRegisterBinding>() 
 
         viewModel.actionNavigate.observeNotNull(viewLifecycleOwner) {
             if (it is ActionNavigate.Home) {
-                requireContext().startNavigationActivity()
+                //requireContext().startNavigationActivity()
             } else if (it is ActionNavigate.Login) {
                 requireActivity().navigateToScreen(LoginFragment())
             }

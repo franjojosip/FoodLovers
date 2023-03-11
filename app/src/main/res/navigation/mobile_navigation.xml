@@ -18,18 +18,6 @@
         tools:layout="@layout/fragment_account" />
 
     <fragment
-        android:id="@+id/nav_recipe"
-        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.NewRecipeFragment"
-        android:label="Add/Edit Recipe"
-        tools:layout="@layout/fragment_recipe" />
-
-    <fragment
-        android:id="@+id/nav_show_recipe"
-        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.view.ShowRecipeFragment"
-        android:label="Current Recipe"
-        tools:layout="@layout/fragment_show_recipe" />
-
-    <fragment
         android:id="@+id/nav_location"
         android:name="ht.ferit.fjjukic.foodlovers.ui.main.view.ui.location.LocationFragment"
         android:label="Choose Location"

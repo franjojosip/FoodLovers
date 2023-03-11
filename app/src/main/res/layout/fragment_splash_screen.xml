@@ -8,22 +8,22 @@
         android:background="@color/color_black">
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            app:layout_constraintVertical_bias="0.3"
             android:elevation="2dp"
             android:fontFamily="@font/playfair_display_regular"
             android:gravity="center_horizontal"
             android:text="Explore new\ncooking recipes"
-            android:textColor="@color/color_white"
+            android:textColor="@color/color_splash_title"
             android:textSize="36sp"
             android:textStyle="bold"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -34,16 +34,19 @@
 
         <Button
             android:id="@+id/btn_start_cooking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            android:background="@drawable/rounded_background"
-            android:padding="10dp"
-            android:text="Start Cooking"
-            android:textSize="19sp"
-            android:fontFamily="@font/playfair_display_regular"
+            android:layout_width="180dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/rounded_btn_state"
+            android:fontFamily="@font/playfair_display_medium"
+            android:paddingBottom="5dp"
+            android:text="Start cooking"
+            android:textAllCaps="false"
+            android:textColor="@color/color_white"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

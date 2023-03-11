@@ -9,4 +9,4 @@ data class DialogModel(
     val negativeAction: (() -> Unit)? = null,
     val neutralTitleId: Int? = null,
     val neutralAction: (() -> Unit)? = null,
-)
+): ScreenEvent()

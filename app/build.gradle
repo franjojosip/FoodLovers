@@ -5,12 +5,12 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: "androidx.navigation.safeargs"
 
 android {
-    compileSdkVersion 33
+    compileSdk 33
 
     defaultConfig {
         applicationId "ht.ferit.fjjukic.foodlovers"
-        minSdkVersion 26
-        targetSdkVersion 33
+        minSdk 23
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -51,10 +51,13 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //Material design
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.8.0'
 
     //Circle imageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //Crop image
+    implementation 'com.github.yalantis:ucrop:2.2.6-native'
 
     //ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
