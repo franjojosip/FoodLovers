@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_v = '1.7.10'
-    ext.gradle_v = '7.2.0'
+    ext.gradle_v = '7.4.2'
     ext.google_services_v = '4.3.10'
     ext.safe_args_v = '2.4.1'
     repositories {
