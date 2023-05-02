@@ -1,30 +1,34 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.FilterRepositoryMock
 import ht.ferit.fjjukic.foodlovers.app_common.repository.MockRepository
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
-import java.time.LocalDateTime
 
 class HomeViewModel : BaseViewModel() {
-    private val _selectedFilters = mutableListOf<FilterItem>()
+    private val _selectedFilters = MutableLiveData<MutableList<FilterItem>>()
 
-    val filters: List<FilterItem>
+    val filters: LiveData<MutableList<FilterItem>>
         get() = _selectedFilters
 
     val selectedCategories: List<FilterItem>
-        get() = _selectedFilters.filterIsInstance<FilterItem.Category>()
+        get() = _selectedFilters.value?.filterIsInstance<FilterItem.Category>() ?: listOf()
 
     val selectedTimes: List<FilterItem>
-        get() = _selectedFilters.filterIsInstance<FilterItem.Time>()
+        get() = _selectedFilters.value?.filterIsInstance<FilterItem.Time>() ?: listOf()
 
     val selectedDifficulties: List<FilterItem>
-        get() = _selectedFilters.filterIsInstance<FilterItem.Difficulty>()
+        get() = _selectedFilters.value?.filterIsInstance<FilterItem.Difficulty>() ?: listOf()
 
     val selectedSorts: List<FilterItem>
-        get() = _selectedFilters.filterIsInstance<FilterItem.Sort>()
+        get() = _selectedFilters.value?.filterIsInstance<FilterItem.Sort>() ?: listOf()
+
+    val actionNavigate: LiveData<ActionNavigate> = _actionNavigate
 
     fun getCategories(): MutableList<HomeScreenRecipe> {
         return MockRepository.getCategories()
@@ -44,15 +48,25 @@ class HomeViewModel : BaseViewModel() {
         difficulties: List<FilterItem>,
         sorts: List<FilterItem>,
     ) {
-        val searchItems = _selectedFilters.filterIsInstance<FilterItem.Search>()
+        val searchItems = _selectedFilters.value?.filterIsInstance<FilterItem.Search>() ?: listOf()
 
-        _selectedFilters.apply {
+        _selectedFilters.value =  mutableListOf<FilterItem>().apply {
             clear()
             addAll(searchItems)
             addAll(categories)
             addAll(times)
             addAll(difficulties)
             addAll(sorts)
+        }
+    }
+
+    fun onCategoryFilterSelected(category: String) {
+        val currentFilters = _selectedFilters.value ?: mutableListOf()
+        if (currentFilters.firstOrNull { it.value.equals(category, true) } == null) {
+            currentFilters.add(FilterItem.Category(category, true))
+            _selectedFilters.value = currentFilters
+
+            //Filter recipe by category
         }
     }
 
@@ -63,7 +77,7 @@ class HomeViewModel : BaseViewModel() {
     fun getCategoryFilters(): List<FilterItem> {
         return FilterRepositoryMock().getFilterItems().filterIsInstance<FilterItem.Category>()
             .onEach {
-                if (_selectedFilters.contains(it)) {
+                if (_selectedFilters.value?.contains(it) == true) {
                     it.isChecked = true
                 }
             }
@@ -71,7 +85,7 @@ class HomeViewModel : BaseViewModel() {
 
     fun getTimeFilters(): List<FilterItem> {
         return FilterRepositoryMock().getFilterItems().filterIsInstance<FilterItem.Time>().onEach {
-            if (_selectedFilters.contains(it)) {
+            if (_selectedFilters.value?.contains(it) == true) {
                 it.isChecked = true
             }
         }
@@ -80,7 +94,7 @@ class HomeViewModel : BaseViewModel() {
     fun getDifficultyFilters(): List<FilterItem> {
         return FilterRepositoryMock().getFilterItems().filterIsInstance<FilterItem.Difficulty>()
             .onEach {
-                if (_selectedFilters.contains(it)) {
+                if (_selectedFilters.value?.contains(it) == true) {
                     it.isChecked = true
                 }
             }
@@ -88,19 +102,32 @@ class HomeViewModel : BaseViewModel() {
 
     fun getSortFilters(): List<FilterItem> {
         return FilterRepositoryMock().getFilterItems().filterIsInstance<FilterItem.Sort>().onEach {
-            if (_selectedFilters.contains(it)) {
+            if (_selectedFilters.value?.contains(it) == true) {
                 it.isChecked = true
             }
         }
     }
 
     fun removeFilter(item: FilterItem) {
-        _selectedFilters.removeAll { it.value.equals(item.value, true) }
+        val currentFilters = _selectedFilters.value ?: mutableListOf()
+        currentFilters.removeAll { it.value.equals(item.value, true) }
+
+        _selectedFilters.value = currentFilters
     }
 
-    fun addSearchFilter(item: FilterItem) {
-        if (_selectedFilters.none { it.value.equals(item.value, true) }){
-            _selectedFilters.add(item)
+    fun addSearchFilter(value: String) {
+        val currentFilters = _selectedFilters.value ?: mutableListOf()
+        if (currentFilters.none { it.value.equals(value, true) }) {
+            currentFilters.add(FilterItem.Search(value))
+            _selectedFilters.value = currentFilters
         }
+    }
+
+    fun onRecipeClicked(id: String) {
+        _actionNavigate.postValue(ActionNavigate.ShowRecipe(id))
+    }
+
+    fun onCategoryClicked(category: String) {
+        _actionNavigate.postValue(ActionNavigate.CategoryRecipes(category))
     }
 }

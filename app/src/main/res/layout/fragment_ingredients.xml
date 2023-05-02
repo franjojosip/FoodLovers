@@ -12,14 +12,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <TextView
                 android:id="@+id/tv_ingredients"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/playfair_display_regular"
                 android:text="Ingredients"
                 android:textColor="@color/color_black"
@@ -69,6 +67,7 @@
                 android:layout_marginTop="15dp"
                 android:padding="5dp"
                 android:text="+ Add ingredient"
+                android:fontFamily="@font/playfair_display_regular"
                 android:textColor="@color/color_primary_dark"
                 android:textSize="15sp"
                 android:textStyle="bold"

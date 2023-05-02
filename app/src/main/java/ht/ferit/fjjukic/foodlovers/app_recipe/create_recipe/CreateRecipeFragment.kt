@@ -5,22 +5,28 @@ import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.steps.IngredientStepFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.steps.MainStepFragment
+import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.steps.ReviewRecipeFragment
+import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.steps.StepsFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentCreateRecipeBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CreateRecipeFragment : BaseFragment<CreateRecipeViewModel, FragmentCreateRecipeBinding>() {
 
+    companion object {
+        const val TAG = "CreateRecipeFragment"
+    }
+
     override val layoutId: Int = R.layout.fragment_create_recipe
-    override val viewModel: CreateRecipeViewModel by viewModel()
+    override val viewModel: CreateRecipeViewModel by sharedViewModel()
 
     private val pagerAdapter by lazy {
-        CreateRecipeViewPager(
+        CustomPagerAdapter(
             this,
             listOf(
                 MainStepFragment(),
                 IngredientStepFragment(),
-                MainStepFragment(),
-                MainStepFragment()
+                StepsFragment(),
+                ReviewRecipeFragment()
             )
         )
     }

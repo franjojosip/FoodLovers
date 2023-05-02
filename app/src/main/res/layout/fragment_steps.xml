@@ -10,16 +10,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp">
 
 
             <TextView
-                android:id="@+id/tv_ingredients"
+                android:id="@+id/tv_steps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/playfair_display_regular"
                 android:text="Steps"
                 android:textColor="@color/color_black"
@@ -29,37 +30,34 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:id="@+id/ll_ingredients"
+                android:id="@+id/ll_steps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_ingredients">
+                app:layout_constraintTop_toBottomOf="@id/tv_steps">
 
-                <ht.ferit.fjjukic.foodlovers.app_recipe.view.IngredientView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <ht.ferit.fjjukic.foodlovers.app_recipe.view.IngredientView
+                <ht.ferit.fjjukic.foodlovers.app_recipe.view.StepView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_add_ingredient"
+                android:id="@+id/tv_add_step"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="15dp"
                 android:padding="5dp"
-                android:text="+ Add new step"
+                android:text="ADD STEP"
                 android:textColor="@color/color_primary_dark"
                 android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_ingredients" />
+                android:fontFamily="@font/playfair_display_bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_steps" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

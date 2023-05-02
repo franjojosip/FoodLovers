@@ -8,6 +8,7 @@ object NoRecipePlaceholder : HomeScreenRecipe()
 class Category(val title: String): HomeScreenRecipe()
 
 class TodayChoiceRecipe(
+    val id: String,
     val title: String,
     val description: String = "",
     val time: String = "",
@@ -15,6 +16,7 @@ class TodayChoiceRecipe(
 ): HomeScreenRecipe()
 
 class TopRecipe(
+    val id: String,
     val title: String,
     val time: String = "",
     val difficulty: String = "",

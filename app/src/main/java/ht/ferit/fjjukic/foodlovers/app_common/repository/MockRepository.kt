@@ -20,19 +20,19 @@ class MockRepository {
 
         fun getTodayChoiceRecipes(): MutableList<HomeScreenRecipe> {
             return mutableListOf(
-                TodayChoiceRecipe("Recipe cooking title", "Example of description", "20 min", "laganini"),
-                TodayChoiceRecipe("Recipe cooking title", "Example of description", "20 min", "laganini"),
-                TodayChoiceRecipe("Recipe cooking title", "Example of description", "20 min", "laganini"),
-                TodayChoiceRecipe("Recipe cooking title", "Example of description", "20 min", "laganini"),
-                TodayChoiceRecipe("Recipe cooking title", "Example of description", "20 min", "laganini")
+                TodayChoiceRecipe("1", "Recipe cooking title", "Example of description", "20 min", "laganini"),
+                TodayChoiceRecipe("2", "Recipe cooking title", "Example of description", "20 min", "laganini"),
+                TodayChoiceRecipe("3", "Recipe cooking title", "Example of description", "20 min", "laganini"),
+                TodayChoiceRecipe("4", "Recipe cooking title", "Example of description", "20 min", "laganini"),
+                TodayChoiceRecipe("5", "Recipe cooking title", "Example of description", "20 min", "laganini")
             )
         }
 
         fun getTopRecipes(): MutableList<HomeScreenRecipe> {
             return mutableListOf(
-                TopRecipe("Recipe cooking title", "20 min", "laganini", "Marko Maric"),
-                TopRecipe("Recipe cooking title", "20 min", "laganini", "Marko Maric"),
-                TopRecipe("Recipe cooking title", "20 min", "laganini", "Marko Maric")
+                TopRecipe("1", "Recipe cooking title", "20 min", "laganini", "Marko Maric"),
+                TopRecipe("2","Recipe cooking title", "20 min", "laganini", "Marko Maric"),
+                TopRecipe("3","Recipe cooking title", "20 min", "laganini", "Marko Maric")
             )
         }
     }

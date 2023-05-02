@@ -65,7 +65,7 @@
                             android:layout_height="24dp"
                             android:layout_margin="5dp"
                             android:background="@drawable/ic_baseline_add_a_photo_24"
-                            android:backgroundTint="@color/color_account_change_image"
+                            android:backgroundTint="@color/color_splash_btn"
                             android:contentDescription="@string/icon_image_capture" />
                     </androidx.cardview.widget.CardView>
 
@@ -356,7 +356,7 @@
                     android:layout_height="20dp"
                     android:layout_marginTop="3dp"
                     android:background="@drawable/ic_logout"
-                    android:backgroundTint="@color/color_account_logout"
+                    android:backgroundTint="@color/color_splash_btn"
                     android:contentDescription="@string/icon_logout"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tv_logout"
@@ -370,7 +370,7 @@
                     android:layout_marginStart="18dp"
                     android:text="@string/action_logout"
                     android:fontFamily="@font/playfair_display_bold"
-                    android:textColor="@color/color_account_logout"
+                    android:textColor="@color/color_splash_btn"
                     android:textSize="17sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"

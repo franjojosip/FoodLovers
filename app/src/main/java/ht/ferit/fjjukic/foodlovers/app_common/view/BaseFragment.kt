@@ -6,12 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.jakewharton.rxbinding4.widget.textChanges
+import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.model.ActionBack
+import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
 import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
-import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
+import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -42,8 +47,14 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
 
     open fun setObservers() {
         viewModel.screenEvent.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 is MessageModel -> showToast(it)
+                is DialogModel -> context?.showAlertDialog(it)
+                is LoadingBar -> {
+                    (binding.root.findViewById(R.id.loader_layout) as? View)?.isVisible =
+                        it.isVisible
+                }
+                ActionBack -> activity?.onBackPressed()
             }
         }
     }

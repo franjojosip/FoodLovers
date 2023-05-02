@@ -4,15 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import androidx.core.view.children
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.IngredientUI
 import ht.ferit.fjjukic.foodlovers.app_recipe.view.IngredientView
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentIngredientsBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class IngredientStepFragment: BaseFragment<CreateRecipeViewModel, FragmentIngredientsBinding>() {
+class IngredientStepFragment : BaseFragment<CreateRecipeViewModel, FragmentIngredientsBinding>() {
     override val layoutId: Int = R.layout.fragment_ingredients
     override val viewModel: CreateRecipeViewModel by sharedViewModel()
 
@@ -27,10 +30,17 @@ class IngredientStepFragment: BaseFragment<CreateRecipeViewModel, FragmentIngred
         binding.ivInfoMetrics.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_rounded)
                 .apply {
-                    setView(LayoutInflater.from(context).inflate(R.layout.allowed_metrics_layout, null))
+                    setView(
+                        LayoutInflater.from(context).inflate(R.layout.allowed_metrics_layout, null)
+                    )
                 }
                 .show()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveIngredients()
     }
 
     private fun addIngredientField() {
@@ -53,6 +63,18 @@ class IngredientStepFragment: BaseFragment<CreateRecipeViewModel, FragmentIngred
             }
         }
         binding.llIngredients.addView(view)
+    }
+
+    private fun saveIngredients() {
+        val ingredients = mutableListOf<IngredientUI>()
+        binding.llIngredients.children.forEach { view ->
+            (view as? IngredientView)?.getData().takeIf { it != null }?.let { ingredient ->
+                ingredients.add(ingredient)
+            }
+        }
+        if (ingredients.isNotEmpty()) {
+            viewModel.setIngredients(ingredients)
+        }
     }
 
 }

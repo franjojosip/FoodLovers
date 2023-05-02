@@ -157,4 +157,9 @@
     <string name="discover_new_recipes">Discover new recipes</string>
     <string name="filters">Filters</string>
 
+
+    <string name="dialog_create_recipe_title">Create new recipe?</string>
+    <string name="dialog_create_recipe_message">Please check your data before creating the recipe!</string>
+    <string name="dialog_create_recipe_confirm">Confirm</string>
+
 </resources>

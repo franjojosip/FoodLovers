@@ -72,7 +72,7 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding>() {
                     (activity as MainActivity).navigateToScreen(RegisterFragment())
                 }
                 is ActionNavigate.Home -> {
-                    (activity as MainActivity).startNavigationActivity()
+                    //(activity as MainActivity).startNavigationActivity()
                 }
                 else -> {}
             }

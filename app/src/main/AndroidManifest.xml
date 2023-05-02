@@ -37,11 +37,6 @@
             android:value="@string/app_google_maps_key" />
 
         <activity
-            android:name=".app_main.view.NavigationActivity"
-            android:label="@string/app_navigation_activity"
-            android:windowSoftInputMode="stateVisible|adjustPan" />
-
-        <activity
             android:name=".app_main.view.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="stateVisible|adjustPan">
@@ -51,6 +46,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>
