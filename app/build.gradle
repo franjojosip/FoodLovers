@@ -5,14 +5,14 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: "androidx.navigation.safeargs"
 
 android {
-    compileSdk 33
+    compileSdk buildVersions.compileSdk
 
     defaultConfig {
-        applicationId "ht.ferit.fjjukic.foodlovers"
-        minSdk 23
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        applicationId applicationID
+        minSdk buildVersions.minSdk
+        targetSdk buildVersions.targetSdk
+        versionCode versionMajor * 1000 + versionMinor * 10 + versionPatch
+        versionName "$versionMajor.$versionMinor.$versionPatch"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -29,8 +29,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     sourceSets {
         main {
@@ -44,69 +44,68 @@ android {
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_v"
-    implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'androidx.core:core-ktx:1.10.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    implementation "androidx.cardview:cardview:$cardView"
+    implementation "androidx.core:core-ktx:$coreKtx"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
 
     //Material design
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation "com.google.android.material:material:$material"
 
     //Circle imageview
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation "de.hdodenhof:circleimageview:$circleImageView"
 
     //Crop image
-    implementation 'com.github.yalantis:ucrop:2.2.6-native'
+    implementation "com.github.yalantis:ucrop:$cropImage"
 
     //ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModel"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewModel"
 
     //Room
-    implementation "androidx.room:room-runtime:2.5.1"
+    implementation "androidx.room:room-runtime:$room"
 
     //Koin DI
-    implementation "io.insert-koin:koin-core:3.1.5"
-    implementation "io.insert-koin:koin-android:3.1.5"
+    implementation "io.insert-koin:koin-core:$koin"
+    implementation "io.insert-koin:koin-android:$koin"
 
     //Viewpager2
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
-
-    //RxJava
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.3'
-    implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
-    implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
+    implementation "androidx.viewpager2:viewpager2:$viewPager2"
 
     //Android Navigation Architecture
-    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
-    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation"
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation "com.github.bumptech.glide:glide:$glide"
 
-    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation "com.google.code.gson:gson:$gson"
 
     //Firebase
-    implementation 'com.google.firebase:firebase-auth:22.0.0'
-    implementation 'com.google.firebase:firebase-core:21.1.1'
-    implementation 'com.google.firebase:firebase-database:20.2.1'
-    implementation 'com.google.firebase:firebase-storage:20.2.0'
-    implementation 'com.firebaseui:firebase-ui-storage:8.0.0'
+    implementation "com.google.firebase:firebase-auth:$firebaseAuth"
+    implementation "com.google.firebase:firebase-core:$firebaseCore"
+    implementation "com.google.firebase:firebase-database:$firebaseDB"
+    implementation "com.google.firebase:firebase-storage:$firebaseStorage"
+    implementation "com.firebaseui:firebase-ui-storage:$firebaseUI"
 
     //Google maps
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation "com.google.android.gms:play-services-maps:$playServicesMaps"
+    implementation "com.google.android.gms:play-services-location:$playServicesLocation"
 
     // Event bus
-    implementation 'org.greenrobot:eventbus:3.3.1'
+    implementation "org.greenrobot:eventbus:$eventBus"
 
-    androidTestImplementation 'androidx.test:core:1.5.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    testImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation "androidx.test:core:$testCore"
+    androidTestImplementation "androidx.test.ext:junit:$testJUnit"
+    testImplementation "androidx.test.ext:junit:$testJUnit"
 
     // Optional -- Mockito framework
-    testImplementation 'org.mockito:mockito-core:4.3.1'
-    testImplementation "androidx.arch.core:core-testing:2.2.0"
-    testImplementation 'org.robolectric:robolectric:4.7.3'
+    testImplementation "org.mockito:mockito-core:$mockito"
+    testImplementation "androidx.arch.core:core-testing:$coreTesting"
+    testImplementation "org.robolectric:robolectric:$robolectric"
+
+    //RxJava TODO REMOVE
+    implementation "io.reactivex.rxjava3:rxjava:$rxJava"
+    implementation "io.reactivex.rxjava3:rxandroid:$rxAndroid"
+    implementation "com.jakewharton.rxbinding4:rxbinding:$rxBinding"
 }

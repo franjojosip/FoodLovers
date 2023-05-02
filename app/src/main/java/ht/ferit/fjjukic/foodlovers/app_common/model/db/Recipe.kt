@@ -1,7 +1,7 @@
 package ht.ferit.fjjukic.foodlovers.app_common.model.db
 
 import androidx.room.*
-import androidx.room.ForeignKey.CASCADE
+import androidx.room.ForeignKey.Companion.CASCADE
 
 @Entity(
     tableName = "recipe",
@@ -17,7 +17,7 @@ import androidx.room.ForeignKey.CASCADE
             entity = FoodType::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("foodTypeID"),
-            onDelete = CASCADE,
+            onDelete =  CASCADE,
             onUpdate = CASCADE
         )]
 )

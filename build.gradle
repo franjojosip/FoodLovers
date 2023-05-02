@@ -1,22 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_v = '1.8.10'
-    ext.gradle_v = '7.4.2'
-    ext.google_services_v = '4.3.10'
-    ext.safe_args_v = '2.4.1'
+    apply from: 'versions.gradle'
+
     repositories {
         google()
-        jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$gradle_v"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_v"
-        classpath "com.google.gms:google-services:$google_services_v"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$safe_args_v"
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "com.android.tools.build:gradle:$versions.gradle"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+        classpath "com.google.gms:google-services:$versions.googleServices"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.safeArgs"
     }
 
 }
@@ -24,7 +19,6 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
         mavenCentral()
         maven { url "https://jitpack.io" }
     }
