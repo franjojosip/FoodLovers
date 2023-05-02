@@ -1,6 +1,6 @@
 // Project versions
 ext {
-    applicationID = "hr.fjjukic.foodlovers"
+    applicationID = "ht.ferit.fjjukic.foodlovers"
 
     versionMajor = 1
     versionMinor = 0
