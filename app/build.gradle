@@ -13,8 +13,6 @@ android {
         targetSdk buildVersions.targetSdk
         versionCode versionMajor * 1000 + versionMinor * 10 + versionPatch
         versionName "$versionMajor.$versionMinor.$versionPatch"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
