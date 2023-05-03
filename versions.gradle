@@ -13,10 +13,10 @@ ext {
     ]
 
     versions = [
-            kotlin : '1.8.10',
-            gradle: '7.4.2',
+            kotlin        : '1.8.10',
+            gradle        : '7.4.2',
             googleServices: '4.3.10',
-            safeArgs: '2.4.1'
+            safeArgs      : '2.4.1'
     ]
 
     // Android
@@ -25,14 +25,14 @@ ext {
     coreKtx = '1.10.0'
     constraintLayout = '2.1.4'
     cropImage = '2.2.6-native'
+    glide = '4.13.0'
+    gson = '2.9.0'
     koin = '3.1.5'
     material = '1.8.0'
+    navigation = '2.5.3'
     room = '2.5.1'
     viewModel = '2.6.1'
     viewPager2 = '1.0.0'
-    navigation = '2.5.3'
-    glide = '4.13.0'
-    gson = '2.9.0'
 
     // Firebase
     firebaseAuth = '22.0.0'
@@ -49,12 +49,12 @@ ext {
     eventBus = '3.3.1'
 
     // Testing
+    coreTesting = '2.2.0'
+    mockito = '4.3.1'
+    robolectric = '4.7.3'
+
     testCore = '1.5.0'
     testJUnit = '1.1.5'
-
-    mockito = '4.3.1'
-    coreTesting = '2.2.0'
-    robolectric = '4.7.3'
 
     // RXJava TODO REMOVE
     rxJava = '3.0.3'

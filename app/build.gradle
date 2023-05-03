@@ -43,40 +43,41 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
-    implementation "androidx.cardview:cardview:$cardView"
-    implementation "androidx.core:core-ktx:$coreKtx"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
 
-    //Material design
+    // Android
+    implementation "androidx.core:core-ktx:$coreKtx"
+    implementation "androidx.cardview:cardview:$cardView"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
+
+    // Material design
     implementation "com.google.android.material:material:$material"
 
-    //Circle imageview
+    // Circle imageview
     implementation "de.hdodenhof:circleimageview:$circleImageView"
 
-    //Crop image
+    // Crop image
     implementation "com.github.yalantis:ucrop:$cropImage"
 
-    //ViewModel and LiveData
+    // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModel"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewModel"
 
-    //Room
+    // Room
     implementation "androidx.room:room-runtime:$room"
 
-    //Koin DI
+    // Koin DI
     implementation "io.insert-koin:koin-core:$koin"
     implementation "io.insert-koin:koin-android:$koin"
 
-    //Viewpager2
+    // Viewpager2
     implementation "androidx.viewpager2:viewpager2:$viewPager2"
 
-    //Android Navigation Architecture
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation"
-
-    //Glide
+    // Glide
     implementation "com.github.bumptech.glide:glide:$glide"
 
+    // Gson
     implementation "com.google.code.gson:gson:$gson"
 
     //Firebase
@@ -86,7 +87,7 @@ dependencies {
     implementation "com.google.firebase:firebase-storage:$firebaseStorage"
     implementation "com.firebaseui:firebase-ui-storage:$firebaseUI"
 
-    //Google maps
+    // Google maps
     implementation "com.google.android.gms:play-services-maps:$playServicesMaps"
     implementation "com.google.android.gms:play-services-location:$playServicesLocation"
 
