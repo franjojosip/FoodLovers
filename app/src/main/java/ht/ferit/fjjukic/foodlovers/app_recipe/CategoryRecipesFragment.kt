@@ -1,13 +1,12 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe
 
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentCategoryRecipesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CategoryRecipesFragment: BaseFragment<RecipesViewModel, FragmentCategoryRecipesBinding>() {
+class CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryRecipesBinding>() {
 
     companion object {
         const val TAG = "CategoryRecipesFragment"

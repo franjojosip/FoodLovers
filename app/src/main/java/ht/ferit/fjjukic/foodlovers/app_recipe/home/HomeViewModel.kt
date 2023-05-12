@@ -5,12 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.FilterRepositoryMock
 import ht.ferit.fjjukic.foodlovers.app_common.repository.MockRepository
+import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepository
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.Category
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
 
-class HomeViewModel : BaseViewModel() {
+class HomeViewModel(private val categoryRepository: CategoryRepository) : BaseViewModel() {
     private val _selectedFilters = MutableLiveData<MutableList<FilterItem>>()
 
     val filters: LiveData<MutableList<FilterItem>>
@@ -30,8 +32,8 @@ class HomeViewModel : BaseViewModel() {
 
     val actionNavigate: LiveData<ActionNavigate> = _actionNavigate
 
-    fun getCategories(): MutableList<HomeScreenRecipe> {
-        return MockRepository.getCategories()
+    fun getCategories(): List<Category> {
+        return categoryRepository.getCategories()
     }
 
     fun getTodayChoiceRecipes(): MutableList<HomeScreenRecipe> {

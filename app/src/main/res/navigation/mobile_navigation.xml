@@ -8,8 +8,27 @@
         android:id="@+id/nav_home"
         android:name="ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeFragment"
         android:label="Recipes"
-        tools:layout="@layout/fragment_home">
-    </fragment>
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_create_recipe"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeFragment"
+        android:label="Recipes"
+        tools:layout="@layout/fragment_create_recipe" />
+    <fragment
+        android:id="@+id/nav_recipes"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeFragment"
+        android:label="Recipes"
+        tools:layout="@layout/fragment_create_recipe" />
+    <fragment
+        android:id="@+id/nav_favorites"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeFragment"
+        android:label="Recipes"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeFragment"
+        android:label="Recipes"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_account"

@@ -6,8 +6,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:chipMinHeight="30dp"
-    app:chipBackgroundColor="@color/filter_chip_background_state"
-    android:textColor="@color/filter_chip_text_state"
+    android:textColor="@drawable/filter_chip_text_state"
+    app:chipBackgroundColor="@drawable/filter_chip_background_state"
     android:minWidth="60dp"
     android:textAlignment="center"
     tools:text="1h" />

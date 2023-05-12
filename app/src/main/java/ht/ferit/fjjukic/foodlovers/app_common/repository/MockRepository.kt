@@ -1,5 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_common.repository
 
+import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.Category
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.TodayChoiceRecipe
@@ -9,12 +10,12 @@ class MockRepository {
     companion object {
         fun getCategories(): MutableList<HomeScreenRecipe> {
             return mutableListOf(
-                Category("Breakfast"),
-                Category("Lunch"),
-                Category("Desert"),
-                Category("Dinner"),
-                Category("Soup"),
-                Category("Salad")
+                Category("Breakfast", R.drawable.breakfast),
+                Category("Dinner", R.drawable.dinner),
+                Category("Lunch", R.drawable.lunch),
+                Category("Salad", R.drawable.salad),
+                Category("Soup", R.drawable.soup),
+                Category("Desert", R.drawable.desert)
             )
         }
 

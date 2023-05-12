@@ -75,7 +75,7 @@ class RecipeAdapter(val listener: HomeListener? = null) : RecyclerView.Adapter<R
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(data: MutableList<HomeScreenRecipe>) {
+    fun setData(data: List<HomeScreenRecipe>) {
         this.data.apply {
             clear()
             addAll(data)

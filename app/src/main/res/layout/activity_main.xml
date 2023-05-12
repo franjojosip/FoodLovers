@@ -1,47 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".app_main.view.MainActivity">
 
-        <FrameLayout
-            android:id="@+id/frame_layout"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/mobile_navigation" />
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/cl_bar"
-            android:visibility="gone"
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:fabCradleMargin="10dp"
+            app:fabCradleRoundedCornerRadius="10dp"
+            app:hideOnScroll="true">
 
-            <com.google.android.material.bottomappbar.BottomAppBar
-                android:id="@+id/bottom_app_bar"
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/navigation_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                app:backgroundTint="@color/color_stepper_number_current"
-                app:fabAlignmentMode="center"
-                app:fabAnchorMode="cradle"/>
+                android:background="@drawable/transparent_background"
+                app:itemIconTint="@drawable/nav_item_color"
+                app:itemTextColor="@drawable/nav_item_color"
+                app:labelVisibilityMode="labeled"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:menu="@menu/bottom_menu" />
+        </com.google.android.material.bottomappbar.BottomAppBar>
 
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add"
-                app:backgroundTint="@color/color_stepper_number_current"
-                app:layout_anchor="@id/bottom_app_bar" />
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            app:backgroundTint="@color/color_navigation_bar_fab"
+            app:borderWidth="0dp"
+            app:elevation="12dp"
+            app:fabSize="normal"
+            app:layout_anchor="@id/navigation_view"
+            app:layout_constraintTop_toTopOf="@id/navigation_view"
+            app:maxImageSize="32dp"
+            app:srcCompat="@drawable/ic_add" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

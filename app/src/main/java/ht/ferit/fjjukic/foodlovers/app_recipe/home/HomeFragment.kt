@@ -1,7 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.home
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
@@ -41,8 +40,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
         }
     }
 
-    private val snapHelper: LinearSnapHelper by lazy { LinearSnapHelper() }
-
     override fun init() {
         setListeners()
         setScreen()
@@ -73,8 +70,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
     }
 
     private fun setScreen() {
-        snapHelper.attachToRecyclerView(binding.categoryRecyclerView)
-
         binding.categoryRecyclerView.adapter = categoryAdapter
         binding.categoryRecyclerView.layoutManager =
             LinearLayoutManager(requireContext()).apply {
