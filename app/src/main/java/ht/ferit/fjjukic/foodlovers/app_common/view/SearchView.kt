@@ -120,6 +120,12 @@ class SearchView @JvmOverloads constructor(
         binding.etSearch.isFocusable = false
     }
 
+    fun disableClick() {
+        binding.etSearch.isClickable = true
+        binding.etSearch.isCursorVisible = false
+        binding.etSearch.isFocusable = false
+    }
+
     fun showKeyboardAndFocus() {
         requestFocusAndShowKeyboard(binding.etSearch)
     }

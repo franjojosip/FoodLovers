@@ -11,7 +11,6 @@ import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
-import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ht.ferit.fjjukic.foodlovers.R
@@ -22,7 +21,9 @@ import ht.ferit.fjjukic.foodlovers.app_common.model.ActionEvent
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
 import ht.ferit.fjjukic.foodlovers.app_common.notification.NotificationsManager
-import ht.ferit.fjjukic.foodlovers.app_common.utils.*
+import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
+import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
+import ht.ferit.fjjukic.foodlovers.app_common.utils.startMainActivity
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentAccountBinding
 import org.greenrobot.eventbus.EventBus
@@ -129,15 +130,6 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
             showToast(it.message, it.messageId)
         }
         viewModel.actionNavigate.observeNotNull(viewLifecycleOwner) {
-            if (it is ActionNavigate.ChangeLocation) {
-                requireView().findNavController().navigate(R.id.nav_location)
-            }
-            if (it is ActionNavigate.ChangeUsername) {
-                requireView().findNavController().navigate(R.id.nav_change_username)
-            }
-            if (it is ActionNavigate.ChangeEmail) {
-                requireView().findNavController().navigate(R.id.nav_change_email)
-            }
             if (it is ActionNavigate.Login) {
                 requireContext().startMainActivity()
                 requireActivity().finish()

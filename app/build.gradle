@@ -107,4 +107,7 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxjava:$rxJava"
     implementation "io.reactivex.rxjava3:rxandroid:$rxAndroid"
     implementation "com.jakewharton.rxbinding4:rxbinding:$rxBinding"
+
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
 }

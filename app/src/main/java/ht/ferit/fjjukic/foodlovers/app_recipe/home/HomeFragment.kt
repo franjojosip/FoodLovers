@@ -1,17 +1,14 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.home
 
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
-import ht.ferit.fjjukic.foodlovers.app_common.utils.navigateToScreen
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
-import ht.ferit.fjjukic.foodlovers.app_recipe.CategoryRecipesFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.HomeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.RecipeAdapter
-import ht.ferit.fjjukic.foodlovers.app_recipe.search.SearchFragment
-import ht.ferit.fjjukic.foodlovers.app_recipe.showrecipe.ShowRecipeFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -45,27 +42,36 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
         setScreen()
     }
 
+    override fun setObservers() {
+        super.setObservers()
+
+        viewModel.actionNavigate.observeNotNull(viewLifecycleOwner) {
+            when (it) {
+                is ActionNavigate.SearchRecipes -> {
+                    findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavSearchRecipes())
+                }
+
+                is ActionNavigate.ShowRecipe -> {
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionNavHomeToNavShowRecipe(it.id)
+                    )
+                }
+
+                is ActionNavigate.CategoryRecipes -> {
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionNavHomeToNavSearchCategory(it.category)
+                    )
+                }
+
+                else -> {}
+            }
+        }
+    }
+
     private fun setListeners() {
         binding.searchView.disableSearch()
         binding.searchView.handleViewClicked {
-            activity?.navigateToScreen(
-                SearchFragment(),
-                SearchFragment.TAG
-            )
-        }
-
-        viewModel.actionNavigate.observeNotNull(viewLifecycleOwner) {
-            if (it is ActionNavigate.ShowRecipe) {
-                activity?.navigateToScreen(
-                    ShowRecipeFragment(it.id),
-                    ShowRecipeFragment.TAG
-                )
-            } else if (it is ActionNavigate.CategoryRecipes) {
-                activity?.navigateToScreen(
-                    CategoryRecipesFragment(it.category),
-                    CategoryRecipesFragment.TAG
-                )
-            }
+            viewModel.navigateToSearch()
         }
     }
 

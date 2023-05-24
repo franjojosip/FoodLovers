@@ -7,50 +7,65 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeFragment"
-        android:label="Recipes"
-        tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/nav_create_recipe"
-        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeFragment"
-        android:label="Recipes"
-        tools:layout="@layout/fragment_create_recipe" />
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_nav_search_recipes"
+            app:destination="@id/nav_search_recipes" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_search_category"
+            app:destination="@id/nav_search_category" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_show_recipe"
+            app:destination="@id/nav_show_recipe" />
+    </fragment>
+
     <fragment
         android:id="@+id/nav_recipes"
-        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeFragment"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.recipes.RecipesFragment"
         android:label="Recipes"
-        tools:layout="@layout/fragment_create_recipe" />
+        tools:layout="@layout/fragment_recipes" />
+
     <fragment
         android:id="@+id/nav_favorites"
         android:name="ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeFragment"
-        android:label="Recipes"
+        android:label="Favorites"
         tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/nav_profile"
         android:name="ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeFragment"
-        android:label="Recipes"
+        android:label="Profile"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_account"
-        android:name="ht.ferit.fjjukic.foodlovers.app_account.view.AccountFragment"
-        android:label="@string/screen_profile"
-        tools:layout="@layout/fragment_account" />
+        android:id="@+id/nav_search_recipes"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.search.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search_recipes" />
 
     <fragment
-        android:id="@+id/nav_location"
-        android:name="ht.ferit.fjjukic.foodlovers.ui.main.view.ui.location.LocationFragment"
-        android:label="Choose Location"
-        tools:layout="@layout/fragment_location" />
+        android:id="@+id/nav_search_category"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.CategoryRecipesFragment"
+        android:label="CategoryRecipesFragment"
+        tools:layout="@layout/fragment_search_recipes">
+
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_change_username"
-        android:name="ht.ferit.fjjukic.foodlovers.app_account.change_username.view.ChangeUsernameFragment"
-        android:label="Change Username"
-        tools:layout="@layout/fragment_change_username" />
+        android:id="@+id/nav_show_recipe"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.showrecipe.ShowRecipeFragment"
+        android:label="ShowRecipeFragment"
+        tools:layout="@layout/fragment_show_recipe">
 
-    <fragment
-        android:id="@+id/nav_change_email"
-        android:name="ht.ferit.fjjukic.foodlovers.app_account.change_email.view.ChangeEmailFragment"
-        android:label="Change Email"
-        tools:layout="@layout/fragment_change_email" />
+        <argument
+            android:name="id"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
 </navigation>

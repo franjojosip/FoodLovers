@@ -26,6 +26,8 @@ class SearchFragment : BaseFragment<HomeViewModel, FragmentSearchRecipesBinding>
     override val viewModel: HomeViewModel by sharedViewModel()
     override val layoutId: Int = R.layout.fragment_search_recipes
 
+    override val hasToolbar: Boolean = true
+
     private val recipeAdapter: RecipeAdapter by lazy {
         RecipeAdapter().apply {
             setData(mutableListOf(NoRecipePlaceholder))
@@ -39,10 +41,14 @@ class SearchFragment : BaseFragment<HomeViewModel, FragmentSearchRecipesBinding>
 
     override fun setObservers() {
         super.setObservers()
+
         viewModel.filters.observeNotNull(viewLifecycleOwner) {
-            binding.tvLastSearched.isVisible = it.isNotEmpty()
+            binding.tvFilters.isVisible = it.isNotEmpty()
             binding.cgFilters.setData(it)
-            recipeAdapter.setData(viewModel.getFilteredRecipes()) //Remove this when search recipes implemented
+        }
+        viewModel.searchHistory.observeNotNull(viewLifecycleOwner) {
+            binding.tvHistory.isVisible = it.isNotEmpty()
+            binding.cgHistory.setData(it)
         }
     }
 
@@ -53,16 +59,11 @@ class SearchFragment : BaseFragment<HomeViewModel, FragmentSearchRecipesBinding>
                 FilterFragment.TAG
             )
         }
-        binding.toolbarLayout.setupAction {
-            parentFragmentManager.popBackStack()
-        }
     }
 
     private fun setScreen() {
         binding.recyclerView.adapter = recipeAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        binding.tvLastSearched.isVisible = viewModel.filters.value?.isNotEmpty() == true
 
         binding.searchView.handleSearch {
             binding.searchView.clearText()
@@ -70,6 +71,7 @@ class SearchFragment : BaseFragment<HomeViewModel, FragmentSearchRecipesBinding>
         }
 
         binding.cgFilters.setListener(this)
+        binding.cgHistory.setListener(this)
     }
 
     override fun onItemClicked(item: FilterItem) {

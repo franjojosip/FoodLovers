@@ -13,10 +13,14 @@ import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
 
 class HomeViewModel(private val categoryRepository: CategoryRepository) : BaseViewModel() {
-    private val _selectedFilters = MutableLiveData<MutableList<FilterItem>>()
 
+    private val _selectedFilters = MutableLiveData<MutableList<FilterItem>>()
     val filters: LiveData<MutableList<FilterItem>>
         get() = _selectedFilters
+
+    private val _searchHistory = MutableLiveData<MutableList<FilterItem>>()
+    val searchHistory: LiveData<MutableList<FilterItem>>
+        get() = _searchHistory
 
     val selectedCategories: List<FilterItem>
         get() = _selectedFilters.value?.filterIsInstance<FilterItem.Category>() ?: listOf()
@@ -52,7 +56,7 @@ class HomeViewModel(private val categoryRepository: CategoryRepository) : BaseVi
     ) {
         val searchItems = _selectedFilters.value?.filterIsInstance<FilterItem.Search>() ?: listOf()
 
-        _selectedFilters.value =  mutableListOf<FilterItem>().apply {
+        _selectedFilters.value = mutableListOf<FilterItem>().apply {
             clear()
             addAll(searchItems)
             addAll(categories)
@@ -111,17 +115,28 @@ class HomeViewModel(private val categoryRepository: CategoryRepository) : BaseVi
     }
 
     fun removeFilter(item: FilterItem) {
-        val currentFilters = _selectedFilters.value ?: mutableListOf()
-        currentFilters.removeAll { it.value.equals(item.value, true) }
+        when (item) {
+            is FilterItem.Search -> {
+                val currentHistory = _searchHistory.value ?: mutableListOf()
+                currentHistory.removeAll { it.value.equals(item.value, true) }
 
-        _selectedFilters.value = currentFilters
+                _searchHistory.value = currentHistory
+            }
+
+            else -> {
+                val currentFilters = _selectedFilters.value ?: mutableListOf()
+                currentFilters.removeAll { it.value.equals(item.value, true) }
+
+                _selectedFilters.value = currentFilters
+            }
+        }
     }
 
     fun addSearchFilter(value: String) {
-        val currentFilters = _selectedFilters.value ?: mutableListOf()
-        if (currentFilters.none { it.value.equals(value, true) }) {
-            currentFilters.add(FilterItem.Search(value))
-            _selectedFilters.value = currentFilters
+        val searchHistory = _searchHistory.value ?: mutableListOf()
+        if (searchHistory.none { it.value.equals(value, true) }) {
+            searchHistory.add(FilterItem.Search(value))
+            _searchHistory.value = searchHistory
         }
     }
 
@@ -131,5 +146,9 @@ class HomeViewModel(private val categoryRepository: CategoryRepository) : BaseVi
 
     fun onCategoryClicked(category: String) {
         _actionNavigate.postValue(ActionNavigate.CategoryRecipes(category))
+    }
+
+    fun navigateToSearch() {
+        _actionNavigate.postValue(ActionNavigate.SearchRecipes)
     }
 }

@@ -4,61 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.core.widget.NestedScrollView
-        android:background="@color/color_white"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
         android:scrollbars="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ht.ferit.fjjukic.foodlovers.app_common.view.CustomToolbarView
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:text="" />
 
             <include
-                layout="@layout/loader_layout"
                 android:id="@+id/loader_layout"
-                android:layout_height="match_parent"
+                layout="@layout/loader_layout"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:visibility="visible"
                 app:layout_constrainedHeight="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_recipe"
-                android:layout_height="0dp"
                 android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintDimensionRatio="H,16:10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
 
                 <ImageView
                     android:id="@+id/iv_recipe"
-                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:scaleType="fitXY"
                     tools:background="@drawable/image_sweet_food" />
             </androidx.cardview.widget.CardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="@drawable/shape_top_rounded"
-                android:elevation="4dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-24dp"
-                android:layout_width="match_parent"
+                android:background="@drawable/shape_top_rounded"
+                android:elevation="4dp"
                 android:paddingBottom="40dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cv_recipe">
 
                 <TextView
-                    android:fontFamily="@font/playfair_display_semi_bold"
                     android:id="@+id/tv_recipe_title"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
+                    android:fontFamily="@font/playfair_display_semi_bold"
                     android:textColor="@color/color_black"
                     android:textSize="18sp"
                     app:layout_constrainedWidth="true"
@@ -68,12 +79,12 @@
                     tools:text="Here goes your title" />
 
                 <TextView
-                    android:fontFamily="@font/playfair_display_regular"
                     android:id="@+id/tv_recipe_author"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="3dp"
-                    android:layout_width="match_parent"
+                    android:fontFamily="@font/playfair_display_regular"
                     android:textColor="@color/color_text_input_layout_hint"
                     android:textSize="13sp"
                     android:textStyle="bold"
@@ -82,24 +93,24 @@
                     tools:text="By Random Guy" />
 
                 <ImageView
-                    android:background="@drawable/ic_people"
-                    android:backgroundTint="@color/color_dark_gray"
                     android:id="@+id/iv_servings"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
+                    android:background="@drawable/ic_people"
+                    android:backgroundTint="@color/color_dark_gray"
                     app:layout_constraintEnd_toStartOf="@id/tv_number_of_servings"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_recipe_author" />
 
                 <TextView
-                    android:fontFamily="@font/playfair_display_regular"
                     android:id="@+id/tv_number_of_servings"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginStart="10dp"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/playfair_display_regular"
                     android:textColor="@color/color_dark_gray"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -110,24 +121,24 @@
                     tools:text="X servings" />
 
                 <ImageView
-                    android:background="@drawable/ic_time"
-                    android:backgroundTint="@color/color_dark_gray"
                     android:id="@+id/iv_time"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
+                    android:background="@drawable/ic_time"
+                    android:backgroundTint="@color/color_dark_gray"
                     app:layout_constraintEnd_toStartOf="@id/tv_time"
                     app:layout_constraintStart_toEndOf="@id/tv_number_of_servings"
                     app:layout_constraintTop_toBottomOf="@id/tv_recipe_author" />
 
                 <TextView
-                    android:fontFamily="@font/playfair_display_regular"
                     android:id="@+id/tv_time"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginStart="10dp"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="3dp"
+                    android:fontFamily="@font/playfair_display_regular"
                     android:textColor="@color/color_dark_gray"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -138,12 +149,12 @@
                     tools:text="1h 25min" />
 
                 <TextView
-                    android:fontFamily="@font/playfair_display_bold"
                     android:id="@+id/tv_ingredients"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="30dp"
-                    android:layout_width="match_parent"
+                    android:fontFamily="@font/playfair_display_bold"
                     android:text="INGREDIENTS"
                     android:textColor="@color/color_black"
                     android:textSize="16sp"
@@ -152,9 +163,9 @@
 
                 <LinearLayout
                     android:id="@+id/ll_ingredients"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
                     android:orientation="vertical"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_ingredients">
@@ -162,12 +173,12 @@
                 </LinearLayout>
 
                 <TextView
-                    android:fontFamily="@font/playfair_display_bold"
                     android:id="@+id/tv_steps"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="30dp"
-                    android:layout_width="match_parent"
+                    android:fontFamily="@font/playfair_display_bold"
                     android:text="STEPS"
                     android:textColor="@color/color_black"
                     android:textSize="16sp"
@@ -176,9 +187,9 @@
 
                 <LinearLayout
                     android:id="@+id/ll_steps"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
                     android:orientation="vertical"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_steps">

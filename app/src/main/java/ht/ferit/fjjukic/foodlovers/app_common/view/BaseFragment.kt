@@ -10,6 +10,10 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.DialogFragmentNavigator
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding4.widget.textChanges
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionBack
@@ -29,6 +33,8 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
     protected lateinit var binding: ViewBinding
     private var compositeDisposable = CompositeDisposable()
 
+    protected open val hasToolbar = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +49,12 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
         super.onViewCreated(view, savedInstanceState)
         setObservers()
         init()
+
+        if (hasToolbar) {
+            binding.root.findViewById<CustomToolbarView>(R.id.toolbar_layout)?.setupAction {
+                parentFragmentManager.popBackStack()
+            }
+        }
     }
 
     open fun setObservers() {
@@ -54,6 +66,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
                     (binding.root.findViewById(R.id.loader_layout) as? View)?.isVisible =
                         it.isVisible
                 }
+
                 ActionBack -> activity?.onBackPressed()
             }
         }
@@ -87,6 +100,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
             !message.isNullOrEmpty() -> {
                 Toast.makeText(context, message, length).show()
             }
+
             messageId != null -> {
                 Toast.makeText(context, getString(messageId), length).show()
             }
@@ -101,8 +115,26 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
             !model.message.isNullOrEmpty() -> {
                 Toast.makeText(context, model.message, length).show()
             }
+
             model.messageId != null -> {
                 Toast.makeText(context, getString(model.messageId), length).show()
+            }
+        }
+    }
+
+    fun Fragment.safeNavigateFromNavController(directions: NavDirections) {
+        val navController = findNavController()
+        when (val destination = navController.currentDestination) {
+            is FragmentNavigator.Destination -> {
+                if (javaClass.name == destination.className) {
+                    navController.navigate(directions)
+                }
+            }
+
+            is DialogFragmentNavigator.Destination -> {
+                if (javaClass.name == destination.className) {
+                    navController.navigate(directions)
+                }
             }
         }
     }

@@ -9,6 +9,8 @@ sealed class ActionNavigate {
     object Home : ActionNavigate()
     object Account : ActionNavigate()
 
+    object SearchRecipes : ActionNavigate()
+
     class ShowRecipe(val id: String) : ActionNavigate()
     class CategoryRecipes(val category: String) : ActionNavigate()
 
