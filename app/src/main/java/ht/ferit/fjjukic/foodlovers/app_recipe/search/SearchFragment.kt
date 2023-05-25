@@ -19,14 +19,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class SearchFragment : BaseFragment<HomeViewModel, FragmentSearchRecipesBinding>(),
     CustomRemovableChipGroup.RemovableClickListener {
 
-    companion object {
-        const val TAG = "SearchFragment"
-    }
-
     override val viewModel: HomeViewModel by sharedViewModel()
     override val layoutId: Int = R.layout.fragment_search_recipes
-
-    override val hasToolbar: Boolean = true
 
     private val recipeAdapter: RecipeAdapter by lazy {
         RecipeAdapter().apply {
@@ -35,6 +29,8 @@ class SearchFragment : BaseFragment<HomeViewModel, FragmentSearchRecipesBinding>
     }
 
     override fun init() {
+        toolbar = binding.toolbarLayout
+
         setListeners()
         setScreen()
     }

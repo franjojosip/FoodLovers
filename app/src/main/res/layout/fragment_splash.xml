@@ -36,6 +36,7 @@
                 app:itemIconTint="@drawable/nav_item_color"
                 app:itemTextColor="@drawable/nav_item_color"
                 app:labelVisibilityMode="labeled"
+                app:itemIconSize="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:menu="@menu/bottom_menu" />
         </com.google.android.material.bottomappbar.BottomAppBar>

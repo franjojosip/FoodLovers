@@ -22,15 +22,8 @@ class ShowRecipeFragment: BaseFragment<ShowRecipeViewModel, FragmentShowRecipeBi
     override val layoutId: Int = R.layout.fragment_show_recipe
     override val viewModel: ShowRecipeViewModel by viewModel()
 
-    override val hasToolbar: Boolean = true
-
     override fun init() {
-        args.id?.let {
-            viewModel.loadRecipe(it)
-        } ?: run {
-            parentFragmentManager.popBackStack()
-        }
-
+        viewModel.loadRecipe(args.id)
     }
 
     override fun setObservers() {

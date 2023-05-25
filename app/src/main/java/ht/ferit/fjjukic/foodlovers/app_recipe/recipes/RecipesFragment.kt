@@ -1,5 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.recipes
 
+import androidx.navigation.fragment.findNavController
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.RecipesViewModel
@@ -12,5 +13,11 @@ class RecipesFragment : BaseFragment<RecipesViewModel, FragmentRecipesBinding>()
     override val viewModel: RecipesViewModel by viewModel()
 
     override fun init() {
+        binding.fab.setOnClickListener {
+            binding.fab.hide()
+            findNavController().navigate(
+                RecipesFragmentDirections.actionNavRecipesToNavCreateRecipe()
+            )
+        }
     }
 }

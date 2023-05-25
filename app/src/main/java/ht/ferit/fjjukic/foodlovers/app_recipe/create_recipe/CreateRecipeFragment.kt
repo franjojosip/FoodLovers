@@ -12,10 +12,6 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CreateRecipeFragment : BaseFragment<CreateRecipeViewModel, FragmentCreateRecipeBinding>() {
 
-    companion object {
-        const val TAG = "CreateRecipeFragment"
-    }
-
     override val layoutId: Int = R.layout.fragment_create_recipe
     override val viewModel: CreateRecipeViewModel by sharedViewModel()
 

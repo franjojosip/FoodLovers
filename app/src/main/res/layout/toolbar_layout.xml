@@ -6,35 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/home_screen_background"
-    android:clickable="true"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-        <ImageView
-            android:id="@+id/btn_action"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/ic_baseline_arrow_back_24"
-            android:backgroundTint="@color/color_search_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+    <ImageView
+        android:id="@+id/btn_action"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="12dp"
+        android:backgroundTint="@color/color_search_text"
+        android:padding="3dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintBottom_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_title" />
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="@font/playfair_display_regular"
-            tools:text="Search"
-            android:textColor="@color/color_black"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_action"
-            app:layout_constraintStart_toEndOf="@+id/btn_action"
-            app:layout_constraintTop_toTopOf="@id/btn_action" />
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/playfair_display_regular"
+        android:paddingBottom="4dp"
+        android:textColor="@color/color_black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_action"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Search" />
 
 </merge>

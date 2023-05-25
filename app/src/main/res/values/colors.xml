@@ -64,7 +64,7 @@
 
     <color name="color_chip_search_filter_background">#E4E1C4B5</color>
 
-    <color name="color_chip_filter_background_checked">#E4B18C79</color>
+    <color name="color_chip_filter_background_checked">#ADC8A796</color>
     <color name="color_chip_filter_text_checked">#FFFFFF</color>
 
     <color name="color_chip_filter_background_unchecked">#81D6D6D6</color>

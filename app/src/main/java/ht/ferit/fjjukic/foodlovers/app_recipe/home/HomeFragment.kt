@@ -14,10 +14,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeListener {
 
-    companion object {
-        const val TAG = "HomeFragment"
-    }
-
     override val viewModel: HomeViewModel by viewModel()
     override val layoutId: Int = R.layout.fragment_home
 
@@ -26,11 +22,13 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
             setData(viewModel.getCategories())
         }
     }
+
     private val todayChoiceAdapter: RecipeAdapter by lazy {
         RecipeAdapter(this).apply {
             setData(viewModel.getTodayChoiceRecipes())
         }
     }
+
     private val topRecipesAdapter: RecipeAdapter by lazy {
         RecipeAdapter(this).apply {
             setData(viewModel.getTopRecipes())
@@ -38,8 +36,25 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
     }
 
     override fun init() {
-        setListeners()
-        setScreen()
+        binding.searchView.disableSearch()
+        binding.searchView.handleViewClicked {
+            viewModel.navigateToSearch()
+        }
+
+        binding.categoryRecyclerView.adapter = categoryAdapter
+        binding.categoryRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext()).apply {
+                orientation = RecyclerView.HORIZONTAL
+            }
+
+        binding.todayChoiceRecyclerView.adapter = todayChoiceAdapter
+        binding.todayChoiceRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext()).apply {
+                orientation = RecyclerView.HORIZONTAL
+            }
+
+        binding.topRecipeRecyclerView.adapter = topRecipesAdapter
+        binding.topRecipeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun setObservers() {
@@ -48,7 +63,9 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
         viewModel.actionNavigate.observeNotNull(viewLifecycleOwner) {
             when (it) {
                 is ActionNavigate.SearchRecipes -> {
-                    findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavSearchRecipes())
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionNavHomeToNavSearchRecipes()
+                    )
                 }
 
                 is ActionNavigate.ShowRecipe -> {
@@ -66,30 +83,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
                 else -> {}
             }
         }
-    }
-
-    private fun setListeners() {
-        binding.searchView.disableSearch()
-        binding.searchView.handleViewClicked {
-            viewModel.navigateToSearch()
-        }
-    }
-
-    private fun setScreen() {
-        binding.categoryRecyclerView.adapter = categoryAdapter
-        binding.categoryRecyclerView.layoutManager =
-            LinearLayoutManager(requireContext()).apply {
-                orientation = RecyclerView.HORIZONTAL
-            }
-
-        binding.todayChoiceRecyclerView.adapter = todayChoiceAdapter
-        binding.todayChoiceRecyclerView.layoutManager =
-            LinearLayoutManager(requireContext()).apply {
-                orientation = RecyclerView.HORIZONTAL
-            }
-
-        binding.topRecipeRecyclerView.adapter = topRecipesAdapter
-        binding.topRecipeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun onCategoryClicked(category: String) {

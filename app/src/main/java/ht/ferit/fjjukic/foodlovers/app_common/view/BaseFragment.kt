@@ -33,7 +33,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
     protected lateinit var binding: ViewBinding
     private var compositeDisposable = CompositeDisposable()
 
-    protected open val hasToolbar = false
+    protected var toolbar: CustomToolbarView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,13 +47,12 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setObservers()
         init()
 
-        if (hasToolbar) {
-            binding.root.findViewById<CustomToolbarView>(R.id.toolbar_layout)?.setupAction {
-                parentFragmentManager.popBackStack()
-            }
+        toolbar?.setupAction {
+            findNavController().popBackStack()
         }
     }
 
@@ -67,7 +66,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
                         it.isVisible
                 }
 
-                ActionBack -> activity?.onBackPressed()
+                ActionBack -> findNavController().popBackStack()
             }
         }
     }

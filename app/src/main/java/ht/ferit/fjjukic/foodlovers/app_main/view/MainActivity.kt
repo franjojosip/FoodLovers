@@ -1,6 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_main.view
 
-import androidx.core.view.isVisible
+import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ht.ferit.fjjukic.foodlovers.R
@@ -26,16 +26,14 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.nav_search_recipes, R.id.nav_search_category, R.id.nav_show_recipe -> {
-                    binding.clBottomBar.isVisible = false
+                R.id.nav_search_recipes, R.id.nav_search_category, R.id.nav_show_recipe, R.id.nav_create_recipe -> {
+                    binding.clBottomBar.visibility = View.GONE
                 }
 
                 else -> {
-                    binding.clBottomBar.isVisible = true
+                    binding.clBottomBar.visibility = View.VISIBLE
                 }
-
             }
         }
     }
-
 }
