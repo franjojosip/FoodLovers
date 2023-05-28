@@ -12,7 +12,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class
 CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryRecipesBinding>() {
-
     private val args: CategoryRecipesFragmentArgs by navArgs()
 
     override val layoutId: Int = R.layout.fragment_category_recipes

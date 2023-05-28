@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
+import com.google.android.material.snackbar.Snackbar
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
-import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToServings
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
@@ -97,11 +97,11 @@ class ReviewRecipeFragment : BaseFragment<CreateRecipeViewModel, FragmentReviewB
                 )
             } else {
                 binding.ivRecipe
-                showToast(
-                    MessageModel(
-                        message = "Please check all the data before creating your recipe!"
-                    )
-                )
+                Snackbar.make(
+                    binding.root,
+                    "Please check all recipe fields!",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
     }

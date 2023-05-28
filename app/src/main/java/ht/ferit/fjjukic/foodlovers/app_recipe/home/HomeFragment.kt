@@ -13,7 +13,6 @@ import ht.ferit.fjjukic.foodlovers.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeListener {
-
     override val viewModel: HomeViewModel by viewModel()
     override val layoutId: Int = R.layout.fragment_home
 

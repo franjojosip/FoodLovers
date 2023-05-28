@@ -16,13 +16,13 @@ import ht.ferit.fjjukic.foodlovers.databinding.StepListItemBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ShowRecipeFragment: BaseFragment<ShowRecipeViewModel, FragmentShowRecipeBinding>() {
-
     private val args: ShowRecipeFragmentArgs by navArgs()
 
     override val layoutId: Int = R.layout.fragment_show_recipe
     override val viewModel: ShowRecipeViewModel by viewModel()
 
     override fun init() {
+        toolbar = binding.toolbarLayout
         viewModel.loadRecipe(args.id)
     }
 
