@@ -27,11 +27,11 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.nav_search_recipes, R.id.nav_search_category, R.id.nav_show_recipe, R.id.nav_create_recipe -> {
-                    binding.clBottomBar.visibility = View.GONE
+                    binding.navigationView.visibility = View.GONE
                 }
 
                 else -> {
-                    binding.clBottomBar.visibility = View.VISIBLE
+                    binding.navigationView.visibility = View.VISIBLE
                 }
             }
         }
