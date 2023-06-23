@@ -1,6 +1,5 @@
 package ht.ferit.fjjukic.foodlovers.app_common.utils
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.EditorInfo

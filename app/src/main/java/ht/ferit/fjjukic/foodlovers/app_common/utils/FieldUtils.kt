@@ -6,13 +6,13 @@ fun Int.convertToTime(): String {
 
     return when {
         hours > 0 && mins > 0 -> {
-            "${hours}h ${mins}min"
+            "${hours}h ${mins}mins"
         }
         hours > 0 -> {
-            "${hours}h"
+            "$hours h"
         }
         else -> {
-            "${mins}min"
+            "$mins mins"
         }
     }
 }

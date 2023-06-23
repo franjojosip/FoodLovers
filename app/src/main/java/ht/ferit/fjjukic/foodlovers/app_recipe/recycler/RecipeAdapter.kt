@@ -54,10 +54,10 @@ class RecipeAdapter(val listener: HomeListener? = null) : RecyclerView.Adapter<R
                 holder.setData(data[position] as Category, listener)
             }
             is IngredientItemViewHolder -> {
-                holder.setData(data[position] as IngredientUI)
+                holder.setData(data[position] as Ingredient)
             }
             is StepItemViewHolder -> {
-                holder.setData(data[position] as StepUI)
+                holder.setData(data[position] as Step)
             }
         }
     }
@@ -68,8 +68,8 @@ class RecipeAdapter(val listener: HomeListener? = null) : RecyclerView.Adapter<R
             data[position] is TopRecipe -> 1
             data[position] is Category -> 2
             data[position] is NoRecipePlaceholder -> 3
-            data[position] is IngredientUI -> 4
-            data[position] is StepUI -> 5
+            data[position] is Ingredient -> 4
+            data[position] is Step -> 5
             else -> throw Exception("Class doesn't exist")
         }
     }

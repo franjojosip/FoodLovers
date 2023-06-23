@@ -5,10 +5,9 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import androidx.core.view.children
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.StepUI
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.Step
 import ht.ferit.fjjukic.foodlovers.app_recipe.view.StepView
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentStepsBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -55,7 +54,7 @@ class StepsFragment : BaseFragment<CreateRecipeViewModel, FragmentStepsBinding>(
     }
 
     private fun saveSteps() {
-        val steps = mutableListOf<StepUI>()
+        val steps = mutableListOf<Step>()
         binding.llSteps.children.forEach { view ->
             (view as? StepView)?.getData().takeIf { it != null }?.let { step ->
                 steps.add(step)

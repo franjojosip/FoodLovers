@@ -1,25 +1,27 @@
 package ht.ferit.fjjukic.foodlovers.app_common.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.DialogFragmentNavigator
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding4.widget.textChanges
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionBack
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
 import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -27,7 +29,8 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 
-abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> : Fragment(),
+    PermissionHandler {
     protected abstract val layoutId: Int
     protected abstract val viewModel: VM
     protected lateinit var binding: ViewBinding
@@ -60,6 +63,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
         viewModel.screenEvent.observe(viewLifecycleOwner) {
             when (it) {
                 is MessageModel -> showToast(it)
+                is SnackbarModel -> showSnackbar(it)
                 is DialogModel -> context?.showAlertDialog(it)
                 is LoadingBar -> {
                     (binding.root.findViewById(R.id.loader_layout) as? View)?.isVisible =
@@ -106,10 +110,22 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
         }
     }
 
-    protected fun showToast(
-        model: MessageModel,
-        length: Int = Toast.LENGTH_SHORT
-    ) {
+    private fun showSnackbar(model: SnackbarModel) {
+        val length = if (model.isShortLength) Snackbar.LENGTH_SHORT else Snackbar.LENGTH_LONG
+        when {
+            !model.message.isNullOrEmpty() -> {
+                Snackbar.make(binding.root, model.message, length).show()
+            }
+
+            model.messageId != null -> {
+                Snackbar.make(binding.root, getString(model.messageId), length).show()
+            }
+        }
+    }
+
+    private fun showToast(model: MessageModel) {
+        val length = if (model.isShortLength) Toast.LENGTH_SHORT else Toast.LENGTH_LONG
+
         when {
             !model.message.isNullOrEmpty() -> {
                 Toast.makeText(context, model.message, length).show()
@@ -121,19 +137,28 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
         }
     }
 
-    fun Fragment.safeNavigateFromNavController(directions: NavDirections) {
-        val navController = findNavController()
-        when (val destination = navController.currentDestination) {
-            is FragmentNavigator.Destination -> {
-                if (javaClass.name == destination.className) {
-                    navController.navigate(directions)
-                }
+    protected fun requestRequiredPermissions(
+        action: () -> Unit,
+        permissions: Array<String>,
+        messageId: Int,
+        permissionLauncher: ActivityResultLauncher<Array<String>>
+    ) {
+        when {
+            checkPermissions(
+                activity as Context,
+                permissions
+            ) -> {
+                action()
             }
 
-            is DialogFragmentNavigator.Destination -> {
-                if (javaClass.name == destination.className) {
-                    navController.navigate(directions)
-                }
+            checkShouldShowPermissionRationale(requireActivity(), permissions) -> {
+                showToast(getString(messageId))
+                permissionLauncher.launch(permissions)
+            }
+
+            else -> {
+                showToast(getString(R.string.general_error_permissions))
+                openSettings(requireContext())
             }
         }
     }

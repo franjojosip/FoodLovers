@@ -4,17 +4,14 @@ import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
-import com.google.android.material.snackbar.Snackbar
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToServings
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
-import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.IngredientUI
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.StepUI
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.Ingredient
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.Step
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentReviewBinding
 import ht.ferit.fjjukic.foodlovers.databinding.IngredientListItemBinding
 import ht.ferit.fjjukic.foodlovers.databinding.NoItemsListItemBinding
@@ -42,7 +39,7 @@ class ReviewRecipeFragment : BaseFragment<CreateRecipeViewModel, FragmentReviewB
             binding.tvNumberOfServings.text = it.convertToServings()
         }
         viewModel.imagePath.observeNotNull(viewLifecycleOwner) {
-            binding.ivRecipe.setImageURI(viewModel.recipe.imageURI.toUri())
+            binding.ivRecipe.setImageURI(viewModel.recipe.imagePath.toUri())
             binding.tvPlaceholder.isVisible = false
             binding.ivRecipe.alpha = 1f
         }
@@ -61,8 +58,8 @@ class ReviewRecipeFragment : BaseFragment<CreateRecipeViewModel, FragmentReviewB
         binding.tvNumberOfServings.text = viewModel.recipe.servings.convertToServings()
         binding.tvTime.text = viewModel.recipe.time.convertToTime()
 
-        if (viewModel.recipe.imageURI.isNotBlank()) {
-            binding.ivRecipe.setImageURI(viewModel.recipe.imageURI.toUri())
+        if (viewModel.recipe.imagePath.isNotBlank()) {
+            binding.ivRecipe.setImageURI(viewModel.recipe.imagePath.toUri())
             binding.tvPlaceholder.isVisible = false
             binding.ivRecipe.alpha = 1f
         } else {
@@ -84,25 +81,7 @@ class ReviewRecipeFragment : BaseFragment<CreateRecipeViewModel, FragmentReviewB
 
     private fun setListeners() {
         binding.btnCreateRecipe.setOnClickListener {
-            if (viewModel.isRecipeFilled()) {
-                context?.showAlertDialog(
-                    DialogModel(
-                        title = R.string.dialog_create_recipe_title,
-                        message = R.string.dialog_create_recipe_message,
-                        positiveAction = {
-                            viewModel.confirmCreateRecipe()
-                        },
-                        positiveTitleId = R.string.dialog_create_recipe_confirm
-                    )
-                )
-            } else {
-                binding.ivRecipe
-                Snackbar.make(
-                    binding.root,
-                    "Please check all recipe fields!",
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }
+            viewModel.createRecipe()
         }
     }
 
@@ -135,14 +114,14 @@ class ReviewRecipeFragment : BaseFragment<CreateRecipeViewModel, FragmentReviewB
         }
     }
 
-    private fun addIngredientField(data: IngredientUI) {
+    private fun addIngredientField(data: Ingredient) {
         val view = IngredientListItemBinding.inflate(LayoutInflater.from(context), null, false)
         view.tvIngredientAmount.text = data.amount
         view.tvIngredientName.text = data.name
         binding.llIngredients.addView(view.root)
     }
 
-    private fun addStepField(data: StepUI) {
+    private fun addStepField(data: Step) {
         val view = StepListItemBinding.inflate(LayoutInflater.from(context), null, false)
         view.tvStep.text = "Step ${data.position}."
         view.tvDescription.text = data.description

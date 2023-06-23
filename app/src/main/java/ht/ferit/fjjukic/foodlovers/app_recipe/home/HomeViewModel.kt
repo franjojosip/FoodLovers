@@ -6,13 +6,16 @@ import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.FilterRepositoryMock
 import ht.ferit.fjjukic.foodlovers.app_common.repository.MockRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepository
+import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.Category
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
 
-class HomeViewModel(private val categoryRepository: CategoryRepository) : BaseViewModel() {
+class HomeViewModel(
+    private val categoryRepository: CategoryRepository,
+    private val recipeRepository: RecipeRepository
+) : BaseViewModel() {
 
     private val _selectedFilters = MutableLiveData<MutableList<FilterItem>>()
     val filters: LiveData<MutableList<FilterItem>>
@@ -36,16 +39,28 @@ class HomeViewModel(private val categoryRepository: CategoryRepository) : BaseVi
 
     val actionNavigate: LiveData<ActionNavigate> = _actionNavigate
 
-    fun getCategories(): List<Category> {
-        return categoryRepository.getCategories()
-    }
+    var categories = listOf<HomeScreenRecipe>()
+        private set
 
-    fun getTodayChoiceRecipes(): MutableList<HomeScreenRecipe> {
-        return MockRepository.getTodayChoiceRecipes()
-    }
+    private val _todayChoiceRecipes = MutableLiveData<List<HomeScreenRecipe>>()
+    val todayChoiceRecipes: LiveData<List<HomeScreenRecipe>> = _todayChoiceRecipes
 
-    fun getTopRecipes(): MutableList<HomeScreenRecipe> {
-        return MockRepository.getTopRecipes()
+    private val _topRecipes = MutableLiveData<List<HomeScreenRecipe>>()
+    val topRecipes: LiveData<List<HomeScreenRecipe>> = _topRecipes
+
+    private var recipes = listOf<HomeScreenRecipe>()
+
+    private val _currentRecipes = MutableLiveData<List<HomeScreenRecipe>>()
+    val currentRecipes: LiveData<List<HomeScreenRecipe>> = _currentRecipes
+
+    init {
+        categories = MockRepository.getCategories()
+        recipes = MockRepository.getRecipes()
+
+        _todayChoiceRecipes.value = MockRepository.getTodayChoiceRecipes()
+        _topRecipes.value = MockRepository.getTopRecipes()
+        _currentRecipes.value = recipes
+
     }
 
     fun onConfirmFilterClicked(
@@ -137,6 +152,13 @@ class HomeViewModel(private val categoryRepository: CategoryRepository) : BaseVi
         if (searchHistory.none { it.value.equals(value, true) }) {
             searchHistory.add(FilterItem.Search(value))
             _searchHistory.value = searchHistory
+            _currentRecipes.value =
+                recipes.filter {
+                    it.title.contains(value)
+                            || it.description.contains(value)
+                            || it.time.contains(value)
+                            || it.difficulty.contains(value)
+                }
         }
     }
 

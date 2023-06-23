@@ -6,7 +6,7 @@ import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
-import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.RecipeAdapter
+import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.BasicRecipesAdapter
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentCategoryRecipesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,8 +17,8 @@ CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryRecipes
     override val layoutId: Int = R.layout.fragment_category_recipes
     override val viewModel: RecipesViewModel by viewModel()
 
-    private val recipeAdapter: RecipeAdapter by lazy {
-        RecipeAdapter().apply {
+    private val recipeAdapter: BasicRecipesAdapter by lazy {
+        BasicRecipesAdapter().apply {
             setData(mutableListOf(NoRecipePlaceholder))
         }
     }
@@ -41,8 +41,8 @@ CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryRecipes
     override fun setObservers() {
         super.setObservers()
 
-        viewModel.recipes.observeNotNull(viewLifecycleOwner) {
-            //recipeAdapter.setData(it)
+        viewModel.currentRecipes.observeNotNull(viewLifecycleOwner) {
+            recipeAdapter.setData(it)
         }
     }
 

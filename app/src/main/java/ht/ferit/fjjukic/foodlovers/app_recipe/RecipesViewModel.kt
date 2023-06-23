@@ -2,30 +2,31 @@ package ht.ferit.fjjukic.foodlovers.app_recipe
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ht.ferit.fjjukic.foodlovers.app_common.repository.MockRepository
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.NewRecipe
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 
-class RecipesViewModel : BaseViewModel() {
+class RecipesViewModel() : BaseViewModel() {
 
-    private val _recipes = MutableLiveData<List<NewRecipe>>()
-    val recipes: LiveData<List<NewRecipe>> = _recipes
+    private val _currentRecipes = MutableLiveData<List<HomeScreenRecipe>>()
+    val currentRecipes: LiveData<List<HomeScreenRecipe>> = _currentRecipes
 
     fun loadRecipes(category: String?) {
-        if (category.isNullOrBlank()) {
-            //WRITE MESSAGE AND BACK
-        } else {
-            //LOAD RECIPES FOR GIVEN CATEGORY
-        }
+        _currentRecipes.value = MockRepository.getRecipes()
+    }
+
+    fun getRecipes(): MutableList<HomeScreenRecipe> {
+        return MockRepository.getRecipes()
     }
 
     fun handleSortBy(isAscending: Boolean) {
         when (isAscending) {
             true -> {
-                _recipes.value = recipes.value?.sortedBy { it.name }
+                _currentRecipes.value = currentRecipes.value?.sortedBy { it.title }
             }
 
             else -> {
-                _recipes.value = recipes.value?.sortedByDescending { it.name }
+                _currentRecipes.value = currentRecipes.value?.sortedByDescending { it.title }
             }
         }
     }

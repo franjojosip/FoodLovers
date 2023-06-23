@@ -3,18 +3,17 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
-import ht.ferit.fjjukic.foodlovers.app_recipe.HomeListener
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.TodayChoiceRecipe
-import ht.ferit.fjjukic.foodlovers.databinding.RecipeListItemBinding
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.BasicRecipe
+import ht.ferit.fjjukic.foodlovers.app_recipe.recipes.RecipeListener
+import ht.ferit.fjjukic.foodlovers.databinding.SearchRecipeItemBinding
 
-class TodayRecipeHolder(private val binding: RecipeListItemBinding) :
+class BasicRecipeViewHolder(private val binding: SearchRecipeItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun setData(recipe: TodayChoiceRecipe, listener: HomeListener?) {
+    fun setData(recipe: BasicRecipe, listener: RecipeListener?) {
         binding.tvTitle.text = recipe.title
-        binding.tvDescription.text = recipe.description
         binding.tvTime.text = recipe.time.toInt().convertToTime()
-        binding.tvDifficulty.text = recipe.difficulty
+        binding.tvRecipeAuthor.text = recipe.user
 
         Glide.with(binding.root)
             .load(recipe.imagePath)

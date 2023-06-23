@@ -3,201 +3,209 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_white"
-        android:scrollbars="none">
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ht.ferit.fjjukic.foodlovers.app_common.view.CustomToolbarView
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:paddingBottom="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:text="" />
 
-            <ht.ferit.fjjukic.foodlovers.app_common.view.CustomToolbarView
-                android:id="@+id/toolbar_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:text="" />
-
-            <include
-                android:id="@+id/loader_layout"
-                layout="@layout/loader_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible"
-                app:layout_constrainedHeight="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="gone" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_recipe"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="H,16:10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
-
-                <ImageView
-                    android:id="@+id/iv_recipe"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    tools:background="@drawable/image_sweet_food" />
-            </androidx.cardview.widget.CardView>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-24dp"
-                android:background="@drawable/shape_top_rounded"
-                android:elevation="4dp"
-                android:paddingBottom="40dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cv_recipe">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/tv_recipe_title"
+                <include
+                    android:id="@+id/loader_layout"
+                    layout="@layout/loader_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/playfair_display_semi_bold"
-                    android:textColor="@color/color_black"
-                    android:textSize="18sp"
-                    app:layout_constrainedWidth="true"
+                    android:layout_height="match_parent"
+                    android:visibility="visible"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Here goes your title" />
+                    tools:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/tv_recipe_author"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="3dp"
-                    android:fontFamily="@font/playfair_display_regular"
-                    android:textColor="@color/color_text_input_layout_hint"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_recipe_title"
-                    tools:text="By Random Guy" />
-
-                <ImageView
-                    android:id="@+id/iv_servings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/ic_people"
-                    android:backgroundTint="@color/color_dark_gray"
-                    app:layout_constraintEnd_toStartOf="@id/tv_number_of_servings"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_recipe_author" />
-
-                <TextView
-                    android:id="@+id/tv_number_of_servings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="4dp"
-                    android:fontFamily="@font/playfair_display_regular"
-                    android:textColor="@color/color_dark_gray"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_servings"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_time"
-                    app:layout_constraintStart_toEndOf="@id/iv_servings"
-                    app:layout_constraintTop_toTopOf="@id/iv_servings"
-                    tools:text="X servings" />
-
-                <ImageView
-                    android:id="@+id/iv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/ic_time"
-                    android:backgroundTint="@color/color_dark_gray"
-                    app:layout_constraintEnd_toStartOf="@id/tv_time"
-                    app:layout_constraintStart_toEndOf="@id/tv_number_of_servings"
-                    app:layout_constraintTop_toBottomOf="@id/tv_recipe_author" />
-
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="3dp"
-                    android:fontFamily="@font/playfair_display_regular"
-                    android:textColor="@color/color_dark_gray"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_servings"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_recipe"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H,16:10"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/iv_time"
-                    app:layout_constraintTop_toTopOf="@id/iv_servings"
-                    tools:text="1h 25min" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/tv_ingredients"
+                    <ImageView
+                        android:id="@+id/iv_recipe"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        tools:background="@drawable/image_sweet_food" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/playfair_display_bold"
-                    android:text="INGREDIENTS"
-                    android:textColor="@color/color_black"
-                    android:textSize="16sp"
+                    android:layout_marginTop="-24dp"
+                    android:background="@drawable/shape_top_rounded"
+                    android:elevation="4dp"
+                    android:paddingBottom="40dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_time" />
+                    app:layout_constraintTop_toBottomOf="@id/cv_recipe">
 
-                <LinearLayout
-                    android:id="@+id/ll_ingredients"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_ingredients">
+                    <TextView
+                        android:id="@+id/tv_recipe_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/playfair_display_semi_bold"
+                        android:textColor="@color/color_black"
+                        android:textSize="18sp"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Here goes your title" />
 
-                </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_recipe_author"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/playfair_display_regular"
+                        android:textColor="@color/color_text_input_layout_hint"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_recipe_title"
+                        tools:text="By Random Guy" />
 
-                <TextView
-                    android:id="@+id/tv_steps"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/playfair_display_bold"
-                    android:text="STEPS"
-                    android:textColor="@color/color_black"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ll_ingredients" />
+                    <ImageView
+                        android:id="@+id/iv_servings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/ic_people"
+                        android:backgroundTint="@color/color_dark_gray"
+                        app:layout_constraintEnd_toStartOf="@id/tv_number_of_servings"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_recipe_author" />
 
-                <LinearLayout
-                    android:id="@+id/ll_steps"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_steps">
+                    <TextView
+                        android:id="@+id/tv_number_of_servings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/playfair_display_regular"
+                        android:textColor="@color/color_dark_gray"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_servings"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_time"
+                        app:layout_constraintStart_toEndOf="@id/iv_servings"
+                        app:layout_constraintTop_toTopOf="@id/iv_servings"
+                        tools:text="X servings" />
 
-                </LinearLayout>
+                    <ImageView
+                        android:id="@+id/iv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/ic_time"
+                        android:backgroundTint="@color/color_dark_gray"
+                        app:layout_constraintEnd_toStartOf="@id/tv_time"
+                        app:layout_constraintStart_toEndOf="@id/tv_number_of_servings"
+                        app:layout_constraintTop_toBottomOf="@id/tv_recipe_author" />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:fontFamily="@font/playfair_display_regular"
+                        android:textColor="@color/color_dark_gray"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_servings"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_time"
+                        app:layout_constraintTop_toTopOf="@id/iv_servings"
+                        tools:text="1h 25min" />
+
+                    <TextView
+                        android:id="@+id/tv_ingredients"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/playfair_display_bold"
+                        android:text="INGREDIENTS"
+                        android:textColor="@color/color_black"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_time" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_ingredients"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_ingredients">
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_steps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/playfair_display_bold"
+                        android:text="STEPS"
+                        android:textColor="@color/color_black"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ll_ingredients" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_steps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_steps">
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 </layout>

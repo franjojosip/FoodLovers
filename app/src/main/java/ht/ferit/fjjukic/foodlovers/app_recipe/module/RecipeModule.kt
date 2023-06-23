@@ -9,11 +9,11 @@ import org.koin.dsl.module
 
 val recipeModule = module {
     viewModel {
-        HomeViewModel(get())
+        HomeViewModel(get(), get())
     }
 
     viewModel {
-        CreateRecipeViewModel(get(), get())
+        CreateRecipeViewModel(get())
     }
 
     viewModel {

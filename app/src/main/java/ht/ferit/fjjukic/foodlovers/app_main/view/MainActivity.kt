@@ -9,6 +9,7 @@ import ht.ferit.fjjukic.foodlovers.app_main.view_model.MainActivityViewModel
 import ht.ferit.fjjukic.foodlovers.databinding.ActivityMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
 class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() {
 
     override val layoutId: Int = R.layout.activity_main
@@ -26,7 +27,7 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.nav_search_recipes, R.id.nav_search_category, R.id.nav_show_recipe, R.id.nav_create_recipe -> {
+                R.id.nav_search_recipes, R.id.nav_search_category, R.id.nav_show_recipe, R.id.nav_create_recipe, R.id.nav_splash_screen -> {
                     binding.navigationView.visibility = View.GONE
                 }
 

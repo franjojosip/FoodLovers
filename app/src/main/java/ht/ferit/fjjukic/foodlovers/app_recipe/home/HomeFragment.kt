@@ -16,24 +16,15 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
     override val viewModel: HomeViewModel by viewModel()
     override val layoutId: Int = R.layout.fragment_home
 
-    private val categoryAdapter: RecipeAdapter by lazy {
-        RecipeAdapter(this).apply {
-            setData(viewModel.getCategories())
-        }
+    private val categoryAdapter by lazy {
+        RecipeAdapter(this)
+            .apply {
+                setData(viewModel.categories)
+            }
     }
 
-    private val todayChoiceAdapter: RecipeAdapter by lazy {
-        RecipeAdapter(this).apply {
-            setData(viewModel.getTodayChoiceRecipes())
-        }
-    }
-
-    private val topRecipesAdapter: RecipeAdapter by lazy {
-        RecipeAdapter(this).apply {
-            setData(viewModel.getTopRecipes())
-        }
-    }
-
+    private val todayChoiceAdapter = RecipeAdapter(this)
+    private val topRecipesAdapter = RecipeAdapter(this)
     override fun init() {
         binding.searchView.disableSearch()
         binding.searchView.handleViewClicked {
@@ -58,6 +49,14 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
 
     override fun setObservers() {
         super.setObservers()
+
+        viewModel.todayChoiceRecipes.observe(viewLifecycleOwner) {
+            todayChoiceAdapter.setData(it)
+        }
+
+        viewModel.topRecipes.observe(viewLifecycleOwner) {
+            topRecipesAdapter.setData(it)
+        }
 
         viewModel.actionNavigate.observeNotNull(viewLifecycleOwner) {
             when (it) {

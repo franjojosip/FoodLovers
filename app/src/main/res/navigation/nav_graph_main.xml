@@ -6,16 +6,7 @@
     app:startDestination="@+id/nav_graph_home">
 
     <include app:graph="@navigation/nav_graph_home" />
-
-    <fragment
-        android:id="@+id/nav_recipes"
-        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.recipes.RecipesFragment"
-        android:label="Recipes"
-        tools:layout="@layout/fragment_recipes">
-        <action
-            android:id="@+id/action_nav_recipes_to_nav_create_recipe"
-            app:destination="@id/nav_create_recipe" />
-    </fragment>
+    <include app:graph="@navigation/nav_graph_recipes" />
 
     <fragment
         android:id="@+id/nav_favorites"
@@ -30,9 +21,9 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_create_recipe"
-        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeFragment"
-        android:label="Create recipe"
-        tools:layout="@layout/fragment_create_recipe" />
+        android:id="@+id/nav_splash_screen"
+        android:name="ht.ferit.fjjukic.foodlovers.app_main.view.StartScreenFragment"
+        android:label="Splash screen"
+        tools:layout="@layout/fragment_splash_screen" />
 
 </navigation>

@@ -1,23 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/playfair_display_regular"
+            android:text="Find new recipes"
+            android:textColor="@color/color_black"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:singleSelection="true" />
+
+        <TextView
+            android:id="@+id/tv_total_recipes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/playfair_display_semi_bold"
+            android:text="381 Total recipes"
+            android:textColor="@color/color_black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cg_categories" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cv_filter"
+            android:layout_width="60dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_total_recipes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_total_recipes">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_filter"
+                android:backgroundTint="@color/color_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_filter"
+            tools:listitem="@layout/search_recipe_item" />
+
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:backgroundTint="@color/home_screen_filter"
-            android:src="@drawable/ic_add"
+            android:layout_margin="32dp"
+            app:backgroundTint="@color/btn_create_recipe"
             app:elevation="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:maxImageSize="32dp"
-            app:pressedTranslationZ="12dp" />
+            app:pressedTranslationZ="12dp"
+            app:srcCompat="@drawable/ic_add_white"
+            app:tint="@color/color_white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -89,7 +89,7 @@
     <color name="home_screen_background">#8FFFFFFF</color>
     <color name="home_screen_filter">#ADC8A796</color>
 
-    <color name="btn_create_recipe">#D8C69982</color>
+    <color name="btn_create_recipe">#F7D5A853</color>
 
     <color name="easy_difficulty_color">#A4247C1E</color>
     <color name="medium_difficulty_color">#B9B68F1D</color>

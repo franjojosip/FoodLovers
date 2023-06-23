@@ -1,10 +1,18 @@
 package ht.ferit.fjjukic.foodlovers.app_common.firebase
 
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import ht.ferit.fjjukic.foodlovers.app_common.model.BaseModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.Recipe
 import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class FirebaseDB {
     private val dbReference: DatabaseReference by lazy {
@@ -298,27 +306,13 @@ class FirebaseDB {
         }
     }
 
-    fun postRecipe(recipe: RecipeModel): Observable<Boolean> {
-        return Observable.create { emitter ->
-            dbReference.child("recipe").orderByChild("id").equalTo(recipe.id)
-                .addValueEventListener(
-                    object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {
-                            emitter.onError(Throwable(error.message))
-                        }
-
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (!snapshot.exists()) {
-                                val key = dbReference.child("recipe").push().key
-                                recipe.id = key.toString()
-                                dbReference.child("recipe").child(key!!).setValue(recipe)
-                                emitter.onNext(true)
-                            } else {
-                                emitter.onNext(false)
-                            }
-                        }
-                    }
-                )
+    suspend fun createRecipe(recipe: Recipe): Boolean {
+        return try {
+            val reference = dbReference.child("recipes").child(recipe.id)
+            reference.setValue(recipe).await()
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 
@@ -368,28 +362,17 @@ class FirebaseDB {
         }
     }
 
-    fun getRecipes(): Observable<List<RecipeModel>> {
-        return Observable.create { emitter ->
-            dbReference.child("recipe").addListenerForSingleValueEvent(
-                object : ValueEventListener {
-                    override fun onCancelled(error: DatabaseError) {
-                        emitter.onError(Throwable(error.message))
-                    }
+    suspend fun getRecipes(): MutableList<Recipe> = withContext(Dispatchers.IO) {
+        val data = dbReference.child("recipes").get().await()
+        val list = mutableListOf<Recipe>()
 
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val list = mutableListOf<RecipeModel>()
-                        if (snapshot.exists() && snapshot.children.count() > 0) {
-                            snapshot.children.forEach {
-                                val model = it.getValue(RecipeModel::class.java)
-                                model?.id = it.key.toString()
-                                model?.let { item -> list.add(item) }
-                            }
-                        }
-                        emitter.onNext(list)
-                    }
-                }
-            )
+        data.children.forEach {
+            val model = it.getValue(Recipe::class.java)
+            model?.id = it.key.toString()
+            model?.let { item -> list.add(item) }
         }
+
+        list
     }
 
     fun getRecipe(recipeId: String): Observable<RecipeModel> {

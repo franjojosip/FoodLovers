@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import androidx.core.view.children
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import ht.ferit.fjjukic.foodlovers.R
@@ -34,7 +33,8 @@ class CustomRemovableChipGroup @JvmOverloads constructor(
 
     @SuppressLint("InflateParams")
     private fun addChip(item: FilterItem) {
-        val chip = LayoutInflater.from(context).inflate(R.layout.search_filter_chip, null) as Chip
+        val chip =
+            LayoutInflater.from(context).inflate(R.layout.chip_filter_with_remove, null) as Chip
         chip.id = View.generateViewId()
         chip.text = item.value
 

@@ -24,7 +24,7 @@ ext {
     circleImageView = '3.1.0'
     coreKtx = '1.10.0'
     constraintLayout = '2.1.4'
-    cropImage = '2.2.6-native'
+    cropImage = '2.2.8-native'
     glide = '4.13.0'
     gson = '2.9.0'
     koin = '3.1.5'

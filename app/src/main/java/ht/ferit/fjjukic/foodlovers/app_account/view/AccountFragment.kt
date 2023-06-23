@@ -1,7 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_account.view
 
 import android.Manifest
-import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -16,7 +15,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_account.view_model.AccountViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.listener.LocationHandler
-import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionEvent
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
@@ -30,7 +28,7 @@ import org.greenrobot.eventbus.EventBus
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>(),
-    ActivityCompat.OnRequestPermissionsResultCallback, PermissionHandler, LocationHandler {
+    ActivityCompat.OnRequestPermissionsResultCallback, LocationHandler {
 
     override val layoutId: Int = R.layout.fragment_account
     override val viewModel: AccountViewModel by viewModel()
@@ -47,16 +45,12 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
             }
         }
 
-    private var imagePickerResultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            val uri = result?.data?.data
-            if (result.resultCode == Activity.RESULT_OK) {
-                uri?.let {
-                    viewModel.handleImagePathChange(it)
-                    context?.loadImage(it.toString(), binding.ivProfileImage)
-                }
-            }
+
+    private val imagePickerResultLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let { viewModel.handleImagePathChange(it) }
         }
+
 
     private var imageCaptureResultLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
@@ -77,20 +71,22 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
 
     private fun setUpListeners() {
         binding.ivProfileImage.setOnClickListener {
-            requestPermissions(
+            requestRequiredPermissions(
                 action = ::chooseImageFromGallery,
                 permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                messageId = R.string.image_storage_permission_error
+                messageId = R.string.image_storage_permission_error,
+                permissionLauncher
             )
         }
         binding.clTakeImage.setOnClickListener {
-            requestPermissions(
+            requestRequiredPermissions(
                 action = ::captureImage,
                 permissions = arrayOf(
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.CAMERA
                 ),
-                messageId = R.string.image_capture_permission_error
+                messageId = R.string.image_capture_permission_error,
+                permissionLauncher = permissionLauncher
 
             )
         }
@@ -143,29 +139,6 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
         }
     }
 
-    private fun requestPermissions(
-        action: () -> Unit,
-        permissions: Array<String>,
-        messageId: Int
-    ) {
-        when {
-            checkPermissions(
-                activity as Context,
-                permissions
-            ) -> {
-                action()
-            }
-            checkShouldShowPermissionRationale(requireActivity(), permissions) -> {
-                showToast(getString(messageId))
-                permissionLauncher.launch(permissions)
-            }
-            else -> {
-                showToast(getString(R.string.general_error_permissions))
-                openSettings(requireContext())
-            }
-        }
-    }
-
     private fun captureImage() {
         val values = ContentValues()
         values.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, "")
@@ -179,9 +152,7 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
     }
 
     private fun chooseImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        imagePickerResultLauncher.launch(intent)
+        imagePickerResultLauncher.launch("image/*")
     }
 
     private fun sendImageCapturedNotification(uri: Uri) {

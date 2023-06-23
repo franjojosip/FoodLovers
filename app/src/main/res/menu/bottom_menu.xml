@@ -7,7 +7,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/nav_recipes"
+        android:id="@+id/nav_graph_recipes"
         android:icon="@drawable/ic_plate"
         android:title="Recipes"
         app:showAsAction="ifRoom" />

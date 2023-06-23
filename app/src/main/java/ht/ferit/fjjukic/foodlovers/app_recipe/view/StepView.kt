@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.StepUI
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.Step
 import ht.ferit.fjjukic.foodlovers.databinding.CardStepBinding
 
 class StepView @JvmOverloads constructor(
@@ -32,12 +32,12 @@ class StepView @JvmOverloads constructor(
         }
     }
 
-    fun getData(): StepUI? {
+    fun getData(): Step? {
         val step = step
         val description = binding.etStepDescription.text.toString()
 
         return when {
-            description.isNotEmpty() -> return StepUI(step, description)
+            description.isNotEmpty() -> return Step(step, description)
             else -> null
         }
     }

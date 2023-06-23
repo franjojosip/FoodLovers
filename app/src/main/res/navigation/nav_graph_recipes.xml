@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_recipes"
+    app:startDestination="@id/nav_recipes">
+
+    <fragment
+        android:id="@+id/nav_recipes"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.recipes.RecipesFragment"
+        android:label="Recipes"
+        tools:layout="@layout/fragment_recipes">
+        <action
+            android:id="@+id/action_nav_recipes_to_nav_create_recipe"
+            app:destination="@id/nav_create_recipe"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_create_recipe"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeFragment"
+        android:label="Create recipe"
+        tools:layout="@layout/fragment_create_recipe" />
+
+</navigation>

@@ -8,6 +8,7 @@ class UserModel(
     var name: String = "",
     var email: String = "",
     var imageUrl: String = "",
+    var isAdmin: Boolean = false,
     var latitude: String = Constants.DEFAULT_LAT,
     var longitude: String = Constants.DEFAULT_LONG
 )

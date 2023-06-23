@@ -12,7 +12,7 @@ import ht.ferit.fjjukic.foodlovers.app_recipe.filter.FilterFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
-import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.RecipeAdapter
+import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.BasicRecipesAdapter
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentSearchRecipesBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -22,8 +22,8 @@ class SearchFragment : BaseFragment<HomeViewModel, FragmentSearchRecipesBinding>
     override val viewModel: HomeViewModel by sharedViewModel()
     override val layoutId: Int = R.layout.fragment_search_recipes
 
-    private val recipeAdapter: RecipeAdapter by lazy {
-        RecipeAdapter().apply {
+    private val recipeAdapter: BasicRecipesAdapter by lazy {
+        BasicRecipesAdapter().apply {
             setData(mutableListOf(NoRecipePlaceholder))
         }
     }
@@ -45,6 +45,9 @@ class SearchFragment : BaseFragment<HomeViewModel, FragmentSearchRecipesBinding>
         viewModel.searchHistory.observeNotNull(viewLifecycleOwner) {
             binding.tvHistory.isVisible = it.isNotEmpty()
             binding.cgHistory.setData(it)
+        }
+        viewModel.currentRecipes.observe(viewLifecycleOwner) { recipes ->
+            recipes?.let { recipeAdapter.setData(it) }
         }
     }
 

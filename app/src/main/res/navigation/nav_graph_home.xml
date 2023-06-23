@@ -12,12 +12,18 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_nav_home_to_nav_search_recipes"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
             app:destination="@id/nav_search_recipes" />
         <action
             android:id="@+id/action_nav_home_to_nav_search_category"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
             app:destination="@id/nav_search_category" />
         <action
             android:id="@+id/action_nav_home_to_nav_show_recipe"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
             app:destination="@id/nav_show_recipe" />
     </fragment>
 
