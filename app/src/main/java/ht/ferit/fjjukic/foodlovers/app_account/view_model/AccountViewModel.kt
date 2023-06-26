@@ -8,7 +8,6 @@ import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseSource
 import ht.ferit.fjjukic.foodlovers.app_common.live_data.SingleLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
-import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
@@ -25,10 +24,6 @@ class AccountViewModel(
 
     private val _user: MutableLiveData<UserModel> = MutableLiveData()
     val currentUser: LiveData<UserModel> = _user
-
-    val actionNavigate: LiveData<ActionNavigate> = _actionNavigate
-    val showMessage: LiveData<MessageModel> = _showMessage
-    val showLoading: LiveData<Boolean> = _showLoading
 
     fun init() {
         _user.postValue(preferenceManager.user)

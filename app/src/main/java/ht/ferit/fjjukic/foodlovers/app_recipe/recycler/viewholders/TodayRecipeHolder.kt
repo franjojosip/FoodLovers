@@ -21,7 +21,7 @@ class TodayRecipeHolder(private val binding: RecipeListItemBinding) :
             .into(binding.ivRecipe)
 
         binding.root.setOnClickListener {
-            listener?.onRecipeClicked(recipe.id)
+            listener?.onRecipeClick(recipe.id)
         }
     }
 }

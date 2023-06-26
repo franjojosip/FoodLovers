@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.core.Observable
 interface UserRepository {
     fun insert(user: UserModel): Observable<Boolean>
 
-    fun get(userId: String): Observable<UserModel>
+    suspend fun get(userId: String): Result<UserModel>
 
     fun update(user: UserModel): Observable<Boolean>
 

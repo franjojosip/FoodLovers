@@ -1,6 +1,13 @@
 package ht.ferit.fjjukic.foodlovers.app_common.model
 
+import androidx.navigation.NavDirections
+
 sealed class ActionNavigate {
+
+    object Back : ActionNavigate()
+
+    class NavigationWithDirections(val navDirections: NavDirections) : ActionNavigate()
+
     object Login : ActionNavigate()
     object Registration : ActionNavigate()
     object ForgotPassword : ActionNavigate()

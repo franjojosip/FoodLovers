@@ -5,6 +5,8 @@
     android:id="@+id/nav_graph_home"
     app:startDestination="@id/nav_home">
 
+    <include app:graph="@navigation/nav_graph_show_recipe" />
+
     <fragment
         android:id="@+id/nav_home"
         android:name="ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeFragment"
@@ -12,30 +14,23 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_nav_home_to_nav_search_recipes"
+            app:destination="@id/nav_search_recipes"
             app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:destination="@id/nav_search_recipes" />
+            app:exitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_nav_home_to_nav_search_category"
+            app:destination="@id/nav_search_category"
             app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:destination="@id/nav_search_category" />
+            app:exitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_nav_home_to_nav_show_recipe"
+            android:id="@+id/action_nav_home_to_nav_graph_show_recipe"
+            app:destination="@id/nav_graph_show_recipe"
             app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:destination="@id/nav_show_recipe" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/nav_show_recipe"
-        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.showrecipe.ShowRecipeFragment"
-        android:label="ShowRecipeFragment"
-        tools:layout="@layout/fragment_show_recipe">
-
-        <argument
-            android:name="id"
-            app:argType="string" />
+            app:exitAnim="@anim/fade_out">
+            <argument
+                android:name="id"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
@@ -54,6 +49,23 @@
         android:id="@+id/nav_search_recipes"
         android:name="ht.ferit.fjjukic.foodlovers.app_recipe.search.SearchFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_search_recipes" />
+        tools:layout="@layout/fragment_search_recipes">
+        <action
+            android:id="@+id/action_nav_search_recipes_to_nav_filter_recipes"
+            app:destination="@id/nav_filter_recipes" />
+        <action
+            android:id="@+id/action_nav_search_recipes_to_nav_graph_show_recipe"
+            app:destination="@id/nav_graph_show_recipe">
+            <argument
+                android:name="id"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_filter_recipes"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.filter.FilterFragment"
+        android:label="FilterFragment"
+        tools:layout="@layout/fragment_filter" />
 
 </navigation>

@@ -19,7 +19,7 @@ class CustomRemovableChipGroup @JvmOverloads constructor(
 ) : ChipGroup(context, attrs, defStyleAttr) {
 
     interface RemovableClickListener {
-        fun onItemClicked(item: FilterItem)
+        fun onItemClick(item: FilterItem)
     }
 
     private var listener: RemovableClickListener? = null
@@ -46,7 +46,7 @@ class CustomRemovableChipGroup @JvmOverloads constructor(
 
                 override fun onAnimationEnd(animation: Animation?) {
                     removeView(it)
-                    listener?.onItemClicked(item)
+                    listener?.onItemClick(item)
                 }
 
                 override fun onAnimationStart(animation: Animation?) {}

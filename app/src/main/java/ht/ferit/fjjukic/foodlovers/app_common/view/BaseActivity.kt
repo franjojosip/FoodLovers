@@ -12,7 +12,7 @@ import org.greenrobot.eventbus.Subscribe
 abstract class BaseActivity<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
     AppCompatActivity() {
     abstract val layoutId: Int
-    abstract val viewModel: VM
+    abstract val viewModel: VM?
     lateinit var binding: ViewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

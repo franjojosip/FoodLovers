@@ -2,6 +2,7 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.module
 
 import ht.ferit.fjjukic.foodlovers.app_recipe.RecipesViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
+import ht.ferit.fjjukic.foodlovers.app_recipe.favorites.FavoritesViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.showrecipe.ShowRecipeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -22,5 +23,9 @@ val recipeModule = module {
 
     viewModel {
         RecipesViewModel()
+    }
+
+    viewModel {
+        FavoritesViewModel()
     }
 }

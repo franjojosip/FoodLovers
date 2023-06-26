@@ -3,7 +3,6 @@ package ht.ferit.fjjukic.foodlovers.app_main.view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseSource
-import ht.ferit.fjjukic.foodlovers.app_common.live_data.SingleLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
@@ -16,8 +15,6 @@ class NavigationActivityViewModel(
 
     private var _user: MutableLiveData<UserModel> = MutableLiveData(preferenceManager.user)
     val user: LiveData<UserModel> = _user
-
-    val actionNavigate: LiveData<ActionNavigate> = _actionNavigate
 
     fun logout() {
         firebaseSource.logout()

@@ -78,7 +78,7 @@
     <!-- LOGIN STRINGS -->
     <string name="login_invalid_credentials_error">Invalid login credentials</string>
     <string name="login_remember_details">Remember your log-in details? <u>Login</u></string>
-    <string name="login_go_back">Back to login page</string>
+    <string name="login_go_back">Back to <u>Login</u></string>
     <string name="login_sign_up">Don\'t have an account? <u>Sign up</u></string>
     <string name="login_success">You\'ve been successfully logged in!</string>
 
@@ -87,7 +87,8 @@
     <string name="register_fields_required_error">Invalid registration fields input!</string>
 
     <!-- LOGOUT STRINGS -->
-    <string name="logout_question">Do you want to logout?</string>
+    <string name="logout_question">Are you sure you want to logout?</string>
+    <string name="logout_message">You will need to authenticate again</string>
 
     <!-- LOCATION STRINGS -->
     <string name="location">Location</string>
@@ -125,7 +126,7 @@
     <string name="image_storage_permission_error">Storage permissions are required for picking an image!</string>
     <string name="image_not_chosen">No image chosen</string>
     <string name="image_notification">FoodLovers notification</string>
-    <string name="image_new_saved">Image saved</string>
+    <string name="image_new_saved">Image saved in the gallery</string>
     <string name="image_user">User image</string>
     <string name="image_saved_image_notification">Saved image notification</string>
     <string name="image_click_to_change">Click here to add an image</string>

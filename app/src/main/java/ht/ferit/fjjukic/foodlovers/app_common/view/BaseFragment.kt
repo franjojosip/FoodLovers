@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding4.widget.textChanges
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
-import ht.ferit.fjjukic.foodlovers.app_common.model.ActionBack
+import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
 import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
@@ -55,24 +55,36 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
         init()
 
         toolbar?.setupAction {
-            findNavController().popBackStack()
+            findNavController().navigateUp()
         }
     }
 
-    open fun setObservers() {
-        viewModel.screenEvent.observe(viewLifecycleOwner) {
-            when (it) {
-                is MessageModel -> showToast(it)
-                is SnackbarModel -> showSnackbar(it)
-                is DialogModel -> context?.showAlertDialog(it)
+    protected open fun setObservers() {
+        viewModel.screenEvent.observe(viewLifecycleOwner) { screenEvent ->
+            when (screenEvent) {
+                is MessageModel -> showToast(screenEvent)
+                is SnackbarModel -> showSnackbar(screenEvent)
+                is DialogModel -> context?.showAlertDialog(screenEvent)
                 is LoadingBar -> {
                     (binding.root.findViewById(R.id.loader_layout) as? View)?.isVisible =
-                        it.isVisible
+                        screenEvent.isVisible
                 }
-
-                ActionBack -> findNavController().popBackStack()
             }
         }
+        viewModel.actionNavigate.observe(viewLifecycleOwner) {
+            when (it) {
+                is ActionNavigate.NavigationWithDirections -> {
+                    findNavController().navigate(it.navDirections)
+                }
+
+                is ActionNavigate.Back -> findNavController().navigateUp()
+
+                else -> handleActionNavigate(it)
+            }
+        }
+    }
+
+    protected open fun handleActionNavigate(actionNavigate: ActionNavigate) {
     }
 
     abstract fun init()
@@ -110,7 +122,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
         }
     }
 
-    private fun showSnackbar(model: SnackbarModel) {
+    protected fun showSnackbar(model: SnackbarModel) {
         val length = if (model.isShortLength) Snackbar.LENGTH_SHORT else Snackbar.LENGTH_LONG
         when {
             !model.message.isNullOrEmpty() -> {
@@ -162,6 +174,11 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
             }
         }
     }
+
+    /**
+     * RXJAVA
+     */
+
 
     protected fun <T : Any> Observable<T>.subscribeToView(onNext: (T) -> Unit = {}) = addDisposable(
         this.observeOn(AndroidSchedulers.mainThread()).subscribe(onNext) {

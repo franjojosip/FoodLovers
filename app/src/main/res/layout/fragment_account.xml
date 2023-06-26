@@ -86,7 +86,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="20dp"
-                        android:fontFamily="serif"
+                        android:fontFamily="@font/playfair_display_regular"
                         android:textAlignment="center"
                         android:textColor="@color/color_black"
                         android:textSize="17sp"
@@ -372,7 +372,6 @@
                     android:fontFamily="@font/playfair_display_bold"
                     android:textColor="@color/color_splash_btn"
                     android:textSize="17sp"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_logout"
                     app:layout_constraintTop_toTopOf="parent" />

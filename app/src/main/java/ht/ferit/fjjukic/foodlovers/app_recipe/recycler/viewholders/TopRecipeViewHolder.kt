@@ -56,7 +56,7 @@ class TopRecipeViewHolder(private val binding: TopRecipeItemBinding) :
             .into(binding.ivImage)
 
         binding.root.setOnClickListener {
-            listener?.onRecipeClicked(recipe.id)
+            listener?.onRecipeClick(recipe.id)
         }
     }
 }

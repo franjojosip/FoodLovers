@@ -2,6 +2,7 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavDirections
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.FilterRepositoryMock
 import ht.ferit.fjjukic.foodlovers.app_common.repository.MockRepository
@@ -11,6 +12,7 @@ import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
+import ht.ferit.fjjukic.foodlovers.app_recipe.search.SearchFragmentDirections
 
 class HomeViewModel(
     private val categoryRepository: CategoryRepository,
@@ -36,8 +38,6 @@ class HomeViewModel(
 
     val selectedSorts: List<FilterItem>
         get() = _selectedFilters.value?.filterIsInstance<FilterItem.Sort>() ?: listOf()
-
-    val actionNavigate: LiveData<ActionNavigate> = _actionNavigate
 
     var categories = listOf<HomeScreenRecipe>()
         private set
@@ -79,6 +79,8 @@ class HomeViewModel(
             addAll(difficulties)
             addAll(sorts)
         }
+
+        _actionNavigate.postValue(ActionNavigate.Back)
     }
 
     fun onCategoryFilterSelected(category: String) {
@@ -162,15 +164,33 @@ class HomeViewModel(
         }
     }
 
-    fun onRecipeClicked(id: String) {
-        _actionNavigate.postValue(ActionNavigate.ShowRecipe(id))
+    fun onRecipeClick(navDirections: NavDirections) {
+        _actionNavigate.postValue(
+            ActionNavigate.NavigationWithDirections(navDirections)
+        )
     }
 
-    fun onCategoryClicked(category: String) {
-        _actionNavigate.postValue(ActionNavigate.CategoryRecipes(category))
+    fun onCategoryClick(category: String) {
+        _actionNavigate.postValue(
+            ActionNavigate.NavigationWithDirections(
+                HomeFragmentDirections.actionNavHomeToNavSearchCategory(category)
+            )
+        )
     }
 
-    fun navigateToSearch() {
-        _actionNavigate.postValue(ActionNavigate.SearchRecipes)
+    fun onSearchClick() {
+        _actionNavigate.postValue(
+            ActionNavigate.NavigationWithDirections(
+                HomeFragmentDirections.actionNavHomeToNavSearchRecipes()
+            )
+        )
+    }
+
+    fun onFilterClick() {
+        _actionNavigate.postValue(
+            ActionNavigate.NavigationWithDirections(
+                SearchFragmentDirections.actionNavSearchRecipesToNavFilterRecipes()
+            )
+        )
     }
 }

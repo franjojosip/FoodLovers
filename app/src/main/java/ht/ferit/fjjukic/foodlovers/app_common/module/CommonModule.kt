@@ -25,7 +25,7 @@ val commonModule = module {
 
     factory<CategoryRepository> { CategoryRepositoryImpl() }
 
-    factory<UserRepository> { UserRepositoryImpl(get(), get()) }
+    factory<UserRepository> { UserRepositoryImpl(get(), get(), get()) }
     factory<RecipeRepository> { RecipeRepositoryImpl(get()) }
     factory<FoodTypeRepository> { FoodTypeRepositoryImpl(get()) }
     factory<DifficultyLevelRepository> { DifficultyLevelRepositoryImpl(get()) }

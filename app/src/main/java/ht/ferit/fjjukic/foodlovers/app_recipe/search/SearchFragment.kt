@@ -3,12 +3,10 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.search
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_common.utils.navigateToScreen
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_common.view.CustomRemovableChipGroup
-import ht.ferit.fjjukic.foodlovers.app_main.view.MainActivity
-import ht.ferit.fjjukic.foodlovers.app_recipe.filter.FilterFragment
+import ht.ferit.fjjukic.foodlovers.app_recipe.RecipeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
@@ -17,13 +15,13 @@ import ht.ferit.fjjukic.foodlovers.databinding.FragmentSearchRecipesBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SearchFragment : BaseFragment<HomeViewModel, FragmentSearchRecipesBinding>(),
-    CustomRemovableChipGroup.RemovableClickListener {
+    CustomRemovableChipGroup.RemovableClickListener, RecipeListener {
 
     override val viewModel: HomeViewModel by sharedViewModel()
     override val layoutId: Int = R.layout.fragment_search_recipes
 
     private val recipeAdapter: BasicRecipesAdapter by lazy {
-        BasicRecipesAdapter().apply {
+        BasicRecipesAdapter(this).apply {
             setData(mutableListOf(NoRecipePlaceholder))
         }
     }
@@ -31,8 +29,20 @@ class SearchFragment : BaseFragment<HomeViewModel, FragmentSearchRecipesBinding>
     override fun init() {
         toolbar = binding.toolbarLayout
 
-        setListeners()
-        setScreen()
+        binding.cvFilter.setOnClickListener {
+            viewModel.onFilterClick()
+        }
+
+        binding.recyclerView.adapter = recipeAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.searchView.handleSearch {
+            binding.searchView.clearText()
+            viewModel.addSearchFilter(it)
+        }
+
+        binding.cgFilters.setListener(this)
+        binding.cgHistory.setListener(this)
     }
 
     override fun setObservers() {
@@ -51,29 +61,13 @@ class SearchFragment : BaseFragment<HomeViewModel, FragmentSearchRecipesBinding>
         }
     }
 
-    private fun setListeners() {
-        binding.cvFilter.setOnClickListener {
-            (activity as MainActivity).navigateToScreen(
-                FilterFragment(),
-                FilterFragment.TAG
-            )
-        }
-    }
-
-    private fun setScreen() {
-        binding.recyclerView.adapter = recipeAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        binding.searchView.handleSearch {
-            binding.searchView.clearText()
-            viewModel.addSearchFilter(it)
-        }
-
-        binding.cgFilters.setListener(this)
-        binding.cgHistory.setListener(this)
-    }
-
-    override fun onItemClicked(item: FilterItem) {
+    override fun onItemClick(item: FilterItem) {
         viewModel.removeFilter(item)
+    }
+
+    override fun onRecipeClick(id: String) {
+        viewModel.onRecipeClick(
+            SearchFragmentDirections.actionNavSearchRecipesToNavGraphShowRecipe(id)
+        )
     }
 }

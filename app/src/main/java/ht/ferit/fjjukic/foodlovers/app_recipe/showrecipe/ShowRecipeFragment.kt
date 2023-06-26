@@ -24,12 +24,16 @@ class ShowRecipeFragment: BaseFragment<ShowRecipeViewModel, FragmentShowRecipeBi
     override fun init() {
         toolbar = binding.toolbarLayout
         viewModel.loadRecipe(args.id)
+
+        binding.toolbarLayout.enableEndAction()
     }
 
     override fun setObservers() {
         super.setObservers()
 
         viewModel.recipe.observeNotNull(viewLifecycleOwner) { recipe ->
+            binding.toolbarLayout.setTitle(recipe.title)
+
             binding.tvRecipeTitle.text = recipe.title
             binding.tvRecipeAuthor.text = recipe.user
 

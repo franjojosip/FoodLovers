@@ -1,9 +1,7 @@
 package ht.ferit.fjjukic.foodlovers.app_main
 
 import android.app.Application
-import android.content.Context
-import com.google.firebase.database.FirebaseDatabase
-import ht.ferit.fjjukic.foodlovers.app_auth.module.authModule
+import ht.ferit.fjjukic.foodlovers.app_auth.di.authModule
 import ht.ferit.fjjukic.foodlovers.app_common.module.commonModule
 import ht.ferit.fjjukic.foodlovers.app_main.module.appModule
 import ht.ferit.fjjukic.foodlovers.app_recipe.module.recipeModule

@@ -6,7 +6,6 @@
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
-        <item name="android:statusBarColor">@color/color_accent</item>
         <item name="android:autofilledHighlight">@android:color/transparent</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="android:ambientShadowAlpha">0.04</item>
@@ -37,6 +36,7 @@
         <item name="endIconTint">@color/color_text_input_layout</item>
         <item name="colorControlActivated">@color/color_text_input_layout</item>
         <item name="errorTextColor">@color/color_text_input_layout_error</item>
+        <item name="errorIconTint">@color/color_text_input_layout_error</item>
         <item name="boxStrokeErrorColor">@color/color_text_input_layout_error</item>
         <item name="boxStrokeWidth">1.5dp</item>
     </style>

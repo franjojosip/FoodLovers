@@ -9,6 +9,7 @@
     <color name="color_white2">#FFFFFF</color>
     <color name="color_smoke">#7CA89D9D</color>
     <color name="color_red">#B7DD3D3D</color>
+    <color name="color_red_full">#DD3D3D</color>
     <color name="color_splash_title">#EFEDE8</color>
     <color name="color_splash_btn">#EB9E7C3A</color>
     <color name="color_profile_settings">#CEC3A365</color>
@@ -18,12 +19,15 @@
     <color name="color_navigation_bar_icon_inactive">#AFAFAF</color>
     <color name="color_navigation_bar_fab">#EDB86A</color>
 
+    <color name="color_transparent_shadow_bar">#39858383</color>
+
     <color name="color_text_input_layout">#B7858383</color>
     <color name="color_text_input_layout_stroke">#B78C8C8C</color>
     <color name="color_text_input_layout_box">#B7717171</color>
     <color name="color_text_input_layout_hint">#B75A5A5A</color>
-    <color name="color_text_input_layout_error">#B7EC2929</color>
+    <color name="color_text_input_layout_error">#B7B62727</color>
     <color name="color_text_input_layout_search">#B7EFEDED</color>
+    <color name="color_text_input_layout_edit_text">#6C6C6C</color>
 
     <color name="color_text_input_layout_box_light">#B7A1A1A1</color>
 
@@ -57,7 +61,9 @@
     <color name="color_account_logout">#E65959</color>
     <color name="color_account_text">#656565</color>
 
-    <color name="color_btn_enabled">#DD9E7C3A</color>
+    <color name="color_auth_icon">#DDC29846</color>
+
+    <color name="color_btn_enabled">#DDC29846</color>
     <color name="color_btn_disabled">#EB514121</color>
 
     <color name="color_recipe_title">#555555</color>

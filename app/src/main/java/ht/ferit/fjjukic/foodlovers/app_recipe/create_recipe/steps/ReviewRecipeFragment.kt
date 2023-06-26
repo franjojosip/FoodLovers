@@ -54,7 +54,7 @@ class ReviewRecipeFragment : BaseFragment<CreateRecipeViewModel, FragmentReviewB
         if (!viewModel.isDataChanged) return
 
         binding.tvRecipeTitle.text = viewModel.recipe.name.ifBlank { "Here goes your title" }
-        binding.tvRecipeAuthor.text = viewModel.author
+        binding.tvRecipeAuthor.text = viewModel.recipe.author
         binding.tvNumberOfServings.text = viewModel.recipe.servings.convertToServings()
         binding.tvTime.text = viewModel.recipe.time.convertToTime()
 

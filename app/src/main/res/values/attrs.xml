@@ -7,5 +7,6 @@
     <declare-styleable name="CustomToolbarView">
         <attr format="string" name="text"/>
         <attr format="reference" name="image"/>
+        <attr name="actionColor" format="reference" />
     </declare-styleable>
 </resources>

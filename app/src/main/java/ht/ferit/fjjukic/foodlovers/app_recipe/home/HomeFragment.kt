@@ -1,11 +1,8 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.home
 
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
-import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.HomeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.RecipeAdapter
@@ -28,7 +25,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
     override fun init() {
         binding.searchView.disableSearch()
         binding.searchView.handleViewClicked {
-            viewModel.navigateToSearch()
+            viewModel.onSearchClick()
         }
 
         binding.categoryRecyclerView.adapter = categoryAdapter
@@ -57,37 +54,15 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
         viewModel.topRecipes.observe(viewLifecycleOwner) {
             topRecipesAdapter.setData(it)
         }
-
-        viewModel.actionNavigate.observeNotNull(viewLifecycleOwner) {
-            when (it) {
-                is ActionNavigate.SearchRecipes -> {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionNavHomeToNavSearchRecipes()
-                    )
-                }
-
-                is ActionNavigate.ShowRecipe -> {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionNavHomeToNavShowRecipe(it.id)
-                    )
-                }
-
-                is ActionNavigate.CategoryRecipes -> {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionNavHomeToNavSearchCategory(it.category)
-                    )
-                }
-
-                else -> {}
-            }
-        }
     }
 
-    override fun onCategoryClicked(category: String) {
-        viewModel.onCategoryClicked(category)
+    override fun onCategoryClick(category: String) {
+        viewModel.onCategoryClick(category)
     }
 
-    override fun onRecipeClicked(id: String) {
-        viewModel.onRecipeClicked(id)
+    override fun onRecipeClick(id: String) {
+        viewModel.onRecipeClick(
+            HomeFragmentDirections.actionNavHomeToNavGraphShowRecipe(id)
+        )
     }
 }

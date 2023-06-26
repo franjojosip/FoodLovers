@@ -2,9 +2,8 @@ package ht.ferit.fjjukic.foodlovers.app_common.utils
 
 import com.google.android.material.textfield.TextInputLayout
 
-fun TextInputLayout.validateField(fieldValidator: (String) -> Int?, toggleAction: () -> Unit) {
-    this.toggleError(fieldValidator(this.getValue()))
-    toggleAction()
+fun TextInputLayout.validateField(fieldValidator: (String) -> Int?) {
+    toggleError(fieldValidator(this.getValue()))
 }
 
 fun TextInputLayout.toggleError(errorId: Int?) {

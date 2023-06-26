@@ -5,62 +5,68 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
-class FirebaseSource(private val preferenceManager: PreferenceManager) {
+class FirebaseSource(
+    private val preferenceManager: PreferenceManager,
+    private val firebaseDB: FirebaseDB
+) {
 
     private val firebaseAuth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()
     }
 
-    fun login(email: String, password: String): Observable<String> {
-        return Observable.create { emitter ->
-            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-                if (!emitter.isDisposed) {
-                    if (it.isSuccessful)
-                        it.result.user?.let { user ->
-                            emitter.onNext(user.uid)
-                        }
-                    else
-                        emitter.onError(Throwable(it.exception?.message))
-                }
+    suspend fun login(email: String, password: String): Result<Boolean> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
+                val userId = result?.user?.uid
+                    ?: return@withContext Result.failure(Exception("Error while working with FirebaseAuth"))
+                preferenceManager.userId = userId
+                preferenceManager.user = firebaseDB.getUser(userId)
+
+                return@withContext Result.success(true)
+            } catch (e: Exception) {
+                return@withContext Result.failure(e)
             }
         }
     }
 
-    fun register(email: String, username: String, password: String): Observable<UserModel> {
-        return Observable.create { emitter ->
-            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-                if (!emitter.isDisposed) {
-                    if (it.isSuccessful) {
-                        it.result.user?.let { user ->
-                            emitter.onNext(
-                                UserModel(
-                                    userId = user.uid,
-                                    name = username,
-                                    email = email
-                                )
-                            )
-                        }
-                    } else
-                        emitter.onError(Throwable(it.exception?.message))
-                }
+    suspend fun register(email: String, username: String, password: String): Result<Boolean> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+
+                val userId = result?.user?.uid
+                    ?: return@withContext Result.failure(Exception("Error while working with FirebaseAuth"))
+
+                val userModel = UserModel(
+                    userId = userId,
+                    name = username,
+                    email = email
+                )
+
+                firebaseDB.createUser(userModel)
+                preferenceManager.user = userModel
+                Result.success(true)
+            } catch (e: Exception) {
+                Result.failure(Throwable(e))
             }
         }
     }
 
-    fun resetPassword(email: String): Observable<Boolean> {
-        return Observable.create { emitter ->
-            firebaseAuth.sendPasswordResetEmail(email)
-                .addOnCompleteListener {
-                    if (!emitter.isDisposed) {
-                        if (it.isSuccessful) {
-                            emitter.onNext(true)
-                        } else
-                            emitter.onError(Throwable(it.exception?.message))
-                    }
-                }
+    suspend fun resetPassword(email: String): Result<Boolean> {
+        return withContext(Dispatchers.IO) {
+            try {
+                firebaseAuth.sendPasswordResetEmail(email).await()
+                Result.success(true)
+
+            } catch (e: Exception) {
+                Result.failure(Throwable(e))
+            }
         }
     }
 

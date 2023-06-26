@@ -21,7 +21,6 @@ class LocationViewModel(
 
     val refreshUser: LiveData<Boolean> = _refreshUser
     val currentUser: LiveData<UserModel> = _user
-    val actionNavigate: LiveData<ActionNavigate> = _actionNavigate
 
     fun updateUserLocation(currentLatLng: LatLng) {
         val updatedUser = currentUser.value

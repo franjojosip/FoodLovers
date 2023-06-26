@@ -30,7 +30,7 @@ CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryRecipes
         viewModel.loadRecipes(args.category)
 
         binding.cvFilter.setOnClickListener {
-            viewModel.handleSortBy(!binding.ivFilter.isSelected)
+            viewModel.handleSortBy(binding.ivFilter.isSelected)
             binding.ivFilter.isSelected = !binding.ivFilter.isSelected
         }
 

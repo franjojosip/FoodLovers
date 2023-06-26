@@ -54,5 +54,6 @@ class BasicRecipe(
     imagePath: String,
     user: String,
     val ingredients: List<Ingredient>,
-    val steps: List<Step>
+    val steps: List<Step>,
+    val isFavorite: Boolean
 ) : HomeScreenRecipe(id, title, description, time, servings, difficulty, imagePath, user)

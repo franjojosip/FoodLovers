@@ -208,29 +208,15 @@ class FirebaseDB {
         }
     }
 
-    fun postUser(user: UserModel): Observable<Boolean> {
-        return Observable.create { emitter ->
-            dbReference.child("user").orderByChild("email").equalTo(user.email)
-                .addValueEventListener(
-                    object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {
-                            emitter.onError(Throwable(error.message))
-                        }
-
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (!snapshot.exists()) {
-                                val key = dbReference.child("user").push().key
-                                user.id = key.toString()
-                                key?.let {
-                                    dbReference.child("user").child(it).setValue(user)
-                                    emitter.onNext(true)
-                                }
-                            } else {
-                                emitter.onNext(false)
-                            }
-                        }
-                    }
-                )
+    suspend fun createUser(user: UserModel): Result<UserModel> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val reference = dbReference.child("users").child(user.userId)
+                reference.setValue(user).await()
+                return@withContext Result.success(user)
+            } catch (e: Exception) {
+                return@withContext Result.failure(e)
+            }
         }
     }
 
@@ -279,30 +265,13 @@ class FirebaseDB {
         }
     }
 
-    fun getUser(userId: String): Observable<UserModel> {
-        return Observable.create { emitter ->
-            dbReference.child("user").orderByChild("userId").equalTo(userId)
-                .addValueEventListener(
-                    object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {
-                            emitter.onError(Throwable(error.message))
-                        }
-
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (snapshot.exists()) {
-                                snapshot.children.forEach {
-                                    val model = it.getValue(UserModel::class.java)
-                                    if (model != null) {
-                                        model.id = it.key.toString()
-                                        emitter.onNext(model)
-                                    }
-                                }
-                            } else {
-                                emitter.onNext(UserModel())
-                            }
-                        }
-                    }
-                )
+    suspend fun getUser(userId: String): UserModel? {
+        return try {
+            val user =
+                dbReference.child("user").orderByChild("userId").equalTo(userId).get().await()
+            user.getValue(UserModel::class.java)
+        } catch (e: Exception) {
+            null
         }
     }
 

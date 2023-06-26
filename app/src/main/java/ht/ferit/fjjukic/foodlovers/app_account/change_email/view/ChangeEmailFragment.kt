@@ -1,10 +1,15 @@
 package ht.ferit.fjjukic.foodlovers.app_account.change_email.view
 
-import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
+import androidx.navigation.fragment.findNavController
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_account.change_email.view_model.ChangeEmailViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
-import ht.ferit.fjjukic.foodlovers.app_common.utils.*
+import ht.ferit.fjjukic.foodlovers.app_common.utils.clearFocusAndHideKeyboard
+import ht.ferit.fjjukic.foodlovers.app_common.utils.getValue
+import ht.ferit.fjjukic.foodlovers.app_common.utils.hideKeyboardOnActionDone
+import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
+import ht.ferit.fjjukic.foodlovers.app_common.utils.validateField
 import ht.ferit.fjjukic.foodlovers.app_common.validators.FieldValidator
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentChangeEmailBinding
@@ -16,48 +21,37 @@ class ChangeEmailFragment :
     override val viewModel: ChangeEmailViewModel by viewModel()
 
     override fun init() {
-        viewModel.init()
-        setUpClickListeners()
-        setUpInputListeners()
-        setUpObservers()
+        setView()
     }
 
-    private fun setUpClickListeners() {
+    private fun setView() {
         binding.btnUpdate.setOnClickListener {
             viewModel.updateEmail(binding.tilNewEmail.getValue(), binding.tilPassword.getValue())
         }
-    }
-
-    private fun setUpInputListeners() {
-        binding.tilNewEmail.editText?.subscribeTextChanges {
-            binding.tilNewEmail.validateField(viewModel::checkEmail, ::toggleBtnUpdate)
+        binding.tilNewEmail.editText?.doOnTextChanged { _, _, _, _ ->
+            binding.tilNewEmail.validateField(viewModel::checkEmail)
         }
 
-        binding.tilPassword.editText?.subscribeTextChanges {
-            binding.tilPassword.validateField(FieldValidator::checkPassword, ::toggleBtnUpdate)
+        binding.tilPassword.editText?.doOnTextChanged { _, _, _, _ ->
+            binding.tilPassword.validateField(FieldValidator::checkPassword)
         }
 
         binding.tilPassword.editText?.hideKeyboardOnActionDone()
     }
 
-    private fun setUpObservers() {
+    override fun setObservers() {
+        super.setObservers()
+
         viewModel.currentUser.observeNotNull(viewLifecycleOwner) {
             binding.tilOldEmail.editText?.setText(it.email)
         }
 
-        viewModel.showMessage.observeNotNull(viewLifecycleOwner) {
-            showToast(it.message, it.messageId)
-        }
-
-        viewModel.showLoading.observeNotNull(viewLifecycleOwner) {
-            binding.loaderLayout.isVisible = it
-        }
-
         viewModel.actionNavigate.observeNotNull(viewLifecycleOwner) {
-            //clearFocusAndHideKeyboard()
+            binding.root.clearFocusAndHideKeyboard()
             if (it is ActionNavigate.Login) {
-                requireContext().startMainActivity()
-                requireActivity().finish()
+                findNavController().navigate(
+                    ChangeEmailFragmentDirections.actionNavChangeEmailToNavGraphHome()
+                )
             }
         }
     }

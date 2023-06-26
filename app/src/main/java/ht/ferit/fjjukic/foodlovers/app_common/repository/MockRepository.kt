@@ -10,7 +10,10 @@ import ht.ferit.fjjukic.foodlovers.app_recipe.model.TodayChoiceRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.TopRecipe
 
 class MockRepository {
+
     companion object {
+
+        private val favoriteIds = listOf("1", "2")
         fun getCategories(): MutableList<HomeScreenRecipe> {
             return mutableListOf(
                 Category("Breakfast", R.drawable.breakfast),
@@ -116,7 +119,12 @@ class MockRepository {
             return mutableListOf<HomeScreenRecipe>().apply {
                 addAll(getTopRecipes().mapToBasicRecipe())
                 addAll(getTodayChoiceRecipes().mapToBasicRecipe())
-            }
+            }.sortedBy { it.title }.toMutableList()
+        }
+
+        fun getFavoriteRecipes(): List<HomeScreenRecipe> {
+            return getRecipes().mapToBasicRecipe().filter { favoriteIds.contains(it.id) }
+                .sortedBy { it.title }
         }
 
         fun getRecipeByID(id: String): BasicRecipe? {
@@ -181,26 +189,28 @@ class MockRepository {
                             6,
                             "Cool:\nRemove the monkey bread from the oven and let it cool in the pan set on a wire rack for about 10 minutes. Loosen the sides with a spatula or butter knife. Flip a large round plate or platter upside down over the pan. Then, carefully flip the pan. You may have pieces of dough stuck to the pan. That’s okay! Simply remove them and tuck them back into the monkey bread. Serve warm.\nMonkey bread is best served warm on the day it is baked. Any leftovers can be stored airtight at room temperature for 1 day, or in the refrigerator for up to 4 days. Reheat the monkey bread in a 300°F oven until warm to the touch, or heat individual servings in the microwave."
                         ),
-                    )
+                    ),
+                    favoriteIds.contains(it.id)
                 )
             }
         }
-    }
-}
 
-private fun MutableList<HomeScreenRecipe>.mapToBasicRecipe(): List<BasicRecipe> {
-    return map {
-        BasicRecipe(
-            it.id,
-            it.title,
-            it.description,
-            it.time,
-            it.servings,
-            it.difficulty,
-            it.imagePath,
-            it.user,
-            listOf(),
-            listOf()
-        )
+        private fun MutableList<HomeScreenRecipe>.mapToBasicRecipe(): List<BasicRecipe> {
+            return map {
+                BasicRecipe(
+                    it.id,
+                    it.title,
+                    it.description,
+                    it.time,
+                    it.servings,
+                    it.difficulty,
+                    it.imagePath,
+                    it.user,
+                    listOf(),
+                    listOf(),
+                    favoriteIds.contains(it.id)
+                )
+            }
+        }
     }
 }

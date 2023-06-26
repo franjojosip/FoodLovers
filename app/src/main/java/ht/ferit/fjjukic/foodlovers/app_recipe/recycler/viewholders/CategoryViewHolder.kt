@@ -20,7 +20,7 @@ class CategoryViewHolder(private val binding: CategoryItemBinding) :
             .into(binding.ivImage)
 
         binding.root.setOnClickListener {
-            listener?.onCategoryClicked(data.title)
+            listener?.onCategoryClick(data.title)
         }
     }
 }

@@ -18,77 +18,7 @@ import kotlinx.coroutines.launch
 class CreateRecipeViewModel(
     private val recipeRepository: RecipeRepository
 ) : BaseViewModel() {
-    val author = "By Sara Tane" // TEST PURPOSE ONLY
-
-    //    private val _recipe = NewRecipe()
-    //TODO REMOVE AFTER MOCK
-    private val _recipe = Recipe(
-        name = "Tomato Basil Pasta",
-        time = 30,
-        servings = 4,
-        author = "Random ",
-        imagePath = "content://com.android.providers.media.documents/document/image%3A1000006904",
-        ingredients = mutableListOf(
-            Ingredient(
-                name = "Tomatoes",
-                amount = "5"
-            ),
-            Ingredient(
-                name = "Garlic",
-                amount = "1"
-            ),
-            Ingredient(
-                name = "Parmesan",
-                amount = "3/4 cup"
-            ),
-            Ingredient(
-                name = "Butter",
-                amount = "4 tablespoons"
-            ),
-            Ingredient(
-                name = "Virgin Oil",
-                amount = "3 tablespoons"
-            ),
-            Ingredient(
-                name = "Lemon",
-                amount = "1"
-            ),
-            Ingredient(
-                name = "Honey",
-                amount = "1 teaspoon"
-            ),
-            Ingredient(
-                name = "Balsamic Vinegar",
-                amount = "1 teaspoon"
-            ),
-            Ingredient(
-                name = "Pasta",
-                amount = "400g"
-            ),
-            Ingredient(
-                name = "Basil leaves",
-                amount = "1 1/2 cups"
-            ),
-        ),
-        steps = mutableListOf(
-            Step(
-                position = 1,
-                description = "Gently squeeze each tomato half to release any watery guts and seeds into a bowl and discard. Chop the tomato flesh into 1-inch pieces and add them into a large bowl. Mash with the back of a wooden spoon or potato masher, or use your hands to break down the tomatoes.\nEverything should be smaller than a nickel."
-            ),
-            Step(
-                position = 2,
-                description = "Add the garlic, Parmesan, butter, olive oil, lemon juice and zest, balsamic vinegar, honey, red pepper flakes, salt, and black pepper. Toss to combine. \nCover the bowl with plastic wrap and let sit at room temperature for 15 minutes."
-            ),
-            Step(
-                position = 3,
-                description = "Bring a large pot of heavily salted water to a boil. Cook the pasta until al dente. Use tongs or a spider to transfer the cooked pasta directly into the bowl with tomatoes and toss. It’s okay if some of the pasta water is added—this will help melt the butter and cheese. \nTaste the pasta and season with more salt and black pepper, if needed. Gently mix in the basil.."
-            ),
-            Step(
-                position = 4,
-                description = "Transfer the pasta into bowls, spooning any residual sauce over it. Garnish with more Parmesan and drizzle with extra virgin olive oil. Serve immediately.\nThe tomato sauce can be made up to 8 hours ahead. Keep it covered in the refrigerator until 1 hour before you plan to serve it."
-            )
-        )
-    )
+    private val _recipe = Recipe(author = "By Jane Doe")
 
     private var _isDataChanged = true
     val isDataChanged = _isDataChanged

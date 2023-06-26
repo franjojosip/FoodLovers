@@ -1,87 +1,96 @@
 package ht.ferit.fjjukic.foodlovers.app_auth.viewmodel
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_auth.view.LoginFragmentDirections
+import ht.ferit.fjjukic.foodlovers.app_auth.view.RegisterFragmentDirections
+import ht.ferit.fjjukic.foodlovers.app_auth.view.ResetPasswordFragmentDirections
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseSource
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
-import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
-import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
-import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
-import ht.ferit.fjjukic.foodlovers.app_common.validators.FieldValidator
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AuthViewModel(
-    private val firebaseSource: FirebaseSource,
-    private val preferenceManager: PreferenceManager,
-    private val repository: UserRepository,
-    private val userRepository: UserRepository
+    private val firebaseSource: FirebaseSource
 ) : BaseViewModel() {
 
-    val actionNavigate: LiveData<ActionNavigate> = _actionNavigate
-    val showMessage: LiveData<MessageModel> = _showMessage
-    val showLoading: LiveData<Boolean> = _showLoading
-
-    fun init() {
-        preferenceManager.user?.let {
-            _actionNavigate.postValue(ActionNavigate.Home)
+    fun login(email: String, password: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            handleResult({
+                firebaseSource.login(email, password)
+            }, {
+                showMessage(messageId = R.string.login_success)
+                _actionNavigate.postValue(
+                    ActionNavigate.NavigationWithDirections(
+                        LoginFragmentDirections.actionNavLoginToNavGraphHome()
+                    )
+                )
+            }, {
+                showSnackbar(it?.message)
+            })
         }
     }
 
-    fun login(email: String, password: String) {
-        firebaseSource.login(email, password)
-            .flatMap { userId ->
-                userRepository.get(userId)
-            }
-            .subscribeIO()
-            .observeMain()
-            .subscribeWithResult({
-                _actionNavigate.postValue(ActionNavigate.Home)
-            }, ::handleError)
-    }
-
     fun register(username: String, email: String, password: String) {
-        firebaseSource.register(email, username, password)
-            .flatMap {
-                repository.insert(it)
-            }
-            .subscribeIO()
-            .observeMain()
-            .subscribeWithResult({
+        viewModelScope.launch(Dispatchers.IO) {
+            handleResult({
+                firebaseSource.register(email, username, password)
+            }, {
                 showMessage(messageId = R.string.register_success)
-                _actionNavigate.postValue(ActionNavigate.Login)
-            }, ::handleError)
+                _actionNavigate.postValue(
+                    ActionNavigate.NavigationWithDirections(
+                        RegisterFragmentDirections.actionNavRegisterToNavGraphHome()
+                    )
+                )
+            }, {
+                showSnackbar(it?.message)
+            })
+        }
     }
 
     fun resetPassword(email: String) {
-        firebaseSource.resetPassword(email)
-            .subscribeIO()
-            .observeMain()
-            .subscribeWithResult({
+        viewModelScope.launch(Dispatchers.IO) {
+            handleResult({
+                firebaseSource.resetPassword(email)
+            }, {
                 showMessage(messageId = R.string.password_reset_success)
-                _actionNavigate.postValue(ActionNavigate.Login)
-            }, ::handleError)
+                handleBackToLogin()
+            }, {
+                showSnackbar(it?.message)
+            })
+        }
     }
 
-    fun isValidLoginCredentials(email: String, password: String): Boolean {
-        return FieldValidator.checkEmail(email) == null && FieldValidator.checkPassword(password) == null
+    fun handleForgotPasswordClick() {
+        _actionNavigate.postValue(
+            ActionNavigate.NavigationWithDirections(
+                LoginFragmentDirections.actionNavLoginToNavResetPassword()
+            )
+        )
     }
 
-    fun isValidRegistrationCredentials(
-        username: String,
-        email: String,
-        password: String,
-        repeatedPassword: String
-    ): Boolean {
-        return FieldValidator.checkUsername(username) == null && FieldValidator.checkEmail(email) == null
-                && FieldValidator.checkPassword(password) == null
-                && FieldValidator.checkRepeatedPassword(password, repeatedPassword) == null
+    fun handleRegistrationClick() {
+        _actionNavigate.postValue(
+            ActionNavigate.NavigationWithDirections(
+                LoginFragmentDirections.actionNavLoginToNavRegister()
+            )
+        )
     }
 
-    fun isValidForgotPasswordCredentials(email: String): Boolean {
-        return FieldValidator.checkEmail(email) == null
+    fun onNavigateToLoginClick() {
+        _actionNavigate.postValue(
+            ActionNavigate.NavigationWithDirections(
+                RegisterFragmentDirections.actionNavRegisterToNavLogin()
+            )
+        )
     }
 
-    fun handleNavigateAction(action: ActionNavigate) {
-        _actionNavigate.postValue(action)
+    fun handleBackToLogin() {
+        _actionNavigate.postValue(
+            ActionNavigate.NavigationWithDirections(
+                ResetPasswordFragmentDirections.actionNavResetPasswordToNavLogin()
+            )
+        )
     }
 }

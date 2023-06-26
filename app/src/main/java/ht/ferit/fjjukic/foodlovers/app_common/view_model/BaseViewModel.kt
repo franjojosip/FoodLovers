@@ -5,9 +5,10 @@ import androidx.lifecycle.ViewModel
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.live_data.SingleLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
-import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
 import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.ScreenEvent
+import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -18,20 +19,49 @@ abstract class BaseViewModel : ViewModel() {
     private var compositeDisposable: CompositeDisposable? = null
 
     protected val _actionNavigate = SingleLiveData<ActionNavigate>()
-    protected val _showLoading = SingleLiveData<Boolean>()
-    protected val _showDialog = SingleLiveData<DialogModel>()
-    protected val _showMessage = SingleLiveData<MessageModel>()
+    protected val _showLoading = SingleLiveData<Boolean>() // TODO DEPRECATED BASEVIEWMODEL
+    protected val _showMessage = SingleLiveData<MessageModel>() // TODO DEPRECATED BASEVIEWMODEL
 
     protected val _screenEvent = SingleLiveData<ScreenEvent>()
     val screenEvent: LiveData<ScreenEvent>
         get() = _screenEvent
 
+    val actionNavigate: LiveData<ActionNavigate>
+        get() = _actionNavigate
+
     protected fun handleError(value: String?) {
         showMessage(value, R.string.general_error_server)
     }
 
+    protected fun showSnackbar(message: String? = null, messageId: Int? = null) {
+        _screenEvent.postValue(SnackbarModel(message, messageId))
+    }
+
     protected fun showMessage(message: String? = null, messageId: Int? = null) {
         _screenEvent.postValue(MessageModel(message, messageId))
+    }
+
+
+    protected suspend fun <T> handleResult(
+        action: suspend () -> Result<T>,
+        onSuccess: (T?) -> Unit,
+        onError: (Throwable?) -> Unit
+    ) {
+        _screenEvent.postValue(LoadingBar(true))
+        val result = action.invoke()
+        _screenEvent.postValue(LoadingBar(false))
+
+        when {
+            result.isSuccess -> {
+                onSuccess(result.getOrNull())
+            }
+
+            result.isFailure -> {
+                onError(result.exceptionOrNull())
+            }
+
+            else -> {}
+        }
     }
 
     fun Disposable.addToDisposable() {

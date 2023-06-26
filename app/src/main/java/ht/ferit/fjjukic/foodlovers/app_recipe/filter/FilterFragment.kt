@@ -1,19 +1,12 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.filter
 
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_common.repository.FilterRepositoryMock
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeViewModel
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentFilterBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilterFragment : BaseFragment<HomeViewModel, FragmentFilterBinding>() {
-
-    companion object {
-        const val TAG = "FilterFragment"
-    }
 
     override val viewModel: HomeViewModel by sharedViewModel()
     override val layoutId: Int = R.layout.fragment_filter
@@ -50,7 +43,6 @@ class FilterFragment : BaseFragment<HomeViewModel, FragmentFilterBinding>() {
                 binding.cgDifficulties.getSelectedChips(),
                 binding.cgSorts.getSelectedChips()
             )
-            activity?.onBackPressed()
         }
     }
 }
