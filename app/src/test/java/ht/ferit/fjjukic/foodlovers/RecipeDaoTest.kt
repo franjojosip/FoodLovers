@@ -83,7 +83,7 @@ class RecipeDaoTest {
         foodTypeDao.insert(foodType)
         difficultyLevelDao.insert(difficultyLevel)
         recipeDao.insert(recipe)
-        recipe.title = "Grah po domaći"
+        recipe.name = "Grah po domaći"
         recipeDao.update(recipe)
         recipeDao.getAll().observeOnce {
             if(it.isNullOrEmpty()){

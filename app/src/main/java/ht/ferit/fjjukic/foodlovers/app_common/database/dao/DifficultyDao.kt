@@ -19,13 +19,13 @@ interface DifficultyDao {
     fun getAll(): LiveData<List<Difficulty>>
 
     @Query("SELECT * FROM difficulty WHERE id = :id")
-    fun get(id: Int): LiveData<Difficulty>
+    fun get(id: String): LiveData<Difficulty>
 
     @Update
     fun update(difficulty: Difficulty)
 
     @Query("DELETE FROM difficulty WHERE id = :id")
-    fun delete(id: Int)
+    fun delete(id: String)
 
     @Query("DELETE FROM difficulty")
     fun deleteAll()

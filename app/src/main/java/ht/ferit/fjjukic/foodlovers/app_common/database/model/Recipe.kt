@@ -6,7 +6,8 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.util.UUID
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.Ingredient
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.Step
 
 @Entity(
     tableName = "recipe",
@@ -26,15 +27,23 @@ import java.util.UUID
             onUpdate = CASCADE
         )]
 )
+
 data class Recipe(
-    @ColumnInfo(name = "title")
-    var title: String,
+    @ColumnInfo(name = "id")
+    @PrimaryKey
+    var id: String,
+    @ColumnInfo(name = "name")
+    var name: String,
     @ColumnInfo(name = "description")
     var description: String,
     @ColumnInfo(name = "time")
-    var time: String,
+    var time: Int,
     @ColumnInfo(name = "servings")
     var servings: Int,
+    @ColumnInfo(name = "steps")
+    var steps: List<Step>,
+    @ColumnInfo(name = "ingredients")
+    var ingredients: List<Ingredient>,
     @ColumnInfo(name = "difficultyId")
     var difficultyId: String,
     @ColumnInfo(name = "categoryId")
@@ -43,9 +52,5 @@ data class Recipe(
     var imagePath: String,
     @ColumnInfo(name = "userId")
     var userId: String,
-) {
-    @ColumnInfo(name = "id")
-    @PrimaryKey
-    var id: String = UUID.randomUUID().toString()
-}
+)
 

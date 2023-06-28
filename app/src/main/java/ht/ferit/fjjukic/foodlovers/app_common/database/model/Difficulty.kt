@@ -7,10 +7,9 @@ import java.util.UUID
 
 @Entity(tableName = "difficulty")
 data class Difficulty(
-    @ColumnInfo(name = "name")
-    var name: String
-) {
     @ColumnInfo(name = "id")
     @PrimaryKey
-    var id: String = UUID.randomUUID().toString()
-}
+    var id: String = UUID.randomUUID().toString(),
+    @ColumnInfo(name = "name")
+    var name: String
+)

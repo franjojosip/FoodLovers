@@ -3,29 +3,30 @@ package ht.ferit.fjjukic.foodlovers.app_common.database.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import ht.ferit.fjjukic.foodlovers.app_common.database.model.Recipe
 
 @Dao
 interface RecipeDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(recipe: Recipe)
 
     @Insert
     fun insertAll(recipes: List<Recipe>)
 
-    @Query("SELECT * FROM recipe ORDER BY title ASC")
+    @Query("SELECT * FROM recipe ORDER BY name ASC")
     fun getAll(): LiveData<List<Recipe>>
 
     @Query("SELECT * FROM recipe WHERE id = :id")
-    fun get(id: Int): LiveData<Recipe>
+    fun get(id: String): LiveData<Recipe>
 
     @Update
     fun update(recipe: Recipe)
 
     @Query("DELETE FROM recipe WHERE id = :id")
-    fun delete(id: Int)
+    fun delete(id: String)
 
     @Query("DELETE FROM recipe")
     fun deleteAll()

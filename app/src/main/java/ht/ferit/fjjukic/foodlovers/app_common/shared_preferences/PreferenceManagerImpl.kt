@@ -30,6 +30,21 @@ class PreferenceManagerImpl(applicationContext: Context, private val gson: Gson)
         set(value) {
             editor { putBoolean(PREFS_KEY_IS_FIRST_TIME, value) }
         }
+    override var lastUpdatedRecipes: Long
+        get() = sharedPreferences.getLong(PREFS_KEY_LAST_UPDATED_RECIPES, 0)
+        set(value) {
+            editor { putLong(PREFS_KEY_LAST_UPDATED_RECIPES, value) }
+        }
+    override var lastUpdatedCategories: Long
+        get() = sharedPreferences.getLong(PREFS_KEY_LAST_UPDATED_CATEGORIES, 0)
+        set(value) {
+            editor { putLong(PREFS_KEY_LAST_UPDATED_CATEGORIES, value) }
+        }
+    override var lastUpdatedDifficulties: Long
+        get() = sharedPreferences.getLong(PREFS_KEY_LAST_UPDATED_DIFFICULTIES, 0)
+        set(value) {
+            editor { putLong(PREFS_KEY_LAST_UPDATED_DIFFICULTIES, value) }
+        }
 
     private fun editor(editor: SharedPreferences.Editor.() -> Unit) {
         sharedPreferences.edit().also(editor).apply()

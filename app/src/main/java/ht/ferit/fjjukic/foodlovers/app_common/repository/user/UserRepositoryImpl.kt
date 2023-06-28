@@ -18,6 +18,8 @@ class UserRepositoryImpl(
     override suspend fun createUser(user: UserModel): Result<UserModel?> {
         return withContext(Dispatchers.IO) {
             val result = firebaseDB.createUser(user)
+            preferenceManager.user = result.getOrNull()
+
             return@withContext if (result.isSuccess) {
                 Result.success(result.getOrDefault(null))
             } else Result.failure(result.exceptionOrNull() ?: Exception("User repository error"))
@@ -103,9 +105,8 @@ class UserRepositoryImpl(
                     email = email
                 )
 
-                createUser(userModel).getOrNull()?.let {
-                    preferenceManager.user = userModel
-                }
+                createUser(userModel)
+
                 Result.success(true)
             } catch (e: Exception) {
                 Result.failure(Exception("FirebaseAuth server error"))

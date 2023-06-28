@@ -7,12 +7,11 @@ import java.util.UUID
 
 @Entity(tableName = "category")
 data class Category(
+    @ColumnInfo(name = "id")
+    @PrimaryKey
+    var id: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = "name")
     var name: String,
     @ColumnInfo(name = "drawableId")
     var drawableId: Int
-) {
-    @ColumnInfo(name = "id")
-    @PrimaryKey
-    var id: String = UUID.randomUUID().toString()
-}
+)

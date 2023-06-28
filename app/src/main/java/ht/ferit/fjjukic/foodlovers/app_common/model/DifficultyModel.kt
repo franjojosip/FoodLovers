@@ -1,7 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_common.model
 
-class CategoryModel(
+class DifficultyModel(
     var id: String = "",
-    var name: String = "",
-    var drawableId: Int = -1
+    var name: String = ""
 )
