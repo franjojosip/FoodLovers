@@ -5,22 +5,20 @@ import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_auth.view.LoginFragmentDirections
 import ht.ferit.fjjukic.foodlovers.app_auth.view.RegisterFragmentDirections
 import ht.ferit.fjjukic.foodlovers.app_auth.view.ResetPasswordFragmentDirections
-import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseSource
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
+import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AuthViewModel(
-    private val firebaseSource: FirebaseSource
+    private val userRepository: UserRepository
 ) : BaseViewModel() {
-
     fun login(email: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             handleResult({
-                firebaseSource.login(email, password)
+                userRepository.login(email, password)
             }, {
-                showMessage(messageId = R.string.login_success)
                 _actionNavigate.postValue(
                     ActionNavigate.NavigationWithDirections(
                         LoginFragmentDirections.actionNavLoginToNavGraphHome()
@@ -35,9 +33,8 @@ class AuthViewModel(
     fun register(username: String, email: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             handleResult({
-                firebaseSource.register(email, username, password)
+                userRepository.register(email, username, password)
             }, {
-                showMessage(messageId = R.string.register_success)
                 _actionNavigate.postValue(
                     ActionNavigate.NavigationWithDirections(
                         RegisterFragmentDirections.actionNavRegisterToNavGraphHome()
@@ -52,7 +49,7 @@ class AuthViewModel(
     fun resetPassword(email: String) {
         viewModelScope.launch(Dispatchers.IO) {
             handleResult({
-                firebaseSource.resetPassword(email)
+                userRepository.resetPassword(email)
             }, {
                 showMessage(messageId = R.string.password_reset_success)
                 handleBackToLogin()

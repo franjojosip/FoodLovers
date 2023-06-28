@@ -2,9 +2,7 @@ package ht.ferit.fjjukic.foodlovers.app_account.change_username.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.live_data.SingleLiveData
-import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
@@ -32,20 +30,20 @@ class ChangeUsernameViewModel(
     }
 
     fun updateUsername(value: String) {
-        preferenceManager.user?.let {
-            it.name = value
-            userRepository.update(it)
-                .subscribeIO()
-                .observeMain()
-                .subscribeWithResult({ isSuccess ->
-                    if (isSuccess) {
-                        showMessage(messageId = R.string.username_change_success)
-                        _refreshUser.postValue(true)
-                    } else {
-                        showMessage(messageId = R.string.username_change_error)
-                    }
-                }, ::handleError)
-        }
+//        preferenceManager.user?.let {
+//            it.name = value
+//            userRepository.update(it)
+//                .subscribeIO()
+//                .observeMain()
+//                .subscribeWithResult({ isSuccess ->
+//                    if (isSuccess) {
+//                        showMessage(messageId = R.string.username_change_success)
+//                        _refreshUser.postValue(true)
+//                    } else {
+//                        showMessage(messageId = R.string.username_change_error)
+//                    }
+//                }, ::handleError)
+//        }
     }
 
     fun checkUsername(value: String): Int? {

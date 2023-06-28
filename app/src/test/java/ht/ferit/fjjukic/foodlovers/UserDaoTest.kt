@@ -6,7 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import ht.ferit.fjjukic.foodlovers.app_common.database.RecipeDatabase
 import ht.ferit.fjjukic.foodlovers.app_common.database.dao.UserDao
-import ht.ferit.fjjukic.foodlovers.app_common.model.db.User
+import ht.ferit.fjjukic.foodlovers.app_common.database.model.User
 import ht.ferit.fjjukic.foodlovers.observer.observeOnce
 import org.junit.*
 import org.junit.rules.TestRule

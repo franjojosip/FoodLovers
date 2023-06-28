@@ -6,10 +6,6 @@ import ht.ferit.fjjukic.foodlovers.app_account.view_model.AccountViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.FilterRepositoryMock
 import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepositoryImpl
-import ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty_level.DifficultyLevelRepository
-import ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty_level.DifficultyLevelRepositoryImpl
-import ht.ferit.fjjukic.foodlovers.app_common.repository.food_type.FoodTypeRepository
-import ht.ferit.fjjukic.foodlovers.app_common.repository.food_type.FoodTypeRepositoryImpl
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepositoryImpl
 import ht.ferit.fjjukic.foodlovers.app_common.repository.resource.ResourceRepository
@@ -23,12 +19,10 @@ import org.koin.dsl.module
 val commonModule = module {
     factory<ResourceRepository> { ResourceRepositoryImpl(get()) }
 
-    factory<CategoryRepository> { CategoryRepositoryImpl() }
+    factory<CategoryRepository> { CategoryRepositoryImpl(get()) }
 
     factory<UserRepository> { UserRepositoryImpl(get(), get(), get()) }
     factory<RecipeRepository> { RecipeRepositoryImpl(get()) }
-    factory<FoodTypeRepository> { FoodTypeRepositoryImpl(get()) }
-    factory<DifficultyLevelRepository> { DifficultyLevelRepositoryImpl(get()) }
     factory { FilterRepositoryMock() }
 
     viewModel {
@@ -36,7 +30,7 @@ val commonModule = module {
     }
 
     viewModel {
-        AccountViewModel(get(), get(), get())
+        AccountViewModel(get(), get())
     }
 
     viewModel {
@@ -44,6 +38,6 @@ val commonModule = module {
     }
 
     viewModel {
-        ChangeEmailViewModel(get(), get(), get())
+        ChangeEmailViewModel(get(), get())
     }
 }

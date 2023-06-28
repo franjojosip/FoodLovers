@@ -50,7 +50,6 @@ abstract class BaseViewModel : ViewModel() {
         _screenEvent.postValue(LoadingBar(true))
         val result = action.invoke()
         _screenEvent.postValue(LoadingBar(false))
-
         when {
             result.isSuccess -> {
                 onSuccess(result.getOrNull())

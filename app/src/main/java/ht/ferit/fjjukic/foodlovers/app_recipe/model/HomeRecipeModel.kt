@@ -16,11 +16,12 @@ sealed class HomeScreenRecipe(
 
 object NoRecipePlaceholder : HomeScreenRecipe()
 
-class Category(
-    title: String,
+data class RecipeCategory(
+    val id: String,
+    val title: String,
     val drawableId: Int = R.drawable.image_salty_food,
     val hasMarginStart: Boolean = true
-) : HomeScreenRecipe(title = title)
+)
 
 class TodayChoiceRecipe(
     id: String,

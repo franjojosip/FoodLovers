@@ -66,6 +66,7 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:$room"
+    kapt "androidx.room:room-compiler:$room"
 
     // Koin DI
     implementation "io.insert-koin:koin-core:$koin"

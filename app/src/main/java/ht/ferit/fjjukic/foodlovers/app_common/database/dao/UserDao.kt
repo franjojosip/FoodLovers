@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import ht.ferit.fjjukic.foodlovers.app_common.model.db.User
+import ht.ferit.fjjukic.foodlovers.app_common.database.model.User
 
 @Dao
 interface UserDao {

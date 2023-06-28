@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_common.model.db
+package ht.ferit.fjjukic.foodlovers.app_common.database.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

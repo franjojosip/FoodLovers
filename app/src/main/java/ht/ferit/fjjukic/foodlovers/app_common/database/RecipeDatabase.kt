@@ -5,21 +5,26 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import ht.ferit.fjjukic.foodlovers.app_common.database.dao.DifficultyLevelDao
-import ht.ferit.fjjukic.foodlovers.app_common.database.dao.FoodTypeDao
+import ht.ferit.fjjukic.foodlovers.app_common.database.dao.CategoryDao
+import ht.ferit.fjjukic.foodlovers.app_common.database.dao.DifficultyDao
 import ht.ferit.fjjukic.foodlovers.app_common.database.dao.RecipeDao
 import ht.ferit.fjjukic.foodlovers.app_common.database.dao.UserDao
-import ht.ferit.fjjukic.foodlovers.app_common.model.db.*
+import ht.ferit.fjjukic.foodlovers.app_common.database.model.Category
+import ht.ferit.fjjukic.foodlovers.app_common.database.model.Difficulty
+import ht.ferit.fjjukic.foodlovers.app_common.database.model.Recipe
+import ht.ferit.fjjukic.foodlovers.app_common.database.model.User
+import ht.ferit.fjjukic.foodlovers.app_common.repository.MockRepository
 
 @Database(
-    entities = [Comment::class, Recipe::class, DifficultyLevel::class, FoodType::class, User::class],
-    version = 3,
+    entities = [Recipe::class, Difficulty::class, Category::class, User::class],
+    version = 4,
     exportSchema = false
 )
 abstract class RecipeDatabase : RoomDatabase() {
 
-    abstract fun difficultyLevelDao(): DifficultyLevelDao
-    abstract fun foodTypeDao(): FoodTypeDao
+    abstract fun difficultyDao(): DifficultyDao
+
+    abstract fun categoryDao(): CategoryDao
     abstract fun recipeDao(): RecipeDao
     abstract fun userDao(): UserDao
 
@@ -36,7 +41,7 @@ abstract class RecipeDatabase : RoomDatabase() {
             }
         }
 
-        fun getDatabase(
+        private fun getDatabase(
             context: Context
         ): RecipeDatabase {
             return INSTANCE ?: synchronized(this) {
@@ -48,7 +53,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
-                            Thread(Runnable { prepopulateDb(getInstance(context)) }).start()
+                            Thread { prepopulateDb(getInstance(context)) }.start()
                         }
                     })
                     .allowMainThreadQueries()
@@ -58,14 +63,15 @@ abstract class RecipeDatabase : RoomDatabase() {
         }
 
         private fun prepopulateDb(db: RecipeDatabase) {
-            db.difficultyLevelDao().insertAll(
-                listOf(
-                    DifficultyLevel("Easy"),
-                    DifficultyLevel("Normal"),
-                    DifficultyLevel("Hard")
-                )
+            db.categoryDao().insertAll(
+                MockRepository.getCategories()
             )
-            db.foodTypeDao().insertAll(listOf(FoodType("Sweet"), FoodType("Salty")))
+            db.difficultyDao().insertAll(
+                MockRepository.getDifficulties()
+            )
+            db.recipeDao().insertAll(
+                MockRepository.getRecipesDB()
+            )
         }
     }
 

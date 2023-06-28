@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_primary">#9AC8A796</color>
-    <color name="color_primary_dark">#9A8F7262</color>
-    <color name="color_accent">#9AC8A796</color>
-    <color name="color_status_bar_color">#E4B18C79</color>
+    <color name="color_primary">#9AC8BA96</color>
+    <color name="color_primary_dark">#998F8062</color>
+    <color name="color_accent">#9AC8BA96</color>
+    <color name="color_status_bar_color">#E4B1A179</color>
     <color name="color_black">#595959</color>
     <color name="color_white">#FFFFFF</color>
     <color name="color_white2">#FFFFFF</color>
@@ -51,7 +51,7 @@
     <color name="color_search">#E5C1B5B5</color>
     <color name="color_search_font">#EA686868</color>
 
-    <color name="color_loader_background">#EDFFFFFF</color>
+    <color name="color_loader_background">#F5FFFFFF</color>
 
     <color name="color_account_arrow">#AAAAAA</color>
     <color name="color_account_background">#FFFFFF</color>
@@ -62,6 +62,8 @@
     <color name="color_account_text">#656565</color>
 
     <color name="color_auth_icon">#DDC29846</color>
+    <color name="color_loading_bar">#DDC29846</color>
+    <color name="color_loading_text">#DDC29846</color>
 
     <color name="color_btn_enabled">#DDC29846</color>
     <color name="color_btn_disabled">#EB514121</color>

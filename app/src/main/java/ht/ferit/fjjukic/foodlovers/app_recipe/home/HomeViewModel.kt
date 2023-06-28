@@ -1,8 +1,11 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.home
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
+import ht.ferit.fjjukic.foodlovers.app_common.database.model.Category
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.FilterRepositoryMock
 import ht.ferit.fjjukic.foodlovers.app_common.repository.MockRepository
@@ -12,7 +15,10 @@ import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.RecipeCategory
 import ht.ferit.fjjukic.foodlovers.app_recipe.search.SearchFragmentDirections
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val categoryRepository: CategoryRepository,
@@ -39,9 +45,6 @@ class HomeViewModel(
     val selectedSorts: List<FilterItem>
         get() = _selectedFilters.value?.filterIsInstance<FilterItem.Sort>() ?: listOf()
 
-    var categories = listOf<HomeScreenRecipe>()
-        private set
-
     private val _todayChoiceRecipes = MutableLiveData<List<HomeScreenRecipe>>()
     val todayChoiceRecipes: LiveData<List<HomeScreenRecipe>> = _todayChoiceRecipes
 
@@ -53,8 +56,17 @@ class HomeViewModel(
     private val _currentRecipes = MutableLiveData<List<HomeScreenRecipe>>()
     val currentRecipes: LiveData<List<HomeScreenRecipe>> = _currentRecipes
 
+    val categories = MediatorLiveData<List<RecipeCategory>>()
+
     init {
-        categories = MockRepository.getCategories()
+        categories.addSource(categoryRepository.getCategories()) {
+            viewModelScope.launch(Dispatchers.Default) {
+                categories.postValue(
+                    it.mapToRecipeCategory().sortedBy { it.title }
+                )
+            }
+        }
+
         recipes = MockRepository.getRecipes()
 
         _todayChoiceRecipes.value = MockRepository.getTodayChoiceRecipes()
@@ -192,5 +204,15 @@ class HomeViewModel(
                 SearchFragmentDirections.actionNavSearchRecipesToNavFilterRecipes()
             )
         )
+    }
+
+    private fun List<Category>.mapToRecipeCategory(): List<RecipeCategory> {
+        return map { category ->
+            RecipeCategory(
+                category.id,
+                category.name,
+                category.drawableId
+            )
+        }
     }
 }

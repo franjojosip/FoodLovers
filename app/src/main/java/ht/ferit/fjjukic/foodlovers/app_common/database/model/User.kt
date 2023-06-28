@@ -1,8 +1,9 @@
-package ht.ferit.fjjukic.foodlovers.app_common.model.db
+package ht.ferit.fjjukic.foodlovers.app_common.database.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.UUID
 
 @Entity(tableName = "user")
 data class User(
@@ -17,8 +18,7 @@ data class User(
     @ColumnInfo(name = "longitude")
     var longitude: Double
 ) {
-    @ColumnInfo(name = "id")
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    @PrimaryKey
+    var id: String = UUID.randomUUID().toString()
 }
 

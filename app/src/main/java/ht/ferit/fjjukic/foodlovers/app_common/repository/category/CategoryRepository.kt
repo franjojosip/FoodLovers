@@ -1,7 +1,8 @@
 package ht.ferit.fjjukic.foodlovers.app_common.repository.category
 
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.Category
+import androidx.lifecycle.LiveData
+import ht.ferit.fjjukic.foodlovers.app_common.database.model.Category
 
 interface CategoryRepository {
-    fun getCategories(): List<Category>
+    fun getCategories(): LiveData<List<Category>>
 }

@@ -3,7 +3,6 @@ package ht.ferit.fjjukic.foodlovers.app_location.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
-import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.live_data.SingleLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
@@ -28,18 +27,18 @@ class LocationViewModel(
             it.latitude = currentLatLng.latitude.toString()
             it.longitude = currentLatLng.longitude.toString()
 
-            repository.update(it)
-                .subscribeIO()
-                .observeMain()
-                .subscribeWithResult({ isSuccess ->
-                    if (isSuccess) {
-                        _user.postValue(preferenceManager.user)
-                        _refreshUser.postValue(true)
-                        showMessage(messageId = R.string.location_change_success)
-                    } else {
-                        showMessage(messageId = R.string.location_change_error)
-                    }
-                }, ::handleError)
+//            repository.update(it)
+//                .subscribeIO()
+//                .observeMain()
+//                .subscribeWithResult({ isSuccess ->
+//                    if (isSuccess) {
+//                        _user.postValue(preferenceManager.user)
+//                        _refreshUser.postValue(true)
+//                        showMessage(messageId = R.string.location_change_success)
+//                    } else {
+//                        showMessage(messageId = R.string.location_change_error)
+//                    }
+//                }, ::handleError)
         }
     }
 

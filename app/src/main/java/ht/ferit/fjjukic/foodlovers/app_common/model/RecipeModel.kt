@@ -1,12 +1,13 @@
 package ht.ferit.fjjukic.foodlovers.app_common.model
 
 class RecipeModel(
-    var id: String = "",
-    var title: String = "",
-    var description: String = "",
-    var imagePath: String = "",
-    var difficultyLevelID: String = "-1",
-    var foodTypeID: String = "-1",
-    var userId: String = "",
-    var imageId: String = ""
+    val id: String = "",
+    val title: String = "",
+    val description: String = "",
+    val time: String = "",
+    val servings: Int = 4,
+    val difficultyId: String = "",
+    val categoryId: String = "",
+    val imagePath: String = "",
+    val user: String = ""
 )

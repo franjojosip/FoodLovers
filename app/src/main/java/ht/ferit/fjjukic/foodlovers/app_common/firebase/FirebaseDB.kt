@@ -5,7 +5,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import ht.ferit.fjjukic.foodlovers.app_common.model.BaseModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.Recipe
@@ -19,199 +18,14 @@ class FirebaseDB {
         FirebaseDatabase.getInstance().reference
     }
 
-    fun postDifficultyLevel(name: String): Observable<Boolean> {
-        return Observable.create { emitter ->
-            val difficultyLevel: Map<String, String> = hashMapOf("name" to name)
-            dbReference.child("difficulty_level").orderByChild("name").equalTo(name)
-                .addValueEventListener(
-                    object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {
-                            emitter.onError(Throwable(error.message))
-                        }
-
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (!snapshot.exists()) {
-                                dbReference.child("difficulty_level").push()
-                                    .setValue(difficultyLevel)
-                                emitter.onNext(true)
-                            } else {
-                                emitter.onNext(false)
-                            }
-                        }
-                    }
-                )
-        }
-    }
-
-    fun putDifficultyLevel(oldName: String, newName: String): Observable<Boolean> {
-        return Observable.create { emitter ->
-            dbReference.child("difficulty_level").orderByChild("name").equalTo(oldName)
-                .addListenerForSingleValueEvent(
-                    object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {
-                            emitter.onError(Throwable(error.message))
-                        }
-
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (snapshot.exists()) {
-                                dbReference.child("difficulty_level")
-                                    .child(snapshot.children.first().key.toString()).child("name")
-                                    .setValue(newName)
-                                emitter.onNext(true)
-                            } else {
-                                emitter.onNext(false)
-                            }
-                        }
-                    }
-                )
-        }
-    }
-
-    fun deleteDifficultyLevel(name: String): Observable<Boolean> {
-        return Observable.create { emitter ->
-            dbReference.child("difficulty_level").orderByChild("name").equalTo(name)
-                .addListenerForSingleValueEvent(
-                    object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {
-                            emitter.onError(Throwable(error.message))
-                        }
-
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (snapshot.exists()) {
-                                dbReference.child("difficulty_level")
-                                    .child(snapshot.children.first().key.toString()).removeValue()
-                                emitter.onNext(true)
-                            } else {
-                                emitter.onNext(false)
-                            }
-                        }
-                    }
-                )
-        }
-    }
-
-    fun getDifficultyLevels(): Observable<List<BaseModel>> {
-        return Observable.create { emitter ->
-            dbReference.child("difficulty_level").orderByValue().addListenerForSingleValueEvent(
-                object : ValueEventListener {
-                    override fun onCancelled(error: DatabaseError) {
-                        emitter.onError(Throwable(error.message))
-                    }
-
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val list = mutableListOf<BaseModel>()
-                        if (snapshot.exists()) {
-                            snapshot.children.forEach {
-                                it.children.forEach { p ->
-                                    list.add(BaseModel(it.key.toString(), p.value.toString()))
-                                }
-                            }
-                        }
-                        emitter.onNext(list)
-                    }
-                }
-            )
-        }
-    }
-
-    fun postFoodType(name: String): Observable<Boolean> {
-        return Observable.create { emitter ->
-            val difficultyLevel: Map<String, String> = hashMapOf("name" to name)
-            dbReference.child("food_type").orderByChild("name").equalTo(name)
-                .addValueEventListener(
-                    object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {
-                            emitter.onError(Throwable(error.message))
-                        }
-
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (!snapshot.exists()) {
-                                dbReference.child("food_type").push().setValue(difficultyLevel)
-                                emitter.onNext(true)
-                            } else {
-                                emitter.onNext(false)
-                            }
-                        }
-                    }
-                )
-        }
-    }
-
-    fun putFoodType(oldName: String, newName: String): Observable<Boolean> {
-        return Observable.create { emitter ->
-            dbReference.child("food_type").orderByChild("name").equalTo(oldName)
-                .addListenerForSingleValueEvent(
-                    object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {
-                            emitter.onError(Throwable(error.message))
-                        }
-
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (snapshot.exists()) {
-                                dbReference.child("food_type")
-                                    .child(snapshot.children.first().key.toString()).child("name")
-                                    .setValue(newName)
-                                emitter.onNext(true)
-                            } else {
-                                emitter.onNext(false)
-                            }
-                        }
-                    }
-                )
-        }
-    }
-
-    fun deleteFoodType(name: String): Observable<Boolean> {
-        return Observable.create { emitter ->
-            dbReference.child("food_type").orderByChild("name").equalTo(name)
-                .addListenerForSingleValueEvent(
-                    object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {
-                            emitter.onError(Throwable(error.message))
-                        }
-
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (snapshot.exists()) {
-                                dbReference.child("food_type")
-                                    .child(snapshot.children.first().key.toString()).removeValue()
-                                emitter.onNext(true)
-                            } else {
-                                emitter.onNext(false)
-                            }
-                        }
-                    }
-                )
-        }
-    }
-
-    fun getFoodTypes(): Observable<List<BaseModel>> {
-        return Observable.create { emitter ->
-            dbReference.child("food_type").orderByValue().addListenerForSingleValueEvent(
-                object : ValueEventListener {
-                    override fun onCancelled(error: DatabaseError) {
-                        emitter.onError(Throwable(error.message))
-                    }
-
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val list = mutableListOf<BaseModel>()
-                        if (snapshot.exists()) {
-                            snapshot.children.forEach {
-                                it.children.forEach { p ->
-                                    list.add(BaseModel(it.key.toString(), p.value.toString()))
-                                }
-                            }
-                        }
-                        emitter.onNext(list)
-                    }
-                }
-            )
-        }
+    private val usersReference by lazy {
+        dbReference.child("users")
     }
 
     suspend fun createUser(user: UserModel): Result<UserModel> {
         return withContext(Dispatchers.IO) {
             try {
-                val reference = dbReference.child("users").child(user.userId)
+                val reference = usersReference.child(user.userId)
                 reference.setValue(user).await()
                 return@withContext Result.success(user)
             } catch (e: Exception) {
@@ -220,58 +34,38 @@ class FirebaseDB {
         }
     }
 
-    fun putUser(user: UserModel): Observable<Boolean> {
-        return Observable.create { emitter ->
-            dbReference.child("user").orderByChild("userId").equalTo(user.userId)
-                .addListenerForSingleValueEvent(
-                    object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {
-                            emitter.onError(Throwable(error.message))
-                        }
+    suspend fun getUser(userId: String): Result<UserModel?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val reference = usersReference.child(userId).get().await()
+                val user = reference.getValue(UserModel::class.java)
 
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (snapshot.exists()) {
-                                dbReference.child("user")
-                                    .child(user.id).setValue(user)
-                                emitter.onNext(true)
-                            } else {
-                                emitter.onNext(false)
-                            }
-                        }
-                    }
-                )
+                return@withContext Result.success(user)
+            } catch (e: Exception) {
+                return@withContext Result.failure(e)
+            }
         }
     }
 
-    fun deleteUser(userId: String): Observable<Boolean> {
-        return Observable.create { emitter ->
-            dbReference.child("user").orderByChild("userId").equalTo(userId)
-                .addListenerForSingleValueEvent(
-                    object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {
-                            emitter.onError(Throwable(error.message))
-                        }
-
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (snapshot.exists()) {
-                                snapshot.ref.removeValue()
-                                emitter.onNext(true)
-                            } else {
-                                emitter.onNext(false)
-                            }
-                        }
-                    }
-                )
+    suspend fun updateUser(user: UserModel): Result<Boolean> {
+        return withContext(Dispatchers.IO) {
+            try {
+                usersReference.child(user.userId).setValue(user).await()
+                return@withContext Result.success(true)
+            } catch (e: Exception) {
+                return@withContext Result.failure(e)
+            }
         }
     }
 
-    suspend fun getUser(userId: String): UserModel? {
-        return try {
-            val user =
-                dbReference.child("user").orderByChild("userId").equalTo(userId).get().await()
-            user.getValue(UserModel::class.java)
-        } catch (e: Exception) {
-            null
+    suspend fun deleteUser(userId: String): Result<Boolean> {
+        return withContext(Dispatchers.IO) {
+            try {
+                usersReference.child(userId).removeValue().await()
+                return@withContext Result.success(true)
+            } catch (e: Exception) {
+                return@withContext Result.failure(e)
+            }
         }
     }
 
