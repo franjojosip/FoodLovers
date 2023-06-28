@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_main.module
+package ht.ferit.fjjukic.foodlovers.app_main.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
@@ -8,7 +8,7 @@ import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
 import ht.ferit.fjjukic.foodlovers.app_common.notification.NotificationsManager
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManagerImpl
-import ht.ferit.fjjukic.foodlovers.app_main.view_model.WelcomeScreenViewModel
+import ht.ferit.fjjukic.foodlovers.app_main.viewmodel.WelcomeScreenViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

@@ -3,7 +3,7 @@ package ht.ferit.fjjukic.foodlovers.app_main.view
 import androidx.navigation.fragment.findNavController
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
-import ht.ferit.fjjukic.foodlovers.app_main.view_model.WelcomeScreenViewModel
+import ht.ferit.fjjukic.foodlovers.app_main.viewmodel.WelcomeScreenViewModel
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentWelcomeScreenBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
