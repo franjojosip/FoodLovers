@@ -2,13 +2,13 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.filter
 
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
-import ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeViewModel
+import ht.ferit.fjjukic.foodlovers.app_recipe.search.SearchViewModel
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentFilterBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class FilterFragment : BaseFragment<HomeViewModel, FragmentFilterBinding>() {
+class FilterFragment : BaseFragment<SearchViewModel, FragmentFilterBinding>() {
 
-    override val viewModel: HomeViewModel by sharedViewModel()
+    override val viewModel: SearchViewModel by sharedViewModel()
     override val layoutId: Int = R.layout.fragment_filter
 
     override fun init() {

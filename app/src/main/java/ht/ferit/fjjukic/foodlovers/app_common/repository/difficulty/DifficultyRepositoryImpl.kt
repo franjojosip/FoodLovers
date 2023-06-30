@@ -16,7 +16,7 @@ class DifficultyRepositoryImpl(
 ) : DifficultyRepository {
     override suspend fun getDifficulties(): Result<List<DifficultyModel>> {
         return withContext(Dispatchers.IO) {
-            val difficulties = db.difficultyDao().getAll().value ?: listOf()
+            val difficulties = db.difficultyDao().getAll()
 
             when {
                 hasDayPassed() -> {
@@ -57,7 +57,7 @@ class DifficultyRepositoryImpl(
         }
     }
 
-    override suspend fun updateDifficulty(difficulty: DifficultyModel): Result<Boolean> {
+    override suspend fun updateDifficulty(difficulty: DifficultyModel): Result<DifficultyModel> {
         return withContext(Dispatchers.IO) {
             val result = firebaseDB.updateDifficulty(difficulty)
 
@@ -70,7 +70,7 @@ class DifficultyRepositoryImpl(
         }
     }
 
-    override suspend fun createDifficulty(difficulty: DifficultyModel): Result<Boolean> {
+    override suspend fun createDifficulty(difficulty: DifficultyModel): Result<DifficultyModel> {
         return withContext(Dispatchers.IO) {
             val result = firebaseDB.createDifficulty(difficulty)
 
@@ -92,7 +92,7 @@ class DifficultyRepositoryImpl(
 
     override suspend fun getDifficulty(id: String): Result<DifficultyModel?> {
         return withContext(Dispatchers.IO) {
-            val difficulty = db.difficultyDao().get(id).value?.mapToDifficultyModel()
+            val difficulty = db.difficultyDao().get(id)?.mapToDifficultyModel()
 
             if (difficulty != null) {
                 Result.success(difficulty)
@@ -103,14 +103,14 @@ class DifficultyRepositoryImpl(
                     saveDifficulty(firebaseDifficulty)
                     Result.success(firebaseDifficulty)
                 } else {
-                    Result.failure(Exception("Couldn't retrieve difficulty"))
+                    Result.failure(Exception("Error while retrieving data"))
                 }
             }
         }
     }
 
     private fun saveDifficulty(difficulty: DifficultyModel) {
-        db.difficultyDao().update(difficulty.mapToDifficulty())
+        db.difficultyDao().insert(difficulty.mapToDifficulty())
     }
 
     private fun mapToDifficultyModels(data: List<Difficulty>): List<DifficultyModel> {
@@ -124,15 +124,15 @@ class DifficultyRepositoryImpl(
 
     private fun Difficulty.mapToDifficultyModel(): DifficultyModel {
         return DifficultyModel(
-            this.id,
-            this.name
+            id,
+            name
         )
     }
 
     private fun DifficultyModel.mapToDifficulty(): Difficulty {
         return Difficulty(
-            this.id,
-            this.name
+            id,
+            name
         )
     }
 }

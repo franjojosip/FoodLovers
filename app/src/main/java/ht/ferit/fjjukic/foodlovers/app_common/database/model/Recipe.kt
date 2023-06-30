@@ -4,33 +4,33 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
-import androidx.room.Index
 import androidx.room.PrimaryKey
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.Ingredient
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.Step
 
 @Entity(
     tableName = "recipe",
-    indices = [Index("difficultyId"), Index("categoryId")],
-    foreignKeys = [ForeignKey(
-        entity = Difficulty::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("difficultyId"),
-        onDelete = CASCADE,
-        onUpdate = CASCADE
-    ),
+    foreignKeys = [
+        ForeignKey(
+            entity = Difficulty::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("difficultyId"),
+            onDelete = CASCADE,
+            onUpdate = CASCADE
+        ),
         ForeignKey(
             entity = Category::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("categoryId"),
             onDelete = CASCADE,
             onUpdate = CASCADE
-        )]
+        )
+    ]
 )
 
 data class Recipe(
-    @ColumnInfo(name = "id")
     @PrimaryKey
+    @ColumnInfo(name = "id")
     var id: String,
     @ColumnInfo(name = "name")
     var name: String,

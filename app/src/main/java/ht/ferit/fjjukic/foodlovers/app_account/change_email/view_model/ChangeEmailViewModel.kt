@@ -3,7 +3,6 @@ package ht.ferit.fjjukic.foodlovers.app_account.change_email.view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
@@ -19,8 +18,6 @@ class ChangeEmailViewModel(
 
     private val _user: MutableLiveData<UserModel> = MutableLiveData()
     val currentUser: LiveData<UserModel> = _user
-
-    val showMessage: LiveData<MessageModel> = _showMessage
 
     init {
         viewModelScope.launch(Dispatchers.Main) {

@@ -8,6 +8,7 @@ import com.google.firebase.storage.FirebaseStorage
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.live_data.SingleLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
+import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
@@ -30,12 +31,12 @@ class AccountViewModel(
     }
 
     fun handleImagePathChange(value: Uri) {
-        _showLoading.postValue(true)
+        _screenEvent.postValue(LoadingBar(true))
         currentUser.value?.let { user ->
             val ref = FirebaseStorage.getInstance().getReference("images/${user.userId}.jpg")
             ref.putFile(value).addOnSuccessListener {
                 if (it.error != null) {
-                    _showLoading.postValue(false)
+                    _screenEvent.postValue(LoadingBar(false))
                     showMessage(
                         message = it.error?.message,
                         R.string.general_error_server

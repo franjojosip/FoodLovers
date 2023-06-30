@@ -16,7 +16,7 @@ class CategoryRepositoryImpl(
 ) : CategoryRepository {
     override suspend fun getCategories(): Result<List<CategoryModel>> {
         return withContext(Dispatchers.IO) {
-            val categories = db.categoryDao().getAll().value ?: listOf()
+            val categories = db.categoryDao().getAll()
 
             when {
                 hasDayPassed() -> {
@@ -57,7 +57,7 @@ class CategoryRepositoryImpl(
         }
     }
 
-    override suspend fun updateCategory(category: CategoryModel): Result<Boolean> {
+    override suspend fun updateCategory(category: CategoryModel): Result<CategoryModel> {
         return withContext(Dispatchers.IO) {
             val result = firebaseDB.updateCategory(category)
 
@@ -70,7 +70,7 @@ class CategoryRepositoryImpl(
         }
     }
 
-    override suspend fun createCategory(category: CategoryModel): Result<Boolean> {
+    override suspend fun createCategory(category: CategoryModel): Result<CategoryModel> {
         return withContext(Dispatchers.IO) {
             val result = firebaseDB.createCategory(category)
 
@@ -92,7 +92,7 @@ class CategoryRepositoryImpl(
 
     override suspend fun getCategory(id: String): Result<CategoryModel?> {
         return withContext(Dispatchers.IO) {
-            val category = db.categoryDao().get(id).value?.mapToCategoryModel()
+            val category = db.categoryDao().get(id)?.mapToCategoryModel()
 
             if (category != null) {
                 Result.success(category)
@@ -103,14 +103,14 @@ class CategoryRepositoryImpl(
                     saveCategory(firebaseCategory)
                     Result.success(firebaseCategory)
                 } else {
-                    Result.failure(Exception("Couldn't retrieve category"))
+                    Result.failure(Exception("Error while retrieving data"))
                 }
             }
         }
     }
 
     private fun saveCategory(category: CategoryModel) {
-        db.categoryDao().update(category.mapToCategory())
+        db.categoryDao().insert(category.mapToCategory())
     }
 
     private fun mapToCategoryModels(data: List<Category>): List<CategoryModel> {
@@ -123,18 +123,10 @@ class CategoryRepositoryImpl(
     }
 
     private fun Category.mapToCategoryModel(): CategoryModel {
-        return CategoryModel(
-            this.id,
-            this.name,
-            this.drawableId
-        )
+        return CategoryModel(id, name, drawableId)
     }
 
     private fun CategoryModel.mapToCategory(): Category {
-        return Category(
-            this.id,
-            this.name,
-            this.drawableId
-        )
+        return Category(id, name, drawableId)
     }
 }

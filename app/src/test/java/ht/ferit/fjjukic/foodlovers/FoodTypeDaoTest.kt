@@ -5,7 +5,6 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import ht.ferit.fjjukic.foodlovers.app_common.database.RecipeDatabase
-import ht.ferit.fjjukic.foodlovers.app_common.database.model.FoodType
 import ht.ferit.fjjukic.foodlovers.observer.observeOnce
 import org.junit.*
 import org.junit.rules.TestRule

@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         R.id.nav_search_category,
         R.id.nav_show_recipe,
         R.id.nav_create_recipe,
-        R.id.nav_profile,
         R.id.nav_change_email,
         R.id.nav_change_username,
         R.id.nav_login,
@@ -47,5 +46,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.navigationView.setOnItemReselectedListener { }
     }
 }

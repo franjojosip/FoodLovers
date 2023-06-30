@@ -26,7 +26,7 @@ class UserRepositoryImpl(
         }
     }
 
-    override suspend fun getUser(userId: String): Result<UserModel> {
+    override suspend fun getUser(userId: String, isForRecipe: Boolean): Result<UserModel> {
         return withContext(Dispatchers.IO) {
             var user = preferenceManager.user
             when {
@@ -69,15 +69,15 @@ class UserRepositoryImpl(
         return withContext(Dispatchers.IO) {
             try {
                 firebaseAuth.fetchSignInMethodsForEmail(email).await()
-                    ?: return@withContext Result.failure(Exception("FirebaseAuth error - fetchSignInMethodsForEmail"))
+                    ?: return@withContext Result.failure(Exception("FirebaseAuth error - email doesn't exist"))
 
                 val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
                 val userId = result?.user?.uid
-                    ?: return@withContext Result.failure(Exception("FirebaseAuth error - signInWithEmailAndPassword"))
+                    ?: return@withContext Result.failure(Exception("FirebaseAuth error - sign in failed"))
 
                 preferenceManager.user =
                     getUser(userId).getOrNull() ?: return@withContext Result.failure(
-                        Exception("FirebaseAuth error - user not retrieved")
+                        Exception("FirebaseAuth error - user doesn't exist")
                     )
 
                 return@withContext Result.success(true)

@@ -1,5 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.search
 
+import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import ht.ferit.fjjukic.foodlovers.R
@@ -7,26 +8,26 @@ import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_common.view.CustomRemovableChipGroup
 import ht.ferit.fjjukic.foodlovers.app_recipe.RecipeListener
-import ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.BasicRecipesAdapter
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentSearchRecipesBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class SearchFragment : BaseFragment<HomeViewModel, FragmentSearchRecipesBinding>(),
+class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchRecipesBinding>(),
     CustomRemovableChipGroup.RemovableClickListener, RecipeListener {
 
-    override val viewModel: HomeViewModel by sharedViewModel()
+    override val viewModel: SearchViewModel by sharedViewModel()
     override val layoutId: Int = R.layout.fragment_search_recipes
 
-    private val recipeAdapter: BasicRecipesAdapter by lazy {
-        BasicRecipesAdapter(this).apply {
-            setData(mutableListOf(NoRecipePlaceholder))
-        }
+    private lateinit var recipeAdapter: BasicRecipesAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        recipeAdapter = BasicRecipesAdapter(this)
     }
 
     override fun init() {
+        viewModel.init()
         toolbar = binding.toolbarLayout
 
         binding.cvFilter.setOnClickListener {

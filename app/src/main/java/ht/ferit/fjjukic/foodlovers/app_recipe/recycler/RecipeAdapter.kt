@@ -70,8 +70,8 @@ class RecipeAdapter(val listener: HomeListener? = null) :
             data[position] is TodayChoiceRecipe -> 0
             data[position] is TopRecipe -> 1
             data[position] is NoRecipePlaceholder -> 2
-            data[position] is Ingredient -> 3
-            data[position] is Step -> 4
+//            data[position] is Ingredient -> 3
+//            data[position] is Step -> 4
             else -> throw Exception("Class doesn't exist")
         }
     }

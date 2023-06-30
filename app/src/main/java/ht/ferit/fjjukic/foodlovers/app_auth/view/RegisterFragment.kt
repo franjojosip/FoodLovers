@@ -17,10 +17,6 @@ class RegisterFragment : BaseFragment<AuthViewModel, FragmentRegisterBinding>() 
     override val viewModel: AuthViewModel by viewModel()
 
     override fun init() {
-        binding.tilUsername.editText?.setText("test123231")
-        binding.tilEmail.editText?.setText("test@mail.com")
-        binding.tilPassword.editText?.setText("test123")
-        binding.tilRepeatedPassword.editText?.setText("test123")
         setListeners()
     }
 

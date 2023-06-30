@@ -2,14 +2,12 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.showrecipe
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
-import ht.ferit.fjjukic.foodlovers.app_common.repository.MockRepository
+import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
+import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
+import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipe
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.BasicRecipe
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class ShowRecipeViewModel(
     private val recipeRepository: RecipeRepository
@@ -19,11 +17,19 @@ class ShowRecipeViewModel(
     val recipe: LiveData<BasicRecipe> = _recipe
 
     fun loadRecipe(id: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _screenEvent.postValue(LoadingBar(true))
-            //_recipe.value = recipeRepository.getRecipe(id)
-            _recipe.postValue(MockRepository.getRecipeByID(id))
-            _screenEvent.postValue(LoadingBar(false))
-        }
+        handleResult({
+            recipeRepository.getRecipe(id)
+        }, {
+            if (it != null) {
+                _recipe.postValue(it.mapToBasicRecipe())
+            } else {
+                _actionNavigate.postValue(ActionNavigate.Back)
+            }
+        }, {
+            _screenEvent.postValue(
+                SnackbarModel(message = "Error while loading recipe")
+            )
+            _actionNavigate.postValue(ActionNavigate.Back)
+        })
     }
 }

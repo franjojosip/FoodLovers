@@ -14,7 +14,7 @@ class ListStepsFragment: BaseFragment<CreateRecipeViewModel, FragmentListItemsBi
 
     private val adapter: RecipeAdapter by lazy {
         RecipeAdapter().apply {
-            setData(viewModel.recipe.steps.toMutableList())
+//            setData(viewModel.recipe.steps.toMutableList())
         }
     }
 

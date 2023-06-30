@@ -1,6 +1,7 @@
 package ht.ferit.fjjukic.foodlovers.app_common.repository.recipe
 
 import android.net.Uri
+import android.util.Log
 import androidx.core.net.toUri
 import com.google.firebase.storage.FirebaseStorage
 import ht.ferit.fjjukic.foodlovers.app_common.database.RecipeDatabase
@@ -8,12 +9,16 @@ import ht.ferit.fjjukic.foodlovers.app_common.database.model.Recipe
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
 import ht.ferit.fjjukic.foodlovers.app_common.model.CategoryModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.DifficultyModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty.DifficultyRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.Ingredient
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.Step
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -31,14 +36,14 @@ class RecipeRepositoryImpl(
 
     override suspend fun getRecipe(id: String): Result<RecipeModel?> {
         return withContext(Dispatchers.IO) {
-            val recipe = db.recipeDao().get(id).value
+            val recipe = db.recipeDao().get(id)
 
             when {
                 recipe != null -> {
                     val category = categoryRepository.getCategory(recipe.categoryId).getOrNull()
                     val difficulty =
                         difficultyRepository.getDifficulty(recipe.difficultyId).getOrNull()
-                    val user = userRepository.getUser(recipe.userId).getOrNull()
+                    val user = userRepository.getUser(recipe.userId, true).getOrNull()
 
                     if (category != null && difficulty != null && user != null) {
                         Result.success(recipe.mapToRecipeModel(category, difficulty, user))
@@ -72,12 +77,12 @@ class RecipeRepositoryImpl(
             this.description,
             this.time,
             this.servings,
-            this.steps,
-            this.ingredients,
-            this.difficulty.id,
-            this.category.id,
-            this.user.userId,
+            this.steps.map { Step(it.position, it.description) },
+            this.ingredients.map { Ingredient(it.name, it.amount) },
+            this.difficulty!!.id,
+            this.category!!.id,
             this.imagePath,
+            this.user!!.userId,
         )
     }
 
@@ -92,8 +97,8 @@ class RecipeRepositoryImpl(
             this.description,
             this.time,
             this.servings,
-            this.steps.toMutableList(),
-            this.ingredients.toMutableList(),
+            this.steps.map { StepModel(it.position, it.description) }.toMutableList(),
+            this.ingredients.map { IngredientModel(it.name, it.amount) }.toMutableList(),
             difficulty,
             category,
             user,
@@ -103,7 +108,7 @@ class RecipeRepositoryImpl(
 
     override suspend fun getRecipes(): Result<List<RecipeModel>> {
         return withContext(Dispatchers.IO) {
-            val oldRecipes = db.recipeDao().getAll().value ?: listOf()
+            val oldRecipes = db.recipeDao().getAll()
 
             when {
                 hasDayPassed() -> {
@@ -139,7 +144,7 @@ class RecipeRepositoryImpl(
         data.forEach {
             val category = categoryRepository.getCategory(it.categoryId).getOrNull()
             val difficulty = difficultyRepository.getDifficulty(it.difficultyId).getOrNull()
-            val user = userRepository.getUser(it.userId).getOrNull()
+            val user = userRepository.getUser(it.userId, true).getOrNull()
 
             if (category != null && difficulty != null && user != null) {
                 recipes.add(it.mapToRecipeModel(category, difficulty, user))
@@ -149,17 +154,17 @@ class RecipeRepositoryImpl(
     }
 
     private fun saveRecipes(data: List<RecipeModel>) {
-        preferenceManager.lastUpdatedRecipes = System.currentTimeMillis()
         data.forEach {
             db.recipeDao().insert(it.mapToRecipe())
         }
+        preferenceManager.lastUpdatedRecipes = System.currentTimeMillis()
     }
 
-    override suspend fun insertRecipe(recipe: RecipeModel): Result<Boolean> {
+    override suspend fun createRecipe(recipe: RecipeModel): Result<Boolean> {
         return withContext(Dispatchers.IO) {
             recipe.imagePath =
                 saveRecipeImage(recipe.imagePath.toUri(), recipe.id)
-                    ?: return@withContext Result.failure(Exception("Failed to save recipe"))
+                    ?: return@withContext Result.failure(Exception("Error while saving recipe"))
 
             val result = firebaseDB.createRecipe(recipe)
 
@@ -178,17 +183,25 @@ class RecipeRepositoryImpl(
 
     private suspend fun saveRecipeImage(value: Uri, recipeId: String): String? {
         return withContext(Dispatchers.IO) {
-            val ref = firebaseStorage.reference.child(getRecipePath(recipeId))
-            val uploadTask = ref.putFile(value).await()
+            try {
+                val ref = firebaseStorage.reference.child(getRecipePath(recipeId))
 
-            when {
-                uploadTask.error != null -> {
-                    null
-                }
 
-                else -> {
-                    uploadTask.storage.downloadUrl.await().toString()
+//                return@withContext ref.downloadUrl.await().toString()
+                val uploadTask = ref.putFile(value).await()
+
+                when {
+                    uploadTask.error != null -> {
+                        null
+                    }
+
+                    else -> {
+                        uploadTask.storage.downloadUrl.await().toString()
+                    }
                 }
+            } catch (e: Exception) {
+                Log.d("log", e.message.toString())
+                null
             }
         }
     }

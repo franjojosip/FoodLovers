@@ -25,7 +25,17 @@ val commonModule = module {
     factory<DifficultyRepository> { DifficultyRepositoryImpl(get(), get(), get()) }
 
     factory<UserRepository> { UserRepositoryImpl(get(), get(), get()) }
-    factory<RecipeRepository> { RecipeRepositoryImpl(get(), get(), get(), get(), get(), get()) }
+    factory<RecipeRepository> {
+        RecipeRepositoryImpl(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
     factory { FilterRepositoryMock() }
 
     viewModel {

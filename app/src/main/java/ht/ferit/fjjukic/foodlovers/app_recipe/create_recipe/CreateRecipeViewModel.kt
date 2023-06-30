@@ -3,22 +3,20 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.Ingredient
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.Recipe
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.Step
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class CreateRecipeViewModel(
     private val recipeRepository: RecipeRepository
 ) : BaseViewModel() {
-    private val _recipe = Recipe(author = "By Jane Doe")
+    private val _recipe = RecipeModel()
 
     private var _isDataChanged = true
     val isDataChanged = _isDataChanged
@@ -78,7 +76,7 @@ class CreateRecipeViewModel(
         _imagePath.value = imageURI
     }
 
-    fun setIngredients(values: List<Ingredient>) {
+    fun setIngredients(values: List<IngredientModel>) {
         _isDataChanged = true
         _recipe.ingredients.apply {
             clear()
@@ -86,7 +84,7 @@ class CreateRecipeViewModel(
         }
     }
 
-    fun setSteps(values: List<Step>) {
+    fun setSteps(values: List<StepModel>) {
         _isDataChanged = true
         _recipe.steps.apply {
             clear()
@@ -105,7 +103,17 @@ class CreateRecipeViewModel(
                     title = R.string.dialog_create_recipe_title,
                     message = R.string.dialog_create_recipe_message,
                     positiveAction = {
-                        confirmCreateRecipe()
+                        handleResult({
+                            recipeRepository.createRecipe(recipe)
+                        }, {
+                            _screenEvent.postValue(
+                                MessageModel(message = "Successfully created recipe")
+                            )
+                        }, {
+                            _screenEvent.postValue(
+                                SnackbarModel(message = "Error while creating recipe")
+                            )
+                        })
                     },
                     positiveTitleId = R.string.dialog_create_recipe_confirm
                 )
@@ -119,13 +127,5 @@ class CreateRecipeViewModel(
 
     private fun checkRecipe(): Boolean {
         return recipe.name.isNotBlank() && recipe.ingredients.isNotEmpty() && recipe.steps.isNotEmpty() && recipe.imagePath.isNotBlank()
-    }
-
-    fun confirmCreateRecipe() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _showLoading.postValue(true)
-            recipeRepository.insertRecipe(recipe, coroutineContext)
-            _showLoading.postValue(false)
-        }
     }
 }

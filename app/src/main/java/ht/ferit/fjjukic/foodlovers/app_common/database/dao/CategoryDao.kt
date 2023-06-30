@@ -1,6 +1,5 @@
 package ht.ferit.fjjukic.foodlovers.app_common.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -16,10 +15,10 @@ interface CategoryDao {
     fun insertAll(categories: List<Category>)
 
     @Query("SELECT * FROM category ORDER BY id ASC")
-    fun getAll(): LiveData<List<Category>>
+    fun getAll(): List<Category>
 
     @Query("SELECT * FROM category WHERE id = :id")
-    fun get(id: String): LiveData<Category>
+    fun get(id: String): Category?
 
     @Update
     fun update(Category: Category)

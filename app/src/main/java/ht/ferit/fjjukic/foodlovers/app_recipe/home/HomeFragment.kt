@@ -24,6 +24,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         categoryAdapter.setListener(this)
+
+        viewModel.init()
     }
 
     override fun init() {

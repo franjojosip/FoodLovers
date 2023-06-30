@@ -3,7 +3,6 @@ package ht.ferit.fjjukic.foodlovers.app_account.change_username.view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.live_data.SingleLiveData
-import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
@@ -21,9 +20,6 @@ class ChangeUsernameViewModel(
 
     private val _refreshUser: SingleLiveData<Boolean> = SingleLiveData()
     val refreshUser: LiveData<Boolean> = _refreshUser
-
-    val showMessage: LiveData<MessageModel> = _showMessage
-    val showLoading: LiveData<Boolean> = _showLoading
 
     fun init() {
         _user.postValue(preferenceManager.user)

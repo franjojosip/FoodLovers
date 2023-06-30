@@ -69,8 +69,6 @@ class MainStepFragment : BaseFragment<CreateRecipeViewModel, FragmentMainStepBin
 
     override fun init() {
         setListeners()
-
-        //viewModel.confirmCreateRecipe()
     }
 
     override fun setObservers() {

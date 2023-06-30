@@ -44,10 +44,6 @@ class ChangeUsernameFragment :
             binding.tilUsername.editText?.setText(it.name)
         }
 
-        viewModel.showMessage.observeNotNull(viewLifecycleOwner) {
-            showToast(it.message, it.messageId)
-        }
-
         viewModel.refreshUser.observeNotNull(viewLifecycleOwner) {
             EventBus.getDefault().post(ActionEvent.UserChange)
             binding.root.clearFocusAndHideKeyboard()

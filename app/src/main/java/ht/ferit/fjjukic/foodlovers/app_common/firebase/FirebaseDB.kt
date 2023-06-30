@@ -26,18 +26,18 @@ interface FirebaseDB {
     /**
      * Firebase Realtime Database - access categories
      */
-    suspend fun createCategory(category: CategoryModel): Result<Boolean>
+    suspend fun createCategory(category: CategoryModel): Result<CategoryModel>
     suspend fun getCategory(id: String): Result<CategoryModel?>
     suspend fun getCategories(): Result<List<CategoryModel>>
-    suspend fun updateCategory(category: CategoryModel): Result<Boolean>
+    suspend fun updateCategory(category: CategoryModel): Result<CategoryModel>
     suspend fun deleteCategory(id: String): Result<Boolean>
 
     /**
      * Firebase Realtime Database - access difficulties
      */
-    suspend fun createDifficulty(difficulty: DifficultyModel): Result<Boolean>
+    suspend fun createDifficulty(difficulty: DifficultyModel): Result<DifficultyModel>
     suspend fun getDifficulty(id: String): Result<DifficultyModel?>
     suspend fun getDifficulties(): Result<List<DifficultyModel>>
-    suspend fun updateDifficulty(difficulty: DifficultyModel): Result<Boolean>
+    suspend fun updateDifficulty(difficulty: DifficultyModel): Result<DifficultyModel>
     suspend fun deleteDifficulty(id: String): Result<Boolean>
 }

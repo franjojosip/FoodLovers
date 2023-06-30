@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.Ingredient
+import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
 import ht.ferit.fjjukic.foodlovers.databinding.IngredientItemBinding
 
 class IngredientView @JvmOverloads constructor(
@@ -39,12 +39,12 @@ class IngredientView @JvmOverloads constructor(
         }
     }
 
-    fun getData(): Ingredient? {
+    fun getData(): IngredientModel? {
         val name = binding.etIngredient.text.toString()
         val amount = binding.etAmount.text.toString()
 
         return when {
-            name.isNotEmpty() && amount.isNotEmpty() -> return Ingredient(name, amount)
+            name.isNotEmpty() && amount.isNotEmpty() -> return IngredientModel(name, amount)
             else -> null
         }
     }

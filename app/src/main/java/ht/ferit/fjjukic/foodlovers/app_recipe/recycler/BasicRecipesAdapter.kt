@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import ht.ferit.fjjukic.foodlovers.app_recipe.RecipeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.BasicRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders.BasicRecipeViewHolder
+import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders.NoRecipesViewHolder
+import ht.ferit.fjjukic.foodlovers.databinding.NoRecipesPlaceholderBinding
 import ht.ferit.fjjukic.foodlovers.databinding.SearchRecipeItemBinding
 
 class BasicRecipesAdapter(val listener: RecipeListener? = null) :
@@ -20,6 +23,10 @@ class BasicRecipesAdapter(val listener: RecipeListener? = null) :
         return when (viewType) {
             0 -> BasicRecipeViewHolder(
                 SearchRecipeItemBinding.inflate(layoutInflater, parent, false)
+            )
+
+            1 -> NoRecipesViewHolder(
+                NoRecipesPlaceholderBinding.inflate(layoutInflater, parent, false)
             )
 
             else -> throw Exception("View type doesn't exist")
@@ -41,6 +48,7 @@ class BasicRecipesAdapter(val listener: RecipeListener? = null) :
     override fun getItemViewType(position: Int): Int {
         return when {
             data[position] is BasicRecipe -> 0
+            data[position] is NoRecipePlaceholder -> 1
             else -> throw Exception("Class doesn't exist")
         }
     }

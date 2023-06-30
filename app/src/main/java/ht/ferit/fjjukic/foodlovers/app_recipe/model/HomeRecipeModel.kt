@@ -1,6 +1,8 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.model
 
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 
 
 sealed class HomeScreenRecipe(
@@ -54,7 +56,7 @@ class BasicRecipe(
     difficulty: String,
     imagePath: String,
     user: String,
-    val ingredients: List<Ingredient>,
-    val steps: List<Step>,
+    val ingredients: MutableList<IngredientModel>,
+    val steps: MutableList<StepModel>,
     val isFavorite: Boolean
 ) : HomeScreenRecipe(id, title, description, time, servings, difficulty, imagePath, user)

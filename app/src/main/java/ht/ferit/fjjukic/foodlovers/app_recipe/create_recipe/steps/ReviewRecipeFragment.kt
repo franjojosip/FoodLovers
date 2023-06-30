@@ -5,13 +5,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToServings
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.Ingredient
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.Step
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentReviewBinding
 import ht.ferit.fjjukic.foodlovers.databinding.IngredientListItemBinding
 import ht.ferit.fjjukic.foodlovers.databinding.NoItemsListItemBinding
@@ -54,7 +54,7 @@ class ReviewRecipeFragment : BaseFragment<CreateRecipeViewModel, FragmentReviewB
         if (!viewModel.isDataChanged) return
 
         binding.tvRecipeTitle.text = viewModel.recipe.name.ifBlank { "Here goes your title" }
-        binding.tvRecipeAuthor.text = viewModel.recipe.author
+        binding.tvRecipeAuthor.text = viewModel.recipe.user?.name
         binding.tvNumberOfServings.text = viewModel.recipe.servings.convertToServings()
         binding.tvTime.text = viewModel.recipe.time.convertToTime()
 
@@ -114,14 +114,14 @@ class ReviewRecipeFragment : BaseFragment<CreateRecipeViewModel, FragmentReviewB
         }
     }
 
-    private fun addIngredientField(data: Ingredient) {
+    private fun addIngredientField(data: IngredientModel) {
         val view = IngredientListItemBinding.inflate(LayoutInflater.from(context), null, false)
         view.tvIngredientAmount.text = data.amount
         view.tvIngredientName.text = data.name
         binding.llIngredients.addView(view.root)
     }
 
-    private fun addStepField(data: Step) {
+    private fun addStepField(data: StepModel) {
         val view = StepListItemBinding.inflate(LayoutInflater.from(context), null, false)
         view.tvStep.text = "Step ${data.position}."
         view.tvDescription.text = data.description

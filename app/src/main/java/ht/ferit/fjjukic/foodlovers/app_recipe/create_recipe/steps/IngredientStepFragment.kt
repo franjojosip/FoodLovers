@@ -7,9 +7,9 @@ import android.view.animation.Animation
 import androidx.core.view.children
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.Ingredient
 import ht.ferit.fjjukic.foodlovers.app_recipe.view.IngredientView
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentIngredientsBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -65,7 +65,7 @@ class IngredientStepFragment : BaseFragment<CreateRecipeViewModel, FragmentIngre
     }
 
     private fun saveIngredients() {
-        val ingredients = mutableListOf<Ingredient>()
+        val ingredients = mutableListOf<IngredientModel>()
         binding.llIngredients.children.forEach { view ->
             (view as? IngredientView)?.getData().takeIf { it != null }?.let { ingredient ->
                 ingredients.add(ingredient)

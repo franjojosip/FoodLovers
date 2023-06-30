@@ -3,10 +3,12 @@ package ht.ferit.fjjukic.foodlovers.app_common.database.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.UUID
 
 @Entity(tableName = "user")
 data class User(
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    var id: String,
     @ColumnInfo(name = "email")
     var email: String,
     @ColumnInfo(name = "username")
@@ -17,8 +19,5 @@ data class User(
     var latitude: Double,
     @ColumnInfo(name = "longitude")
     var longitude: Double
-) {
-    @PrimaryKey
-    var id: String = UUID.randomUUID().toString()
-}
+)
 

@@ -1,6 +1,5 @@
 package ht.ferit.fjjukic.foodlovers.app_common.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -16,10 +15,10 @@ interface DifficultyDao {
     fun insertAll(difficulties: List<Difficulty>)
 
     @Query("SELECT * FROM difficulty ORDER BY id ASC")
-    fun getAll(): LiveData<List<Difficulty>>
+    fun getAll(): List<Difficulty>
 
     @Query("SELECT * FROM difficulty WHERE id = :id")
-    fun get(id: String): LiveData<Difficulty>
+    fun get(id: String): Difficulty?
 
     @Update
     fun update(difficulty: Difficulty)

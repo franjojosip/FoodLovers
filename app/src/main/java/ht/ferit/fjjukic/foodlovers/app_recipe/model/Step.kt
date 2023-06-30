@@ -1,8 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.model
 
-class Step(
+data class Step(
     var position: Int,
-    description: String
-) : HomeScreenRecipe(description = description) {
-    constructor() : this(0, "")
-}
+    var description: String
+)
