@@ -2,26 +2,26 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.core.widget.NestedScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_home"
+        <include
+            android:id="@+id/loader_layout"
+            layout="@layout/loader_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/home_screen_background">
+            android:visibility="gone" />
 
-                <include
-                    android:id="@+id/loader_layout"
-                    layout="@layout/loader_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/home_screen_background">
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -42,8 +42,8 @@
                     android:id="@+id/search_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="15dp"
                     android:clipToPadding="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -68,9 +68,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
                     android:clipToPadding="false"
+                    android:orientation="horizontal"
                     android:paddingStart="10dp"
                     android:paddingEnd="20dp"
-                    android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_categories" />
 
@@ -115,10 +115,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="14dp"
-                    android:paddingBottom="16dp"
                     android:orientation="vertical"
+                    android:paddingBottom="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_top_recipes" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
 </layout>

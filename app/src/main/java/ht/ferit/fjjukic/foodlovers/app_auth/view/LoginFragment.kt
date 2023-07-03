@@ -2,7 +2,7 @@ package ht.ferit.fjjukic.foodlovers.app_auth.view
 
 import androidx.core.widget.doOnTextChanged
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_auth.viewmodel.AuthViewModel
+import ht.ferit.fjjukic.foodlovers.app_auth.viewmodel.LoginViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.getValue
 import ht.ferit.fjjukic.foodlovers.app_common.utils.validateField
 import ht.ferit.fjjukic.foodlovers.app_common.validators.FieldValidator
@@ -10,9 +10,10 @@ import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentLoginBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding>() {
+class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
+
     override val layoutId: Int = R.layout.fragment_login
-    override val viewModel: AuthViewModel by viewModel()
+    override val viewModel: LoginViewModel by viewModel()
 
     override fun init() {
         setListeners()

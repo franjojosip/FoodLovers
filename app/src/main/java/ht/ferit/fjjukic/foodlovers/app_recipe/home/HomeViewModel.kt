@@ -47,7 +47,9 @@ class HomeViewModel(
                     _topRecipes.value = topRecipes
                 }
             }
-        }, {})
+        }, {},
+            showLoading = false
+        )
     }
 
     private fun loadCategories() {
@@ -59,7 +61,9 @@ class HomeViewModel(
                     _categories.value = it.mapToRecipeCategory()
                 }
             }
-        }, {})
+        }, {},
+            showLoading = false
+        )
     }
 
     fun onRecipeClick(navDirections: NavDirections) {

@@ -2,16 +2,16 @@ package ht.ferit.fjjukic.foodlovers.app_common.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import ht.ferit.fjjukic.foodlovers.app_common.database.model.Recipe
-
 @Dao
 interface RecipeDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(recipe: Recipe)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(recipes: List<Recipe>)
 
     @Query("SELECT * FROM recipe ORDER BY name ASC")

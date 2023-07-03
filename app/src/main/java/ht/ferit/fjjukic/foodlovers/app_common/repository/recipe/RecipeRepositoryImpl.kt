@@ -154,9 +154,7 @@ class RecipeRepositoryImpl(
     }
 
     private fun saveRecipes(data: List<RecipeModel>) {
-        data.forEach {
-            db.recipeDao().insert(it.mapToRecipe())
-        }
+        db.recipeDao().insertAll(data.map { it.mapToRecipe() })
         preferenceManager.lastUpdatedRecipes = System.currentTimeMillis()
     }
 

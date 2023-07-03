@@ -25,15 +25,17 @@ abstract class BaseViewModel : ViewModel() {
 
     protected val _actionNavigate = SingleLiveData<ActionNavigate>()
     protected val _screenEvent = SingleLiveData<ScreenEvent>()
-    
+
     val screenEvent: LiveData<ScreenEvent>
         get() = _screenEvent
 
     val actionNavigate: LiveData<ActionNavigate>
         get() = _actionNavigate
 
-    protected fun handleError(value: String?) {
-        showMessage(value, R.string.general_error_server)
+    protected fun handleError(value: String?, isToast: Boolean = true) {
+        if (isToast) {
+            showMessage(value, R.string.general_error_server)
+        } else showSnackbar(value, R.string.general_error_server)
     }
 
     protected fun showSnackbar(message: String? = null, messageId: Int? = null) {

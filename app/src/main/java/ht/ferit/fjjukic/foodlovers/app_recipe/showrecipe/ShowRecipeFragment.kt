@@ -1,7 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.showrecipe
 
 import android.view.LayoutInflater
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import ht.ferit.fjjukic.foodlovers.R
@@ -30,10 +29,6 @@ class ShowRecipeFragment: BaseFragment<ShowRecipeViewModel, FragmentShowRecipeBi
 
     override fun setObservers() {
         super.setObservers()
-
-        viewModel.showLoading.observe(viewLifecycleOwner) {
-            binding.loaderLayout.isVisible = it
-        }
 
         viewModel.recipe.observe(viewLifecycleOwner) { recipe ->
             binding.toolbarLayout.setTitle(recipe.title)

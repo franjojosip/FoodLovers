@@ -31,6 +31,6 @@ val appModule = module {
     single { NotificationsManager(get()) }
 
     viewModel {
-        WelcomeScreenViewModel(get())
+        WelcomeScreenViewModel(get(), get(), get())
     }
 }

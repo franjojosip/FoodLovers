@@ -15,14 +15,20 @@
         <action
             android:id="@+id/action_nav_login_to_nav_graph_home"
             app:destination="@id/nav_graph_home"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
             app:popUpTo="@id/nav_login"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_nav_login_to_nav_register"
-            app:destination="@id/nav_register" />
+            app:destination="@id/nav_register"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_nav_login_to_nav_reset_password"
-            app:destination="@id/nav_reset_password" />
+            app:destination="@id/nav_reset_password"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
@@ -33,11 +39,15 @@
         <action
             android:id="@+id/action_nav_register_to_nav_login"
             app:destination="@id/nav_login"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
             app:popUpTo="@id/nav_login"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_nav_register_to_nav_graph_home"
             app:destination="@id/nav_graph_home"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
             app:popUpTo="@id/nav_login"
             app:popUpToInclusive="true" />
     </fragment>
@@ -50,6 +60,8 @@
         <action
             android:id="@+id/action_nav_reset_password_to_nav_login"
             app:destination="@id/nav_login"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
             app:popUpTo="@id/nav_login"
             app:popUpToInclusive="true" />
     </fragment>

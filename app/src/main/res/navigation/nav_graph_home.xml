@@ -52,10 +52,14 @@
         tools:layout="@layout/fragment_search_recipes">
         <action
             android:id="@+id/action_nav_search_recipes_to_nav_filter_recipes"
-            app:destination="@id/nav_filter_recipes" />
+            app:destination="@id/nav_filter_recipes"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_nav_search_recipes_to_nav_graph_show_recipe"
-            app:destination="@id/nav_graph_show_recipe">
+            app:destination="@id/nav_graph_show_recipe"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out">
             <argument
                 android:name="id"
                 app:argType="string" />
