@@ -1,25 +1,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@id/nav_graph_home"
+        android:id="@+id/nav_graph_home"
         android:icon="@drawable/ic_home"
         android:title="Home"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@id/nav_graph_recipes"
+        android:id="@+id/nav_graph_recipes"
         android:icon="@drawable/ic_plate"
         android:title="Recipes"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@id/nav_graph_favorites"
+        android:id="@+id/nav_graph_favorites"
         android:icon="@drawable/ic_favorites"
         android:title="Favorites"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@id/nav_graph_account"
+        android:id="@+id/nav_graph_account"
         android:icon="@drawable/ic_profile"
         android:title="Profile"
         app:showAsAction="ifRoom" />

@@ -1,6 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_main.view
 
-import androidx.navigation.fragment.findNavController
+import android.os.Bundle
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_main.viewmodel.WelcomeScreenViewModel
@@ -11,16 +11,13 @@ class WelcomeScreenFragment : BaseFragment<WelcomeScreenViewModel, FragmentWelco
     override val layoutId: Int = R.layout.fragment_welcome_screen
     override val viewModel: WelcomeScreenViewModel by viewModel()
 
-    override fun init() {
-        if (!viewModel.firstTime) {
-            val navDirections =
-                when {
-                    viewModel.userAuthenticated -> WelcomeScreenFragmentDirections.actionNavWelcomeToNavGraphHome()
-                    else -> WelcomeScreenFragmentDirections.actionNavWelcomeToNavGraphAuth()
-                }
-            findNavController().navigate(navDirections)
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
+        viewModel.init()
+    }
+
+    override fun init() {
         binding.btnStart.setOnClickListener {
             viewModel.onStartClick()
         }

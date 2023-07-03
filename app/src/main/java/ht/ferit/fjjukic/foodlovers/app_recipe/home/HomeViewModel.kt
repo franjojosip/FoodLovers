@@ -48,7 +48,7 @@ class HomeViewModel(
                 }
             }
         }, {},
-            showLoading = false
+            showLoading = true
         )
     }
 

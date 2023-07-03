@@ -23,29 +23,29 @@ class MainActivity : AppCompatActivity() {
         R.id.nav_reset_password
     )
 
+    private val navController by lazy {
+        (supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment).navController
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-
-        binding.navigationView.setupWithNavController(navController)
+        binding.bottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when {
                 destinationsWithoutBottomBar.contains(destination.id) -> {
-                    binding.navigationView.visibility = View.GONE
+                    binding.bottomNav.visibility = View.GONE
                 }
 
                 else -> {
-                    binding.navigationView.visibility = View.VISIBLE
+                    binding.bottomNav.visibility = View.VISIBLE
                 }
             }
         }
-        binding.navigationView.setOnItemReselectedListener { }
+        binding.bottomNav.setOnItemReselectedListener { }
     }
 }

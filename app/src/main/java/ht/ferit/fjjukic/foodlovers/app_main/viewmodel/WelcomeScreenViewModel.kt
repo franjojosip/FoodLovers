@@ -15,9 +15,6 @@ class WelcomeScreenViewModel(
     private val difficultyRepository: DifficultyRepository
 ) : BaseViewModel() {
 
-    val userAuthenticated = preferenceManager.user != null
-    val firstTime = preferenceManager.isFirstTime
-
     init {
         if (preferenceManager.lastUpdatedCategories == 0L) {
             GlobalScope.launch {
@@ -31,14 +28,23 @@ class WelcomeScreenViewModel(
         }
     }
 
+    fun init() {
+        if (!preferenceManager.isFirstTime) {
+            handleWelcomeScreenNavigation()
+        }
+    }
+
     fun onStartClick() {
         preferenceManager.isFirstTime = false
+        handleWelcomeScreenNavigation()
+    }
 
+    private fun handleWelcomeScreenNavigation() {
         when {
-            userAuthenticated -> {
+            preferenceManager.user != null -> {
                 _actionNavigate.postValue(
                     ActionNavigate.NavigationWithDirections(
-                        WelcomeScreenFragmentDirections.actionNavWelcomeToNavGraphHome()
+                        WelcomeScreenFragmentDirections.actionNavWelcomeToNavGraphBottom()
                     )
                 )
             }
