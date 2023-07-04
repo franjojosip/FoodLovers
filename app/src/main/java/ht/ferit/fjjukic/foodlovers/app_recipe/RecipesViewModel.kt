@@ -2,31 +2,50 @@ package ht.ferit.fjjukic.foodlovers.app_recipe
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ht.ferit.fjjukic.foodlovers.app_common.repository.MockRepository
+import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
+import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipe
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class RecipesViewModel : BaseViewModel() {
+class RecipesViewModel(
+    private val recipeRepository: RecipeRepository
+) : BaseViewModel() {
 
-    private val _currentRecipes = MutableLiveData<List<HomeScreenRecipe>>()
-    val currentRecipes: LiveData<List<HomeScreenRecipe>> = _currentRecipes
+    private val _recipes = MutableLiveData<List<HomeScreenRecipe>>(listOf(NoRecipePlaceholder))
+    val recipes: LiveData<List<HomeScreenRecipe>> = _recipes
 
-    fun loadRecipes(category: String?) {
-        _currentRecipes.value = getRecipes()
-    }
-
-    private fun getRecipes(): List<HomeScreenRecipe> {
-        return MockRepository.getRecipes().sortedBy { it.title }
+    fun loadRecipes(category: String? = null) {
+        handleResult({
+            recipeRepository.getRecipes()
+        }, {
+            it
+                ?.filter { model ->
+                    if (!category.isNullOrBlank()) {
+                        model.category?.name?.contains(category, true) == true
+                    } else true
+                }
+                ?.map { recipe -> recipe.mapToBasicRecipe() }
+                ?.let {
+                    withContext(Dispatchers.Main) {
+                        _recipes.value = it.ifEmpty { listOf(NoRecipePlaceholder) }
+                    }
+                }
+        }, {},
+            showLoading = true
+        )
     }
 
     fun handleSortBy(isAscending: Boolean) {
         when (isAscending) {
             true -> {
-                _currentRecipes.value = currentRecipes.value?.sortedBy { it.title }
+                _recipes.value = recipes.value?.sortedBy { it.title }
             }
 
             else -> {
-                _currentRecipes.value = currentRecipes.value?.sortedByDescending { it.title }
+                _recipes.value = recipes.value?.sortedByDescending { it.title }
             }
         }
     }

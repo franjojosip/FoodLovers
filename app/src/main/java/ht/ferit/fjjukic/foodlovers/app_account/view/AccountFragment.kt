@@ -17,10 +17,8 @@ import ht.ferit.fjjukic.foodlovers.app_account.view_model.AccountViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.listener.LocationHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionEvent
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
-import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
 import ht.ferit.fjjukic.foodlovers.app_common.notification.NotificationsManager
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
-import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentAccountBinding
 import org.greenrobot.eventbus.EventBus
@@ -88,27 +86,27 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
 
             )
         }
-        binding.tvChangeUsername.setOnClickListener {
-            viewModel.handleNavigateAction(ActionNavigate.ChangeUsername)
-        }
-        binding.tvChangeEmail.setOnClickListener {
-            viewModel.handleNavigateAction(ActionNavigate.ChangeEmail)
-        }
-        binding.tvChangeLocation.setOnClickListener {
-            viewModel.handleNavigateAction(ActionNavigate.ChangeLocation)
-        }
-        binding.clLogout.setOnClickListener {
-            context?.showAlertDialog(
-                DialogModel(
-                    title = R.string.logout_question,
-                    message = R.string.logout_message,
-                    positiveTitleId = R.string.action_logout,
-                    positiveAction = {
-                        viewModel.handleNavigateAction(ActionNavigate.Logout)
-                    }
-                )
-            )
-        }
+//        binding.tvChangeUsername.setOnClickListener {
+//            viewModel.handleNavigateAction(ActionNavigate.ChangeUsername)
+//        }
+//        binding.tvChangeEmail.setOnClickListener {
+//            viewModel.handleNavigateAction(ActionNavigate.ChangeEmail)
+//        }
+//        binding.tvChangeLocation.setOnClickListener {
+//            viewModel.handleNavigateAction(ActionNavigate.ChangeLocation)
+//        }
+//        binding.clLogout.setOnClickListener {
+//            context?.showAlertDialog(
+//                DialogModel(
+//                    title = R.string.logout_question,
+//                    message = R.string.logout_message,
+//                    positiveTitleId = R.string.action_logout,
+//                    positiveAction = {
+//                        viewModel.handleNavigateAction(ActionNavigate.Logout)
+//                    }
+//                )
+//            )
+//        }
     }
 
     override fun setObservers() {

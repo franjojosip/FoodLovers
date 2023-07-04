@@ -18,7 +18,7 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_nav_home_to_nav_graph_show_recipe"
+            android:id="@+id/action_nav_recipes_to_nav_graph_show_recipe"
             app:destination="@id/nav_graph_show_recipe"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out">

@@ -13,7 +13,7 @@ class RegisterViewModel(
         handleResult({
             userRepository.register(email, username, password)
         }, {
-            _actionNavigate.postValue(
+            actionNavigate.postValue(
                 ActionNavigate.NavigationWithDirections(
                     RegisterFragmentDirections.actionNavRegisterToNavGraphHome()
                 )
@@ -24,7 +24,7 @@ class RegisterViewModel(
     }
 
     fun onNavigateToLoginClick() {
-        _actionNavigate.postValue(
+        actionNavigate.postValue(
             ActionNavigate.NavigationWithDirections(
                 RegisterFragmentDirections.actionNavRegisterToNavLogin()
             )

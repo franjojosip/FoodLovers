@@ -22,11 +22,12 @@ class CustomChipGroup @JvmOverloads constructor(
     fun getSelectedChips(): List<FilterItem> {
         val selectedChips = mutableListOf<FilterItem>()
 
-        checkedChipIds.filter { it != defaultChipId }.forEach {
+        checkedChipIds.forEach {
             findViewById<Chip>(it)?.let { chip ->
-                chips.firstOrNull { item -> item.value == chip.text.toString() }?.let { selectedChip ->
-                    selectedChips.add(selectedChip)
-                }
+                chips.firstOrNull { item -> item.value == chip.text.toString() }
+                    ?.let { selectedChip ->
+                        selectedChips.add(selectedChip)
+                    }
             }
         }
         return selectedChips.toList()
@@ -70,15 +71,6 @@ class CustomChipGroup @JvmOverloads constructor(
         }
         else if (!isChecked && checkedChipIds.isEmpty()) {
             defaultChipId?.let { check(it) }
-        }
-    }
-
-    fun selectChips(chips: List<FilterItem>) {
-        children.forEach { view ->
-            val childChip = (view as? Chip)
-            chips.firstOrNull { it.value == childChip?.text }?.let {
-                childChip?.isChecked = true
-            }
         }
     }
 

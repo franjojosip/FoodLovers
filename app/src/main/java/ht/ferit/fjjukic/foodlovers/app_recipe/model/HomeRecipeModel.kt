@@ -12,6 +12,7 @@ sealed class HomeScreenRecipe(
     val time: String = "",
     val servings: Int = 4,
     val difficulty: String = "",
+    val category: String = "",
     val imagePath: String = "",
     val user: String = ""
 )
@@ -54,9 +55,10 @@ class BasicRecipe(
     time: String,
     servings: Int,
     difficulty: String,
+    category: String,
     imagePath: String,
     user: String,
     val ingredients: MutableList<IngredientModel>,
     val steps: MutableList<StepModel>,
     val isFavorite: Boolean
-) : HomeScreenRecipe(id, title, description, time, servings, difficulty, imagePath, user)
+) : HomeScreenRecipe(id, title, description, time, servings, difficulty, category, imagePath, user)

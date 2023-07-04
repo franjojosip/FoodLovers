@@ -5,6 +5,7 @@ import ht.ferit.fjjukic.foodlovers.app_common.database.model.Difficulty
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
 import ht.ferit.fjjukic.foodlovers.app_common.model.DifficultyModel
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
@@ -87,6 +88,15 @@ class DifficultyRepositoryImpl(
         return withContext(Dispatchers.IO) {
             db.difficultyDao().delete(id)
             firebaseDB.deleteDifficulty(id)
+        }
+    }
+
+    override suspend fun getFilterDifficulties(): List<FilterItem.Difficulty> {
+        return getDifficulties().getOrDefault(listOf()).let { models ->
+            val difficulties =
+                mutableListOf(FilterItem.Difficulty("All", isChecked = true, isDefault = true))
+            difficulties.addAll(models.map { FilterItem.Difficulty(it.name.replaceFirstChar(Char::titlecase)) })
+            difficulties
         }
     }
 

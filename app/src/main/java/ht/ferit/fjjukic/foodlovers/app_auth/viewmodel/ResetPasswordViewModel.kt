@@ -22,7 +22,7 @@ class ResetPasswordViewModel(
     }
 
     fun handleBackToLogin() {
-        _actionNavigate.postValue(
+        actionNavigate.postValue(
             ActionNavigate.NavigationWithDirections(
                 ResetPasswordFragmentDirections.actionNavResetPasswordToNavLogin()
             )

@@ -3,11 +3,12 @@ package ht.ferit.fjjukic.foodlovers.app_common.module
 import ht.ferit.fjjukic.foodlovers.app_account.change_email.view_model.ChangeEmailViewModel
 import ht.ferit.fjjukic.foodlovers.app_account.change_username.view_model.ChangeUsernameViewModel
 import ht.ferit.fjjukic.foodlovers.app_account.view_model.AccountViewModel
-import ht.ferit.fjjukic.foodlovers.app_common.repository.FilterRepositoryMock
 import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepositoryImpl
 import ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty.DifficultyRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty.DifficultyRepositoryImpl
+import ht.ferit.fjjukic.foodlovers.app_common.repository.filters.FilterRepository
+import ht.ferit.fjjukic.foodlovers.app_common.repository.filters.FilterRepositoryImpl
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepositoryImpl
 import ht.ferit.fjjukic.foodlovers.app_common.repository.resource.ResourceRepository
@@ -36,7 +37,7 @@ val commonModule = module {
             get()
         )
     }
-    factory { FilterRepositoryMock() }
+    factory<FilterRepository> { FilterRepositoryImpl(get(), get()) }
 
     viewModel {
         LocationViewModel(get(), get())

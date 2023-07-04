@@ -98,7 +98,7 @@ class CreateRecipeViewModel(
 
     fun createRecipe() {
         if (checkRecipe()) {
-            _screenEvent.postValue(
+            screenEvent.postValue(
                 DialogModel(
                     title = R.string.dialog_create_recipe_title,
                     message = R.string.dialog_create_recipe_message,
@@ -106,11 +106,11 @@ class CreateRecipeViewModel(
                         handleResult({
                             recipeRepository.createRecipe(recipe)
                         }, {
-                            _screenEvent.postValue(
+                            screenEvent.postValue(
                                 MessageModel(message = "Successfully created recipe")
                             )
                         }, {
-                            _screenEvent.postValue(
+                            screenEvent.postValue(
                                 SnackbarModel(message = "Error while creating recipe")
                             )
                         })
@@ -119,7 +119,7 @@ class CreateRecipeViewModel(
                 )
             )
         } else {
-            _screenEvent.postValue(
+            screenEvent.postValue(
                 SnackbarModel(message = "Please check all recipe fields!")
             )
         }

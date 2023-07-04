@@ -12,7 +12,7 @@ class LoginViewModel(
         handleResult({
             userRepository.login(email, password)
         }, {
-            _actionNavigate.postValue(
+            actionNavigate.postValue(
                 ActionNavigate.NavigationWithDirections(
                     LoginFragmentDirections.actionNavLoginToNavGraphHome()
                 )
@@ -23,7 +23,7 @@ class LoginViewModel(
     }
 
     fun handleForgotPasswordClick() {
-        _actionNavigate.postValue(
+        actionNavigate.postValue(
             ActionNavigate.NavigationWithDirections(
                 LoginFragmentDirections.actionNavLoginToNavResetPassword()
             )
@@ -31,7 +31,7 @@ class LoginViewModel(
     }
 
     fun handleRegistrationClick() {
-        _actionNavigate.postValue(
+        actionNavigate.postValue(
             ActionNavigate.NavigationWithDirections(
                 LoginFragmentDirections.actionNavLoginToNavRegister()
             )

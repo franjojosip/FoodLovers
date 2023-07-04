@@ -27,19 +27,24 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchRecipesBindin
     }
 
     override fun init() {
-        viewModel.init()
         toolbar = binding.toolbarLayout
+
+        binding.searchView.showKeyboardAndFocus()
+        viewModel.removeSearchFilter()
+
+        binding.recyclerView.adapter = recipeAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         binding.cvFilter.setOnClickListener {
             viewModel.onFilterClick()
         }
 
-        binding.recyclerView.adapter = recipeAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
         binding.searchView.handleSearch {
-            binding.searchView.clearText()
             viewModel.addSearchFilter(it)
+        }
+
+        binding.searchView.handleEndIconClicked {
+            viewModel.removeSearchFilter()
         }
 
         binding.cgFilters.setListener(this)
@@ -49,7 +54,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchRecipesBindin
     override fun setObservers() {
         super.setObservers()
 
-        viewModel.filters.observeNotNull(viewLifecycleOwner) {
+        viewModel.selectedFilters.observeNotNull(viewLifecycleOwner) {
             binding.tvFilters.isVisible = it.isNotEmpty()
             binding.cgFilters.setData(it)
         }
@@ -57,7 +62,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchRecipesBindin
             binding.tvHistory.isVisible = it.isNotEmpty()
             binding.cgHistory.setData(it)
         }
-        viewModel.currentRecipes.observe(viewLifecycleOwner) { recipes ->
+        viewModel.filteredRecipes.observe(viewLifecycleOwner) { recipes ->
             recipes?.let { recipeAdapter.setData(it) }
         }
     }
@@ -67,8 +72,6 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchRecipesBindin
     }
 
     override fun onRecipeClick(id: String) {
-        viewModel.onRecipeClick(
-            SearchFragmentDirections.actionNavSearchRecipesToNavGraphShowRecipe(id)
-        )
+        viewModel.onRecipeClick(id)
     }
 }

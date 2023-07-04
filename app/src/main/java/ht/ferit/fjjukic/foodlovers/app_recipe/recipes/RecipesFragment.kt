@@ -19,7 +19,7 @@ class RecipesFragment : BaseFragment<RecipesViewModel, FragmentRecipesBinding>()
     private val recipesAdapter = BasicRecipesAdapter(this)
 
     override fun init() {
-        viewModel.loadRecipes(null)
+        viewModel.loadRecipes()
 
         binding.recyclerView.adapter = recipesAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -30,7 +30,7 @@ class RecipesFragment : BaseFragment<RecipesViewModel, FragmentRecipesBinding>()
             )
         }
 
-        viewModel.currentRecipes.observe(viewLifecycleOwner) { recipes ->
+        viewModel.recipes.observe(viewLifecycleOwner) { recipes ->
             binding.tvTotalRecipes.text = "${recipes.count()} total recipes"
             recipes?.let { recipesAdapter.setData(it) }
         }
@@ -38,7 +38,7 @@ class RecipesFragment : BaseFragment<RecipesViewModel, FragmentRecipesBinding>()
 
     override fun onRecipeClick(id: String) {
         findNavController().navigate(
-            RecipesFragmentDirections.actionNavHomeToNavGraphShowRecipe(id)
+            RecipesFragmentDirections.actionNavRecipesToNavGraphShowRecipe(id)
         )
     }
 }

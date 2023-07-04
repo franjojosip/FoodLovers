@@ -16,7 +16,7 @@ class FavoritesViewModel : BaseViewModel() {
     }
 
     fun onRecipeClick(id: String) {
-        _actionNavigate.postValue(
+        actionNavigate.postValue(
             ActionNavigate.NavigationWithDirections(
                 FavoritesFragmentDirections.actionNavGraphFavoritesToNavGraphShowRecipe(id)
             )

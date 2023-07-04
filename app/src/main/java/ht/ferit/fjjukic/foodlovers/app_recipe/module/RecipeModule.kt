@@ -14,7 +14,7 @@ val recipeModule = module {
         HomeViewModel(get(), get())
     }
     viewModel {
-        SearchViewModel(get())
+        SearchViewModel(get(), get())
     }
 
     viewModel {
@@ -26,7 +26,7 @@ val recipeModule = module {
     }
 
     viewModel {
-        RecipesViewModel()
+        RecipesViewModel(get())
     }
 
     viewModel {

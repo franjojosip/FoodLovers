@@ -5,6 +5,7 @@ import ht.ferit.fjjukic.foodlovers.app_common.database.model.Category
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
 import ht.ferit.fjjukic.foodlovers.app_common.model.CategoryModel
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
@@ -88,6 +89,15 @@ class CategoryRepositoryImpl(
         return withContext(Dispatchers.IO) {
             db.categoryDao().delete(id)
             firebaseDB.deleteCategory(id)
+        }
+    }
+
+    override suspend fun getFilterCategories(): List<FilterItem.Category> {
+        return getCategories().getOrDefault(listOf()).let { models ->
+            val categories =
+                mutableListOf(FilterItem.Category("All", isChecked = true, isDefault = true))
+            categories.addAll(models.map { FilterItem.Category(it.name.replaceFirstChar(Char::titlecase)) })
+            categories.sortedBy { it.value }
         }
     }
 

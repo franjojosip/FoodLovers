@@ -50,7 +50,7 @@ class ChangeEmailViewModel(
 //                    if (it) {
 //                        showMessage(messageId = R.string.email_change_success)
 //                        firebaseSource.logout()
-//                        _actionNavigate.postValue(ActionNavigate.Login)
+//                        actionNavigate.postValue(ActionNavigate.Login)
 //                    } else {
 //                        showMessage(messageId = R.string.email_change_server_error)
 //                    }

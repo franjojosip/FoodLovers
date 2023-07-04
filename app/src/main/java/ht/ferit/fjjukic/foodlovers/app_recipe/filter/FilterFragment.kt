@@ -17,15 +17,10 @@ class FilterFragment : BaseFragment<SearchViewModel, FragmentFilterBinding>() {
     }
 
     private fun setScreen() {
-        binding.cgCategories.setData(viewModel.getCategoryFilters())
-        binding.cgTimes.setData(viewModel.getTimeFilters())
-        binding.cgDifficulties.setData(viewModel.getDifficultyFilters())
-        binding.cgSorts.setData(viewModel.getSortFilters())
-
-        binding.cgCategories.selectChips(viewModel.selectedCategories)
-        binding.cgTimes.selectChips(viewModel.selectedTimes)
-        binding.cgDifficulties.selectChips(viewModel.selectedDifficulties)
-        binding.cgSorts.selectChips(viewModel.selectedSorts)
+        binding.cgCategories.setData(viewModel.filter.categories)
+        binding.cgTimes.setData(viewModel.filter.times)
+        binding.cgDifficulties.setData(viewModel.filter.difficulties)
+        binding.cgSorts.setData(viewModel.filter.sorts)
     }
 
     private fun setListeners() {

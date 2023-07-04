@@ -3,17 +3,14 @@ package ht.ferit.fjjukic.foodlovers.app_account.view_model
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.storage.FirebaseStorage
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.live_data.SingleLiveData
-import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
-import kotlinx.coroutines.launch
 
 class AccountViewModel(
     private val userRepository: UserRepository,
@@ -31,12 +28,12 @@ class AccountViewModel(
     }
 
     fun handleImagePathChange(value: Uri) {
-        _screenEvent.postValue(LoadingBar(true))
+        screenEvent.postValue(LoadingBar(true))
         currentUser.value?.let { user ->
             val ref = FirebaseStorage.getInstance().getReference("images/${user.userId}.jpg")
             ref.putFile(value).addOnSuccessListener {
                 if (it.error != null) {
-                    _screenEvent.postValue(LoadingBar(false))
+                    screenEvent.postValue(LoadingBar(false))
                     showMessage(
                         message = it.error?.message,
                         R.string.general_error_server
@@ -56,17 +53,6 @@ class AccountViewModel(
 //                            }
 //                        }, ::handleError)
 //                }
-            }
-        }
-    }
-
-    fun handleNavigateAction(action: ActionNavigate) {
-        viewModelScope.launch {
-            if (action is ActionNavigate.Logout) {
-                userRepository.logout()
-                _actionNavigate.postValue(ActionNavigate.Login)
-            } else {
-                _actionNavigate.postValue(action)
             }
         }
     }

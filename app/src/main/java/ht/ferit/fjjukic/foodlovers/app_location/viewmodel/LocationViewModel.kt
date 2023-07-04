@@ -43,6 +43,6 @@ class LocationViewModel(
     }
 
     fun handleNavigateAction(action: ActionNavigate) {
-        _actionNavigate.postValue(action)
+        actionNavigate.postValue(action)
     }
 }

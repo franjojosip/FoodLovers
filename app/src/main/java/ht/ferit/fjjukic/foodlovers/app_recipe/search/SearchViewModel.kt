@@ -2,202 +2,170 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.NavDirections
+import androidx.lifecycle.viewModelScope
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
-import ht.ferit.fjjukic.foodlovers.app_common.repository.FilterRepositoryMock
+import ht.ferit.fjjukic.foodlovers.app_common.model.FilterModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
+import ht.ferit.fjjukic.foodlovers.app_common.repository.filters.FilterRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
-import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipes
+import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipe
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
-import ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeFragmentDirections
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.RecipeCategory
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SearchViewModel(
-    private val recipeRepository: RecipeRepository
+    private val recipeRepository: RecipeRepository,
+    private val filterRepository: FilterRepository
 ) : BaseViewModel() {
 
-    private val _selectedFilters = MutableLiveData<MutableList<FilterItem>>()
-    val filters: LiveData<MutableList<FilterItem>>
-        get() = _selectedFilters
+    private val _selectedFilters = MutableLiveData<List<FilterItem>>()
+    val selectedFilters: LiveData<List<FilterItem>> = _selectedFilters
 
-    private val _searchHistory = MutableLiveData<MutableList<FilterItem>>()
-    val searchHistory: LiveData<MutableList<FilterItem>>
-        get() = _searchHistory
+    private val _searchHistory = MutableLiveData<MutableList<FilterItem.Search>>()
+    val searchHistory: LiveData<MutableList<FilterItem.Search>> = _searchHistory
 
-    val selectedCategories: List<FilterItem>
-        get() = _selectedFilters.value?.filterIsInstance<FilterItem.Category>() ?: listOf()
+    private val _filteredRecipes =
+        MutableLiveData<List<HomeScreenRecipe>>(listOf(NoRecipePlaceholder))
+    val filteredRecipes: LiveData<List<HomeScreenRecipe>> = _filteredRecipes
 
-    val selectedTimes: List<FilterItem>
-        get() = _selectedFilters.value?.filterIsInstance<FilterItem.Time>() ?: listOf()
-
-    val selectedDifficulties: List<FilterItem>
-        get() = _selectedFilters.value?.filterIsInstance<FilterItem.Difficulty>() ?: listOf()
-
-    val selectedSorts: List<FilterItem>
-        get() = _selectedFilters.value?.filterIsInstance<FilterItem.Sort>() ?: listOf()
+    var filter = FilterModel()
+        private set
 
     private var recipes = listOf<HomeScreenRecipe>()
 
-    private val _currentRecipes =
-        MutableLiveData<List<HomeScreenRecipe>>(listOf(NoRecipePlaceholder))
-    val currentRecipes: LiveData<List<HomeScreenRecipe>> = _currentRecipes
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            filter = filterRepository.getFilterModel()
 
-    private val _categories = MutableLiveData<List<RecipeCategory>>()
-    val categories: LiveData<List<RecipeCategory>> = _categories
 
-    fun init() {
-        loadRecipes()
-    }
+            recipes = recipeRepository.getRecipes().getOrDefault(listOf()).map {
+                it.mapToBasicRecipe()
+            }
 
-    private fun loadRecipes() {
-        handleResult(
-            {
-                recipeRepository.getRecipes()
-            }, { data ->
-                if (data != null) {
-                    val recipes = if (data.isEmpty()) {
-                        mutableListOf(NoRecipePlaceholder)
-                    } else {
-                        data.toMutableList().mapToBasicRecipes()
-                    }
-
-                    withContext(Dispatchers.Main) {
-                        _currentRecipes.value = recipes
-                    }
-                }
-            }, {}
-        )
+            _filteredRecipes.postValue(recipes.ifEmpty { listOf(NoRecipePlaceholder) })
+        }
     }
 
     fun onConfirmFilterClicked(
-        categories: List<FilterItem>,
-        times: List<FilterItem>,
-        difficulties: List<FilterItem>,
-        sorts: List<FilterItem>,
+        selectedCategories: List<FilterItem>,
+        selectedTimes: List<FilterItem>,
+        selectedDifficulties: List<FilterItem>,
+        selectedSorts: List<FilterItem>,
     ) {
-        val searchItems = _selectedFilters.value?.filterIsInstance<FilterItem.Search>() ?: listOf()
+        selectFilters(filter.categories, selectedCategories)
+        selectFilters(filter.times, selectedTimes)
+        selectFilters(filter.difficulties, selectedDifficulties)
+        selectFilters(filter.sorts, selectedSorts)
 
-        _selectedFilters.value = mutableListOf<FilterItem>().apply {
-            clear()
-            addAll(searchItems)
-            addAll(categories)
-            addAll(times)
-            addAll(difficulties)
-            addAll(sorts)
+        filterRecipes()
+
+        _selectedFilters.value = filter.getSelectedFilters()
+
+        actionNavigate.postValue(ActionNavigate.Back)
+    }
+
+    private fun filterRecipes() {
+        viewModelScope.launch(Dispatchers.Default) {
+            screenEvent.postValue(LoadingBar(true))
+
+            val filters = filter.getSelectedFilters()
+            val searchHistory = filter.searchHistory.map { it.value.lowercase() }
+
+            val filteredRecipes = filters
+                .map { it.value.lowercase() }
+                .takeIf { it.isNotEmpty() }
+                ?.let { filterValues ->
+                    var filteredRecipes = recipes.filter {
+                        filterValues.contains(it.title.lowercase())
+                                || filterValues.contains(it.time.lowercase())
+                                || filterValues.contains(it.difficulty.lowercase())
+                                || filterValues.contains(it.category.lowercase())
+
+                                || checkSearchHistory(it.title.lowercase(), searchHistory)
+                                || checkSearchHistory(it.time.lowercase(), searchHistory)
+                                || checkSearchHistory(it.difficulty.lowercase(), searchHistory)
+                                || checkSearchHistory(it.category.lowercase(), searchHistory)
+                    }
+
+                    filter.sorts.firstOrNull()?.let {
+                        filteredRecipes = if (it.isAsc) {
+                            filteredRecipes.sortedBy { it.title }
+                        } else {
+                            filteredRecipes.sortedByDescending { it.title }
+                        }
+                    }
+                    filteredRecipes
+                } ?: recipes
+
+            screenEvent.postValue(LoadingBar(false))
+            withContext(Dispatchers.Main) {
+                _selectedFilters.value = filters
+                _filteredRecipes.value = filteredRecipes
+            }
         }
-
-        _actionNavigate.postValue(ActionNavigate.Back)
     }
 
-    fun onCategoryFilterSelected(category: String) {
-        val currentFilters = _selectedFilters.value ?: mutableListOf()
-        if (currentFilters.firstOrNull { it.value.equals(category, true) } == null) {
-            currentFilters.add(FilterItem.Category(category, true))
-            _selectedFilters.value = currentFilters
-
-            //Filter recipe by category
+    private fun checkSearchHistory(value: String, history: List<String>): Boolean {
+        var valueSearched = false
+        history.forEach {
+            if (value.contains(it)) valueSearched = true
         }
+        return valueSearched
     }
 
-    fun getFilteredRecipes(): MutableList<HomeScreenRecipe> {
-        return mutableListOf(NoRecipePlaceholder)
-    }
-
-    fun getCategoryFilters(): List<FilterItem> {
-        return FilterRepositoryMock().getFilterItems().filterIsInstance<FilterItem.Category>()
-            .onEach {
-                if (_selectedFilters.value?.contains(it) == true) {
-                    it.isChecked = true
-                }
-            }
-    }
-
-    fun getTimeFilters(): List<FilterItem> {
-        return FilterRepositoryMock().getFilterItems().filterIsInstance<FilterItem.Time>().onEach {
-            if (_selectedFilters.value?.contains(it) == true) {
-                it.isChecked = true
-            }
-        }
-    }
-
-    fun getDifficultyFilters(): List<FilterItem> {
-        return FilterRepositoryMock().getFilterItems().filterIsInstance<FilterItem.Difficulty>()
-            .onEach {
-                if (_selectedFilters.value?.contains(it) == true) {
-                    it.isChecked = true
-                }
-            }
-    }
-
-    fun getSortFilters(): List<FilterItem> {
-        return FilterRepositoryMock().getFilterItems().filterIsInstance<FilterItem.Sort>().onEach {
-            if (_selectedFilters.value?.contains(it) == true) {
-                it.isChecked = true
-            }
+    private fun selectFilters(filters: List<FilterItem>, selectedFilters: List<FilterItem>) {
+        filters.forEach {
+            it.isChecked = selectedFilters.contains(it)
         }
     }
 
     fun removeFilter(item: FilterItem) {
-        when (item) {
-            is FilterItem.Search -> {
-                val currentHistory = _searchHistory.value ?: mutableListOf()
-                currentHistory.removeAll { it.value.equals(item.value, true) }
+        filter.deselectFilter(item)
 
-                _searchHistory.value = currentHistory
-            }
-
-            else -> {
-                val currentFilters = _selectedFilters.value ?: mutableListOf()
-                currentFilters.removeAll { it.value.equals(item.value, true) }
-
-                _selectedFilters.value = currentFilters
-            }
-        }
+        if (item is FilterItem.Search) {
+            _searchHistory.value = filter.searchHistory
+        } else filterRecipes()
     }
 
     fun addSearchFilter(value: String) {
-        val searchHistory = _searchHistory.value ?: mutableListOf()
+        val searchHistory = filter.searchHistory.toMutableList()
+
         if (searchHistory.none { it.value.equals(value, true) }) {
             searchHistory.add(FilterItem.Search(value))
-            _searchHistory.value = searchHistory
-            _currentRecipes.value =
-                recipes.filter {
-                    it.title.contains(value)
-                            || it.description.contains(value)
-                            || it.time.contains(value)
-                            || it.difficulty.contains(value)
-                }
+        }
+
+        filter.searchHistory.apply {
+            clear()
+            addAll(searchHistory)
+        }
+        _searchHistory.value = filter.searchHistory
+
+        _filteredRecipes.value = _filteredRecipes.value?.filter {
+            it.title.lowercase().contains(value.lowercase()) ||
+                    it.time.lowercase().contains(value.lowercase()) ||
+                    it.difficulty.lowercase().contains(value.lowercase()) ||
+                    it.category.lowercase().contains(value.lowercase())
         }
     }
 
-    fun onRecipeClick(navDirections: NavDirections) {
-        _actionNavigate.postValue(
-            ActionNavigate.NavigationWithDirections(navDirections)
-        )
+    fun removeSearchFilter() {
+        filterRecipes()
     }
 
-    fun onCategoryClick(category: String) {
-        _actionNavigate.postValue(
+    fun onRecipeClick(id: String) {
+        actionNavigate.postValue(
             ActionNavigate.NavigationWithDirections(
-                HomeFragmentDirections.actionNavHomeToNavSearchCategory(category)
-            )
-        )
-    }
-
-    fun onSearchClick() {
-        _actionNavigate.postValue(
-            ActionNavigate.NavigationWithDirections(
-                HomeFragmentDirections.actionNavHomeToNavSearchRecipes()
+                SearchFragmentDirections.actionNavSearchRecipesToNavGraphShowRecipe(id)
             )
         )
     }
 
     fun onFilterClick() {
-        _actionNavigate.postValue(
+        actionNavigate.postValue(
             ActionNavigate.NavigationWithDirections(
                 SearchFragmentDirections.actionNavSearchRecipesToNavFilterRecipes()
             )

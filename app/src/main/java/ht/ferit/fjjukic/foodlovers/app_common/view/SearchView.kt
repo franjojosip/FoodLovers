@@ -80,6 +80,14 @@ class SearchView @JvmOverloads constructor(
         }
     }
 
+    fun handleEndIconClicked(action: () -> Unit) {
+        binding.etSearch.onDrawableEndClick {
+            binding.etSearch.setText("")
+            showKeyboardAndFocus()
+            action()
+        }
+    }
+
     fun handleSearch(action: (String) -> Unit) {
         binding.etSearch.setOnEditorActionListener { textView, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {

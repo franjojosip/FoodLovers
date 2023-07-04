@@ -69,6 +69,8 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
                     (binding.root.findViewById(R.id.loader_layout) as? View)?.isVisible =
                         screenEvent.isVisible
                 }
+
+                else -> {}
             }
         }
         viewModel.actionNavigate.observe(viewLifecycleOwner) {

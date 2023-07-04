@@ -23,13 +23,13 @@ class ShowRecipeViewModel(
             if (it != null) {
                 _recipe.postValue(it.mapToBasicRecipe())
             } else {
-                _actionNavigate.postValue(ActionNavigate.Back)
+                actionNavigate.postValue(ActionNavigate.Back)
             }
         }, {
-            _screenEvent.postValue(
+            screenEvent.postValue(
                 SnackbarModel(message = "Error while loading recipe")
             )
-            _actionNavigate.postValue(ActionNavigate.Back)
+            actionNavigate.postValue(ActionNavigate.Back)
         })
     }
 }

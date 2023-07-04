@@ -38,7 +38,7 @@ class HomeViewModel(
         handleResult({
             recipeRepository.getRecipes()
         }, { data ->
-            if (data != null) {
+            data?.let {
                 val topRecipes = data.takeLast(3).mapToTopRecipe()
                 val todayChoiceRecipes = data.take(5).mapToTodayChoiceRecipe()
 
@@ -67,13 +67,13 @@ class HomeViewModel(
     }
 
     fun onRecipeClick(navDirections: NavDirections) {
-        _actionNavigate.postValue(
+        actionNavigate.postValue(
             ActionNavigate.NavigationWithDirections(navDirections)
         )
     }
 
     fun onCategoryClick(category: String) {
-        _actionNavigate.postValue(
+        actionNavigate.postValue(
             ActionNavigate.NavigationWithDirections(
                 HomeFragmentDirections.actionNavHomeToNavSearchCategory(category)
             )
@@ -81,7 +81,7 @@ class HomeViewModel(
     }
 
     fun onSearchClick() {
-        _actionNavigate.postValue(
+        actionNavigate.postValue(
             ActionNavigate.NavigationWithDirections(
                 HomeFragmentDirections.actionNavHomeToNavSearchRecipes()
             )

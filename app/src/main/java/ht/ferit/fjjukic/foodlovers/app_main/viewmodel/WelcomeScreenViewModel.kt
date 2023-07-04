@@ -42,7 +42,7 @@ class WelcomeScreenViewModel(
     private fun handleWelcomeScreenNavigation() {
         when {
             preferenceManager.user != null -> {
-                _actionNavigate.postValue(
+                actionNavigate.postValue(
                     ActionNavigate.NavigationWithDirections(
                         WelcomeScreenFragmentDirections.actionNavWelcomeToNavGraphBottom()
                     )
@@ -50,7 +50,7 @@ class WelcomeScreenViewModel(
             }
 
             else -> {
-                _actionNavigate.postValue(
+                actionNavigate.postValue(
                     ActionNavigate.NavigationWithDirections(
                         WelcomeScreenFragmentDirections.actionNavWelcomeToNavGraphAuth()
                     )
