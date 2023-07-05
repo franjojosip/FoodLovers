@@ -2,6 +2,8 @@ package ht.ferit.fjjukic.foodlovers.app_recipe
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavDirections
+import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipe
 import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
@@ -37,8 +39,7 @@ class RecipesViewModel(
                         _filteredRecipes.value = it.ifEmpty { listOf(NoRecipePlaceholder) }
                     }
                 }
-        }, {},
-            showLoading = true
+        }, {}
         )
     }
 
@@ -73,5 +74,9 @@ class RecipesViewModel(
                 }
             }
         }
+    }
+
+    fun onRecipeClick(navDirections: NavDirections) {
+        actionNavigate.postValue(ActionNavigate.NavigationWithDirections(navDirections))
     }
 }

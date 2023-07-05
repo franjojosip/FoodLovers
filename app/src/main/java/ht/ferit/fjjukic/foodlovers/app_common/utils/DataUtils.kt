@@ -77,6 +77,7 @@ fun List<RecipeModel>.mapToTopRecipe(): List<TopRecipe> {
             recipe.time.toString(),
             recipe.servings,
             recipe.difficulty?.name ?: "",
+            recipe.category?.name ?: "",
             recipe.imagePath,
             getUser(recipe.user)
         )
@@ -92,6 +93,7 @@ fun List<RecipeModel>.mapToTodayChoiceRecipe(): List<TodayChoiceRecipe> {
             recipe.time.toString(),
             recipe.servings,
             recipe.difficulty?.name ?: "",
+            recipe.category?.name ?: "",
             recipe.imagePath,
             getUser(recipe.user)
         )

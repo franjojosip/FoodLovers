@@ -44,7 +44,7 @@ class RecipesFragment : BaseFragment<RecipesViewModel, FragmentRecipesBinding>()
         }
 
         viewModel.filteredRecipes.observe(viewLifecycleOwner) { recipes ->
-            binding.tvTotalRecipes.text = "${recipes.count()} total recipes"
+            binding.tvTotalRecipes.text = "${recipes.count { it.title.isNotBlank() }} total recipes"
             recipes?.let { recipesAdapter.setData(it) }
         }
     }

@@ -33,9 +33,10 @@ class TodayChoiceRecipe(
     time: String,
     servings: Int,
     difficulty: String,
+    category: String,
     imagePath: String,
     user: String
-) : HomeScreenRecipe(id, title, description, time, servings, difficulty, imagePath, user)
+) : HomeScreenRecipe(id, title, description, time, servings, difficulty, category, imagePath, user)
 
 class TopRecipe(
     id: String,
@@ -44,9 +45,10 @@ class TopRecipe(
     time: String,
     servings: Int,
     difficulty: String,
+    category: String,
     imagePath: String,
     user: String
-) : HomeScreenRecipe(id, title, description, time, servings, difficulty, imagePath, user)
+) : HomeScreenRecipe(id, title, description, time, servings, difficulty, category, imagePath, user)
 
 class BasicRecipe(
     id: String,

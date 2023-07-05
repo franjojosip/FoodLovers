@@ -2,16 +2,17 @@ package ht.ferit.fjjukic.foodlovers.app_common.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import ht.ferit.fjjukic.foodlovers.app_common.database.model.Difficulty
 
 @Dao
 interface DifficultyDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(difficulty: Difficulty)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(difficulties: List<Difficulty>)
 
     @Query("SELECT * FROM difficulty ORDER BY id ASC")

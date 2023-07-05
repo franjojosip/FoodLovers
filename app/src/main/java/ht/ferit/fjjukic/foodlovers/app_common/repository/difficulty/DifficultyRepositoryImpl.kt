@@ -7,6 +7,8 @@ import ht.ferit.fjjukic.foodlovers.app_common.model.DifficultyModel
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
@@ -15,6 +17,14 @@ class DifficultyRepositoryImpl(
     private val firebaseDB: FirebaseDB,
     private val preferenceManager: PreferenceManager
 ) : DifficultyRepository {
+    init {
+        if (preferenceManager.lastUpdatedDifficulties == 0L && preferenceManager.user != null) {
+            GlobalScope.launch {
+                getDifficulties()
+            }
+        }
+    }
+
     override suspend fun getDifficulties(): Result<List<DifficultyModel>> {
         return withContext(Dispatchers.IO) {
             val difficulties = db.difficultyDao().getAll()

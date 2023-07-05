@@ -30,6 +30,6 @@ val recipeModule = module {
     }
 
     viewModel {
-        FavoritesViewModel()
+        FavoritesViewModel(get())
     }
 }

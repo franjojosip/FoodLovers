@@ -1,12 +1,10 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe
 
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
-import ht.ferit.fjjukic.foodlovers.app_recipe.recipes.RecipesFragmentDirections
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.BasicRecipesAdapter
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentCategoryRecipesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -55,8 +53,10 @@ CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryRecipes
     }
 
     override fun onRecipeClick(id: String) {
-        findNavController().navigate(
-            RecipesFragmentDirections.actionNavRecipesToNavGraphShowRecipe(id)
+        viewModel.onRecipeClick(
+            CategoryRecipesFragmentDirections.actionNavSearchCategoryToNavGraphShowRecipe(
+                id
+            )
         )
     }
 

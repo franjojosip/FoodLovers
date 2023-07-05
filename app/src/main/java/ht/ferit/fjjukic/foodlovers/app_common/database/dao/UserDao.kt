@@ -2,13 +2,14 @@ package ht.ferit.fjjukic.foodlovers.app_common.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import ht.ferit.fjjukic.foodlovers.app_common.database.model.User
 
 @Dao
 interface UserDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: User)
 
     @Query("SELECT * FROM user ORDER BY id ASC")

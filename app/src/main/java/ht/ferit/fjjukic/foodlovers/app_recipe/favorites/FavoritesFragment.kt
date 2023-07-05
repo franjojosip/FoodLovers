@@ -18,11 +18,26 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
     private val recipesAdapter = BasicRecipesAdapter(this)
 
     override fun init() {
+        viewModel.loadRecipes()
+
         binding.recyclerView.adapter = recipesAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.recipes.observe(viewLifecycleOwner) { recipes ->
-            binding.tvTotalRecipes.text = "${recipes.count()} total recipes"
+        binding.cvFilter.setOnClickListener {
+            viewModel.handleSortBy(binding.ivFilter.isSelected)
+            binding.ivFilter.isSelected = !binding.ivFilter.isSelected
+        }
+
+        binding.searchView.handleSearch {
+            viewModel.addSearchFilter(it)
+        }
+
+        binding.searchView.handleEndIconClicked {
+            viewModel.removeSearchFilter(!binding.ivFilter.isSelected)
+        }
+
+        viewModel.filteredRecipes.observe(viewLifecycleOwner) { recipes ->
+            binding.tvTotalRecipes.text = "${recipes.count { it.title.isNotBlank() }} total recipes"
             recipes?.let { recipesAdapter.setData(it) }
         }
     }

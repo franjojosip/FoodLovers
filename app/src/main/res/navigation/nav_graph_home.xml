@@ -15,9 +15,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_search_recipes"
             app:destination="@id/nav_search_recipes"
-            app:launchSingleTop="true"
             app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out" />
+            app:exitAnim="@anim/fade_out"
+            app:launchSingleTop="true" />
         <action
             android:id="@+id/action_nav_home_to_nav_search_category"
             app:destination="@id/nav_search_category"
@@ -44,6 +44,13 @@
             android:name="category"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_nav_search_category_to_nav_graph_show_recipe"
+            app:destination="@id/nav_graph_show_recipe">
+            <argument
+                android:name="id"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment

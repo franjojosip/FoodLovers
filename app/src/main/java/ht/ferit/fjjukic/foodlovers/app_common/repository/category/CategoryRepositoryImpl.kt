@@ -7,6 +7,8 @@ import ht.ferit.fjjukic.foodlovers.app_common.model.CategoryModel
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
@@ -15,6 +17,14 @@ class CategoryRepositoryImpl(
     private val firebaseDB: FirebaseDB,
     private val preferenceManager: PreferenceManager
 ) : CategoryRepository {
+
+    init {
+        if (preferenceManager.lastUpdatedCategories == 0L && preferenceManager.user != null) {
+            GlobalScope.launch {
+                getCategories()
+            }
+        }
+    }
 
     override suspend fun getCategories(): Result<List<CategoryModel>> {
         return withContext(Dispatchers.IO) {
