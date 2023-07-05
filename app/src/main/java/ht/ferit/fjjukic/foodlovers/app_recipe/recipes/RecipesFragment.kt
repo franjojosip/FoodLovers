@@ -30,7 +30,20 @@ class RecipesFragment : BaseFragment<RecipesViewModel, FragmentRecipesBinding>()
             )
         }
 
-        viewModel.recipes.observe(viewLifecycleOwner) { recipes ->
+        binding.cvFilter.setOnClickListener {
+            viewModel.handleSortBy(binding.ivFilter.isSelected)
+            binding.ivFilter.isSelected = !binding.ivFilter.isSelected
+        }
+
+        binding.searchView.handleSearch {
+            viewModel.addSearchFilter(it)
+        }
+
+        binding.searchView.handleEndIconClicked {
+            viewModel.removeSearchFilter(!binding.ivFilter.isSelected)
+        }
+
+        viewModel.filteredRecipes.observe(viewLifecycleOwner) { recipes ->
             binding.tvTotalRecipes.text = "${recipes.count()} total recipes"
             recipes?.let { recipesAdapter.setData(it) }
         }

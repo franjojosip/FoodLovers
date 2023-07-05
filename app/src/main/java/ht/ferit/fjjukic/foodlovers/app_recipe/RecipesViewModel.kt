@@ -14,8 +14,11 @@ class RecipesViewModel(
     private val recipeRepository: RecipeRepository
 ) : BaseViewModel() {
 
-    private val _recipes = MutableLiveData<List<HomeScreenRecipe>>(listOf(NoRecipePlaceholder))
-    val recipes: LiveData<List<HomeScreenRecipe>> = _recipes
+    private var recipes: List<HomeScreenRecipe> = listOf(NoRecipePlaceholder)
+
+    private val _filteredRecipes =
+        MutableLiveData<List<HomeScreenRecipe>>(listOf(NoRecipePlaceholder))
+    val filteredRecipes: LiveData<List<HomeScreenRecipe>> = _filteredRecipes
 
     fun loadRecipes(category: String? = null) {
         handleResult({
@@ -30,7 +33,8 @@ class RecipesViewModel(
                 ?.map { recipe -> recipe.mapToBasicRecipe() }
                 ?.let {
                     withContext(Dispatchers.Main) {
-                        _recipes.value = it.ifEmpty { listOf(NoRecipePlaceholder) }
+                        recipes = it
+                        _filteredRecipes.value = it.ifEmpty { listOf(NoRecipePlaceholder) }
                     }
                 }
         }, {},
@@ -41,11 +45,32 @@ class RecipesViewModel(
     fun handleSortBy(isAscending: Boolean) {
         when (isAscending) {
             true -> {
-                _recipes.value = recipes.value?.sortedBy { it.title }
+                _filteredRecipes.value = _filteredRecipes.value?.sortedBy { it.title }
             }
 
             else -> {
-                _recipes.value = recipes.value?.sortedByDescending { it.title }
+                _filteredRecipes.value = _filteredRecipes.value?.sortedByDescending { it.title }
+            }
+        }
+    }
+
+    fun addSearchFilter(value: String) {
+        _filteredRecipes.value = recipes.filter {
+            it.title.lowercase().contains(value.lowercase()) ||
+                    it.time.lowercase().contains(value.lowercase())
+        }
+    }
+
+    fun removeSearchFilter(isAscending: Boolean) {
+        _filteredRecipes.value = recipes.let { list ->
+            when (isAscending) {
+                true -> {
+                    list.sortedBy { it.title }
+                }
+
+                else -> {
+                    list.sortedByDescending { it.title }
+                }
             }
         }
     }

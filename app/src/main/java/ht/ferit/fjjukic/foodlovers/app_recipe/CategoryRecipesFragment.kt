@@ -35,7 +35,11 @@ CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryRecipes
         }
 
         binding.searchView.handleSearch {
-//            viewModel.addSearchFilter(it)
+            viewModel.addSearchFilter(it)
+        }
+
+        binding.searchView.handleEndIconClicked {
+            viewModel.removeSearchFilter(!binding.ivFilter.isSelected)
         }
 
         binding.recyclerView.adapter = recipeAdapter
@@ -45,7 +49,7 @@ CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryRecipes
     override fun setObservers() {
         super.setObservers()
 
-        viewModel.recipes.observeNotNull(viewLifecycleOwner) {
+        viewModel.filteredRecipes.observeNotNull(viewLifecycleOwner) {
             recipeAdapter.setData(it)
         }
     }
