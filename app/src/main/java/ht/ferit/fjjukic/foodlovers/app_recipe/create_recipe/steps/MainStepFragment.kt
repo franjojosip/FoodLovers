@@ -92,7 +92,7 @@ class MainStepFragment : BaseFragment<CreateRecipeViewModel, FragmentMainStepBin
     }
 
     private fun setListeners() {
-        binding.tvName.doOnTextChanged { text, _, _, _ ->
+        binding.etName.doOnTextChanged { text, _, _, _ ->
             viewModel.onNameChanged(text)
         }
 

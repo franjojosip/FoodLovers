@@ -18,12 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="serif"
+            android:fontFamily="@font/playfair_display_regular"
+            android:gravity="center"
             android:paddingHorizontal="15dp"
             android:text="@string/email_enter_new"
-            android:textAlignment="center"
-            android:textColor="@color/color_account_text"
-            android:textSize="19sp"
+            android:textColor="@color/color_black"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -50,9 +51,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:hint="@string/email_old"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:hint="@string/email_old"
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,44 +84,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
-                android:textSize="15sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv_confirm_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginHorizontal="20dp"
-            android:fontFamily="serif"
-            android:text="@string/password_confirm_new_email"
-            android:textAlignment="center"
-            android:textColor="@color/color_account_text"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_new_email" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_password"
-            style="@style/CustomTextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="15dp"
-            android:hint="@string/password"
-            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_confirm_email">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:imeOptions="actionDone"
-                android:inputType="textPassword"
+                android:inputType="textEmailAddress"
                 android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,11 +94,8 @@
             android:layout_width="160dp"
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginBottom="65dp"
             android:background="@drawable/rounded_btn_state"
-            android:enabled="false"
             android:fontFamily="serif"
             android:text="@string/action_update"
             android:textAllCaps="false"
@@ -141,7 +103,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_password" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

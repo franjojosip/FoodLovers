@@ -12,7 +12,9 @@ import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDBImpl
 import ht.ferit.fjjukic.foodlovers.app_common.notification.NotificationsManager
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManagerImpl
-import ht.ferit.fjjukic.foodlovers.app_main.viewmodel.WelcomeScreenViewModel
+import ht.ferit.fjjukic.foodlovers.app_main.main.MainActivityViewModel
+import ht.ferit.fjjukic.foodlovers.app_main.prelogin.PreloginViewModel
+import ht.ferit.fjjukic.foodlovers.app_main.welcome_screen.WelcomeScreenViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -32,5 +34,11 @@ val appModule = module {
 
     viewModel {
         WelcomeScreenViewModel(get())
+    }
+    viewModel {
+        PreloginViewModel(get())
+    }
+    viewModel {
+        MainActivityViewModel(get())
     }
 }

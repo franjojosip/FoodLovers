@@ -47,9 +47,9 @@
     <string name="email_new">New email</string>
     <string name="email_change">Change Email</string>
     <string name="email_enter_to_reset">Enter an email connected with your profile</string>
-    <string name="email_change_success">Email successfully changed, please log in!</string>
+    <string name="email_change_success">Email successfully changed!</string>
     <string name="email_change_server_error">There has been an error while changing your email!</string>
-    <string name="email_change_field_error">Email and password are required for setting new email!</string>
+    <string name="email_change_field_error">Email already in use!</string>
     <string name="email_field_error">Check your e-mail format (ex. luka@mail.com)</string>
     <string name="email_same_as_old_field_error">Email same as the old one!</string>
     <string name="email_enter_new">Enter your new email</string>
@@ -86,9 +86,18 @@
     <string name="register_success">You\'ve been successfully registered!</string>
     <string name="register_fields_required_error">Invalid registration fields input!</string>
 
+    <!-- WELCOME SCREEN STRINGS -->
+    <string name="welcome_screen_title">Explore new\ncooking recipes</string>
+    <string name="welcome_screen_btn">Start cooking</string>
+    <string name="welcome_screen_background_accessibility">Cooking app background</string>
+
     <!-- LOGOUT STRINGS -->
     <string name="logout_question">Are you sure you want to logout?</string>
     <string name="logout_message">You will need to authenticate again</string>
+    <string name="logout_success">You have been logged out!</string>
+
+    <string name="logout_dialog_title">Please login again</string>
+    <string name="logout_dialog_action">Go to Login</string>
 
     <!-- LOCATION STRINGS -->
     <string name="location">Location</string>
@@ -115,6 +124,7 @@
     <string name="recipe_sweet">Sweet</string>
     <string name="recipe_select_food_type">Select Food Type</string>
     <string name="recipe_select_level">Select Level</string>
+    <string name="recipe_total_recipes">%d total recipes</string>
 
     <!-- OPTION STRINGS -->
     <string name="option_all">All</string>
@@ -150,17 +160,55 @@
     <string name="search_something">Search for something</string>
     <string name="find_new_meals">Find new meals</string>
     <string name="new_recipes">New recipes</string>
-    <string name="recommended">Recommended</string>
-    <string name="see_all">See all</string>
-    <string name="today_recipes">Today recipes</string>
-    <string name="explore_new_recipes">Explore new \ncooking recipes</string>
-    <string name="search_recipes">Search recipes</string>
-    <string name="discover_new_recipes">Discover new recipes</string>
-    <string name="filters">Filters</string>
 
+    <string name="title_category">Category</string>
+    <string name="title_categories">Categories</string>
+    <string name="title_preparation_time">Preparation time</string>
+    <string name="title_difficulty">Difficulty</string>
+    <string name="title_sort_by">Sort by</string>
+
+    <string name="title_explore_new_recipes">Explore new \ncooking recipes</string>
+    <string name="title_search_recipes">Search recipes</string>
+    <string name="title_discover_new_recipes">Discover new recipes</string>
+    <string name="title_today_choice">Today\'s Choice</string>
+    <string name="title_recipes_this_week">Top 3 Recipes This Week</string>
+    <string name="title_filters">Filters</string>
+    <string name="title_find_new_recipes">Find new recipes</string>
+    <string name="title_publish_new_recipes">Publish new recipe</string>
+
+    <string name="title_create_recipe_name">Name</string>
+    <string name="title_create_recipe_name_placeholder">Recipe title</string>
+    <string name="title_create_recipe_cooking_time">Cooking time</string>
+    <string name="title_create_recipe_cooking_time_default">15min</string>
+    <string name="title_create_recipe_number_of_portions">Number of portions</string>
+    <string name="title_create_recipe_image">Image</string>
+    <string name="title_create_recipe_ingredients">Ingredients</string>
+    <string name="title_create_recipe_steps">Steps</string>
+
+    <string name="option_create_recipe_add_ingredient">+ Add ingredient</string>
+    <string name="option_create_recipe_add_step">Add step</string>
+
+    <string name="message_create_recipe_image_placeholder">Image placeholder</string>
+
+    <string name="btn_done">Done</string>
+    <string name="btn_reset">Done</string>
+    <string name="btn_create_recipe">Create recipe</string>
 
     <string name="dialog_create_recipe_title">Create new recipe?</string>
     <string name="dialog_create_recipe_message">Please check your data before creating the recipe!</string>
     <string name="dialog_create_recipe_confirm">Confirm</string>
+
+
+    <!-- ACCESSIBILITY STRINGS -->
+
+    <string name="btn_filter_accessibility">Filter button</string>
+    <string name="btn_add_recipe_accessibility">Add recipe button</string>
+    <string name="iv_favorite_recipe_accessibility">Favorite recipe icon</string>
+    <string name="iv_time_accessibility">Time icon</string>
+    <string name="btn_increment_accessibility">Increment button</string>
+    <string name="btn_decrement_accessibility">Decrement button</string>
+    <string name="iv_info_metrics_accessibility">Metrics info</string>
+    <string name="iv_recipe_accessibility">Recipe image</string>
+    <string name="ic_people_accessibility">Number of servings icon</string>
 
 </resources>

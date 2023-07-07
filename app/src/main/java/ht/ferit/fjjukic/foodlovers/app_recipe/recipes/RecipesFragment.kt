@@ -44,13 +44,14 @@ class RecipesFragment : BaseFragment<RecipesViewModel, FragmentRecipesBinding>()
         }
 
         viewModel.filteredRecipes.observe(viewLifecycleOwner) { recipes ->
-            binding.tvTotalRecipes.text = "${recipes.count { it.title.isNotBlank() }} total recipes"
+            val count = recipes.count { it.title.isNotBlank() }
+            binding.tvTotalRecipes.text = getString(R.string.recipe_total_recipes, count)
             recipes?.let { recipesAdapter.setData(it) }
         }
     }
 
     override fun onRecipeClick(id: String) {
-        findNavController().navigate(
+        viewModel.onRecipeClick(
             RecipesFragmentDirections.actionNavRecipesToNavGraphShowRecipe(id)
         )
     }

@@ -106,12 +106,12 @@ class RecipeRepositoryImpl(
         )
     }
 
-    override suspend fun getRecipes(): Result<List<RecipeModel>> {
+    override suspend fun getRecipes(isForceLoad: Boolean): Result<List<RecipeModel>> {
         return withContext(Dispatchers.IO) {
             val oldRecipes = db.recipeDao().getAll()
 
             when {
-                hasDayPassed() -> {
+                hasDayPassed() || isForceLoad -> {
                     val newRecipes = firebaseDB.getRecipes().getOrDefault(listOf())
 
                     if (newRecipes.isNotEmpty()) {
@@ -154,7 +154,9 @@ class RecipeRepositoryImpl(
     }
 
     private fun saveRecipes(data: List<RecipeModel>) {
-        db.recipeDao().insertAll(data.map { it.mapToRecipe() })
+        data.map { it.mapToRecipe() }.forEach {
+            db.recipeDao().insert(it)
+        }
         preferenceManager.lastUpdatedRecipes = System.currentTimeMillis()
     }
 
@@ -170,6 +172,7 @@ class RecipeRepositoryImpl(
                 removeRecipeImage(recipe.imagePath)
                 result
             } else {
+                getRecipes(isForceLoad = true)
                 Result.success(true)
             }
         }

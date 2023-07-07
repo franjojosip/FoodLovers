@@ -12,8 +12,6 @@ interface UserRepository {
     suspend fun login(email: String, password: String): Result<Boolean>
     suspend fun register(email: String, username: String, password: String): Result<Boolean>
     suspend fun resetPassword(email: String): Result<Boolean>
-    suspend fun reauthenticateUser(email: String, password: String): Result<Boolean>
-
     suspend fun updateEmail(email: String): Result<Boolean>
     suspend fun logout(): Result<Boolean>
     fun currentUser(): FirebaseUser?

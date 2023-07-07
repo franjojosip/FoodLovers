@@ -8,8 +8,6 @@
         android:layout_height="wrap_content"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -18,9 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="14dp"
+            app:cardElevation="12dp"
             app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="false"
+            app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,6 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="14dp"
+                    android:contentDescription="@string/iv_favorite_recipe_accessibility"
                     android:elevation="4dp"
                     android:src="@drawable/ic_heart"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +63,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_recipe"
-                    tools:text="Some new title for the recipetitle for the recipetitle for the recipetitle for the recipetitle for the recipe" />
+                    tools:text="Recipe title" />
 
                 <TextView
                     android:id="@+id/tv_recipe_author"
@@ -87,6 +86,7 @@
                     android:layout_marginHorizontal="4dp"
                     android:background="@drawable/ic_time"
                     android:backgroundTint="@color/color_dark_gray"
+                    android:contentDescription="@string/iv_time_accessibility"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tv_time"
                     app:layout_constraintTop_toBottomOf="@id/tv_title" />

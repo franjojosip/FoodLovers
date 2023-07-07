@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.sqlite.db.SupportSQLiteDatabase
 import ht.ferit.fjjukic.foodlovers.app_common.database.dao.CategoryDao
 import ht.ferit.fjjukic.foodlovers.app_common.database.dao.DifficultyDao
 import ht.ferit.fjjukic.foodlovers.app_common.database.dao.RecipeDao
@@ -38,7 +37,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                 if (INSTANCE == null) {
                     INSTANCE = getDatabase(context, converters)
                 }
-                return INSTANCE!!
+                return INSTANCE as RecipeDatabase
             }
         }
 
@@ -52,30 +51,12 @@ abstract class RecipeDatabase : RoomDatabase() {
                     RecipeDatabase::class.java,
                     NAME
                 )
-                    .addCallback(object : Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
-                            Thread { prepopulateDb(getInstance(context, converters)) }.start()
-                        }
-                    })
                     .fallbackToDestructiveMigration()
                     .addTypeConverter(converters)
                     .allowMainThreadQueries()
                     .build()
                     .also { INSTANCE = it }
             }
-        }
-
-        private fun prepopulateDb(db: RecipeDatabase) {
-//            db.categoryDao().insertAll(
-//                MockRepository.getCategories()
-//            )
-//            db.difficultyDao().insertAll(
-//                MockRepository.getDifficulties()
-//            )
-//            db.recipeDao().insertAll(
-//                MockRepository.getRecipesDB()
-//            )
         }
     }
 

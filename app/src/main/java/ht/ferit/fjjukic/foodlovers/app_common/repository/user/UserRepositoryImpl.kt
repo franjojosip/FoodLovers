@@ -1,6 +1,5 @@
 package ht.ferit.fjjukic.foodlovers.app_common.repository.user
 
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
@@ -50,6 +49,7 @@ class UserRepositoryImpl(
         return withContext(Dispatchers.IO) {
             val result = firebaseDB.updateUser(user)
             return@withContext if (result.isSuccess) {
+                preferenceManager.user = user
                 Result.success(result.getOrDefault(false))
             } else Result.failure(result.exceptionOrNull() ?: Exception("User repository error"))
         }
@@ -126,32 +126,27 @@ class UserRepositoryImpl(
         }
     }
 
-    override suspend fun reauthenticateUser(email: String, password: String): Result<Boolean> {
+    override suspend fun updateEmail(email: String): Result<Boolean> {
         return withContext(Dispatchers.IO) {
             try {
-                firebaseAuth.currentUser?.reauthenticate(
-                    EmailAuthProvider.getCredential(
-                        email,
-                        password
-                    )
-                )
-                    ?.await()
-                Result.success(true)
+                val user = preferenceManager.user
+                val emailExists = checkEmailExist(email)
+                if (emailExists.isSuccess || user == null) {
+                    Result.success(false)
+                } else {
+                    user.email = email
+                    updateUser(user)
+                    firebaseAuth.currentUser?.updateEmail(email)?.await()
+                    Result.success(true)
+                }
             } catch (e: Exception) {
                 Result.failure(Exception("FirebaseAuth server error"))
             }
         }
     }
 
-    override suspend fun updateEmail(email: String): Result<Boolean> {
-        return withContext(Dispatchers.IO) {
-            try {
-                firebaseAuth.currentUser?.updateEmail(email)?.await()
-                Result.success(true)
-            } catch (e: Exception) {
-                Result.failure(Exception("FirebaseAuth server error"))
-            }
-        }
+    private suspend fun checkEmailExist(email: String): Result<Boolean> {
+        return firebaseDB.checkEmailExist(email)
     }
 
     override suspend fun logout(): Result<Boolean> {

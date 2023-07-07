@@ -64,6 +64,27 @@ class FirebaseDBImpl : FirebaseDB {
         }
     }
 
+    override suspend fun checkEmailExist(email: String): Result<Boolean> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val data = usersReference.orderByChild("email").get().await()
+                val emails = mutableListOf<String>()
+
+                data.children.forEach { child ->
+                    child.getValue(UserModel::class.java)?.let {
+                        emails.add(it.email)
+                    }
+                }
+                when (emails.contains(email)) {
+                    true -> Result.success(true)
+                    else -> Result.failure(Exception("Email doesn't exist!"))
+                }
+            } catch (e: Exception) {
+                Result.failure(Exception("Error while getting user"))
+            }
+        }
+    }
+
     override suspend fun updateUser(user: UserModel): Result<Boolean> {
         return withContext(Dispatchers.IO) {
             try {

@@ -21,7 +21,7 @@
             android:drawableEnd="@drawable/ic_baseline_close_24"
             android:drawablePadding="15dp"
             android:fontFamily="@font/playfair_display_regular"
-            android:hint="@string/search_recipes"
+            android:hint="@string/title_search_recipes"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:clickable="true"

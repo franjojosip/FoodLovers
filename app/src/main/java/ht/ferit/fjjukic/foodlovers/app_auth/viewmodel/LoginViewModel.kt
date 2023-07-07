@@ -3,7 +3,7 @@ package ht.ferit.fjjukic.foodlovers.app_auth.viewmodel
 import ht.ferit.fjjukic.foodlovers.app_auth.view.LoginFragmentDirections
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
-import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 
 class LoginViewModel(
     private val userRepository: UserRepository
@@ -12,11 +12,7 @@ class LoginViewModel(
         handleResult({
             userRepository.login(email, password)
         }, {
-            actionNavigate.postValue(
-                ActionNavigate.NavigationWithDirections(
-                    LoginFragmentDirections.actionNavLoginToNavGraphHome()
-                )
-            )
+            actionNavigate.postValue(ActionNavigate.MainActivityNavigation)
         }, {
             showSnackbar(it?.message)
         })

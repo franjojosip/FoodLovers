@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.main.view.ui.location.LocationFragment">
+        tools:context=".app_account.view.ChangeLocationFragment">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -17,7 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                tools:context=".ui.main.view.ui.location.LocationFragment">
+                tools:context=".app_account.view.ChangeLocationFragment">
 
                 <TextView
                     android:layout_width="match_parent"

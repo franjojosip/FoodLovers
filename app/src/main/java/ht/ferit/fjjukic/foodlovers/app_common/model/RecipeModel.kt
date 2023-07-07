@@ -1,7 +1,9 @@
 package ht.ferit.fjjukic.foodlovers.app_common.model
 
+import java.util.UUID
+
 class RecipeModel(
-    var id: String = "",
+    var id: String = UUID.randomUUID().toString(),
     var name: String = "",
     var description: String = "",
     var time: Int = 15,

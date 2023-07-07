@@ -22,7 +22,7 @@
         android:fontFamily="@font/playfair_display_regular"
         android:paddingHorizontal="13.5dp"
         android:paddingVertical="9dp"
-        android:text="@string/search_recipes"
+        android:text="@string/title_search_recipes"
         android:textColor="@color/color_search_text_placeholder"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/iv_search"

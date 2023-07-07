@@ -18,12 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="serif"
-            android:paddingHorizontal="15dp"
+            android:fontFamily="@font/playfair_display_regular"
             android:text="@string/username_enter_new"
             android:textAlignment="center"
-            android:textColor="@color/color_account_text"
-            android:textSize="19sp"
+            android:textColor="@color/color_black"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="32dp"
             android:hint="@string/username"
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,19 +54,16 @@
             android:layout_width="160dp"
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginBottom="65dp"
             android:background="@drawable/rounded_btn_state"
-            android:enabled="false"
             android:fontFamily="serif"
             android:text="@string/action_update"
             android:textAllCaps="false"
             android:textColor="@color/color_white"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_username" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

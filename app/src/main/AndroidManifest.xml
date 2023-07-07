@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -39,7 +40,7 @@
             android:value="@string/app_google_maps_key" />
 
         <activity
-            android:name=".app_main.view.MainActivity"
+            android:name=".app_main.prelogin.PreloginActivity"
             android:exported="true"
             android:windowSoftInputMode="stateVisible|adjustPan">
 
@@ -48,6 +49,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".app_main.main.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

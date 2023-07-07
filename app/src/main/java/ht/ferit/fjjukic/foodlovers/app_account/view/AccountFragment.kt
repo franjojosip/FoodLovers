@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,15 +14,15 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_account.view_model.AccountViewModel
+import ht.ferit.fjjukic.foodlovers.app_account.viewmodel.AccountViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.listener.LocationHandler
-import ht.ferit.fjjukic.foodlovers.app_common.model.ActionEvent
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
+import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
 import ht.ferit.fjjukic.foodlovers.app_common.notification.NotificationsManager
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
+import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentAccountBinding
-import org.greenrobot.eventbus.EventBus
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>(),
@@ -31,6 +32,12 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
     override val viewModel: AccountViewModel by viewModel()
 
     private var imgUri: Uri? = null
+
+    private val storagePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        Manifest.permission.READ_MEDIA_IMAGES
+    } else {
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    }
 
     private var permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -62,6 +69,7 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
 
     override fun init() {
         viewModel.init()
+
         setListeners()
     }
 
@@ -69,7 +77,7 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
         binding.ivProfileImage.setOnClickListener {
             requestRequiredPermissions(
                 action = ::chooseImageFromGallery,
-                permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                permissions = arrayOf(storagePermission),
                 messageId = R.string.image_storage_permission_error,
                 permissionLauncher
             )
@@ -77,74 +85,72 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
         binding.clTakeImage.setOnClickListener {
             requestRequiredPermissions(
                 action = ::captureImage,
-                permissions = arrayOf(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.CAMERA
-                ),
+                permissions = arrayOf(storagePermission, Manifest.permission.CAMERA),
                 messageId = R.string.image_capture_permission_error,
                 permissionLauncher = permissionLauncher
 
             )
         }
-//        binding.tvChangeUsername.setOnClickListener {
-//            viewModel.handleNavigateAction(ActionNavigate.ChangeUsername)
-//        }
-//        binding.tvChangeEmail.setOnClickListener {
-//            viewModel.handleNavigateAction(ActionNavigate.ChangeEmail)
-//        }
-//        binding.tvChangeLocation.setOnClickListener {
-//            viewModel.handleNavigateAction(ActionNavigate.ChangeLocation)
-//        }
-//        binding.clLogout.setOnClickListener {
-//            context?.showAlertDialog(
-//                DialogModel(
-//                    title = R.string.logout_question,
-//                    message = R.string.logout_message,
-//                    positiveTitleId = R.string.action_logout,
-//                    positiveAction = {
-//                        viewModel.handleNavigateAction(ActionNavigate.Logout)
-//                    }
-//                )
-//            )
-//        }
+        binding.tvChangeUsername.setOnClickListener {
+            viewModel.handleNavigation(ActionNavigate.ChangeUsername)
+        }
+        binding.tvChangeEmail.setOnClickListener {
+            viewModel.handleNavigation(ActionNavigate.ChangeEmail)
+        }
+        binding.tvChangeLocation.setOnClickListener {
+            viewModel.handleNavigation(ActionNavigate.ChangeLocation)
+        }
+        binding.clLogout.setOnClickListener {
+            context?.showAlertDialog(
+                DialogModel(
+                    title = R.string.logout_question,
+                    message = R.string.logout_message,
+                    positiveTitleId = R.string.action_logout,
+                    positiveAction = {
+                        viewModel.onLogoutClick()
+                    }
+                )
+            )
+        }
     }
 
     override fun setObservers() {
         super.setObservers()
-        viewModel.currentUser.observeNotNull(viewLifecycleOwner) {
+
+        viewModel.user.observeNotNull(viewLifecycleOwner) {
             binding.tvProfileUsername.text = it.name
             binding.tvProfileEmail.text = it.email
-            binding.tvLocationValue.text = getLocation(requireContext(), it.latitude, it.longitude)
+            binding.tvProfileLocation.text =
+                getLocation(requireContext(), it.latitude, it.longitude)
 
             if (it.imageUrl.isNotEmpty()) {
                 context?.loadImage(it.imageUrl, binding.ivProfileImage)
             }
         }
-        viewModel.actionNavigate.observeNotNull(viewLifecycleOwner) {
-            when (it) {
-                is ActionNavigate.Login -> {
-                    findNavController().navigate(
-                        AccountFragmentDirections.actionNavProfileToNavGraphAuth()
-                    )
-                }
+    }
 
-                is ActionNavigate.ChangeEmail -> {
-                    findNavController().navigate(
-                        AccountFragmentDirections.actionNavProfileToNavChangeEmail()
-                    )
-                }
+    override fun handleActionNavigate(actionNavigate: ActionNavigate) {
+        when (actionNavigate) {
 
-                is ActionNavigate.ChangeUsername -> {
-                    findNavController().navigate(
-                        AccountFragmentDirections.actionNavProfileToNavChangeUsername()
-                    )
-                }
-
-                else -> {}
+            is ActionNavigate.ChangeEmail -> {
+                findNavController().navigate(
+                    AccountFragmentDirections.actionNavProfileToNavChangeEmail()
+                )
             }
-        }
-        viewModel.refreshUser.observeNotNull(viewLifecycleOwner) {
-            EventBus.getDefault().post(ActionEvent.UserChange)
+
+            is ActionNavigate.ChangeUsername -> {
+                findNavController().navigate(
+                    AccountFragmentDirections.actionNavProfileToNavChangeUsername()
+                )
+            }
+
+            is ActionNavigate.ChangeLocation -> {
+                findNavController().navigate(
+                    AccountFragmentDirections.actionNavProfileToNavChangeLocation()
+                )
+            }
+
+            else -> super.handleActionNavigate(actionNavigate)
         }
     }
 

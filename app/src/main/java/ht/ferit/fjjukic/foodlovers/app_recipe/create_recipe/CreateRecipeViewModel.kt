@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
@@ -11,7 +12,7 @@ import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
-import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 
 class CreateRecipeViewModel(
     private val recipeRepository: RecipeRepository
@@ -41,6 +42,7 @@ class CreateRecipeViewModel(
     val minServings = 1
 
     fun onNameChanged(text: CharSequence?) {
+        _recipe.name = text.toString()
         _title.value = text.toString()
         _isDataChanged = true
     }
@@ -109,6 +111,7 @@ class CreateRecipeViewModel(
                             screenEvent.postValue(
                                 MessageModel(message = "Successfully created recipe")
                             )
+                            actionNavigate.postValue(ActionNavigate.Back)
                         }, {
                             screenEvent.postValue(
                                 SnackbarModel(message = "Error while creating recipe")

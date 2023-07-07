@@ -72,7 +72,7 @@
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_filter" />
-        >
+>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

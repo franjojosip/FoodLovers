@@ -1,6 +1,7 @@
 package ht.ferit.fjjukic.foodlovers.app_main
 
 import android.app.Application
+import ht.ferit.fjjukic.foodlovers.app_account.di.accountModule
 import ht.ferit.fjjukic.foodlovers.app_auth.di.authModule
 import ht.ferit.fjjukic.foodlovers.app_common.module.commonModule
 import ht.ferit.fjjukic.foodlovers.app_main.di.appModule
@@ -10,7 +11,6 @@ import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 
 class FoodLoversApplication : Application() {
-
     override fun onCreate() {
         super.onCreate()
         initKoin()
@@ -28,6 +28,7 @@ class FoodLoversApplication : Application() {
             appModule,
             authModule,
             commonModule,
+            accountModule,
             recipeModule
         )
     }

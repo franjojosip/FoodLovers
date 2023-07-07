@@ -6,7 +6,7 @@ import androidx.navigation.NavDirections
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipe
-import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +24,7 @@ class RecipesViewModel(
 
     fun loadRecipes(category: String? = null) {
         handleResult({
-            recipeRepository.getRecipes()
+            recipeRepository.getRecipes(true)
         }, {
             it
                 ?.filter { model ->

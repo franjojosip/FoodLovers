@@ -5,9 +5,6 @@
     android:id="@+id/nav_graph_account"
     app:startDestination="@id/nav_profile">
 
-    <include app:graph="@navigation/nav_graph_home" />
-    <include app:graph="@navigation/nav_graph_auth" />
-
     <fragment
         android:id="@+id/nav_profile"
         android:name="ht.ferit.fjjukic.foodlovers.app_account.view.AccountFragment"
@@ -24,29 +21,34 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_nav_profile_to_nav_graph_auth"
-            app:destination="@id/nav_graph_auth"
+            android:id="@+id/action_nav_profile_to_nav_change_location"
+            app:destination="@id/nav_change_location"
             app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popUpToInclusive="true" />
+            app:exitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_change_email"
-        android:name="ht.ferit.fjjukic.foodlovers.app_account.change_email.view.ChangeEmailFragment"
+        android:name="ht.ferit.fjjukic.foodlovers.app_account.view.ChangeEmailFragment"
         android:label="ChangeEmailFragment"
         tools:layout="@layout/fragment_change_email">
         <action
-            android:id="@+id/action_nav_change_email_to_nav_graph_home"
-            app:destination="@id/nav_graph_home"
+            android:id="@+id/action_nav_change_email_to_nav_graph_welcome"
+            app:destination="@id/nav_graph_welcome"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_change_username"
-        android:name="ht.ferit.fjjukic.foodlovers.app_account.change_username.view.ChangeUsernameFragment"
+        android:name="ht.ferit.fjjukic.foodlovers.app_account.view.ChangeUsernameFragment"
         android:label="ChangeUsernameFragment"
         tools:layout="@layout/fragment_change_username" />
+
+    <fragment
+        android:id="@+id/nav_change_location"
+        android:name="ht.ferit.fjjukic.foodlovers.app_account.view.ChangeLocationFragment"
+        android:label="LocationFragment"
+        tools:layout="@layout/fragment_location" />
 
 </navigation>

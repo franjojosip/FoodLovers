@@ -4,7 +4,7 @@ import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_auth.view.ResetPasswordFragmentDirections
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
-import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 
 class ResetPasswordViewModel(
     private val userRepository: UserRepository

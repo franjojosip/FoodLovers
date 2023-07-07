@@ -6,13 +6,13 @@
         android:id="@+id/sv_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/home_screen_background">
+        android:background="@color/home_screen_background"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="30dp">
-
 
             <TextView
                 android:id="@+id/tv_steps"
@@ -22,7 +22,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="Steps"
+                android:text="@string/title_create_recipe_steps"
                 android:textColor="@color/color_black"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -51,11 +51,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="15dp"
+                android:fontFamily="@font/playfair_display_bold"
                 android:padding="5dp"
-                android:text="ADD STEP"
+                android:text="@string/option_create_recipe_add_step"
+                android:textAllCaps="true"
                 android:textColor="@color/color_primary_dark"
                 android:textSize="15sp"
-                android:fontFamily="@font/playfair_display_bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ll_steps" />
 

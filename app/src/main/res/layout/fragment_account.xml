@@ -100,12 +100,12 @@
                         android:id="@+id/iv_profile_email"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/ic_email"
                         android:backgroundTint="@color/color_account_icon"
                         android:contentDescription="@string/email_icon"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/tv_location"
+                        app:layout_constraintStart_toStartOf="@id/tv_location"
                         app:layout_constraintTop_toBottomOf="@id/tv_profile_username" />
 
                     <TextView
@@ -148,12 +148,12 @@
                         android:textAlignment="center"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_location_value"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_profile_location"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_location_value" />
+                        app:layout_constraintTop_toTopOf="@id/tv_profile_location" />
 
                     <TextView
-                        android:id="@+id/tv_location_value"
+                        android:id="@+id/tv_profile_location"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -194,7 +194,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="11dp"
                 android:background="@drawable/ic_person_black_24dp"
-                android:backgroundTint="@color/color_black"
+                android:backgroundTint="@color/color_light_black"
                 android:contentDescription="@string/icon_profile"
                 app:layout_constraintEnd_toStartOf="@id/tv_change_username"
                 app:layout_constraintStart_toStartOf="parent"

@@ -29,14 +29,6 @@ class RecipeAdapter(val listener: HomeListener? = null) :
                 NoRecipesPlaceholderBinding.inflate(layoutInflater, parent, false)
             )
 
-            3 -> IngredientItemViewHolder(
-                IngredientListItemBinding.inflate(layoutInflater, parent, false)
-            )
-
-            4 -> StepItemViewHolder(
-                StepListItemBinding.inflate(layoutInflater, parent, false)
-            )
-
             else -> throw Exception("View type doesn't exist")
         }
     }
@@ -54,14 +46,6 @@ class RecipeAdapter(val listener: HomeListener? = null) :
             is TopRecipeViewHolder -> {
                 holder.setData(data[position] as TopRecipe, listener)
             }
-
-            is IngredientItemViewHolder -> {
-                holder.setData(data[position] as Ingredient)
-            }
-
-            is StepItemViewHolder -> {
-                holder.setData(data[position] as Step)
-            }
         }
     }
 
@@ -70,8 +54,6 @@ class RecipeAdapter(val listener: HomeListener? = null) :
             data[position] is TodayChoiceRecipe -> 0
             data[position] is TopRecipe -> 1
             data[position] is NoRecipePlaceholder -> 2
-//            data[position] is Ingredient -> 3
-//            data[position] is Step -> 4
             else -> throw Exception("Class doesn't exist")
         }
     }

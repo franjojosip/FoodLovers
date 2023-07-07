@@ -7,7 +7,8 @@
         android:id="@+id/sv_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/home_screen_background">
+        android:background="@color/home_screen_background"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,10 +20,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="Name"
+                android:text="@string/title_create_recipe_name"
                 android:textColor="@color/color_black"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -40,10 +40,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_name">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_name"
                     style="@style/PlaceholderTextAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Recipe title"
+                    android:hint="@string/title_create_recipe_name_placeholder"
                     android:imeOptions="actionDone" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,10 +53,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="Cooking time"
+                android:text="@string/title_create_recipe_cooking_time"
                 android:textColor="@color/color_black"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -69,7 +69,7 @@
                 android:layout_marginEnd="30dp"
                 android:fontFamily="@font/playfair_display_regular"
                 android:padding="5dp"
-                android:text="15min"
+                android:text="@string/title_create_recipe_cooking_time_default"
                 android:textColor="@color/color_black"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -97,23 +97,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="Number of portions"
+                android:text="@string/title_create_recipe_number_of_portions"
                 android:textColor="@color/color_black"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/seekbar" />
 
-
             <ImageView
                 android:id="@+id/btn_decrement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:layout_marginEnd="10dp"
+                android:contentDescription="@string/btn_decrement_accessibility"
+                android:padding="5dp"
                 android:src="@drawable/ic_remove"
                 app:layout_constraintBottom_toBottomOf="@id/tv_number_of_servings"
                 app:layout_constraintEnd_toStartOf="@id/tv_counter"
@@ -137,6 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:contentDescription="@string/btn_increment_accessibility"
                 android:padding="5dp"
                 android:src="@drawable/ic_add"
                 app:layout_constraintBottom_toBottomOf="@id/tv_number_of_servings"
@@ -148,10 +148,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="Image"
+                android:text="@string/title_create_recipe_image"
                 android:textColor="@color/color_black"
                 android:textSize="18sp"
                 android:textStyle="bold"

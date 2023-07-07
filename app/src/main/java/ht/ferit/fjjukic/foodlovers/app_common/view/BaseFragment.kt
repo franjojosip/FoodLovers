@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.view.isVisible
@@ -14,7 +13,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.jakewharton.rxbinding4.widget.textChanges
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
@@ -23,18 +21,14 @@ import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
 import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
-import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
+import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_main.prelogin.PreloginActivity
 
 abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> : Fragment(),
     PermissionHandler {
     protected abstract val layoutId: Int
     protected abstract val viewModel: VM
     protected lateinit var binding: ViewBinding
-    private var compositeDisposable = CompositeDisposable()
 
     protected var toolbar: CustomToolbarView? = null
 
@@ -73,13 +67,17 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
                 else -> {}
             }
         }
-        viewModel.actionNavigate.observe(viewLifecycleOwner) {
+        viewModel.actionNavigate.observe(viewLifecycleOwner) { it ->
             when (it) {
                 is ActionNavigate.NavigationWithDirections -> {
                     findNavController().navigate(it.navDirections)
                 }
 
                 is ActionNavigate.Back -> findNavController().navigateUp()
+
+                is ActionNavigate.MainActivityNavigation -> {
+                    (activity as? PreloginActivity)?.navigateToMainActivity()
+                }
 
                 else -> handleActionNavigate(it)
             }
@@ -94,18 +92,6 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
     override fun onDestroyView() {
         super.onDestroyView()
         binding.unbind()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable.dispose()
-    }
-
-    private fun addDisposable(disposable: Disposable) {
-        if (compositeDisposable.isDisposed) {
-            compositeDisposable = CompositeDisposable()
-        }
-        compositeDisposable.addAll(disposable)
     }
 
     protected fun showToast(
@@ -127,7 +113,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
     protected fun showSnackbar(model: SnackbarModel) {
         val length = if (model.isShortLength) Snackbar.LENGTH_SHORT else Snackbar.LENGTH_LONG
         when {
-            !model.message.isNullOrEmpty() -> {
+            !model.message.isNullOrBlank() -> {
                 Snackbar.make(binding.root, model.message, length).show()
             }
 
@@ -176,25 +162,4 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
             }
         }
     }
-
-    /**
-     * RXJAVA
-     */
-
-
-    protected fun <T : Any> Observable<T>.subscribeToView(onNext: (T) -> Unit = {}) = addDisposable(
-        this.observeOn(AndroidSchedulers.mainThread()).subscribe(onNext) {
-            it.printStackTrace()
-        })
-
-    private fun Disposable.addToDisposable() {
-        compositeDisposable.add(this)
-    }
-
-    protected fun EditText.subscribeTextChanges(action: (String) -> Unit) =
-        this.textChanges().skipInitialValue().map(
-            CharSequence::toString
-        ).subscribe {
-            action(it)
-        }.addToDisposable()
 }

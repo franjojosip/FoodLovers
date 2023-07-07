@@ -6,7 +6,8 @@
         android:id="@+id/sv_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/home_screen_background">
+        android:background="@color/home_screen_background"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,7 +20,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="Ingredients"
+                android:text="@string/title_create_recipe_ingredients"
                 android:textColor="@color/color_black"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -38,6 +39,7 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@id/tv_ingredients"
                 app:layout_constraintStart_toEndOf="@id/tv_ingredients"
+                android:contentDescription="@string/iv_info_metrics_accessibility"
                 app:layout_constraintTop_toTopOf="@id/tv_ingredients" />
 
             <LinearLayout
@@ -65,9 +67,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="15dp"
-                android:padding="5dp"
-                android:text="+ Add ingredient"
                 android:fontFamily="@font/playfair_display_regular"
+                android:padding="5dp"
+                android:text="@string/option_create_recipe_add_ingredient"
                 android:textColor="@color/color_primary_dark"
                 android:textSize="15sp"
                 android:textStyle="bold"

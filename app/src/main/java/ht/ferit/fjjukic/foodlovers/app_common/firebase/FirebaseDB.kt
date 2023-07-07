@@ -11,6 +11,7 @@ interface FirebaseDB {
      */
     suspend fun createUser(user: UserModel): Result<UserModel>
     suspend fun getUser(id: String): Result<UserModel?>
+    suspend fun checkEmailExist(email: String): Result<Boolean>
     suspend fun updateUser(user: UserModel): Result<Boolean>
     suspend fun deleteUser(id: String): Result<Boolean>
 

@@ -14,7 +14,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="6dp"
             android:fontFamily="@font/playfair_display_regular"
-            android:text="Publish new recipe"
+            android:text="@string/title_publish_new_recipes"
             android:textColor="@color/color_black"
             android:textSize="24sp"
             android:textStyle="bold"

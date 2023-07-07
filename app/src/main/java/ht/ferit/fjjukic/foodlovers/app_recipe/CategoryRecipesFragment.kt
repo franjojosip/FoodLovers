@@ -9,8 +9,7 @@ import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.BasicRecipesAdapter
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentCategoryRecipesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class
-CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryRecipesBinding>(),
+class CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryRecipesBinding>(),
     RecipeListener {
 
     private val args: CategoryRecipesFragmentArgs by navArgs()

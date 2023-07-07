@@ -6,23 +6,15 @@
     app:startDestination="@id/nav_welcome">
 
     <include app:graph="@navigation/nav_graph_auth" />
-    <include app:graph="@navigation/nav_graph_bottom" />
 
     <fragment
         android:id="@+id/nav_welcome"
-        android:name="ht.ferit.fjjukic.foodlovers.app_main.view.WelcomeScreenFragment"
+        android:name="ht.ferit.fjjukic.foodlovers.app_main.welcome_screen.WelcomeScreenFragment"
         android:label="WelcomeScreenFragment"
         tools:layout="@layout/fragment_welcome_screen">
         <action
             android:id="@+id/action_nav_welcome_to_nav_graph_auth"
             app:destination="@id/nav_graph_auth"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popUpTo="@id/nav_welcome"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_nav_welcome_to_nav_graph_bottom"
-            app:destination="@id/nav_graph_bottom"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popUpTo="@id/nav_welcome"

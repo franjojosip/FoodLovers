@@ -9,7 +9,7 @@ import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToRecipeCategory
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToTodayChoiceRecipe
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToTopRecipe
-import ht.ferit.fjjukic.foodlovers.app_common.view_model.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.RecipeCategory
 import kotlinx.coroutines.Dispatchers

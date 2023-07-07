@@ -14,6 +14,8 @@
     <color name="color_splash_btn">#EB9E7C3A</color>
     <color name="color_profile_settings">#CEC3A365</color>
 
+    <color name="color_welcome_screen_background">#595959</color>
+
     <color name="color_navigation_bar">#FFFFFF</color>
     <color name="color_navigation_bar_icon_active">#DCA759</color>
     <color name="color_navigation_bar_icon_inactive">#AFAFAF</color>
@@ -45,6 +47,7 @@
     <color name="color_dark_underline">#B7555555</color>
 
     <color name="color_dark_gray">#B7434343</color>
+    <color name="color_light_black">#272727</color>
 
     <color name="color_item_background">#D8D4D4</color>
 

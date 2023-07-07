@@ -6,12 +6,14 @@ import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
 import ht.ferit.fjjukic.foodlovers.app_common.model.CategoryModel
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
+@OptIn(DelicateCoroutinesApi::class)
 class CategoryRepositoryImpl(
     private val db: RecipeDatabase,
     private val firebaseDB: FirebaseDB,

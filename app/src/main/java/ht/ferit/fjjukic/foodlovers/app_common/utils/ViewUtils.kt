@@ -20,7 +20,8 @@ fun Context.showAlertDialog(data: DialogModel) {
         }
 
         setButton(
-            AlertDialog.BUTTON_NEUTRAL, context.getString(data.neutralTitleId ?: R.string.action_cancel)
+            AlertDialog.BUTTON_NEUTRAL,
+            context.getString(data.neutralTitleId ?: R.string.action_cancel)
         ) { dialog, _ ->
             data.neutralAction?.let { action -> action() }
             dialog.dismiss()
@@ -39,6 +40,7 @@ fun Context.showAlertDialog(data: DialogModel) {
             data.positiveAction()
             dialog.dismiss()
         }
+        setCancelable(data.isCancellable)
     }.show()
 }
 
@@ -63,7 +65,7 @@ fun EditText.hideKeyboardOnActionDone() {
 
 fun EditText.hideKeyboardOnLostFocus() {
     this.setOnFocusChangeListener { _, hasFocus ->
-        if(!hasFocus) {
+        if (!hasFocus) {
             clearFocusAndHideKeyboard()
         }
     }
