@@ -68,7 +68,7 @@ class AccountViewModel(
             screenEvent.postValue(LoadingBar(true))
 
             userRepository.logout()
-//            actionNavigate.postValue(ActionNavigate.MainActivityNavigation)
+            actionNavigate.postValue(ActionNavigate.MainActivityNavigation)
 
             screenEvent.postValue(LoadingBar(false))
         }

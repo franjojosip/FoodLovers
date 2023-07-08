@@ -16,7 +16,7 @@ import ht.ferit.fjjukic.foodlovers.app_common.database.model.User
 
 @Database(
     entities = [Recipe::class, Difficulty::class, Category::class, User::class],
-    version = 6,
+    version = 7,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

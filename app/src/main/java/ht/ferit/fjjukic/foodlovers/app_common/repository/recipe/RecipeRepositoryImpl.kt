@@ -116,7 +116,7 @@ class RecipeRepositoryImpl(
 
                     if (newRecipes.isNotEmpty()) {
                         saveRecipes(newRecipes)
-                        Result.success(newRecipes)
+                        Result.success(newRecipes.sortedBy { it.name })
                     } else {
                         val data = getMappedRecipes(oldRecipes)
                         Result.success(data)
@@ -132,7 +132,7 @@ class RecipeRepositoryImpl(
                     val newRecipes = firebaseDB.getRecipes().getOrDefault(listOf())
                     saveRecipes(newRecipes)
 
-                    Result.success(newRecipes)
+                    Result.success(newRecipes.sortedBy { it.name })
                 }
             }
         }
@@ -150,7 +150,7 @@ class RecipeRepositoryImpl(
                 recipes.add(it.mapToRecipeModel(category, difficulty, user))
             }
         }
-        return recipes
+        return recipes.sortedBy { it.name }
     }
 
     private fun saveRecipes(data: List<RecipeModel>) {

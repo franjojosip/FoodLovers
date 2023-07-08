@@ -28,7 +28,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="25dp"
             android:fontFamily="@font/playfair_display_regular"
-            android:text="Mass and weight"
+            android:text="Weight"
             android:textColor="@color/color_black"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -60,7 +60,6 @@
             android:textColor="@color/color_black"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_mass" />
 
@@ -76,5 +75,34 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_capacity"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_capacity" />
+
+        <TextView
+            android:id="@+id/tv_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/playfair_display_regular"
+            android:text="Quantity"
+            android:textColor="@color/color_black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_capacity" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:fontFamily="@font/playfair_display_regular"
+            android:text="X"
+            android:textColor="@color/color_black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_quantity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_quantity" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

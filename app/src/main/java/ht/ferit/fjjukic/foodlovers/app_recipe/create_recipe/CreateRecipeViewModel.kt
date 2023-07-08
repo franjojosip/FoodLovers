@@ -3,21 +3,38 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
-import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
-import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
-import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
-import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
-import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
-import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.*
+import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepository
+import ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty.DifficultyRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
+import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToRecipeCategory
 import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.RecipeCategory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CreateRecipeViewModel(
-    private val recipeRepository: RecipeRepository
+    private val recipeRepository: RecipeRepository,
+    private val categoryRepository: CategoryRepository,
+    private val difficultyRepository: DifficultyRepository
 ) : BaseViewModel() {
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            _categories.postValue(categoryRepository.getCategories().getOrDefault(listOf()))
+            _difficulties.postValue(difficultyRepository.getDifficulties().getOrDefault(listOf()))
+        }
+    }
+
     private val _recipe = RecipeModel()
+
+    private val _categories = MutableLiveData<List<CategoryModel>>()
+    val categories: LiveData<List<CategoryModel>> = _categories
+
+    private val _difficulties = MutableLiveData<List<DifficultyModel>>()
+    val difficulties: LiveData<List<DifficultyModel>> = _difficulties
 
     private var _isDataChanged = true
     val isDataChanged = _isDataChanged
@@ -26,6 +43,12 @@ class CreateRecipeViewModel(
 
     private val _title = MutableLiveData("")
     val title: LiveData<String> = _title
+
+    private val _category = MutableLiveData<CategoryModel>()
+    val category: LiveData<CategoryModel> = _category
+
+    private val _difficulty = MutableLiveData<DifficultyModel>()
+    val difficulty: LiveData<DifficultyModel> = _difficulty
 
     private val _numOfServings = MutableLiveData(1)
     val numOfServings: LiveData<Int> = _numOfServings
@@ -40,6 +63,15 @@ class CreateRecipeViewModel(
 
     val maxServings = 11
     val minServings = 1
+
+    fun onCategoryChanged(category: String) {
+        _category.value = categories.value?.first { it.name.equals(category, true) }
+        _recipe.category = _category.value
+    }
+    fun onDifficultyChanged(difficulty: String) {
+        _difficulty.value = difficulties.value?.first { it.name.equals(difficulty, true) }
+        _recipe.difficulty = _difficulty.value
+    }
 
     fun onNameChanged(text: CharSequence?) {
         _recipe.name = text.toString()

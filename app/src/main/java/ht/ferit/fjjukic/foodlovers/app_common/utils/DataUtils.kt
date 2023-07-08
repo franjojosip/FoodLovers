@@ -29,7 +29,7 @@ fun List<CategoryModel>.mapToRecipeCategory(): List<RecipeCategory> {
             category.name,
             category.drawableId
         )
-    }.sortedBy { it.title }
+    }
 }
 
 fun MutableList<RecipeModel>.mapToBasicRecipes(): List<HomeScreenRecipe> {

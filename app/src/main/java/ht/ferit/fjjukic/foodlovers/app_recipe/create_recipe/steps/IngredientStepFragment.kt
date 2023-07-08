@@ -4,10 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import android.widget.ArrayAdapter
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.children
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
+import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.view.IngredientView
@@ -34,6 +37,39 @@ class IngredientStepFragment : BaseFragment<CreateRecipeViewModel, FragmentIngre
                     )
                 }
                 .show()
+        }
+        binding.actCategories.setOnItemClickListener { _, view, _, _ ->
+            viewModel.onCategoryChanged((view as AppCompatTextView).text.toString())
+        }
+        binding.actDifficulties.setOnItemClickListener { _, view, _, _ ->
+            viewModel.onDifficultyChanged((view as AppCompatTextView).text.toString())
+        }
+    }
+
+    override fun setObservers() {
+        super.setObservers()
+
+        viewModel.categories.observeNotNull(viewLifecycleOwner) { categories ->
+            binding.actCategories.setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    R.layout.dropdown_item,
+                    categories.map { it.name })
+            )
+            val defaultCategory = categories.first().name
+            binding.actCategories.setText(defaultCategory, false)
+            viewModel.onCategoryChanged(defaultCategory)
+        }
+        viewModel.difficulties.observeNotNull(viewLifecycleOwner) { difficulties ->
+            binding.actDifficulties.setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    R.layout.dropdown_item,
+                    difficulties.map { it.name })
+            )
+            val defaultDifficulty = difficulties.first().name
+            binding.actDifficulties.setText(defaultDifficulty, false)
+            viewModel.onDifficultyChanged(defaultDifficulty)
         }
     }
 

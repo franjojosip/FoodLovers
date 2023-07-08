@@ -44,9 +44,9 @@ data class Recipe(
     var steps: List<Step>,
     @ColumnInfo(name = "ingredients")
     var ingredients: List<Ingredient>,
-    @ColumnInfo(name = "difficultyId")
+    @ColumnInfo(name = "difficultyId", index = true)
     var difficultyId: String,
-    @ColumnInfo(name = "categoryId")
+    @ColumnInfo(name = "categoryId", index = true)
     var categoryId: String,
     @ColumnInfo(name = "image_path")
     var imagePath: String,

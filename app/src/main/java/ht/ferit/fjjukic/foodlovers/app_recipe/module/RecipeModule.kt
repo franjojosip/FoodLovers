@@ -18,7 +18,7 @@ val recipeModule = module {
     }
 
     viewModel {
-        CreateRecipeViewModel(get())
+        CreateRecipeViewModel(get(), get(), get())
     }
 
     viewModel {

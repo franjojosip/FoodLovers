@@ -107,7 +107,7 @@ class DifficultyRepositoryImpl(
         return getDifficulties().getOrDefault(listOf()).let { models ->
             val difficulties =
                 mutableListOf(FilterItem.Difficulty("All", isChecked = true, isDefault = true))
-            difficulties.addAll(models.map { FilterItem.Difficulty(it.name.replaceFirstChar(Char::titlecase)) })
+            difficulties.addAll(models.map { FilterItem.Difficulty(it.name) })
             difficulties
         }
     }
@@ -141,20 +141,20 @@ class DifficultyRepositoryImpl(
         data.forEach {
             difficulties.add(it.mapToDifficultyModel())
         }
-        return difficulties
+        return difficulties.sortedBy { it.name }
     }
 
     private fun Difficulty.mapToDifficultyModel(): DifficultyModel {
         return DifficultyModel(
             id,
-            name
+            name.replaceFirstChar(Char::titlecase)
         )
     }
 
     private fun DifficultyModel.mapToDifficulty(): Difficulty {
         return Difficulty(
             id,
-            name
+            name.replaceFirstChar(Char::titlecase)
         )
     }
 }

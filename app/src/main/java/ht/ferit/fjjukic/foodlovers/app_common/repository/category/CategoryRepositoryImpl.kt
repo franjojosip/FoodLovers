@@ -49,7 +49,7 @@ class CategoryRepositoryImpl(
                 }
 
                 else -> {
-                    val newCategories = firebaseDB.getCategories().getOrDefault(listOf())
+                    val newCategories = firebaseDB.getCategories().getOrDefault(listOf()).sortedBy { it.name }
                     saveCategories(newCategories)
 
                     Result.success(newCategories)
@@ -108,7 +108,7 @@ class CategoryRepositoryImpl(
         return getCategories().getOrDefault(listOf()).let { models ->
             val categories =
                 mutableListOf(FilterItem.Category("All", isChecked = true, isDefault = true))
-            categories.addAll(models.map { FilterItem.Category(it.name.replaceFirstChar(Char::titlecase)) })
+            categories.addAll(models.map { FilterItem.Category(it.name) })
             categories.sortedBy { it.value }
         }
     }
@@ -142,14 +142,14 @@ class CategoryRepositoryImpl(
         data.forEach {
             categories.add(it.mapToCategoryModel())
         }
-        return categories
+        return categories.sortedBy { it.name }
     }
 
     private fun Category.mapToCategoryModel(): CategoryModel {
-        return CategoryModel(id, name, drawableId)
+        return CategoryModel(id, name.replaceFirstChar(Char::titlecase), drawableId)
     }
 
     private fun CategoryModel.mapToCategory(): Category {
-        return Category(id, name, drawableId)
+        return Category(id, name.replaceFirstChar(Char::titlecase), drawableId)
     }
 }

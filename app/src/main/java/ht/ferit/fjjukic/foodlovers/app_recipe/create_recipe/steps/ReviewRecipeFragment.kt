@@ -43,6 +43,12 @@ class ReviewRecipeFragment : BaseFragment<CreateRecipeViewModel, FragmentReviewB
             binding.tvPlaceholder.isVisible = false
             binding.ivRecipe.alpha = 1f
         }
+        viewModel.category.observeNotNull(viewLifecycleOwner){
+            binding.tvSelectedCategory.text = it.name
+        }
+        viewModel.difficulty.observeNotNull(viewLifecycleOwner){
+            binding.tvSelectedDifficulty.text = it.name
+        }
     }
 
     override fun onResume() {
