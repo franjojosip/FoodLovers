@@ -1,14 +1,24 @@
 package ht.ferit.fjjukic.foodlovers.app_common.repository.user
 
+import android.net.Uri
+import android.util.Log
+import androidx.core.net.toUri
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
+import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
+import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
+import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder.user
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class UserRepositoryImpl(
+    private val firebaseStorage: FirebaseStorage,
     private val firebaseAuth: FirebaseAuth,
     private val firebaseDB: FirebaseDB,
     private val preferenceManager: PreferenceManager
@@ -64,6 +74,51 @@ class UserRepositoryImpl(
         }
     }
 
+    override suspend fun updateUserImage(uri: Uri): Result<Boolean> {
+        return withContext(Dispatchers.IO) {
+            val user = preferenceManager.user
+            if (user != null){
+                user.imageUrl = saveUserImage(uri, user.userId)
+                    ?: return@withContext Result.failure(Exception("Error while saving image"))
+
+                val result = firebaseDB.updateUser(user)
+
+                if (result.isFailure) {
+                    result
+                } else {
+                    preferenceManager.user = user
+                    Result.success(true)
+                }
+            }
+            else {
+                Result.failure(Exception("Error invalid user"))
+            }
+        }
+    }
+
+    private suspend fun saveUserImage(value: Uri, id: String): String? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val ref = firebaseStorage.reference.child(getImagePath(id))
+                val uploadTask = ref.putFile(value).await()
+
+                when {
+                    uploadTask.error != null -> {
+                        null
+                    }
+
+                    else -> {
+                        uploadTask.storage.downloadUrl.await().toString()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.d("log", e.message.toString())
+                null
+            }
+        }
+    }
+
+    private fun getImagePath(id: String) = "images/$id.jpg"
 
     override suspend fun login(email: String, password: String): Result<Boolean> {
         return withContext(Dispatchers.IO) {

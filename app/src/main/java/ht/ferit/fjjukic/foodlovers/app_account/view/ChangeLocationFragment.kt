@@ -96,10 +96,7 @@ class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLoc
     @SuppressLint("MissingPermission")
     private fun requestPermissions() {
         when {
-            checkPermissions(
-                activity as Context,
-                permissions
-            ) -> {
+            checkPermissions(requireContext(), permissions) -> {
                 handleNewLocation()
             }
             checkShouldShowPermissionRationale(requireActivity(), permissions) -> {

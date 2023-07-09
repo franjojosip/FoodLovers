@@ -12,7 +12,7 @@ import ht.ferit.fjjukic.foodlovers.app_main.prelogin.PreloginActivity
 import ht.ferit.fjjukic.foodlovers.databinding.ActivityMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainActivityListener {
 
     private val destinationsWithoutBottomBar = listOf(
         R.id.nav_filter_recipes,
@@ -61,10 +61,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkUser() {
         if (!viewModel.isLoggedIn()) {
-            Toast.makeText(this, R.string.logout_message, Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@MainActivity, PreloginActivity::class.java)
-            startActivity(intent)
-            finishAffinity()
+            navigateToPrelogin()
         }
+    }
+
+    override fun navigateToPrelogin() {
+        val intent = Intent(this@MainActivity, PreloginActivity::class.java)
+        startActivity(intent)
+        finishAffinity()
     }
 }

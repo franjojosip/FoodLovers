@@ -163,7 +163,7 @@ class RecipeRepositoryImpl(
     override suspend fun createRecipe(recipe: RecipeModel): Result<Boolean> {
         return withContext(Dispatchers.IO) {
             recipe.imagePath =
-                saveRecipeImage(recipe.imagePath.toUri(), recipe.id)
+                saveUserImage(recipe.imagePath.toUri(), recipe.id)
                     ?: return@withContext Result.failure(Exception("Error while saving recipe"))
 
             val result = firebaseDB.createRecipe(recipe)
@@ -182,13 +182,10 @@ class RecipeRepositoryImpl(
         firebaseStorage.getReference(imagePath).delete().await()
     }
 
-    private suspend fun saveRecipeImage(value: Uri, recipeId: String): String? {
+    private suspend fun saveUserImage(value: Uri, id: String): String? {
         return withContext(Dispatchers.IO) {
             try {
-                val ref = firebaseStorage.reference.child(getRecipePath(recipeId))
-
-
-//                return@withContext ref.downloadUrl.await().toString()
+                val ref = firebaseStorage.reference.child(getImagePath(id))
                 val uploadTask = ref.putFile(value).await()
 
                 when {
@@ -207,7 +204,7 @@ class RecipeRepositoryImpl(
         }
     }
 
-    private fun getRecipePath(id: String) = "images/$id.jpg"
+    private fun getImagePath(id: String) = "images/$id.jpg"
 
     override suspend fun updateRecipe(recipe: RecipeModel): Result<Boolean> {
         return withContext(Dispatchers.IO) {

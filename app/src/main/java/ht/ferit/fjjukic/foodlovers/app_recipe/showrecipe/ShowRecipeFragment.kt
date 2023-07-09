@@ -41,6 +41,7 @@ class ShowRecipeFragment: BaseFragment<ShowRecipeViewModel, FragmentShowRecipeBi
 
             Glide.with(binding.root)
                 .load(recipe.imagePath)
+                .placeholder(R.drawable.image_placeholder)
                 .into(binding.ivRecipe)
 
             recipe.ingredients.forEach { addIngredientField(it) }

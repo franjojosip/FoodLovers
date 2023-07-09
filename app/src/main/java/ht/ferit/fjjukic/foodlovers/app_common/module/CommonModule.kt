@@ -17,7 +17,7 @@ import org.koin.dsl.module
 val commonModule = module {
     factory<ResourceRepository> { ResourceRepositoryImpl(get()) }
 
-    factory<UserRepository> { UserRepositoryImpl(get(), get(), get()) }
+    factory<UserRepository> { UserRepositoryImpl(get(), get(), get(), get()) }
 
     factory<FilterRepository> { FilterRepositoryImpl(get(), get()) }
 

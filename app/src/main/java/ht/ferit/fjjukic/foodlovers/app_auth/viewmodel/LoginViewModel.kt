@@ -12,7 +12,7 @@ class LoginViewModel(
         handleResult({
             userRepository.login(email, password)
         }, {
-            actionNavigate.postValue(ActionNavigate.MainActivityNavigation)
+            actionNavigate.postValue(ActionNavigate.MainScreen)
         }, {
             showSnackbar(it?.message)
         })

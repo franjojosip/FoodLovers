@@ -30,7 +30,7 @@ class CategoryRepositoryImpl(
 
     override suspend fun getCategories(): Result<List<CategoryModel>> {
         return withContext(Dispatchers.IO) {
-            val categories = db.categoryDao().getAll()
+            val categories = db.categoryDao().getAll().sortedBy { it.name }
 
             when {
                 hasDayPassed() -> {

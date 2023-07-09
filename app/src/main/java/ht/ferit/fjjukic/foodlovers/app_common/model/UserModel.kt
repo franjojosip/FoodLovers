@@ -7,7 +7,7 @@ class UserModel(
     var name: String = "",
     var email: String = "",
     var imageUrl: String = "",
-    val isAdmin: Boolean = false,
+    val admin: Boolean = false,
     var latitude: String = Constants.DEFAULT_LAT,
     var longitude: String = Constants.DEFAULT_LONG
 )

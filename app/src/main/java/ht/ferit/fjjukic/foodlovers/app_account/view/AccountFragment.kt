@@ -79,7 +79,7 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
                 action = ::chooseImageFromGallery,
                 permissions = arrayOf(storagePermission),
                 messageId = R.string.image_storage_permission_error,
-                permissionLauncher
+                permissionLauncher = permissionLauncher
             )
         }
         binding.clTakeImage.setOnClickListener {
@@ -149,8 +149,7 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
                     AccountFragmentDirections.actionNavProfileToNavChangeLocation()
                 )
             }
-
-            else -> super.handleActionNavigate(actionNavigate)
+            else -> {}
         }
     }
 

@@ -1,5 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_common.repository.user
 
+import android.net.Uri
 import com.google.firebase.auth.FirebaseUser
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 
@@ -8,6 +9,8 @@ interface UserRepository {
     suspend fun getUser(userId: String, isForRecipe: Boolean = false): Result<UserModel>
     suspend fun updateUser(user: UserModel): Result<Boolean>
     suspend fun deleteUser(userId: String): Result<Boolean>
+
+    suspend fun updateUserImage(uri: Uri): Result<Boolean>
 
     suspend fun login(email: String, password: String): Result<Boolean>
     suspend fun register(email: String, username: String, password: String): Result<Boolean>

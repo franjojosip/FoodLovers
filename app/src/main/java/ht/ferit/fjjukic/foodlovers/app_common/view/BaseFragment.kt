@@ -15,13 +15,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
-import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
-import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
-import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
-import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
-import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.*
 import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
 import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_main.main.MainActivity
 import ht.ferit.fjjukic.foodlovers.app_main.prelogin.PreloginActivity
 
 abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> : Fragment(),
@@ -64,7 +61,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
                         screenEvent.isVisible
                 }
 
-                else -> {}
+                else -> handleScreenEvent(screenEvent)
             }
         }
         viewModel.actionNavigate.observe(viewLifecycleOwner) { it ->
@@ -75,8 +72,12 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
 
                 is ActionNavigate.Back -> findNavController().navigateUp()
 
-                is ActionNavigate.MainActivityNavigation -> {
+                is ActionNavigate.MainScreen -> {
                     (activity as? PreloginActivity)?.navigateToMainActivity()
+                }
+
+                is ActionNavigate.Prelogin -> {
+                    (activity as? MainActivity)?.navigateToPrelogin()
                 }
 
                 else -> handleActionNavigate(it)
@@ -84,8 +85,8 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
         }
     }
 
-    protected open fun handleActionNavigate(actionNavigate: ActionNavigate) {
-    }
+    protected open fun handleActionNavigate(actionNavigate: ActionNavigate) {}
+    protected open fun handleScreenEvent(screenEvent: ScreenEvent) {}
 
     abstract fun init()
 
@@ -144,10 +145,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
         permissionLauncher: ActivityResultLauncher<Array<String>>
     ) {
         when {
-            checkPermissions(
-                activity as Context,
-                permissions
-            ) -> {
+            checkPermissions(requireContext(), permissions) -> {
                 action()
             }
 
@@ -157,7 +155,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
             }
 
             else -> {
-                showToast(getString(R.string.general_error_permissions))
+                showToast(getString(messageId))
                 openSettings(requireContext())
             }
         }

@@ -23,40 +23,26 @@ class AccountViewModel(
     private val _user: MutableLiveData<UserModel> = MutableLiveData()
     val user: LiveData<UserModel> = _user
 
-
     fun init() {
         _user.value = preferenceManager.user
     }
 
     fun handleImagePathChange(value: Uri) {
-        screenEvent.postValue(LoadingBar(true))
-        _user.value?.let { user ->
-            val ref = FirebaseStorage.getInstance().getReference("images/${user.userId}.jpg")
-            ref.putFile(value).addOnSuccessListener {
-                if (it.error != null) {
-                    screenEvent.postValue(LoadingBar(false))
-                    showMessage(
-                        message = it.error?.message,
-                        R.string.general_error_server
-                    )
+        handleResult({
+            userRepository.updateUserImage(value)
+        }, {
+            when (it) {
+                true -> {
+                    _user.postValue(preferenceManager.user)
+                    showMessage(messageId = R.string.image_change_success)
                 }
-                ref.downloadUrl.addOnSuccessListener { uri ->
-                    user.imageUrl = uri.toString()
-                    viewModelScope.launch {
-                        handleResult(
-                            {
-                                userRepository.updateUser(user)
-                            },
-                            {
-                                showMessage(messageId = R.string.image_change_success)
-                            }, {
-                                showMessage(messageId = R.string.image_change_error)
-                            }
-                        )
-                    }
+                else -> {
+                    showMessage(messageId = R.string.image_change_error)
                 }
             }
-        }
+        }, {
+            showMessage(messageId = R.string.image_change_error)
+        })
     }
 
     fun handleNavigation(action: ActionNavigate) {
@@ -68,7 +54,7 @@ class AccountViewModel(
             screenEvent.postValue(LoadingBar(true))
 
             userRepository.logout()
-            actionNavigate.postValue(ActionNavigate.MainActivityNavigation)
+            actionNavigate.postValue(ActionNavigate.Prelogin)
 
             screenEvent.postValue(LoadingBar(false))
         }

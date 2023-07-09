@@ -3,6 +3,7 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_recipe.CategoryListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.RecipeCategory
 import ht.ferit.fjjukic.foodlovers.databinding.CategoryItemBinding
@@ -17,6 +18,7 @@ class CategoryViewHolder(private val binding: CategoryItemBinding) :
 
         Glide.with(binding.root)
             .load(data.drawableId)
+            .placeholder(R.drawable.image_placeholder)
             .into(binding.ivImage)
 
         binding.root.setOnClickListener {

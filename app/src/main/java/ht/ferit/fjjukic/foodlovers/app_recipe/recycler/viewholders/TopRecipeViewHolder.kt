@@ -53,6 +53,7 @@ class TopRecipeViewHolder(private val binding: TopRecipeItemBinding) :
 
         Glide.with(binding.root)
             .load(recipe.imagePath)
+            .placeholder(R.drawable.image_placeholder)
             .into(binding.ivImage)
 
         binding.root.setOnClickListener {

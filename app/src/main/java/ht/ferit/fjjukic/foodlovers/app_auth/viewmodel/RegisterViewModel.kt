@@ -13,7 +13,7 @@ class RegisterViewModel(
         handleResult({
             userRepository.register(email, username, password)
         }, {
-            actionNavigate.postValue(ActionNavigate.MainActivityNavigation)
+            actionNavigate.postValue(ActionNavigate.MainScreen)
         }, {
             showSnackbar(it?.message)
         })

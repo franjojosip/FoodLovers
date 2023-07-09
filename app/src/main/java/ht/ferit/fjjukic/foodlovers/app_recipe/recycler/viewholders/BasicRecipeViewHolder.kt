@@ -3,6 +3,7 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_recipe.RecipeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.BasicRecipe
@@ -20,6 +21,7 @@ class BasicRecipeViewHolder(private val binding: SearchRecipeItemBinding) :
 
         Glide.with(binding.root)
             .load(recipe.imagePath)
+            .placeholder(R.drawable.image_placeholder)
             .into(binding.ivRecipe)
 
         binding.root.setOnClickListener {
