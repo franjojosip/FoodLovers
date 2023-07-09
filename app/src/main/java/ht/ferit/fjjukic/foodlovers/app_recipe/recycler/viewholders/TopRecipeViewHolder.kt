@@ -19,7 +19,7 @@ class TopRecipeViewHolder(private val binding: TopRecipeItemBinding) :
         binding.tvTime.text = recipe.time.toInt().convertToTime()
         binding.tvDifficulty.text = recipe.difficulty
 
-        when (recipe.difficulty) {
+        when (recipe.difficulty.lowercase()) {
             "easy" -> {
                 binding.ivDifficulty.backgroundTintList = ColorStateList.valueOf(
                     ResourcesCompat.getColor(

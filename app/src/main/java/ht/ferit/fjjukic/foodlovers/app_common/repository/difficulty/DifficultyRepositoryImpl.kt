@@ -32,7 +32,7 @@ class DifficultyRepositoryImpl(
             val difficulties = db.difficultyDao().getAll()
 
             when {
-                hasDayPassed() -> {
+                hasDayPassed() || difficulties.isEmpty() -> {
                     val newDifficulties = firebaseDB.getDifficulties().getOrDefault(listOf())
 
                     if (newDifficulties.isNotEmpty()) {
@@ -43,15 +43,8 @@ class DifficultyRepositoryImpl(
                     }
                 }
 
-                difficulties.isNotEmpty() -> {
-                    Result.success(mapToDifficultyModels(difficulties))
-                }
-
                 else -> {
-                    val newDifficulties = firebaseDB.getDifficulties().getOrDefault(listOf())
-                    saveDifficulties(newDifficulties)
-
-                    Result.success(newDifficulties)
+                    Result.success(mapToDifficultyModels(difficulties))
                 }
             }
         }

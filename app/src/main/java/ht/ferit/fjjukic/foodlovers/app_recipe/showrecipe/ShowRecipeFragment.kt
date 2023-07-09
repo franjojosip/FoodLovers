@@ -39,6 +39,9 @@ class ShowRecipeFragment: BaseFragment<ShowRecipeViewModel, FragmentShowRecipeBi
             binding.tvTime.text = recipe.time.toInt().convertToTime()
             binding.tvNumberOfServings.text = recipe.servings.convertToServings()
 
+            binding.tvSelectedCategory.text = recipe.category
+            binding.tvSelectedDifficulty.text = recipe.difficulty
+
             Glide.with(binding.root)
                 .load(recipe.imagePath)
                 .placeholder(R.drawable.image_placeholder)

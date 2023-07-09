@@ -111,7 +111,7 @@ class RecipeRepositoryImpl(
             val oldRecipes = db.recipeDao().getAll()
 
             when {
-                hasDayPassed() || isForceLoad -> {
+                hasDayPassed() || oldRecipes.isEmpty() || isForceLoad -> {
                     val newRecipes = firebaseDB.getRecipes().getOrDefault(listOf())
 
                     if (newRecipes.isNotEmpty()) {
@@ -123,16 +123,8 @@ class RecipeRepositoryImpl(
                     }
                 }
 
-                oldRecipes.isNotEmpty() -> {
-                    val data = getMappedRecipes(oldRecipes)
-                    Result.success(data)
-                }
-
                 else -> {
-                    val newRecipes = firebaseDB.getRecipes().getOrDefault(listOf())
-                    saveRecipes(newRecipes)
-
-                    Result.success(newRecipes.sortedBy { it.name })
+                    Result.success(getMappedRecipes(oldRecipes))
                 }
             }
         }
@@ -154,9 +146,7 @@ class RecipeRepositoryImpl(
     }
 
     private fun saveRecipes(data: List<RecipeModel>) {
-        data.map { it.mapToRecipe() }.forEach {
-            db.recipeDao().insert(it)
-        }
+        db.recipeDao().insertAll(data.map { it.mapToRecipe() })
         preferenceManager.lastUpdatedRecipes = System.currentTimeMillis()
     }
 

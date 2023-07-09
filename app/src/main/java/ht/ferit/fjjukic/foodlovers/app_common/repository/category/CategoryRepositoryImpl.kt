@@ -30,10 +30,10 @@ class CategoryRepositoryImpl(
 
     override suspend fun getCategories(): Result<List<CategoryModel>> {
         return withContext(Dispatchers.IO) {
-            val categories = db.categoryDao().getAll().sortedBy { it.name }
+            val categories = db.categoryDao().getAll()
 
             when {
-                hasDayPassed() -> {
+                hasDayPassed() || categories.isEmpty() -> {
                     val newCategories = firebaseDB.getCategories().getOrDefault(listOf())
 
                     if (newCategories.isNotEmpty()) {
@@ -44,15 +44,8 @@ class CategoryRepositoryImpl(
                     }
                 }
 
-                categories.isNotEmpty() -> {
-                    Result.success(mapToCategoryModels(categories))
-                }
-
                 else -> {
-                    val newCategories = firebaseDB.getCategories().getOrDefault(listOf()).sortedBy { it.name }
-                    saveCategories(newCategories)
-
-                    Result.success(newCategories)
+                    Result.success(mapToCategoryModels(categories))
                 }
             }
         }

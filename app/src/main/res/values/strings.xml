@@ -191,7 +191,7 @@
     <string name="message_create_recipe_image_placeholder">Image placeholder</string>
 
     <string name="btn_done">Done</string>
-    <string name="btn_reset">Done</string>
+    <string name="btn_reset">Reset</string>
     <string name="btn_create_recipe">Create recipe</string>
 
     <string name="dialog_create_recipe_title">Create new recipe?</string>

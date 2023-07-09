@@ -11,7 +11,6 @@ import ht.ferit.fjjukic.foodlovers.app_common.model.ScreenEvent
 import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
@@ -42,7 +41,6 @@ abstract class BaseViewModel : ViewModel() {
         viewModelScope.launch(coroutineDispatcher) {
             try {
                 screenEvent.postValue(LoadingBar(showLoading))
-                delay(200)
                 val result = action.invoke()
 
                 when {

@@ -39,6 +39,6 @@ val appModule = module {
         PreloginViewModel(get())
     }
     viewModel {
-        MainActivityViewModel(get())
+        MainActivityViewModel(get(), get(), get())
     }
 }
