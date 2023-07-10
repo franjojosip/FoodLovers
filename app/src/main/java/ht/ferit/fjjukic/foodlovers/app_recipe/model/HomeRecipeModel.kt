@@ -87,7 +87,8 @@ class BasicRecipe(
     user: String,
     val ingredients: MutableList<IngredientModel>,
     val steps: MutableList<StepModel>,
-    isFavorite: Boolean
+    isFavorite: Boolean,
+    val userId: String,
 ) : HomeScreenRecipe(
     id,
     title,

@@ -210,5 +210,6 @@
     <string name="iv_info_metrics_accessibility">Metrics info</string>
     <string name="iv_recipe_accessibility">Recipe image</string>
     <string name="ic_people_accessibility">Number of servings icon</string>
+    <string name="ic_edit_accessibility">Edit icon</string>
 
 </resources>

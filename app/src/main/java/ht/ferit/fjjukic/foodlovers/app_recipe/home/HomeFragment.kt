@@ -24,11 +24,11 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         categoryAdapter.setListener(this)
-
-        viewModel.init()
     }
 
     override fun init() {
+        viewModel.init()
+
         binding.searchView.disableSearch()
         binding.searchView.handleViewClicked {
             viewModel.onSearchClick()

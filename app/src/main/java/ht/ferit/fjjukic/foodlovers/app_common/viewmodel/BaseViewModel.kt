@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel : ViewModel() {
     val actionNavigate = SingleLiveData<ActionNavigate>()
     val screenEvent = SingleLiveData<ScreenEvent>()
+    val messageScreenEvent = SingleLiveData<ScreenEvent>()
 
     protected fun handleError(value: String?, isToast: Boolean = true) {
         if (isToast) {
@@ -24,11 +25,11 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     protected fun showSnackbar(message: String? = null, messageId: Int? = null) {
-        screenEvent.postValue(SnackbarModel(message, messageId))
+        messageScreenEvent.postValue(SnackbarModel(message, messageId))
     }
 
     protected fun showMessage(message: String? = null, messageId: Int? = null) {
-        screenEvent.postValue(MessageModel(message, messageId))
+        messageScreenEvent.postValue(MessageModel(message, messageId))
     }
 
     protected fun <T> handleResult(

@@ -1,6 +1,5 @@
 package ht.ferit.fjjukic.foodlovers.app_common.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,12 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
-import ht.ferit.fjjukic.foodlovers.app_common.model.*
+import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
+import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
+import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.ScreenEvent
+import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
 import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_main.main.MainActivity
@@ -53,8 +57,6 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
     protected open fun setObservers() {
         viewModel.screenEvent.observe(viewLifecycleOwner) { screenEvent ->
             when (screenEvent) {
-                is MessageModel -> showToast(screenEvent)
-                is SnackbarModel -> showSnackbar(screenEvent)
                 is DialogModel -> context?.showAlertDialog(screenEvent)
                 is LoadingBar -> {
                     (binding.root.findViewById(R.id.loader_layout) as? View)?.isVisible =
@@ -62,6 +64,13 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
                 }
 
                 else -> handleScreenEvent(screenEvent)
+            }
+        }
+        viewModel.messageScreenEvent.observe(viewLifecycleOwner) { screenEvent ->
+            when (screenEvent) {
+                is MessageModel -> showToast(screenEvent)
+                is SnackbarModel -> showSnackbar(screenEvent)
+                else -> {}
             }
         }
         viewModel.actionNavigate.observe(viewLifecycleOwner) { it ->

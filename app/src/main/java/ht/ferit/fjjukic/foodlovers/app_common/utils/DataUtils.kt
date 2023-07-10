@@ -1,6 +1,9 @@
 package ht.ferit.fjjukic.foodlovers.app_common.utils
 
+import android.content.res.ColorStateList
 import android.content.res.Resources
+import androidx.core.content.res.ResourcesCompat
+import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.database.model.Category
 import ht.ferit.fjjukic.foodlovers.app_common.database.model.Difficulty
 import ht.ferit.fjjukic.foodlovers.app_common.database.model.Recipe
@@ -46,7 +49,8 @@ fun List<RecipeModel>.mapToBasicRecipes(): List<HomeScreenRecipe> {
             getUser(it.user),
             mutableListOf(),
             mutableListOf(),
-            it.isFavorite
+            it.isFavorite,
+            it.user?.userId ?: ""
         )
     }.sortedBy { it.title }
 }
@@ -64,7 +68,8 @@ fun RecipeModel.mapToBasicRecipe(): BasicRecipe {
         getUser(user),
         ingredients,
         steps,
-        isFavorite = isFavorite
+        isFavorite = isFavorite,
+        userId = user?.userId ?: ""
     )
 }
 
@@ -173,4 +178,38 @@ fun DifficultyModel.mapToDifficulty(): Difficulty {
 
 fun getUser(user: UserModel?): String {
     return if (user != null) "By ${user.name}" else "By Anonymous"
+}
+
+fun getColorStateList(difficulty: String, resources: Resources): ColorStateList {
+    return when (difficulty.lowercase()) {
+        "easy" -> {
+            ColorStateList.valueOf(
+                ResourcesCompat.getColor(
+                    resources,
+                    R.color.easy_difficulty_color,
+                    null
+                )
+            )
+        }
+
+        "medium" -> {
+            ColorStateList.valueOf(
+                ResourcesCompat.getColor(
+                    resources,
+                    R.color.medium_difficulty_color,
+                    null
+                )
+            )
+        }
+
+        else -> {
+            ColorStateList.valueOf(
+                ResourcesCompat.getColor(
+                    resources,
+                    R.color.hard_difficulty_color,
+                    null
+                )
+            )
+        }
+    }
 }

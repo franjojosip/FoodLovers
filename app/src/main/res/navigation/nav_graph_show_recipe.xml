@@ -5,11 +5,24 @@
     android:id="@+id/nav_graph_show_recipe"
     app:startDestination="@id/nav_show_recipe">
 
-
     <fragment
         android:id="@+id/nav_show_recipe"
         android:name="ht.ferit.fjjukic.foodlovers.app_recipe.showrecipe.ShowRecipeFragment"
         android:label="ShowRecipeFragment"
+        tools:layout="@layout/fragment_show_recipe">
+
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_nav_show_recipe_to_nav_edit_recipe"
+            app:destination="@id/nav_edit_recipe" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_recipe"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.edit_recipe.EditRecipeFragment"
+        android:label="EditRecipeFragment"
         tools:layout="@layout/fragment_show_recipe">
 
         <argument

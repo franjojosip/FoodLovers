@@ -2,7 +2,6 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepository
@@ -14,7 +13,6 @@ import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.RecipeCategory
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HomeViewModel(
@@ -31,16 +29,15 @@ class HomeViewModel(
     private val _categories = MutableLiveData<List<RecipeCategory>>()
     val categories: LiveData<List<RecipeCategory>> = _categories
 
-    fun init() {
-        if (categories.value.isNullOrEmpty() || _topRecipes.value.isNullOrEmpty()) {
-            viewModelScope.launch(Dispatchers.IO) {
-                loadCategories()
-                loadRecipes()
-            }
-        }
+    init {
+        loadCategories()
     }
 
-    private suspend fun loadRecipes() {
+    fun init() {
+        loadRecipes()
+    }
+
+    private fun loadRecipes() {
         handleResult({
             recipeRepository.getRecipes()
         }, { data ->
@@ -53,12 +50,11 @@ class HomeViewModel(
                     _topRecipes.value = topRecipes
                 }
             }
-        }, {},
-            showLoading = true
+        }, {}, showLoading = true
         )
     }
 
-    private suspend fun loadCategories() {
+    private fun loadCategories() {
         handleResult({
             categoryRepository.getCategories()
         }, { categories ->
