@@ -8,4 +8,5 @@ interface RecipeRepository {
     suspend fun createRecipe(recipe: RecipeModel): Result<Boolean>
     suspend fun updateRecipe(recipe: RecipeModel): Result<Boolean>
     suspend fun deleteRecipe(id: String): Result<Boolean>
+    suspend fun updateRecipeFavorite(id: String, isFavorite: Boolean): Result<Boolean>
 }

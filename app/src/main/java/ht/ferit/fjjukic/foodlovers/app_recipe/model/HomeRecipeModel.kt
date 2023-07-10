@@ -14,7 +14,8 @@ sealed class HomeScreenRecipe(
     val difficulty: String = "",
     val category: String = "",
     val imagePath: String = "",
-    val user: String = ""
+    val user: String = "",
+    var isFavorite: Boolean = false
 )
 
 object NoRecipePlaceholder : HomeScreenRecipe()
@@ -35,8 +36,20 @@ class TodayChoiceRecipe(
     difficulty: String,
     category: String,
     imagePath: String,
-    user: String
-) : HomeScreenRecipe(id, title, description, time, servings, difficulty, category, imagePath, user)
+    user: String,
+    isFavorite: Boolean
+) : HomeScreenRecipe(
+    id,
+    title,
+    description,
+    time,
+    servings,
+    difficulty,
+    category,
+    imagePath,
+    user,
+    isFavorite
+)
 
 class TopRecipe(
     id: String,
@@ -47,8 +60,20 @@ class TopRecipe(
     difficulty: String,
     category: String,
     imagePath: String,
-    user: String
-) : HomeScreenRecipe(id, title, description, time, servings, difficulty, category, imagePath, user)
+    user: String,
+    isFavorite: Boolean
+) : HomeScreenRecipe(
+    id,
+    title,
+    description,
+    time,
+    servings,
+    difficulty,
+    category,
+    imagePath,
+    user,
+    isFavorite
+)
 
 class BasicRecipe(
     id: String,
@@ -62,5 +87,16 @@ class BasicRecipe(
     user: String,
     val ingredients: MutableList<IngredientModel>,
     val steps: MutableList<StepModel>,
-    val isFavorite: Boolean
-) : HomeScreenRecipe(id, title, description, time, servings, difficulty, category, imagePath, user)
+    isFavorite: Boolean
+) : HomeScreenRecipe(
+    id,
+    title,
+    description,
+    time,
+    servings,
+    difficulty,
+    category,
+    imagePath,
+    user,
+    isFavorite
+)

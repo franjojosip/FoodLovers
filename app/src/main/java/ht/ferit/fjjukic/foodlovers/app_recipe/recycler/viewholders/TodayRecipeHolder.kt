@@ -1,5 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders
 
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ht.ferit.fjjukic.foodlovers.R
@@ -16,6 +17,8 @@ class TodayRecipeHolder(private val binding: RecipeListItemBinding) :
         binding.tvDescription.text = recipe.description
         binding.tvTime.text = recipe.time.toInt().convertToTime()
         binding.tvDifficulty.text = recipe.difficulty
+
+        binding.ivFavorite.isVisible = recipe.isFavorite
 
         Glide.with(binding.root)
             .load(recipe.imagePath)

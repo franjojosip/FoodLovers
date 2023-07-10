@@ -14,41 +14,42 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class RecipesViewModel(
+class CategoryRecipesViewModel(
     private val recipeRepository: RecipeRepository
 ) : BaseViewModel() {
 
     private var recipes: List<HomeScreenRecipe> = listOf(NoRecipePlaceholder)
 
     private val _filteredRecipes =
-        MutableLiveData<List<HomeScreenRecipe>>(listOf(NoRecipePlaceholder))
+        MutableLiveData<List<HomeScreenRecipe>>()
     val filteredRecipes: LiveData<List<HomeScreenRecipe>> = _filteredRecipes
 
     private var searchFilter: String? = null
     var isAscending = true
         private set
 
-    fun loadRecipes() {
+    fun loadRecipes(category: String? = null) {
         handleResult({
             recipeRepository.getRecipes()
         }, {
             viewModelScope.launch(Dispatchers.Default) {
-                val mappedRecipes = it?.mapToBasicRecipes() ?: listOf(NoRecipePlaceholder)
+                var mappedRecipes = it?.mapToBasicRecipes()
 
-                recipes = mappedRecipes
+                if (!category.isNullOrBlank()) {
+                    mappedRecipes = mappedRecipes?.filter { model ->
+                        model.category.contains(category, true)
+                    } ?: listOf(NoRecipePlaceholder)
+                }
+
+                recipes = mappedRecipes ?: listOf(NoRecipePlaceholder)
 
                 searchFilter?.let {
                     filterBySearch(it)
                 } ?: run {
-                    sortData(mappedRecipes)
+                    sortData(recipes)
                 }
             }
         }, {})
-    }
-
-    fun onSortByClick() {
-        isAscending = !isAscending
-        sortData(filteredRecipes.value ?: listOf())
     }
 
     private fun sortData(data: List<HomeScreenRecipe>) {
@@ -68,6 +69,11 @@ class RecipesViewModel(
         }
     }
 
+    fun onSortByClick() {
+        isAscending = !isAscending
+        sortData(filteredRecipes.value ?: listOf())
+    }
+
     fun filterBySearch(value: String) {
         viewModelScope.launch(Dispatchers.Default) {
             searchFilter = value
@@ -76,7 +82,6 @@ class RecipesViewModel(
                 it.title.lowercase().contains(value.lowercase()) ||
                         it.time.lowercase().contains(value.lowercase()) ||
                         it.difficulty.lowercase().contains(value.lowercase()) ||
-                        it.category.lowercase().contains(value.lowercase()) ||
                         it.user.lowercase().contains(value.lowercase())
             }.ifEmpty { listOf(NoRecipePlaceholder) }
 

@@ -5,6 +5,8 @@ import ht.ferit.fjjukic.foodlovers.app_common.database.model.Category
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
 import ht.ferit.fjjukic.foodlovers.app_common.model.CategoryModel
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
+import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToCategory
+import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToCategoryModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -136,13 +138,5 @@ class CategoryRepositoryImpl(
             categories.add(it.mapToCategoryModel())
         }
         return categories.sortedBy { it.name }
-    }
-
-    private fun Category.mapToCategoryModel(): CategoryModel {
-        return CategoryModel(id, name.replaceFirstChar(Char::titlecase), drawableId)
-    }
-
-    private fun CategoryModel.mapToCategory(): Category {
-        return Category(id, name.replaceFirstChar(Char::titlecase), drawableId)
     }
 }

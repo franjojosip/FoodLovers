@@ -8,6 +8,8 @@ import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipe
 import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.BasicRecipe
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class ShowRecipeViewModel(
     private val recipeRepository: RecipeRepository
@@ -31,5 +33,19 @@ class ShowRecipeViewModel(
             )
             actionNavigate.postValue(ActionNavigate.Back)
         })
+    }
+
+    fun onFavoriteClick() {
+        val recipe = _recipe.value ?: return
+
+        recipe.isFavorite = !recipe.isFavorite
+
+        handleResult({
+            recipeRepository.updateRecipeFavorite(recipe.id, recipe.isFavorite)
+        }, {
+            withContext(Dispatchers.Main) {
+                _recipe.value = recipe
+            }
+        }, {}, showLoading = false)
     }
 }

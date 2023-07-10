@@ -8,4 +8,5 @@ interface PreferenceManager {
     var lastUpdatedRecipes: Long
     var lastUpdatedCategories: Long
     var lastUpdatedDifficulties: Long
+    var favoriteRecipeIds: List<String>
 }

@@ -2,6 +2,7 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders
 
 import android.content.res.ColorStateList
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ht.ferit.fjjukic.foodlovers.R
@@ -18,6 +19,8 @@ class TopRecipeViewHolder(private val binding: TopRecipeItemBinding) :
         binding.tvDescription.text = recipe.description
         binding.tvTime.text = recipe.time.toInt().convertToTime()
         binding.tvDifficulty.text = recipe.difficulty
+
+        binding.ivFavorite.isVisible = recipe.isFavorite
 
         when (recipe.difficulty.lowercase()) {
             "easy" -> {

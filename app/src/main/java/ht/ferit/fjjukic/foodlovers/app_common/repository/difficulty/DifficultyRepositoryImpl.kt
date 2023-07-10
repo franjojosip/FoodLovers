@@ -1,10 +1,12 @@
 package ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty
 
 import ht.ferit.fjjukic.foodlovers.app_common.database.RecipeDatabase
-import ht.ferit.fjjukic.foodlovers.app_common.database.model.Difficulty
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
 import ht.ferit.fjjukic.foodlovers.app_common.model.DifficultyModel
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
+import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToDifficulty
+import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToDifficultyModel
+import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToDifficultyModels
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -126,28 +128,5 @@ class DifficultyRepositoryImpl(
 
     private fun saveDifficulty(difficulty: DifficultyModel) {
         db.difficultyDao().insert(difficulty.mapToDifficulty())
-    }
-
-    private fun mapToDifficultyModels(data: List<Difficulty>): List<DifficultyModel> {
-        val difficulties = mutableListOf<DifficultyModel>()
-
-        data.forEach {
-            difficulties.add(it.mapToDifficultyModel())
-        }
-        return difficulties.sortedBy { it.name }
-    }
-
-    private fun Difficulty.mapToDifficultyModel(): DifficultyModel {
-        return DifficultyModel(
-            id,
-            name.replaceFirstChar(Char::titlecase)
-        )
-    }
-
-    private fun DifficultyModel.mapToDifficulty(): Difficulty {
-        return Difficulty(
-            id,
-            name.replaceFirstChar(Char::titlecase)
-        )
     }
 }

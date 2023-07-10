@@ -31,11 +31,12 @@
 
                 <ImageView
                     android:id="@+id/iv_favorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="14dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_margin="20dp"
                     android:elevation="4dp"
-                    android:src="@drawable/ic_heart"
+                    android:contentDescription="@string/iv_favorite_recipe_accessibility"
+                    android:src="@drawable/ic_heart_disabled"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -102,7 +103,7 @@
                         android:layout_marginTop="3dp"
                         android:fontFamily="@font/playfair_display_regular"
                         android:textColor="@color/color_text_input_layout_hint"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_recipe_title"
@@ -175,62 +176,53 @@
                         android:background="@color/color_smoke"
                         app:layout_constraintTop_toBottomOf="@id/iv_servings" />
 
-                    <TextView
-                        android:id="@+id/tv_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <ImageView
+                        android:id="@+id/iv_category"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginTop="14dp"
-                        android:fontFamily="@font/playfair_display_bold"
-                        android:text="@string/title_category"
-                        android:textAllCaps="true"
-                        android:textColor="@color/color_black"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@id/tv_difficulty"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:background="@drawable/recipe_book"
+                        android:backgroundTint="@color/color_black"
+                        android:contentDescription="@string/ic_people_accessibility"
+                        app:layout_constraintStart_toStartOf="@id/iv_servings"
                         app:layout_constraintTop_toBottomOf="@id/v_line1" />
 
                     <TextView
                         android:id="@+id/tv_selected_category"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/playfair_display_regular"
                         android:textColor="@color/color_dark_gray"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@id/tv_category"
-                        app:layout_constraintStart_toStartOf="@id/tv_category"
-                        app:layout_constraintTop_toBottomOf="@id/tv_category"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_category"
+                        app:layout_constraintStart_toEndOf="@id/iv_category"
+                        app:layout_constraintTop_toTopOf="@id/iv_category"
                         tools:text="Breakfast" />
 
                     <TextView
-                        android:id="@+id/tv_difficulty"
+                        android:id="@+id/iv_difficulty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
-                        android:fontFamily="@font/playfair_display_bold"
-                        android:text="@string/title_difficulty"
-                        android:textAllCaps="true"
-                        android:textColor="@color/color_black"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/tv_category"
+                        android:background="@drawable/ic_baseline_star_24"
+                        android:backgroundTint="@color/color_dark_gray"
+                        app:layout_constraintStart_toStartOf="@id/iv_time"
                         app:layout_constraintTop_toBottomOf="@id/v_line1" />
 
                     <TextView
                         android:id="@+id/tv_selected_difficulty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/playfair_display_regular"
                         android:textColor="@color/color_dark_gray"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@id/tv_difficulty"
-                        app:layout_constraintStart_toStartOf="@id/tv_difficulty"
-                        app:layout_constraintTop_toBottomOf="@id/tv_difficulty"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_difficulty"
+                        app:layout_constraintStart_toEndOf="@id/iv_difficulty"
+                        app:layout_constraintTop_toTopOf="@id/iv_difficulty"
                         tools:text="Easy" />
 
                     <TextView

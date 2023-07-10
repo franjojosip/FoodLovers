@@ -42,6 +42,10 @@
     <color name="color_login_title">#CB353535</color>
     <color name="color_login_text">#B73D3D3D</color>
 
+
+    <color name="color_heart_enabled">#DD3D3D</color>
+    <color name="color_heart_disabled">#A5A3A3</color>
+
     <color name="color_menu">#F66363</color>
     <color name="color_select_menu">#D0C1B5B5</color>
     <color name="color_dark_underline">#B7555555</color>

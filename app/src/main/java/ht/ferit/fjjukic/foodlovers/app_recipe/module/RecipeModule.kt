@@ -1,5 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.module
 
+import ht.ferit.fjjukic.foodlovers.app_recipe.CategoryRecipesViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.RecipesViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.favorites.FavoritesViewModel
@@ -27,6 +28,10 @@ val recipeModule = module {
 
     viewModel {
         RecipesViewModel(get())
+    }
+
+    viewModel {
+        CategoryRecipesViewModel(get())
     }
 
     viewModel {

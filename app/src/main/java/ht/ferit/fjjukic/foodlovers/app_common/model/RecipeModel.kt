@@ -14,4 +14,5 @@ class RecipeModel(
     var category: CategoryModel? = null,
     var user: UserModel? = null,
     var imagePath: String = "",
+    var isFavorite: Boolean = false
 )

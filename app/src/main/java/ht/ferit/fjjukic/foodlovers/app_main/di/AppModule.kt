@@ -25,7 +25,7 @@ val appModule = module {
     single { Converters(get()) }
     single<PreferenceManager> { PreferenceManagerImpl(get(), get()) }
 
-    single<FirebaseDB> { FirebaseDBImpl() }
+    single<FirebaseDB> { FirebaseDBImpl(get()) }
     single { FirebaseAuth.getInstance() }
     single { FirebaseStorage.getInstance() }
     single { RecipeDatabase.getInstance(androidApplication(), get()) }

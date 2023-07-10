@@ -28,8 +28,8 @@ class FavoritesViewModel(
             it
                 ?.filter { model ->
                     if (!category.isNullOrBlank()) {
-                        model.category?.name?.contains(category, true) == true
-                    } else true
+                        model.category?.name?.contains(category, true) == true && model.isFavorite
+                    } else model.isFavorite
                 }
                 ?.map { recipe -> recipe.mapToBasicRecipe() }
                 ?.let {

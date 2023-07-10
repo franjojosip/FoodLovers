@@ -9,13 +9,14 @@ import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.BasicRecipesAdapter
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentCategoryRecipesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryRecipesBinding>(),
+class CategoryRecipesFragment :
+    BaseFragment<CategoryRecipesViewModel, FragmentCategoryRecipesBinding>(),
     RecipeListener {
 
     private val args: CategoryRecipesFragmentArgs by navArgs()
 
     override val layoutId: Int = R.layout.fragment_category_recipes
-    override val viewModel: RecipesViewModel by viewModel()
+    override val viewModel: CategoryRecipesViewModel by viewModel()
 
     private val recipeAdapter: BasicRecipesAdapter = BasicRecipesAdapter(this)
 
@@ -24,19 +25,20 @@ class CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryR
 
         toolbar = binding.toolbarLayout
 
+        binding.ivFilter.isSelected = viewModel.isAscending
         binding.toolbarLayout.setTitle("${args.category} recipes")
 
         binding.cvFilter.setOnClickListener {
-            viewModel.handleSortBy(binding.ivFilter.isSelected)
-            binding.ivFilter.isSelected = !binding.ivFilter.isSelected
+            viewModel.onSortByClick()
+            binding.ivFilter.isSelected = viewModel.isAscending
         }
 
         binding.searchView.handleSearch {
-            viewModel.addSearchFilter(it)
+            viewModel.filterBySearch(it)
         }
 
         binding.searchView.handleEndIconClicked {
-            viewModel.removeSearchFilter(!binding.ivFilter.isSelected)
+            viewModel.removeSearchFilter()
         }
 
         binding.recyclerView.adapter = recipeAdapter
@@ -53,7 +55,7 @@ class CategoryRecipesFragment : BaseFragment<RecipesViewModel, FragmentCategoryR
 
     override fun onRecipeClick(id: String) {
         viewModel.onRecipeClick(
-            CategoryRecipesFragmentDirections.actionNavSearchCategoryToNavGraphShowRecipe(
+            CategoryRecipesFragmentDirections.actionNavCategoryRecipesToNavGraphShowRecipe(
                 id
             )
         )

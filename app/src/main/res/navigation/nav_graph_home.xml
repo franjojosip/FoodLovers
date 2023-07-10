@@ -38,14 +38,14 @@
         android:id="@+id/nav_search_category"
         android:name="ht.ferit.fjjukic.foodlovers.app_recipe.CategoryRecipesFragment"
         android:label="CategoryRecipesFragment"
-        tools:layout="@layout/fragment_search_recipes">
+        tools:layout="@layout/fragment_category_recipes">
 
         <argument
             android:name="category"
             app:argType="string"
             app:nullable="true" />
         <action
-            android:id="@+id/action_nav_search_category_to_nav_graph_show_recipe"
+            android:id="@+id/action_nav_category_recipes_to_nav_graph_show_recipe"
             app:destination="@id/nav_graph_show_recipe">
             <argument
                 android:name="id"

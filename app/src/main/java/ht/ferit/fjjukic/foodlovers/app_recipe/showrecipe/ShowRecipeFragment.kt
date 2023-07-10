@@ -1,6 +1,7 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.showrecipe
 
 import android.view.LayoutInflater
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import ht.ferit.fjjukic.foodlovers.R
@@ -14,7 +15,7 @@ import ht.ferit.fjjukic.foodlovers.databinding.IngredientListItemBinding
 import ht.ferit.fjjukic.foodlovers.databinding.StepListItemBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ShowRecipeFragment: BaseFragment<ShowRecipeViewModel, FragmentShowRecipeBinding>() {
+class ShowRecipeFragment : BaseFragment<ShowRecipeViewModel, FragmentShowRecipeBinding>() {
     private val args: ShowRecipeFragmentArgs by navArgs()
 
     override val layoutId: Int = R.layout.fragment_show_recipe
@@ -25,6 +26,10 @@ class ShowRecipeFragment: BaseFragment<ShowRecipeViewModel, FragmentShowRecipeBi
         viewModel.loadRecipe(args.id)
 
         binding.toolbarLayout.enableEndAction()
+
+        binding.ivFavorite.setOnClickListener {
+            viewModel.onFavoriteClick()
+        }
     }
 
     override fun setObservers() {
@@ -42,14 +47,29 @@ class ShowRecipeFragment: BaseFragment<ShowRecipeViewModel, FragmentShowRecipeBi
             binding.tvSelectedCategory.text = recipe.category
             binding.tvSelectedDifficulty.text = recipe.difficulty
 
+            setFavoriteIconColor(recipe.isFavorite)
+
             Glide.with(binding.root)
                 .load(recipe.imagePath)
                 .placeholder(R.drawable.image_placeholder)
                 .into(binding.ivRecipe)
 
+            binding.llIngredients.removeAllViews()
+            binding.llSteps.removeAllViews()
+
             recipe.ingredients.forEach { addIngredientField(it) }
             recipe.steps.forEach { addStepField(it) }
         }
+    }
+
+    private fun setFavoriteIconColor(isFavorite: Boolean) {
+        binding.ivFavorite.setColorFilter(
+            ContextCompat.getColor(
+                requireContext(),
+                if (isFavorite) R.color.color_heart_enabled else R.color.color_heart_disabled
+            ),
+            android.graphics.PorterDuff.Mode.SRC_IN
+        )
     }
 
     private fun addIngredientField(data: IngredientModel) {

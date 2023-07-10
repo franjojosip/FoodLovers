@@ -21,8 +21,11 @@ class RecipesFragment : BaseFragment<RecipesViewModel, FragmentRecipesBinding>()
     override fun init() {
         viewModel.loadRecipes()
 
+        binding.ivFilter.isSelected = viewModel.isAscending
+
         binding.recyclerView.adapter = recipesAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
 
         binding.fab.setOnClickListener {
             findNavController().navigate(
@@ -31,16 +34,16 @@ class RecipesFragment : BaseFragment<RecipesViewModel, FragmentRecipesBinding>()
         }
 
         binding.cvFilter.setOnClickListener {
-            viewModel.handleSortBy(binding.ivFilter.isSelected)
-            binding.ivFilter.isSelected = !binding.ivFilter.isSelected
+            viewModel.onSortByClick()
+            binding.ivFilter.isSelected = viewModel.isAscending
         }
 
         binding.searchView.handleSearch {
-            viewModel.addSearchFilter(it)
+            viewModel.filterBySearch(it)
         }
 
         binding.searchView.handleEndIconClicked {
-            viewModel.removeSearchFilter(!binding.ivFilter.isSelected)
+            viewModel.removeSearchFilter()
         }
 
         viewModel.filteredRecipes.observe(viewLifecycleOwner) { recipes ->

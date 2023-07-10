@@ -6,12 +6,15 @@ import ht.ferit.fjjukic.foodlovers.app_common.model.CategoryModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.DifficultyModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
+import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 
-class FirebaseDBImpl : FirebaseDB {
+class FirebaseDBImpl(
+    private val preferenceManager: PreferenceManager
+) : FirebaseDB {
     companion object {
         const val DB_RECIPES = "recipes"
         const val DB_USERS = "users"
@@ -145,13 +148,15 @@ class FirebaseDBImpl : FirebaseDB {
             val data = recipesReference.get().await()
             val list = mutableListOf<RecipeModel>()
 
+            val favoriteRecipesIds = preferenceManager.favoriteRecipeIds
             data.children.forEach { child ->
                 child.getValue(RecipeModel::class.java)?.let {
+                    it.isFavorite = favoriteRecipesIds.contains(it.id)
                     list.add(it)
                 }
             }
 
-            Result.success(list)
+            Result.success(list.sortedBy { it.name })
         }
     }
 
@@ -211,7 +216,7 @@ class FirebaseDBImpl : FirebaseDB {
                 }
             }
 
-            Result.success(list)
+            Result.success(list.sortedBy { it.name })
         }
     }
 
@@ -272,7 +277,7 @@ class FirebaseDBImpl : FirebaseDB {
                 }
             }
 
-            Result.success(list)
+            Result.success(list.sortedBy { it.name })
         }
     }
 

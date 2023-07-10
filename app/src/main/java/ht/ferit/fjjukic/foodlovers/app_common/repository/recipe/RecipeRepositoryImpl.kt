@@ -7,18 +7,13 @@ import com.google.firebase.storage.FirebaseStorage
 import ht.ferit.fjjukic.foodlovers.app_common.database.RecipeDatabase
 import ht.ferit.fjjukic.foodlovers.app_common.database.model.Recipe
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
-import ht.ferit.fjjukic.foodlovers.app_common.model.CategoryModel
-import ht.ferit.fjjukic.foodlovers.app_common.model.DifficultyModel
-import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
-import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
-import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty.DifficultyRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.Ingredient
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.Step
+import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToRecipe
+import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToRecipeModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -46,7 +41,15 @@ class RecipeRepositoryImpl(
                     val user = userRepository.getUser(recipe.userId, true).getOrNull()
 
                     if (category != null && difficulty != null && user != null) {
-                        Result.success(recipe.mapToRecipeModel(category, difficulty, user))
+                        val isFavorite = preferenceManager.favoriteRecipeIds.contains(recipe.id)
+                        Result.success(
+                            recipe.mapToRecipeModel(
+                                category,
+                                difficulty,
+                                user,
+                                isFavorite
+                            )
+                        )
                     } else {
                         Result.failure(Exception("Error while retrieving data"))
                     }
@@ -70,53 +73,17 @@ class RecipeRepositoryImpl(
         )
     }
 
-    private fun RecipeModel.mapToRecipe(): Recipe {
-        return Recipe(
-            this.id,
-            this.name,
-            this.description,
-            this.time,
-            this.servings,
-            this.steps.map { Step(it.position, it.description) },
-            this.ingredients.map { Ingredient(it.name, it.amount) },
-            this.difficulty!!.id,
-            this.category!!.id,
-            this.imagePath,
-            this.user!!.userId,
-        )
-    }
-
-    private fun Recipe.mapToRecipeModel(
-        category: CategoryModel,
-        difficulty: DifficultyModel,
-        user: UserModel
-    ): RecipeModel {
-        return RecipeModel(
-            this.id,
-            this.name,
-            this.description,
-            this.time,
-            this.servings,
-            this.steps.map { StepModel(it.position, it.description) }.toMutableList(),
-            this.ingredients.map { IngredientModel(it.name, it.amount) }.toMutableList(),
-            difficulty,
-            category,
-            user,
-            this.imagePath
-        )
-    }
-
     override suspend fun getRecipes(isForceLoad: Boolean): Result<List<RecipeModel>> {
         return withContext(Dispatchers.IO) {
             val oldRecipes = db.recipeDao().getAll()
 
             when {
-                hasDayPassed() || oldRecipes.isEmpty() || isForceLoad -> {
+                hasDayPassed() || oldRecipes.isEmpty() -> {
                     val newRecipes = firebaseDB.getRecipes().getOrDefault(listOf())
 
                     if (newRecipes.isNotEmpty()) {
                         saveRecipes(newRecipes)
-                        Result.success(newRecipes.sortedBy { it.name })
+                        Result.success(newRecipes)
                     } else {
                         val data = getMappedRecipes(oldRecipes)
                         Result.success(data)
@@ -132,6 +99,7 @@ class RecipeRepositoryImpl(
 
     private suspend fun getMappedRecipes(data: List<Recipe>): List<RecipeModel> {
         val recipes = mutableListOf<RecipeModel>()
+        val favoriteRecipesIds = preferenceManager.favoriteRecipeIds
 
         data.forEach {
             val category = categoryRepository.getCategory(it.categoryId).getOrNull()
@@ -139,7 +107,8 @@ class RecipeRepositoryImpl(
             val user = userRepository.getUser(it.userId, true).getOrNull()
 
             if (category != null && difficulty != null && user != null) {
-                recipes.add(it.mapToRecipeModel(category, difficulty, user))
+                val isFavorite = favoriteRecipesIds.contains(it.id)
+                recipes.add(it.mapToRecipeModel(category, difficulty, user, isFavorite))
             }
         }
         return recipes.sortedBy { it.name }
@@ -148,6 +117,10 @@ class RecipeRepositoryImpl(
     private fun saveRecipes(data: List<RecipeModel>) {
         db.recipeDao().insertAll(data.map { it.mapToRecipe() })
         preferenceManager.lastUpdatedRecipes = System.currentTimeMillis()
+    }
+
+    private fun saveRecipe(data: RecipeModel) {
+        db.recipeDao().insert(data.mapToRecipe())
     }
 
     override suspend fun createRecipe(recipe: RecipeModel): Result<Boolean> {
@@ -162,7 +135,7 @@ class RecipeRepositoryImpl(
                 removeRecipeImage(recipe.imagePath)
                 result
             } else {
-                getRecipes(isForceLoad = true)
+                saveRecipe(recipe)
                 Result.success(true)
             }
         }
@@ -203,11 +176,24 @@ class RecipeRepositoryImpl(
         }
     }
 
-
     override suspend fun deleteRecipe(id: String): Result<Boolean> {
         return withContext(Dispatchers.IO) {
             db.recipeDao().delete(id)
             firebaseDB.deleteRecipe(id)
+        }
+    }
+
+    override suspend fun updateRecipeFavorite(id: String, isFavorite: Boolean): Result<Boolean> {
+        return withContext(Dispatchers.IO) {
+            val favoriteRecipesIds = preferenceManager.favoriteRecipeIds.toMutableList()
+            if (isFavorite && !favoriteRecipesIds.contains(id)) {
+                favoriteRecipesIds.add(id)
+            } else if (!isFavorite) {
+                favoriteRecipesIds.remove(id)
+            }
+            preferenceManager.favoriteRecipeIds = favoriteRecipesIds
+
+            Result.success(true)
         }
     }
 }
