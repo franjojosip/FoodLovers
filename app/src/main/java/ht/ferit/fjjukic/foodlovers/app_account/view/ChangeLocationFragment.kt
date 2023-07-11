@@ -20,7 +20,6 @@ import ht.ferit.fjjukic.foodlovers.app_account.viewmodel.ChangeLocationViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_common.listener.LocationHandler
 import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
-import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
 import ht.ferit.fjjukic.foodlovers.app_common.sound.SoundManager
 import ht.ferit.fjjukic.foodlovers.app_common.utils.checkNetworkState
@@ -134,7 +133,7 @@ class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLoc
                         },
                         neutralAction = {
                             showToast(messageId = R.string.general_error_permissions)
-                            viewModel.handleNavigateAction(ActionNavigate.Account)
+                            locationLauncher.launch(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
                         }
                     ))
             }

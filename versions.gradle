@@ -45,9 +45,6 @@ ext {
     playServicesMaps = '18.1.0'
     playServicesLocation = '21.0.1'
 
-    // Eventbus
-    eventBus = '3.3.1'
-
     // Testing
     coreTesting = '2.2.0'
     mockito = '4.3.1'

@@ -4,9 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import ht.ferit.fjjukic.foodlovers.app_common.model.ActionEvent
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 
 abstract class BaseActivity<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
     AppCompatActivity() {
@@ -20,19 +17,6 @@ abstract class BaseActivity<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
         setContentView(binding.root)
         init()
     }
-
-    override fun onStart() {
-        super.onStart()
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        EventBus.getDefault().unregister(this)
-    }
-
-    @Subscribe
-    open fun handleEvent(event: ActionEvent) {}
 
     abstract fun init()
 
