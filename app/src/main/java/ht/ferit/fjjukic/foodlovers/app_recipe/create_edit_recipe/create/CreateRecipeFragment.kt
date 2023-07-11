@@ -36,7 +36,6 @@ class CreateRecipeFragment : BaseFragment<RecipeViewModel, FragmentCreateRecipeB
     }
 
     override fun init() {
-
         binding.customStepperLayout.setNumOfSteps(RecipeViewModel.NUM_OF_STEPS)
 
         binding.viewPager.adapter = pagerAdapter

@@ -119,15 +119,15 @@ class ReviewRecipeFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding
 
     private fun addIngredientField(data: IngredientModel) {
         val view = IngredientListItemBinding.inflate(LayoutInflater.from(context), null, false)
-        view.tvIngredientAmount.text = data.amount
-        view.tvIngredientName.text = data.name
+        view.tvIngredientAmount.text = data.amount.ifBlank { "XX" }
+        view.tvIngredientName.text = data.name.ifBlank { "Ingredient name placeholder" }
         binding.llIngredients.addView(view.root)
     }
 
     private fun addStepField(data: StepModel) {
         val view = StepListItemBinding.inflate(LayoutInflater.from(context), null, false)
         view.tvStep.text = "Step ${data.position}."
-        view.tvDescription.text = data.description
+        view.tvDescription.text = data.description.ifBlank { "Step description placeholder" }
         binding.llSteps.addView(view.root)
     }
 }

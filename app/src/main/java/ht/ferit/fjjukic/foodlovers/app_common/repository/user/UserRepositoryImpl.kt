@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
+import ht.ferit.fjjukic.foodlovers.app_common.repository.favorites.FavoritesRepository
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -15,7 +16,8 @@ class UserRepositoryImpl(
     private val firebaseStorage: FirebaseStorage,
     private val firebaseAuth: FirebaseAuth,
     private val firebaseDB: FirebaseDB,
-    private val preferenceManager: PreferenceManager
+    private val preferenceManager: PreferenceManager,
+    private val favoritesRepository: FavoritesRepository
 ) : UserRepository {
 
     override suspend fun createUser(user: UserModel): Result<UserModel?> {
@@ -129,6 +131,8 @@ class UserRepositoryImpl(
                         Exception("FirebaseAuth error - user doesn't exist")
                     )
 
+                favoritesRepository.loadFavorites()
+
                 return@withContext Result.success(true)
             } catch (e: Exception) {
                 Result.failure(Exception("FirebaseAuth server error"))
@@ -199,11 +203,15 @@ class UserRepositoryImpl(
     }
 
     override suspend fun logout(): Result<Boolean> {
-        firebaseAuth.signOut()
-        preferenceManager.user = null
-        preferenceManager.lastUpdatedRecipes = 0L
+        return withContext(Dispatchers.IO) {
+            favoritesRepository.saveFavorites()
 
-        return Result.success(true)
+            firebaseAuth.signOut()
+            preferenceManager.user = null
+            preferenceManager.lastUpdatedRecipes = 0L
+
+            Result.success(true)
+        }
     }
 
     override fun currentUser() = firebaseAuth.currentUser

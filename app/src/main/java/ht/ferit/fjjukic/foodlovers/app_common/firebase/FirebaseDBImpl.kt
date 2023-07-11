@@ -20,6 +20,7 @@ class FirebaseDBImpl(
         const val DB_USERS = "users"
         const val DB_CATEGORIES = "categories"
         const val DB_DIFFICULTIES = "difficulties"
+        const val DB_FAVORITE_RECIPE_IDS = "favoriteRecipeIds"
     }
 
     private val dbReference: DatabaseReference by lazy {
@@ -40,6 +41,10 @@ class FirebaseDBImpl(
 
     private val difficultiesReference by lazy {
         dbReference.child(DB_DIFFICULTIES)
+    }
+
+    private val favoriteRecipeIdsReference by lazy {
+        dbReference.child(DB_FAVORITE_RECIPE_IDS)
     }
 
     override suspend fun createUser(user: UserModel): Result<UserModel> {
@@ -299,6 +304,42 @@ class FirebaseDBImpl(
                 Result.success(true)
             } catch (e: Exception) {
                 Result.failure(Exception("Error while deleting difficulty"))
+            }
+        }
+    }
+
+    override suspend fun saveFavorites() {
+        withContext(Dispatchers.IO) {
+            try {
+                val userId = preferenceManager.user?.userId
+                val favoriteRecipeIds =
+                    preferenceManager.favoriteRecipeIds.filter { it.isNotBlank() }
+
+                if (userId != null) {
+                    favoriteRecipeIdsReference.child(userId).setValue(favoriteRecipeIds).await()
+                }
+            } catch (_: Exception) {
+            }
+        }
+    }
+
+    override suspend fun loadFavorites() {
+        withContext(Dispatchers.IO) {
+            try {
+                val userId = preferenceManager.user?.userId
+
+                if (userId != null) {
+                    val data = favoriteRecipeIdsReference.child(userId).get().await()
+                    val list = mutableListOf<String>()
+
+                    data.children.forEach { child ->
+                        child.getValue(String::class.java)?.let {
+                            list.add(it)
+                        }
+                    }
+                    preferenceManager.favoriteRecipeIds = list
+                }
+            } catch (_: Exception) {
             }
         }
     }

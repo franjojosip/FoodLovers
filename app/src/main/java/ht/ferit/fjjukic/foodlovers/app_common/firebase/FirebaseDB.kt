@@ -41,4 +41,10 @@ interface FirebaseDB {
     suspend fun getDifficulties(): Result<List<DifficultyModel>>
     suspend fun updateDifficulty(difficulty: DifficultyModel): Result<DifficultyModel>
     suspend fun deleteDifficulty(id: String): Result<Boolean>
+
+    /**
+     * Firebase Realtime Database - access favorite recipeIds
+     */
+    suspend fun saveFavorites()
+    suspend fun loadFavorites()
 }

@@ -4,6 +4,8 @@ import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryReposi
 import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepositoryImpl
 import ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty.DifficultyRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty.DifficultyRepositoryImpl
+import ht.ferit.fjjukic.foodlovers.app_common.repository.favorites.FavoritesRepository
+import ht.ferit.fjjukic.foodlovers.app_common.repository.favorites.FavoritesRepositoryImpl
 import ht.ferit.fjjukic.foodlovers.app_common.repository.filters.FilterRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.filters.FilterRepositoryImpl
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
@@ -17,9 +19,11 @@ import org.koin.dsl.module
 val commonModule = module {
     factory<ResourceRepository> { ResourceRepositoryImpl(get()) }
 
-    factory<UserRepository> { UserRepositoryImpl(get(), get(), get(), get()) }
+    factory<UserRepository> { UserRepositoryImpl(get(), get(), get(), get(), get()) }
 
     factory<FilterRepository> { FilterRepositoryImpl(get(), get()) }
+
+    factory<FavoritesRepository> { FavoritesRepositoryImpl(get()) }
 
     factory<CategoryRepository> { CategoryRepositoryImpl(get(), get(), get()) }
 

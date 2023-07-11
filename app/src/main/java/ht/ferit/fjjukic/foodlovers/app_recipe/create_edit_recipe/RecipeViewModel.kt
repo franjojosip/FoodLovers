@@ -96,14 +96,16 @@ class RecipeViewModel(
                 }
 
                 else -> {
-                    recipe = RecipeModel().apply {
-                        ingredients = mutableListOf(IngredientModel(), IngredientModel())
-                        steps = mutableListOf(StepModel())
-                        category = defaultCategory
-                        difficulty = defaultDifficulty
+                    withContext(Dispatchers.Main) {
+                        val model = RecipeModel().apply {
+                            ingredients = mutableListOf(IngredientModel(), IngredientModel())
+                            steps = mutableListOf(StepModel())
+                            category = defaultCategory
+                            difficulty = defaultDifficulty
+                        }
+                        _oldRecipe.value = model
+                        recipe = model
                     }
-
-                    dataChanged.value = true
                 }
             }
         }, {
