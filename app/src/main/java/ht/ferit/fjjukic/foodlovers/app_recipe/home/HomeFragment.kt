@@ -4,9 +4,8 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.CategoryListener
-import ht.ferit.fjjukic.foodlovers.app_recipe.HomeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.CategoryAdapter
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.RecipeAdapter
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentHomeBinding

@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_recipe.view
+package ht.ferit.fjjukic.foodlovers.app_recipe.custom_view
 
 import android.content.Context
 import android.util.AttributeSet

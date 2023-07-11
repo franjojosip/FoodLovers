@@ -3,13 +3,13 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.FilterModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
 import ht.ferit.fjjukic.foodlovers.app_common.repository.filters.FilterRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipe
-import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
@@ -99,7 +99,7 @@ class SearchViewModel(
                         }
                     }
                     filteredRecipes
-                } ?: recipes
+                }?.ifEmpty { listOf(NoRecipePlaceholder) } ?: recipes
 
             screenEvent.postValue(LoadingBar(false))
             withContext(Dispatchers.Main) {
@@ -149,7 +149,7 @@ class SearchViewModel(
                     it.time.lowercase().contains(value.lowercase()) ||
                     it.difficulty.lowercase().contains(value.lowercase()) ||
                     it.category.lowercase().contains(value.lowercase())
-        }
+        }?.ifEmpty { listOf(NoRecipePlaceholder) } ?: listOf(NoRecipePlaceholder)
     }
 
     fun removeSearchFilter() {

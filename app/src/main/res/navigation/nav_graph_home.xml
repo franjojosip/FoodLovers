@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/nav_search_category"
-        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.CategoryRecipesFragment"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.category_recipes.CategoryRecipesFragment"
         android:label="CategoryRecipesFragment"
         tools:layout="@layout/fragment_category_recipes">
 

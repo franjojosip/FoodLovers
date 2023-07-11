@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_common.viewmodel
+package ht.ferit.fjjukic.foodlovers.app_common.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

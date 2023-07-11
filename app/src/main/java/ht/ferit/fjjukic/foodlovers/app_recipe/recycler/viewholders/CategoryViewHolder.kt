@@ -1,5 +1,9 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.drawable.Drawable
+import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,9 +19,10 @@ class CategoryViewHolder(private val binding: CategoryItemBinding) :
         binding.tvTitle.text = data.title
 
         binding.spaceStart.isVisible = data.hasMarginStart
+        val drawable = binding.root.context.getResource(data.title.lowercase())
 
         Glide.with(binding.root)
-            .load(data.drawableId)
+            .load(drawable)
             .placeholder(R.drawable.image_placeholder)
             .into(binding.ivImage)
 
@@ -25,4 +30,10 @@ class CategoryViewHolder(private val binding: CategoryItemBinding) :
             listener?.onCategoryClick(data.title)
         }
     }
+}
+
+@SuppressLint("DiscouragedApi")
+fun Context.getResource(name: String): Drawable? {
+    val resID = this.resources.getIdentifier(name, "drawable", this.packageName)
+    return ActivityCompat.getDrawable(this, resID)
 }

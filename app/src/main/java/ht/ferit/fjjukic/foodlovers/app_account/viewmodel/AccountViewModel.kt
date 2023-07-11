@@ -4,14 +4,13 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.storage.FirebaseStorage
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
-import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

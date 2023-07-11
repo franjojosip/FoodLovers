@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.steps
+package ht.ferit.fjjukic.foodlovers.app_recipe.edit_recipe.steps
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,15 +11,16 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
-import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.custom_view.IngredientView
+import ht.ferit.fjjukic.foodlovers.app_recipe.edit_recipe.EditRecipeViewModel
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentIngredientsBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class IngredientStepFragment : BaseFragment<CreateRecipeViewModel, FragmentIngredientsBinding>() {
+class IngredientStepEditFragment : BaseFragment<EditRecipeViewModel, FragmentIngredientsBinding>() {
     override val layoutId: Int = R.layout.fragment_ingredients
-    override val viewModel: CreateRecipeViewModel by sharedViewModel()
+    override val viewModel: EditRecipeViewModel by sharedViewModel()
 
     override fun init() {
         setListeners()
@@ -44,6 +45,13 @@ class IngredientStepFragment : BaseFragment<CreateRecipeViewModel, FragmentIngre
         binding.actDifficulties.setOnItemClickListener { _, view, _, _ ->
             viewModel.onDifficultyChanged((view as AppCompatTextView).text.toString())
         }
+
+        if (binding.actDifficulties.text.toString().isBlank()) {
+            binding.actDifficulties.setText(viewModel.newRecipe.difficulty?.name, false)
+        }
+        if (binding.actCategories.text.toString().isBlank()) {
+            binding.actCategories.setText(viewModel.newRecipe.category?.name, false)
+        }
     }
 
     override fun setObservers() {
@@ -56,9 +64,6 @@ class IngredientStepFragment : BaseFragment<CreateRecipeViewModel, FragmentIngre
                     R.layout.dropdown_item,
                     categories.map { it.name })
             )
-            val defaultCategory = categories.first().name
-            binding.actCategories.setText(defaultCategory, false)
-            viewModel.onCategoryChanged(defaultCategory)
         }
         viewModel.difficulties.observeNotNull(viewLifecycleOwner) { difficulties ->
             binding.actDifficulties.setAdapter(
@@ -67,10 +72,28 @@ class IngredientStepFragment : BaseFragment<CreateRecipeViewModel, FragmentIngre
                     R.layout.dropdown_item,
                     difficulties.map { it.name })
             )
-            val defaultDifficulty = difficulties.first().name
-            binding.actDifficulties.setText(defaultDifficulty, false)
-            viewModel.onDifficultyChanged(defaultDifficulty)
         }
+
+        viewModel.oldRecipe.observeNotNull(viewLifecycleOwner) {
+            setScreen(it)
+        }
+
+        viewModel.dataChanged.observeNotNull(viewLifecycleOwner) {
+            if (it) {
+                setScreen(viewModel.newRecipe)
+            }
+        }
+
+    }
+
+    private fun setScreen(data: RecipeModel) {
+        binding.llIngredients.removeAllViews()
+        data.ingredients.forEach {
+            addIngredientField(it)
+        }
+
+        binding.actCategories.setText(data.category?.name, false)
+        binding.actDifficulties.setText(data.difficulty?.name, false)
     }
 
     override fun onPause() {
@@ -78,10 +101,15 @@ class IngredientStepFragment : BaseFragment<CreateRecipeViewModel, FragmentIngre
         saveIngredients()
     }
 
-    private fun addIngredientField() {
+    private fun addIngredientField(data: IngredientModel? = null) {
         val view = IngredientView(requireContext()).apply {
             id = View.generateViewId()
             toggleCloseIcon(true)
+
+            data?.let {
+                ingredientBinding.etIngredient.setText(data.name)
+                ingredientBinding.etAmount.setText(data.amount)
+            }
             setListener { view ->
                 val anim = AlphaAnimation(1f, 0f)
                 anim.duration = 250

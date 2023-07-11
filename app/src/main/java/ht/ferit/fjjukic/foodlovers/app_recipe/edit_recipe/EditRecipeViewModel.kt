@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.CategoryModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
@@ -17,9 +18,9 @@ import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty.DifficultyRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
-import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EditRecipeViewModel(
     private val recipeRepository: RecipeRepository,
@@ -27,14 +28,11 @@ class EditRecipeViewModel(
     private val difficultyRepository: DifficultyRepository
 ) : BaseViewModel() {
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            _categories.postValue(categoryRepository.getCategories().getOrDefault(listOf()))
-            _difficulties.postValue(difficultyRepository.getDifficulties().getOrDefault(listOf()))
-        }
-    }
+    private val _oldRecipe: MutableLiveData<RecipeModel> = MutableLiveData()
+    val oldRecipe: LiveData<RecipeModel> = _oldRecipe
 
-    private val _recipe = RecipeModel()
+    var newRecipe = RecipeModel()
+        private set
 
     private val _categories = MutableLiveData<List<CategoryModel>>()
     val categories: LiveData<List<CategoryModel>> = _categories
@@ -42,12 +40,9 @@ class EditRecipeViewModel(
     private val _difficulties = MutableLiveData<List<DifficultyModel>>()
     val difficulties: LiveData<List<DifficultyModel>> = _difficulties
 
-    private var _isDataChanged = true
-    val isDataChanged = _isDataChanged
+    val dataChanged: MutableLiveData<Boolean> = MutableLiveData()
 
-    val recipe = _recipe
-
-    private val _title = MutableLiveData("")
+    private val _title = MutableLiveData<String>()
     val title: LiveData<String> = _title
 
     private val _category = MutableLiveData<CategoryModel>()
@@ -56,104 +51,117 @@ class EditRecipeViewModel(
     private val _difficulty = MutableLiveData<DifficultyModel>()
     val difficulty: LiveData<DifficultyModel> = _difficulty
 
-    private val _numOfServings = MutableLiveData(1)
-    val numOfServings: LiveData<Int> = _numOfServings
-
-    private val _cookingTime = MutableLiveData(15)
-    val cookingTime: LiveData<Int> = _cookingTime
-
-    private val _imagePath = MutableLiveData<Uri>()
-    val imagePath: LiveData<Uri> = _imagePath
-
     val numOfSteps = 4
 
     val maxServings = 11
     val minServings = 1
+    fun init(id: String?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val categories = categoryRepository.getCategories().getOrDefault(listOf())
+            val difficulties = difficultyRepository.getDifficulties().getOrDefault(listOf())
+
+            withContext(Dispatchers.Main) {
+                _categories.value = categories
+                _difficulties.value = difficulties
+            }
+        }
+
+        handleResult({
+            when {
+                id != null -> recipeRepository.getRecipe(id)
+                else -> Result.success(null)
+            }
+        }, {
+            if (it != null) {
+                withContext(Dispatchers.Main) {
+                    _oldRecipe.value = it
+                    newRecipe = it
+                }
+            } else {
+                actionNavigate.postValue(ActionNavigate.Back)
+            }
+        }, {
+            screenEvent.postValue(
+                SnackbarModel(message = "Error while loading recipe")
+            )
+            actionNavigate.postValue(ActionNavigate.Back)
+        })
+    }
 
     fun onCategoryChanged(category: String) {
-        _category.value = categories.value?.first { it.name.equals(category, true) }
-        _recipe.category = _category.value
+        val model = categories.value?.first { it.name.equals(category, true) } ?: return
+        _category.postValue(model)
+        newRecipe.category = model
     }
 
     fun onDifficultyChanged(difficulty: String) {
-        _difficulty.value = difficulties.value?.first { it.name.equals(difficulty, true) }
-        _recipe.difficulty = _difficulty.value
+        val model = difficulties.value?.first { it.name.equals(difficulty, true) } ?: return
+        _difficulty.postValue(model)
+        newRecipe.difficulty = model
     }
 
-    fun onNameChanged(text: CharSequence?) {
-        _recipe.name = text.toString()
-        _title.value = text.toString()
-        _isDataChanged = true
+    fun onNameChanged(value: String) {
+        newRecipe.name = value
     }
 
     fun onChangeCounter(isIncrement: Boolean) {
-        _isDataChanged = true
         when {
-            isIncrement && _recipe.servings < 11 -> {
-                _recipe.servings++
-                _numOfServings.value = _recipe.servings
+            isIncrement && newRecipe.servings < 11 -> {
+                newRecipe.servings++
             }
 
-            !isIncrement && _recipe.servings > 1 -> {
-                _recipe.servings--
-                _numOfServings.value = _recipe.servings
+            !isIncrement && newRecipe.servings > 1 -> {
+                newRecipe.servings--
             }
         }
+        dataChanged.value = true
     }
 
     fun onChangeTime(value: Int) {
-        _isDataChanged = true
-        _recipe.time = value
-        _cookingTime.value = value
+        newRecipe.time = value
+        dataChanged.value = true
     }
 
     fun getCookingTime(): Float {
-        return _recipe.time.toFloat()
+        return newRecipe.time.toFloat()
     }
 
     fun onImageSelected(imageURI: Uri) {
-        _isDataChanged = true
-        _recipe.imagePath = imageURI.toString()
-        _imagePath.value = imageURI
+        newRecipe.imagePath = imageURI.toString()
+        dataChanged.value = true
     }
 
     fun setIngredients(values: List<IngredientModel>) {
-        _isDataChanged = true
-        _recipe.ingredients.apply {
+        newRecipe.ingredients.apply {
             clear()
             addAll(values)
         }
     }
 
     fun setSteps(values: List<StepModel>) {
-        _isDataChanged = true
-        _recipe.steps.apply {
+        newRecipe.steps.apply {
             clear()
             addAll(values)
         }
     }
 
-    fun setDataChanged(value: Boolean) {
-        _isDataChanged = value
-    }
-
-    fun createRecipe() {
+    fun editRecipe() {
         if (checkRecipe()) {
             screenEvent.postValue(
                 DialogModel(
-                    title = R.string.dialog_create_recipe_title,
-                    message = R.string.dialog_create_recipe_message,
+                    title = R.string.dialog_edit_recipe_title,
+                    message = R.string.dialog_edit_recipe_message,
                     positiveAction = {
                         handleResult({
-                            recipeRepository.createRecipe(recipe)
+                            recipeRepository.updateRecipe(newRecipe)
                         }, {
                             screenEvent.postValue(
-                                MessageModel(message = "Successfully created recipe")
+                                MessageModel(message = "Successfully updated recipe")
                             )
                             actionNavigate.postValue(ActionNavigate.Back)
                         }, {
                             screenEvent.postValue(
-                                SnackbarModel(message = "Error while creating recipe")
+                                SnackbarModel(message = "Error while updating recipe")
                             )
                         })
                     },
@@ -168,6 +176,6 @@ class EditRecipeViewModel(
     }
 
     private fun checkRecipe(): Boolean {
-        return recipe.name.isNotBlank() && recipe.ingredients.isNotEmpty() && recipe.steps.isNotEmpty() && recipe.imagePath.isNotBlank()
+        return newRecipe.name.isNotBlank() && newRecipe.ingredients.isNotEmpty() && newRecipe.steps.isNotEmpty() && newRecipe.imagePath.isNotBlank()
     }
 }

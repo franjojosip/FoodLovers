@@ -47,9 +47,15 @@ class PreferenceManagerImpl(
             editor { putLong(PREFS_KEY_LAST_UPDATED_DIFFICULTIES, value) }
         }
     override var favoriteRecipeIds: List<String>
-        get() = sharedPreferences.getString(user?.userId, null)?.split(",") ?: listOf()
+        get() = sharedPreferences.getString("$PREFS_KEY_FAVORITE_RECIPE_IDS${user?.userId}", null)
+            ?.split(",") ?: listOf()
         set(value) {
-            editor { putString(user?.userId, value.joinToString(",")) }
+            editor {
+                putString(
+                    "$PREFS_KEY_FAVORITE_RECIPE_IDS${user?.userId}",
+                    value.joinToString(",")
+                )
+            }
         }
 
     private fun editor(editor: SharedPreferences.Editor.() -> Unit) {

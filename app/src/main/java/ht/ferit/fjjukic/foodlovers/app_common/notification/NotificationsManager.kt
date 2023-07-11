@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import ht.ferit.fjjukic.foodlovers.R
@@ -22,24 +23,30 @@ class NotificationsManager(
         ) as NotificationManager
     }
 
-    fun sendNotification(imageUri: Uri, title: String, message: String) {
+    fun sendNotification(imageUri: Uri, message: String) {
         val intent = Intent(Intent.ACTION_VIEW, imageUri)
-        val pendingIntent =
-            PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent = PendingIntent.getActivity(
+            appContext,
+            0,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+
+        )
 
         val contentView = RemoteViews(appContext.packageName, R.layout.notification_layout)
-        contentView.setTextViewText(R.id.tv_title, title)
         contentView.setImageViewUri(R.id.iv_picture, imageUri)
 
-        notificationChannel = NotificationChannel(
-            R.string.app_channel_id.toString(),
-            message,
-            NotificationManager.IMPORTANCE_DEFAULT
-        )
-        notificationChannel.enableLights(true)
-        notificationChannel.lightColor = Color.GREEN
-        notificationChannel.enableVibration(false)
-        notificationManager.createNotificationChannel(notificationChannel)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannel = NotificationChannel(
+                R.string.app_channel_id.toString(),
+                message,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.GREEN
+            notificationChannel.enableVibration(false)
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
 
         val builder = NotificationCompat.Builder(appContext, R.string.app_channel_id.toString())
             .setContent(contentView)

@@ -2,7 +2,7 @@ package ht.ferit.fjjukic.foodlovers.app_main.welcome_screen
 
 import androidx.navigation.fragment.findNavController
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentWelcomeScreenBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_account.viewmodel.ChangeLocationViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_common.listener.LocationHandler
 import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
@@ -25,7 +26,6 @@ import ht.ferit.fjjukic.foodlovers.app_common.sound.SoundManager
 import ht.ferit.fjjukic.foodlovers.app_common.utils.checkNetworkState
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
-import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentLocationBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

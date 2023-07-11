@@ -6,12 +6,12 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToServings
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_common.utils.getColorStateList
-import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentShowRecipeBinding
 import ht.ferit.fjjukic.foodlovers.databinding.IngredientListItemBinding
 import ht.ferit.fjjukic.foodlovers.databinding.StepListItemBinding

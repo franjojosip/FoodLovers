@@ -5,12 +5,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToServings
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
-import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentReviewBinding
 import ht.ferit.fjjukic.foodlovers.databinding.IngredientListItemBinding

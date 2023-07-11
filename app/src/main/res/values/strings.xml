@@ -136,7 +136,7 @@
     <string name="image_storage_permission_error">Storage permissions are required for picking an image!</string>
     <string name="image_not_chosen">No image chosen</string>
     <string name="image_notification">FoodLovers notification</string>
-    <string name="image_new_saved">Image saved in the gallery</string>
+    <string name="image_new_saved">Image saved in the gallery. Click here to check it!</string>
     <string name="image_user">User image</string>
     <string name="image_saved_image_notification">Saved image notification</string>
     <string name="image_click_to_change">Click here to add an image</string>
@@ -175,6 +175,7 @@
     <string name="title_filters">Filters</string>
     <string name="title_find_new_recipes">Find new recipes</string>
     <string name="title_publish_new_recipes">Publish new recipe</string>
+    <string name="title_edit_recipe">Edit recipe</string>
 
     <string name="title_create_recipe_name">Name</string>
     <string name="title_create_recipe_name_placeholder">Recipe title</string>
@@ -192,10 +193,15 @@
 
     <string name="btn_done">Done</string>
     <string name="btn_reset">Reset</string>
-    <string name="btn_create_recipe">Create recipe</string>
+    <string name="btn_create_recipe">Create</string>
+    <string name="btn_edit_recipe">Edit</string>
 
     <string name="dialog_create_recipe_title">Create new recipe?</string>
     <string name="dialog_create_recipe_message">Please check your data before creating the recipe!</string>
+
+    <string name="dialog_edit_recipe_title">Do you want to update recipe?</string>
+    <string name="dialog_edit_recipe_message">Please check your data before updating the recipe!</string>
+
     <string name="dialog_create_recipe_confirm">Confirm</string>
 
 

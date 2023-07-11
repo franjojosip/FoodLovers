@@ -2,11 +2,11 @@ package ht.ferit.fjjukic.foodlovers.app_account.view
 
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_account.viewmodel.ChangeUsernameViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_common.utils.clearFocusAndHideKeyboard
 import ht.ferit.fjjukic.foodlovers.app_common.utils.getValue
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.utils.validateField
-import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentChangeUsernameBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

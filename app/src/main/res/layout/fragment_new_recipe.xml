@@ -256,7 +256,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_ingredients">
 
-                <ht.ferit.fjjukic.foodlovers.app_recipe.view.IngredientView
+                <ht.ferit.fjjukic.foodlovers.app_recipe.custom_view.IngredientView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

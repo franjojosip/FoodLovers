@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_common.utils.getColorStateList
-import ht.ferit.fjjukic.foodlovers.app_recipe.HomeListener
+import ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.TopRecipe
 import ht.ferit.fjjukic.foodlovers.databinding.TopRecipeItemBinding
 

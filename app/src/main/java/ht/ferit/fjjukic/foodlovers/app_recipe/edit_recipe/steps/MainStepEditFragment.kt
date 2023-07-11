@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.steps
+package ht.ferit.fjjukic.foodlovers.app_recipe.edit_recipe.steps
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
@@ -8,24 +8,26 @@ import android.os.Build
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import com.bumptech.glide.Glide
 import com.yalantis.ucrop.UCrop
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
+import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
-import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
+import ht.ferit.fjjukic.foodlovers.app_recipe.edit_recipe.EditRecipeViewModel
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentMainStepBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.io.File
 
-
-class MainStepFragment : BaseFragment<CreateRecipeViewModel, FragmentMainStepBinding>(),
+class MainStepEditFragment : BaseFragment<EditRecipeViewModel, FragmentMainStepBinding>(),
     PermissionHandler {
     override val layoutId: Int = R.layout.fragment_main_step
-    override val viewModel: CreateRecipeViewModel by sharedViewModel()
+    override val viewModel: EditRecipeViewModel by sharedViewModel()
 
     private val storagePermissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         arrayOf(Manifest.permission.READ_MEDIA_IMAGES)
@@ -73,27 +75,45 @@ class MainStepFragment : BaseFragment<CreateRecipeViewModel, FragmentMainStepBin
 
     override fun setObservers() {
         super.setObservers()
+        viewModel.oldRecipe.observeNotNull(viewLifecycleOwner) {
+            setScreen(it)
+        }
 
-        viewModel.numOfServings.observeNotNull(viewLifecycleOwner) {
-            binding.tvCounter.text = it.toString()
-            binding.btnDecrement.visibility =
-                if (it != viewModel.minServings) View.VISIBLE else View.INVISIBLE
-            binding.btnIncrement.visibility =
-                if (it != viewModel.maxServings) View.VISIBLE else View.INVISIBLE
+        viewModel.dataChanged.observeNotNull(viewLifecycleOwner) {
+            if (it) {
+                setScreen(viewModel.newRecipe)
+            }
         }
-        viewModel.cookingTime.observeNotNull(viewLifecycleOwner) {
-            binding.tvCookingTime.text = it.convertToTime()
-            binding.seekbar.value = viewModel.getCookingTime()
-        }
-        viewModel.imagePath.observeNotNull(viewLifecycleOwner) {
-            binding.ivAction.isVisible = false
-            binding.ivRecipe.setImageURI(it)
+    }
+
+    private fun setScreen(it: RecipeModel) {
+        binding.etName.setText(it.name)
+
+        binding.tvCounter.text = it.servings.toString()
+        binding.btnDecrement.visibility =
+            if (it.servings != viewModel.minServings) View.VISIBLE else View.INVISIBLE
+        binding.btnIncrement.visibility =
+            if (it.servings != viewModel.maxServings) View.VISIBLE else View.INVISIBLE
+
+        binding.tvCookingTime.text = it.time.convertToTime()
+        binding.seekbar.value = it.time.toFloat()
+
+        binding.ivAction.isVisible = false
+
+        binding.ivAction.isVisible = false
+        if (it.imagePath.contains("https")) {
+            Glide.with(binding.root)
+                .load(it.imagePath)
+                .placeholder(R.drawable.image_placeholder)
+                .into(binding.ivRecipe)
+        } else {
+            binding.ivRecipe.setImageURI(it.imagePath.toUri())
         }
     }
 
     private fun setListeners() {
         binding.etName.doOnTextChanged { text, _, _, _ ->
-            viewModel.onNameChanged(text)
+            viewModel.onNameChanged(text.toString())
         }
 
         binding.btnDecrement.setOnClickListener {

@@ -3,7 +3,6 @@ package ht.ferit.fjjukic.foodlovers.app_main.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -20,6 +19,7 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
         R.id.nav_search_category,
         R.id.nav_show_recipe,
         R.id.nav_create_recipe,
+        R.id.nav_edit_recipe,
         R.id.nav_change_email,
         R.id.nav_change_username,
         R.id.nav_change_location

@@ -2,7 +2,7 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe
 
 import androidx.viewpager2.widget.ViewPager2
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.steps.IngredientStepFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.steps.MainStepFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.steps.ReviewRecipeFragment

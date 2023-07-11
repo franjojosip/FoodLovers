@@ -1,7 +1,7 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.filter
 
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.search.SearchViewModel
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentFilterBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel

@@ -10,7 +10,5 @@ data class Category(
     @ColumnInfo(name = "id")
     var id: String,
     @ColumnInfo(name = "name")
-    var name: String,
-    @ColumnInfo(name = "drawableId")
-    var drawableId: Int
+    var name: String
 )

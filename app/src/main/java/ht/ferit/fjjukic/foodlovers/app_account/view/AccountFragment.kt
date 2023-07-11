@@ -15,13 +15,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_account.viewmodel.AccountViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_common.listener.LocationHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
 import ht.ferit.fjjukic.foodlovers.app_common.notification.NotificationsManager
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
-import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentAccountBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -172,7 +172,6 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
     private fun sendImageCapturedNotification(uri: Uri) {
         NotificationsManager(requireContext()).sendNotification(
             uri,
-            title = getString(R.string.image_new_saved),
             message = getString(R.string.image_notification)
         )
     }

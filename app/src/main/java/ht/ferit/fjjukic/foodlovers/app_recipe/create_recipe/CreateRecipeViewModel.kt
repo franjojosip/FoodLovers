@@ -5,13 +5,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_common.model.*
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
+import ht.ferit.fjjukic.foodlovers.app_common.model.CategoryModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.DifficultyModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty.DifficultyRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
-import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToRecipeCategory
-import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.RecipeCategory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -140,12 +146,12 @@ class CreateRecipeViewModel(
                         handleResult({
                             recipeRepository.createRecipe(recipe)
                         }, {
-                            screenEvent.postValue(
+                            messageScreenEvent.postValue(
                                 MessageModel(message = "Successfully created recipe")
                             )
                             actionNavigate.postValue(ActionNavigate.Back)
                         }, {
-                            screenEvent.postValue(
+                            messageScreenEvent.postValue(
                                 SnackbarModel(message = "Error while creating recipe")
                             )
                         })

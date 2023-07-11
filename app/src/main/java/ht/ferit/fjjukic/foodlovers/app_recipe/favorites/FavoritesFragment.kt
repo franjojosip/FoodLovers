@@ -2,7 +2,7 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.favorites
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import ht.ferit.fjjukic.foodlovers.R
-import ht.ferit.fjjukic.foodlovers.app_common.view.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.RecipeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.BasicRecipesAdapter
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentFavoritesBinding

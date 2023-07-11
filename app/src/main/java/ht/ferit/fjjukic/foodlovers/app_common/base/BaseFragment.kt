@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_common.view
+package ht.ferit.fjjukic.foodlovers.app_common.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,7 +21,7 @@ import ht.ferit.fjjukic.foodlovers.app_common.model.MessageModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.ScreenEvent
 import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
-import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.view.CustomToolbarView
 import ht.ferit.fjjukic.foodlovers.app_main.main.MainActivity
 import ht.ferit.fjjukic.foodlovers.app_main.prelogin.PreloginActivity
 

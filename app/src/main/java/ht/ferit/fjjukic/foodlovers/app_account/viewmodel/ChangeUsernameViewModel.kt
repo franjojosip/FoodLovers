@@ -3,13 +3,13 @@ package ht.ferit.fjjukic.foodlovers.app_account.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ht.ferit.fjjukic.foodlovers.R
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.live_data.SingleLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
 import ht.ferit.fjjukic.foodlovers.app_common.validators.FieldValidator
-import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 
 class ChangeUsernameViewModel(
     private val userRepository: UserRepository,

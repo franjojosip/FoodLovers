@@ -1,13 +1,13 @@
-package ht.ferit.fjjukic.foodlovers.app_recipe
+package ht.ferit.fjjukic.foodlovers.app_recipe.category_recipes
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipes
-import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +38,7 @@ class CategoryRecipesViewModel(
                 if (!category.isNullOrBlank()) {
                     mappedRecipes = mappedRecipes?.filter { model ->
                         model.category.contains(category, true)
-                    } ?: listOf(NoRecipePlaceholder)
+                    }?.ifEmpty { listOf(NoRecipePlaceholder) } ?: listOf(NoRecipePlaceholder)
                 }
 
                 recipes = mappedRecipes ?: listOf(NoRecipePlaceholder)
@@ -56,11 +56,11 @@ class CategoryRecipesViewModel(
         viewModelScope.launch(Dispatchers.Default) {
             val sortedData = when (isAscending) {
                 true -> {
-                    data.sortedBy { it.title }
+                    data.sortedBy { it.title.lowercase() }
                 }
 
                 else -> {
-                    data.sortedByDescending { it.title }
+                    data.sortedByDescending { it.title.lowercase() }
                 }
             }
             withContext(Dispatchers.Main) {

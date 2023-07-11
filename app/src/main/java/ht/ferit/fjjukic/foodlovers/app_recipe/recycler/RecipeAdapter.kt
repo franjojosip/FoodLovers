@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ht.ferit.fjjukic.foodlovers.app_recipe.HomeListener
+import ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.*
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders.*
 import ht.ferit.fjjukic.foodlovers.databinding.*

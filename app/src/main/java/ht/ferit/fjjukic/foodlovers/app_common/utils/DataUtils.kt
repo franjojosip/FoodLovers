@@ -29,8 +29,7 @@ fun List<CategoryModel>.mapToRecipeCategory(): List<RecipeCategory> {
     return map { category ->
         RecipeCategory(
             category.id,
-            category.name,
-            category.drawableId
+            category.name
         )
     }
 }
@@ -114,7 +113,7 @@ fun RecipeModel.mapToRecipe(): Recipe {
         this.description,
         this.time,
         this.servings,
-        this.steps.map { Step(it.position, it.description) },
+        this.steps.map { Step(it.position, it.description) }.sortedBy { it.position },
         this.ingredients.map { Ingredient(it.name, it.amount) },
         this.difficulty!!.id,
         this.category!!.id,
@@ -146,11 +145,11 @@ fun Recipe.mapToRecipeModel(
 }
 
 fun Category.mapToCategoryModel(): CategoryModel {
-    return CategoryModel(id, name.replaceFirstChar(Char::titlecase), drawableId)
+    return CategoryModel(id, name.replaceFirstChar(Char::titlecase))
 }
 
 fun CategoryModel.mapToCategory(): Category {
-    return Category(id, name.replaceFirstChar(Char::titlecase), drawableId)
+    return Category(id, name.replaceFirstChar(Char::titlecase))
 }
 
 fun mapToDifficultyModels(data: List<Difficulty>): List<DifficultyModel> {

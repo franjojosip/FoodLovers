@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.core.net.toUri
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
 import ht.ferit.fjjukic.foodlovers.app_common.database.RecipeDatabase
 import ht.ferit.fjjukic.foodlovers.app_common.database.model.Recipe
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
@@ -78,7 +79,7 @@ class RecipeRepositoryImpl(
             val oldRecipes = db.recipeDao().getAll()
 
             when {
-                hasDayPassed() || oldRecipes.isEmpty() -> {
+                hasDayPassed() || oldRecipes.isEmpty() || isForceLoad -> {
                     val newRecipes = firebaseDB.getRecipes().getOrDefault(listOf())
 
                     if (newRecipes.isNotEmpty()) {
@@ -125,8 +126,9 @@ class RecipeRepositoryImpl(
 
     override suspend fun createRecipe(recipe: RecipeModel): Result<Boolean> {
         return withContext(Dispatchers.IO) {
+            recipe.user = preferenceManager.user
             recipe.imagePath =
-                saveUserImage(recipe.imagePath.toUri(), recipe.id)
+                saveRecipeImage(recipe.imagePath.toUri(), recipe.id)
                     ?: return@withContext Result.failure(Exception("Error while saving recipe"))
 
             val result = firebaseDB.createRecipe(recipe)
@@ -145,11 +147,16 @@ class RecipeRepositoryImpl(
         firebaseStorage.getReference(imagePath).delete().await()
     }
 
-    private suspend fun saveUserImage(value: Uri, id: String): String? {
+    private suspend fun saveRecipeImage(value: Uri, id: String): String? {
         return withContext(Dispatchers.IO) {
             try {
                 val ref = firebaseStorage.reference.child(getImagePath(id))
-                val uploadTask = ref.putFile(value).await()
+                val uploadTask: UploadTask.TaskSnapshot?
+                try {
+                    uploadTask = ref.putFile(value).await()
+                } catch (e: Exception) {
+                    return@withContext ref.downloadUrl.await().toString()
+                }
 
                 when {
                     uploadTask.error != null -> {
@@ -171,8 +178,19 @@ class RecipeRepositoryImpl(
 
     override suspend fun updateRecipe(recipe: RecipeModel): Result<Boolean> {
         return withContext(Dispatchers.IO) {
-            db.recipeDao().update(recipe.mapToRecipe())
-            firebaseDB.updateRecipe(recipe)
+            recipe.user = preferenceManager.user
+            recipe.imagePath =
+                saveRecipeImage(recipe.imagePath.toUri(), recipe.id)
+                    ?: return@withContext Result.failure(Exception("Error while saving recipe"))
+
+            val result = firebaseDB.updateRecipe(recipe)
+
+            if (result.isFailure) {
+                result
+            } else {
+                db.recipeDao().update(recipe.mapToRecipe())
+                Result.success(true)
+            }
         }
     }
 

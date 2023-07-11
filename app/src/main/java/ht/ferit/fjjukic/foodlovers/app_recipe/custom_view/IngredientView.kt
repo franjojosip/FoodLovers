@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_recipe.view
+package ht.ferit.fjjukic.foodlovers.app_recipe.custom_view
 
 import android.content.Context
 import android.util.AttributeSet
@@ -15,7 +15,7 @@ class IngredientView @JvmOverloads constructor(
     val defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val binding = IngredientItemBinding.inflate(LayoutInflater.from(context), this, true)
+    val ingredientBinding = IngredientItemBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
         setupAttributes()
@@ -30,18 +30,18 @@ class IngredientView @JvmOverloads constructor(
     }
 
     fun toggleCloseIcon(isVisible: Boolean) {
-        binding.ivClose.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+        ingredientBinding.ivClose.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
     }
 
     fun setListener(listener: OnClickListener) {
-        binding.ivClose.setOnClickListener {
+        ingredientBinding.ivClose.setOnClickListener {
             listener.onClick(this)
         }
     }
 
     fun getData(): IngredientModel? {
-        val name = binding.etIngredient.text.toString()
-        val amount = binding.etAmount.text.toString()
+        val name = ingredientBinding.etIngredient.text.toString()
+        val amount = ingredientBinding.etAmount.text.toString()
 
         return when {
             name.isNotEmpty() && amount.isNotEmpty() -> return IngredientModel(name, amount)

@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_recipe.view
+package ht.ferit.fjjukic.foodlovers.app_recipe.custom_view
 
 import android.content.Context
 import android.util.AttributeSet
@@ -14,27 +14,27 @@ class StepView @JvmOverloads constructor(
     val defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val binding = CardStepBinding.inflate(LayoutInflater.from(context), this, true)
+    val stepBinding = CardStepBinding.inflate(LayoutInflater.from(context), this, true)
     private var step = 1
 
     fun toggleCloseIcon(isVisible: Boolean) {
-        binding.ivClose.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+        stepBinding.ivClose.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
     }
 
     fun setStepNumber(value: Int) {
-        binding.tvStep.text = "Step $value."
+        stepBinding.tvStep.text = "Step $value."
         step = value
     }
 
     fun setListener(listener: OnClickListener) {
-        binding.ivClose.setOnClickListener {
+        stepBinding.ivClose.setOnClickListener {
             listener.onClick(this)
         }
     }
 
     fun getData(): StepModel? {
         val step = step
-        val description = binding.etStepDescription.text.toString()
+        val description = stepBinding.etStepDescription.text.toString()
 
         return when {
             description.isNotEmpty() -> return StepModel(step, description)

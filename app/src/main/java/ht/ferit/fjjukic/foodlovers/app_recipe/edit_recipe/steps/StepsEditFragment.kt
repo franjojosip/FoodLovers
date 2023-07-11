@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.steps
+package ht.ferit.fjjukic.foodlovers.app_recipe.edit_recipe.steps
 
 import android.view.View
 import android.view.animation.AlphaAnimation
@@ -6,19 +6,42 @@ import android.view.animation.Animation
 import androidx.core.view.children
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
-import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_recipe.custom_view.StepView
+import ht.ferit.fjjukic.foodlovers.app_recipe.edit_recipe.EditRecipeViewModel
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentStepsBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class StepsFragment : BaseFragment<CreateRecipeViewModel, FragmentStepsBinding>() {
+class StepsEditFragment : BaseFragment<EditRecipeViewModel, FragmentStepsBinding>() {
     override val layoutId: Int = R.layout.fragment_steps
-    override val viewModel: CreateRecipeViewModel by sharedViewModel()
+    override val viewModel: EditRecipeViewModel by sharedViewModel()
 
     override fun init() {
         binding.tvAddStep.setOnClickListener {
             addStepField()
+        }
+    }
+
+    override fun setObservers() {
+        super.setObservers()
+        viewModel.oldRecipe.observeNotNull(viewLifecycleOwner) {
+            setScreen(it)
+        }
+
+        viewModel.dataChanged.observeNotNull(viewLifecycleOwner) {
+            if (it) {
+                setScreen(viewModel.newRecipe)
+            }
+        }
+
+    }
+
+    private fun setScreen(data: RecipeModel) {
+        binding.llSteps.removeAllViews()
+        data.steps.forEach {
+            addStepField(it)
         }
     }
 
@@ -27,10 +50,13 @@ class StepsFragment : BaseFragment<CreateRecipeViewModel, FragmentStepsBinding>(
         saveSteps()
     }
 
-    private fun addStepField() {
+    private fun addStepField(data: StepModel? = null) {
         val view = StepView(requireContext()).apply {
             id = View.generateViewId()
             toggleCloseIcon(true)
+            data?.let {
+                stepBinding.etStepDescription.setText(it.description)
+            }
             setStepNumber(binding.llSteps.childCount + 1)
             setListener { view ->
                 val anim = AlphaAnimation(1f, 0f)

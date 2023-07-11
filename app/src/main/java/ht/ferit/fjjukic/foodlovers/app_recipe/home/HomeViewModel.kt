@@ -2,17 +2,20 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
+import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.category.CategoryRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToRecipeCategory
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToTodayChoiceRecipe
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToTopRecipe
-import ht.ferit.fjjukic.foodlovers.app_common.viewmodel.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.RecipeCategory
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HomeViewModel(
@@ -29,15 +32,17 @@ class HomeViewModel(
     private val _categories = MutableLiveData<List<RecipeCategory>>()
     val categories: LiveData<List<RecipeCategory>> = _categories
 
-    init {
-        loadCategories()
-    }
+    private var job: Job? = null
 
     fun init() {
-        loadRecipes()
+        job?.cancel()
+        job = viewModelScope.launch(Dispatchers.IO) {
+            loadCategories()
+            loadRecipes()
+        }
     }
 
-    private fun loadRecipes() {
+    private suspend fun loadRecipes() {
         handleResult({
             recipeRepository.getRecipes()
         }, { data ->
@@ -54,7 +59,7 @@ class HomeViewModel(
         )
     }
 
-    private fun loadCategories() {
+    private suspend fun loadCategories() {
         handleResult({
             categoryRepository.getCategories()
         }, { categories ->
@@ -88,5 +93,10 @@ class HomeViewModel(
                 HomeFragmentDirections.actionNavHomeToNavSearchRecipes()
             )
         )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        job = null
     }
 }
