@@ -178,7 +178,6 @@ class RecipeRepositoryImpl(
 
     override suspend fun updateRecipe(recipe: RecipeModel): Result<Boolean> {
         return withContext(Dispatchers.IO) {
-            recipe.user = preferenceManager.user
             recipe.imagePath =
                 saveRecipeImage(recipe.imagePath.toUri(), recipe.id)
                     ?: return@withContext Result.failure(Exception("Error while saving recipe"))
