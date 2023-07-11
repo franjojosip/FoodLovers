@@ -133,7 +133,6 @@ class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLoc
                         },
                         neutralAction = {
                             showToast(messageId = R.string.general_error_permissions)
-                            locationLauncher.launch(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
                         }
                     ))
             }
