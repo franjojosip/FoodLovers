@@ -1,7 +1,9 @@
-package ht.ferit.fjjukic.foodlovers.app_recipe.edit_recipe.steps
+package ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps
 
 import android.view.LayoutInflater
+import android.widget.ImageView
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
@@ -10,19 +12,24 @@ import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToServings
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
+import ht.ferit.fjjukic.foodlovers.app_common.utils.getColorStateList
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
-import ht.ferit.fjjukic.foodlovers.app_recipe.edit_recipe.EditRecipeViewModel
-import ht.ferit.fjjukic.foodlovers.databinding.FragmentReviewEditBinding
+import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.RecipeViewModel
+import ht.ferit.fjjukic.foodlovers.databinding.FragmentReviewBinding
 import ht.ferit.fjjukic.foodlovers.databinding.IngredientListItemBinding
 import ht.ferit.fjjukic.foodlovers.databinding.NoItemsListItemBinding
 import ht.ferit.fjjukic.foodlovers.databinding.StepListItemBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class ReviewRecipeEditFragment : BaseFragment<EditRecipeViewModel, FragmentReviewEditBinding>() {
-    override val layoutId: Int = R.layout.fragment_review_edit
-    override val viewModel: EditRecipeViewModel by sharedViewModel()
+class ReviewRecipeFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding>() {
+    override val layoutId: Int = R.layout.fragment_review
+    override val viewModel: RecipeViewModel by sharedViewModel()
 
     override fun init() {
+        if (viewModel.isEditMode) {
+            binding.btnRecipeAction.setText(R.string.btn_edit_recipe)
+        }
+
         setListeners()
     }
 
@@ -35,25 +42,35 @@ class ReviewRecipeEditFragment : BaseFragment<EditRecipeViewModel, FragmentRevie
 
         viewModel.dataChanged.observeNotNull(viewLifecycleOwner) {
             if (it) {
-                setScreen(viewModel.newRecipe)
+                setScreen(viewModel.recipe)
             }
         }
 
     }
 
     private fun setScreen(data: RecipeModel) {
-        binding.tvRecipeTitle.text = data.name
+        binding.tvRecipeTitle.text = data.name.ifBlank { "Here goes your title" }
         binding.tvNumberOfServings.text = data.servings.convertToServings()
         binding.tvTime.text = data.time.convertToTime()
+
+        binding.tvRecipeAuthor.isVisible = data.user != null
 
         if (data.imagePath.contains("https")) {
             Glide.with(binding.root)
                 .load(data.imagePath)
                 .placeholder(R.drawable.image_placeholder)
                 .into(binding.ivRecipe)
-        } else {
+
+            binding.ivRecipe.scaleType = ImageView.ScaleType.CENTER_CROP
+            binding.tvPlaceholder.isVisible = false
+        } else if (data.imagePath.isNotBlank()) {
+            binding.ivRecipe.scaleType = ImageView.ScaleType.FIT_XY
+            binding.tvPlaceholder.isVisible = false
             binding.ivRecipe.setImageURI(data.imagePath.toUri())
         }
+
+        binding.ivDifficulty.backgroundTintList =
+            getColorStateList(data.difficulty.toString(), resources)
 
         binding.tvSelectedCategory.text = data.category?.name
         binding.tvSelectedDifficulty.text = data.difficulty?.name
@@ -68,8 +85,8 @@ class ReviewRecipeEditFragment : BaseFragment<EditRecipeViewModel, FragmentRevie
     }
 
     private fun setListeners() {
-        binding.btnEditRecipe.setOnClickListener {
-            viewModel.editRecipe()
+        binding.btnRecipeAction.setOnClickListener {
+            viewModel.onRecipeAction()
         }
     }
 

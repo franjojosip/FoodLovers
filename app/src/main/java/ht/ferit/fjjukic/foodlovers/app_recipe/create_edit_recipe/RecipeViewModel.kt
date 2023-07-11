@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_recipe.edit_recipe
+package ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
@@ -22,16 +22,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class EditRecipeViewModel(
+class RecipeViewModel(
     private val recipeRepository: RecipeRepository,
     private val categoryRepository: CategoryRepository,
     private val difficultyRepository: DifficultyRepository
 ) : BaseViewModel() {
+    companion object {
+        const val NUM_OF_STEPS = 4
+
+        const val MAX_SERVINGS = 11
+        const val MIN_SERVINGS = 1
+    }
 
     private val _oldRecipe: MutableLiveData<RecipeModel> = MutableLiveData()
     val oldRecipe: LiveData<RecipeModel> = _oldRecipe
 
-    var newRecipe = RecipeModel()
+    var recipe = RecipeModel()
         private set
 
     private val _categories = MutableLiveData<List<CategoryModel>>()
@@ -51,34 +57,54 @@ class EditRecipeViewModel(
     private val _difficulty = MutableLiveData<DifficultyModel>()
     val difficulty: LiveData<DifficultyModel> = _difficulty
 
-    val numOfSteps = 4
+    private var recipeId: String? = null
+    val isEditMode by lazy { recipeId != null }
 
-    val maxServings = 11
-    val minServings = 1
     fun init(id: String?) {
+        recipeId = id
+
         viewModelScope.launch(Dispatchers.IO) {
             val categories = categoryRepository.getCategories().getOrDefault(listOf())
             val difficulties = difficultyRepository.getDifficulties().getOrDefault(listOf())
-
-            withContext(Dispatchers.Main) {
-                _categories.value = categories
-                _difficulties.value = difficulties
-            }
+            _categories.postValue(categories)
+            _difficulties.postValue(difficulties)
+            loadRecipe(categories.first(), difficulties.first())
         }
 
+    }
+
+    private suspend fun loadRecipe(
+        defaultCategory: CategoryModel,
+        defaultDifficulty: DifficultyModel
+    ) {
         handleResult({
             when {
-                id != null -> recipeRepository.getRecipe(id)
+                recipeId != null -> recipeRepository.getRecipe(recipeId!!)
                 else -> Result.success(null)
             }
         }, {
-            if (it != null) {
-                withContext(Dispatchers.Main) {
-                    _oldRecipe.value = it
-                    newRecipe = it
+            when {
+                recipeId != null && it == null -> {
+                    actionNavigate.postValue(ActionNavigate.Back)
                 }
-            } else {
-                actionNavigate.postValue(ActionNavigate.Back)
+
+                it != null -> {
+                    withContext(Dispatchers.Main) {
+                        _oldRecipe.value = it
+                        recipe = it
+                    }
+                }
+
+                else -> {
+                    recipe = RecipeModel().apply {
+                        ingredients = mutableListOf(IngredientModel(), IngredientModel())
+                        steps = mutableListOf(StepModel())
+                        category = defaultCategory
+                        difficulty = defaultDifficulty
+                    }
+
+                    dataChanged.value = true
+                }
             }
         }, {
             screenEvent.postValue(
@@ -91,81 +117,89 @@ class EditRecipeViewModel(
     fun onCategoryChanged(category: String) {
         val model = categories.value?.first { it.name.equals(category, true) } ?: return
         _category.postValue(model)
-        newRecipe.category = model
+        recipe.category = model
     }
 
     fun onDifficultyChanged(difficulty: String) {
         val model = difficulties.value?.first { it.name.equals(difficulty, true) } ?: return
         _difficulty.postValue(model)
-        newRecipe.difficulty = model
+        recipe.difficulty = model
     }
 
     fun onNameChanged(value: String) {
-        newRecipe.name = value
+        recipe.name = value
     }
 
     fun onChangeCounter(isIncrement: Boolean) {
         when {
-            isIncrement && newRecipe.servings < 11 -> {
-                newRecipe.servings++
+            isIncrement && recipe.servings < 11 -> {
+                recipe.servings++
             }
 
-            !isIncrement && newRecipe.servings > 1 -> {
-                newRecipe.servings--
+            !isIncrement && recipe.servings > 1 -> {
+                recipe.servings--
             }
         }
         dataChanged.value = true
     }
 
     fun onChangeTime(value: Int) {
-        newRecipe.time = value
+        recipe.time = value
         dataChanged.value = true
     }
 
-    fun getCookingTime(): Float {
-        return newRecipe.time.toFloat()
-    }
-
     fun onImageSelected(imageURI: Uri) {
-        newRecipe.imagePath = imageURI.toString()
+        recipe.imagePath = imageURI.toString()
         dataChanged.value = true
     }
 
     fun setIngredients(values: List<IngredientModel>) {
-        newRecipe.ingredients.apply {
+        recipe.ingredients.apply {
             clear()
             addAll(values)
         }
+        dataChanged.value = true
     }
 
     fun setSteps(values: List<StepModel>) {
-        newRecipe.steps.apply {
+        recipe.steps.apply {
             clear()
             addAll(values)
         }
+        dataChanged.value = true
     }
 
-    fun editRecipe() {
+    fun onRecipeAction() {
         if (checkRecipe()) {
             screenEvent.postValue(
                 DialogModel(
-                    title = R.string.dialog_edit_recipe_title,
-                    message = R.string.dialog_edit_recipe_message,
+                    title = if (isEditMode) R.string.dialog_edit_recipe_title else R.string.dialog_create_recipe_title,
+                    message = if (isEditMode) R.string.dialog_edit_recipe_message else R.string.dialog_create_recipe_message,
                     positiveAction = {
                         handleResult({
-                            recipeRepository.updateRecipe(newRecipe)
+                            if (isEditMode) {
+                                recipeRepository.updateRecipe(recipe)
+                            } else {
+                                recipeRepository.createRecipe(recipe)
+                            }
                         }, {
-                            screenEvent.postValue(
-                                MessageModel(message = "Successfully updated recipe")
+                            messageScreenEvent.postValue(
+                                MessageModel(
+                                    messageId = if (isEditMode) R.string.message_recipe_updated
+                                    else R.string.message_recipe_created
+                                )
                             )
                             actionNavigate.postValue(ActionNavigate.Back)
                         }, {
-                            screenEvent.postValue(
-                                SnackbarModel(message = "Error while updating recipe")
+                            messageScreenEvent.postValue(
+                                MessageModel(
+                                    messageId = if (isEditMode) R.string.message_recipe_not_updated
+                                    else R.string.message_recipe_not_created
+                                )
                             )
                         })
                     },
-                    positiveTitleId = R.string.dialog_create_recipe_confirm
+                    positiveTitleId = R.string.dialog_btn_confirm
                 )
             )
         } else {
@@ -176,6 +210,22 @@ class EditRecipeViewModel(
     }
 
     private fun checkRecipe(): Boolean {
-        return newRecipe.name.isNotBlank() && newRecipe.ingredients.isNotEmpty() && newRecipe.steps.isNotEmpty() && newRecipe.imagePath.isNotBlank()
+        return recipe.name.isNotBlank() &&
+                recipe.ingredients.isNotEmpty() &&
+                checkList(recipe.ingredients) &&
+                recipe.steps.isNotEmpty() &&
+                checkList(recipe.steps) &&
+                recipe.imagePath.isNotBlank()
+    }
+
+    private fun <T> checkList(data: List<T>): Boolean {
+        data.forEach {
+            if ((it is StepModel && it.description.isBlank()) ||
+                (it is IngredientModel && (it.name.isBlank() || it.amount.isBlank()))
+            ) {
+                return false
+            }
+        }
+        return true
     }
 }

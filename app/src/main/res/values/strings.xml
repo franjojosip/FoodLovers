@@ -202,7 +202,13 @@
     <string name="dialog_edit_recipe_title">Do you want to update recipe?</string>
     <string name="dialog_edit_recipe_message">Please check your data before updating the recipe!</string>
 
-    <string name="dialog_create_recipe_confirm">Confirm</string>
+    <string name="dialog_btn_confirm">Confirm</string>
+
+    <string name="message_recipe_created">Successfully created recipe</string>
+    <string name="message_recipe_not_created">Error while creating recipe</string>
+
+    <string name="message_recipe_updated">Successfully updated recipe</string>
+    <string name="message_recipe_not_updated">Error while updating recipe</string>
 
 
     <!-- ACCESSIBILITY STRINGS -->

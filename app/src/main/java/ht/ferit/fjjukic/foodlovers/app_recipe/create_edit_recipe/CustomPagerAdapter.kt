@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe
+package ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

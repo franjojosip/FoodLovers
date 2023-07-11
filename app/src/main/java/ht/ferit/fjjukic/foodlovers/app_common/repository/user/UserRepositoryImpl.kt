@@ -2,18 +2,12 @@ package ht.ferit.fjjukic.foodlovers.app_common.repository.user
 
 import android.net.Uri
 import android.util.Log
-import androidx.core.net.toUri
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
-import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
-import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
-import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder.user
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
@@ -207,6 +201,7 @@ class UserRepositoryImpl(
     override suspend fun logout(): Result<Boolean> {
         firebaseAuth.signOut()
         preferenceManager.user = null
+        preferenceManager.lastUpdatedRecipes = 0L
 
         return Result.success(true)
     }

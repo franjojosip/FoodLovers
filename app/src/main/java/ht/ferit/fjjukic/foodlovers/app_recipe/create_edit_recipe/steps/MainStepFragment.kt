@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_recipe.edit_recipe.steps
+package ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
@@ -19,15 +19,16 @@ import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
-import ht.ferit.fjjukic.foodlovers.app_recipe.edit_recipe.EditRecipeViewModel
+import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.RecipeViewModel
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentMainStepBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.io.File
 
-class MainStepEditFragment : BaseFragment<EditRecipeViewModel, FragmentMainStepBinding>(),
+
+class MainStepFragment : BaseFragment<RecipeViewModel, FragmentMainStepBinding>(),
     PermissionHandler {
     override val layoutId: Int = R.layout.fragment_main_step
-    override val viewModel: EditRecipeViewModel by sharedViewModel()
+    override val viewModel: RecipeViewModel by sharedViewModel()
 
     private val storagePermissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         arrayOf(Manifest.permission.READ_MEDIA_IMAGES)
@@ -75,13 +76,14 @@ class MainStepEditFragment : BaseFragment<EditRecipeViewModel, FragmentMainStepB
 
     override fun setObservers() {
         super.setObservers()
+
         viewModel.oldRecipe.observeNotNull(viewLifecycleOwner) {
             setScreen(it)
         }
 
         viewModel.dataChanged.observeNotNull(viewLifecycleOwner) {
             if (it) {
-                setScreen(viewModel.newRecipe)
+                setScreen(viewModel.recipe)
             }
         }
     }
@@ -91,22 +93,21 @@ class MainStepEditFragment : BaseFragment<EditRecipeViewModel, FragmentMainStepB
 
         binding.tvCounter.text = it.servings.toString()
         binding.btnDecrement.visibility =
-            if (it.servings != viewModel.minServings) View.VISIBLE else View.INVISIBLE
+            if (it.servings != RecipeViewModel.MIN_SERVINGS) View.VISIBLE else View.INVISIBLE
         binding.btnIncrement.visibility =
-            if (it.servings != viewModel.maxServings) View.VISIBLE else View.INVISIBLE
+            if (it.servings != RecipeViewModel.MAX_SERVINGS) View.VISIBLE else View.INVISIBLE
 
         binding.tvCookingTime.text = it.time.convertToTime()
         binding.seekbar.value = it.time.toFloat()
 
-        binding.ivAction.isVisible = false
-
-        binding.ivAction.isVisible = false
         if (it.imagePath.contains("https")) {
+            binding.ivAction.isVisible = false
             Glide.with(binding.root)
                 .load(it.imagePath)
                 .placeholder(R.drawable.image_placeholder)
                 .into(binding.ivRecipe)
-        } else {
+        } else if (it.imagePath.isNotBlank()) {
+            binding.ivAction.isVisible = false
             binding.ivRecipe.setImageURI(it.imagePath.toUri())
         }
     }

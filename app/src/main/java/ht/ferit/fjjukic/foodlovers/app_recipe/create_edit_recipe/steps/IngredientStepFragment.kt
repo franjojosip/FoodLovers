@@ -1,4 +1,4 @@
-package ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.steps
+package ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,15 +11,16 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
+import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
-import ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeViewModel
+import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.RecipeViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.custom_view.IngredientView
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentIngredientsBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class IngredientStepFragment : BaseFragment<CreateRecipeViewModel, FragmentIngredientsBinding>() {
+class IngredientStepFragment : BaseFragment<RecipeViewModel, FragmentIngredientsBinding>() {
     override val layoutId: Int = R.layout.fragment_ingredients
-    override val viewModel: CreateRecipeViewModel by sharedViewModel()
+    override val viewModel: RecipeViewModel by sharedViewModel()
 
     override fun init() {
         setListeners()
@@ -56,9 +57,6 @@ class IngredientStepFragment : BaseFragment<CreateRecipeViewModel, FragmentIngre
                     R.layout.dropdown_item,
                     categories.map { it.name })
             )
-            val defaultCategory = categories.first().name
-            binding.actCategories.setText(defaultCategory, false)
-            viewModel.onCategoryChanged(defaultCategory)
         }
         viewModel.difficulties.observeNotNull(viewLifecycleOwner) { difficulties ->
             binding.actDifficulties.setAdapter(
@@ -67,10 +65,31 @@ class IngredientStepFragment : BaseFragment<CreateRecipeViewModel, FragmentIngre
                     R.layout.dropdown_item,
                     difficulties.map { it.name })
             )
-            val defaultDifficulty = difficulties.first().name
-            binding.actDifficulties.setText(defaultDifficulty, false)
-            viewModel.onDifficultyChanged(defaultDifficulty)
         }
+
+        viewModel.oldRecipe.observeNotNull(viewLifecycleOwner) {
+            setScreen(it)
+        }
+
+        viewModel.dataChanged.observeNotNull(viewLifecycleOwner) {
+            if (it) {
+                setScreen(viewModel.recipe)
+            }
+        }
+
+
+        binding.actCategories.setText(viewModel.recipe.category?.name, false)
+        binding.actDifficulties.setText(viewModel.recipe.difficulty?.name, false)
+    }
+
+    private fun setScreen(data: RecipeModel) {
+        binding.llIngredients.removeAllViews()
+        data.ingredients.forEachIndexed { index, value ->
+            addIngredientField(value, index != 0 && index != 1)
+        }
+
+        binding.actCategories.setText(data.category?.name, false)
+        binding.actDifficulties.setText(data.difficulty?.name, false)
     }
 
     override fun onPause() {
@@ -78,10 +97,15 @@ class IngredientStepFragment : BaseFragment<CreateRecipeViewModel, FragmentIngre
         saveIngredients()
     }
 
-    private fun addIngredientField() {
+    private fun addIngredientField(data: IngredientModel? = null, isDeletable: Boolean = true) {
         val view = IngredientView(requireContext()).apply {
             id = View.generateViewId()
-            toggleCloseIcon(true)
+            toggleCloseIcon(isDeletable)
+
+            data?.let {
+                ingredientBinding.etIngredient.setText(data.name)
+                ingredientBinding.etAmount.setText(data.amount)
+            }
             setListener { view ->
                 val anim = AlphaAnimation(1f, 0f)
                 anim.duration = 250

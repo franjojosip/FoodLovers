@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/nav_create_recipe"
-        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.create_recipe.CreateRecipeFragment"
+        android:name="ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.create.CreateRecipeFragment"
         android:label="Create recipe"
         tools:layout="@layout/fragment_create_recipe" />
 
