@@ -16,6 +16,7 @@ class ResetPasswordFragment : BaseFragment<ResetPasswordViewModel, FragmentReset
     override val viewModel: ResetPasswordViewModel by viewModel()
 
     override fun init() {
+        loader = binding.loaderLayout
         setListeners()
     }
 

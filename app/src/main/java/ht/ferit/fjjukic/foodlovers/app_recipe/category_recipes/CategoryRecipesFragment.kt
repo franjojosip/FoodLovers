@@ -22,9 +22,10 @@ class CategoryRecipesFragment :
     private val recipeAdapter: BasicRecipesAdapter = BasicRecipesAdapter(this)
 
     override fun init() {
-        viewModel.loadRecipes(args.category)
-
         toolbar = binding.toolbarLayout
+        loader = binding.loaderLayout
+
+        viewModel.loadRecipes(args.category)
 
         binding.ivFilter.isSelected = viewModel.isAscending
         binding.toolbarLayout.setTitle("${args.category} recipes")

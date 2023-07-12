@@ -17,6 +17,7 @@ class RegisterFragment : BaseFragment<RegisterViewModel, FragmentRegisterBinding
     override val viewModel: RegisterViewModel by viewModel()
 
     override fun init() {
+        loader = binding.loaderLayout
         setListeners()
     }
 

@@ -12,7 +12,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_account.viewmodel.AccountViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
@@ -68,6 +67,8 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
         }
 
     override fun init() {
+        loader = binding.loaderLayout
+
         viewModel.init()
 
         setListeners()
@@ -181,7 +182,6 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
     private fun Context.loadImage(url: String, view: ImageView) {
         Glide.with(this)
             .load(url)
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(view)
     }
 }

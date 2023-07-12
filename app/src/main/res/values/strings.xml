@@ -7,7 +7,6 @@
 
     <!-- ACTIONS -->
     <string name="action_update">Update</string>
-    <string name="action_delete">Delete</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
@@ -16,7 +15,6 @@
     <string name="action_update_location">Update Location</string>
 
     <!-- GENERAL ERROR STRINGS -->
-    <string name="general_error_server">There was a problem with a server!</string>
     <string name="general_error_internet">Turn on internet before using this service</string>
     <string name="general_error_permissions">Enable permissions in settings to use this option</string>
 
@@ -104,7 +102,6 @@
     <string name="message_create_recipe_image_placeholder">Image placeholder</string>
 
     <!-- OPTION STRINGS -->
-    <string name="option_all">All</string>
     <string name="option_create_recipe_add_ingredient">+ Add ingredient</string>
     <string name="option_create_recipe_add_step">Add step</string>
 

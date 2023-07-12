@@ -57,7 +57,7 @@
         android:id="@+id/nav_search_recipes"
         android:name="ht.ferit.fjjukic.foodlovers.app_recipe.search.SearchFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_search_recipes">
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_nav_search_recipes_to_nav_filter_recipes"
             app:destination="@id/nav_filter_recipes"

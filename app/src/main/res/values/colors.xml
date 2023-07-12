@@ -18,7 +18,6 @@
 
     <!-- BUTTON STATE COLORS -->
     <color name="color_btn_enabled">#DDC29846</color>
-    <color name="color_btn_disabled">#EB514121</color>
     <color name="color_btn_add_recipe">#F7D5A853</color>
 
     <!-- CHIP FILTER COLORS -->
@@ -42,20 +41,16 @@
     <color name="color_login_text">#B73D3D3D</color>
 
     <!-- NAVBAR COLORS -->
-    <color name="color_navigation_bar">#FFFFFF</color>
     <color name="color_navigation_bar_icon_active">#DCA759</color>
     <color name="color_navigation_bar_icon_inactive">#AFAFAF</color>
 
     <!-- SEARCH COLORS -->
     <color name="color_search_icon">#B78C8C8C</color>
-    <color name="color_search">#E5C1B5B5</color>
     <color name="color_search_text">#EA686868</color>
 
     <!-- STEPPER COLORS -->
     <color name="color_stepper_number_current">#E18E6F60</color>
-    <color name="color_stepper_number_other">#BCB18C79</color>
     <color name="color_stepper_circle_border">#BC8C8988</color>
-    <color name="color_stepper_line">#E4CAAB9B</color>
     <color name="color_stepper_item">#D79E8451</color>
     <color name="color_stepper_item_disabled">#D7A5A29B</color>
 

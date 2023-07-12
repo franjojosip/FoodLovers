@@ -2,7 +2,6 @@ package ht.ferit.fjjukic.foodlovers.app_common.utils
 
 import android.content.Context
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
@@ -51,16 +50,6 @@ fun View.clearFocusAndHideKeyboard() {
     )
     imm?.hideSoftInputFromWindow(windowToken, 0)
     clearFocus()
-}
-
-fun EditText.hideKeyboardOnActionDone() {
-    this.setOnEditorActionListener { _, actionId, _ ->
-        if (actionId == EditorInfo.IME_ACTION_DONE) {
-            clearFocusAndHideKeyboard()
-            return@setOnEditorActionListener true
-        }
-        false
-    }
 }
 
 fun EditText.hideKeyboardOnLostFocus() {

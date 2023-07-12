@@ -24,11 +24,10 @@ class ShowRecipeFragment : BaseFragment<ShowRecipeViewModel, FragmentShowRecipeB
     override val viewModel: ShowRecipeViewModel by viewModel()
 
     override fun init() {
-        toolbar = binding.toolbarLayout
+        loader = binding.loaderLayout
         viewModel.loadRecipe(args.id)
 
         binding.toolbarLayout.enableEndAction()
-
         binding.ivFavorite.setOnClickListener {
             viewModel.onFavoriteClick()
         }

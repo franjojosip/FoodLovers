@@ -10,14 +10,14 @@ import ht.ferit.fjjukic.foodlovers.app_common.view.CustomRemovableChipGroup
 import ht.ferit.fjjukic.foodlovers.app_recipe.RecipeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.BasicRecipesAdapter
-import ht.ferit.fjjukic.foodlovers.databinding.FragmentSearchRecipesBinding
+import ht.ferit.fjjukic.foodlovers.databinding.FragmentSearchBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchRecipesBinding>(),
+class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(),
     CustomRemovableChipGroup.RemovableClickListener, RecipeListener {
 
     override val viewModel: SearchViewModel by sharedViewModel()
-    override val layoutId: Int = R.layout.fragment_search_recipes
+    override val layoutId: Int = R.layout.fragment_search
 
     private lateinit var recipeAdapter: BasicRecipesAdapter
 
@@ -28,6 +28,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchRecipesBindin
 
     override fun init() {
         toolbar = binding.toolbarLayout
+        loader = binding.loaderLayout
 
         binding.searchView.showKeyboardAndFocus()
         viewModel.removeSearchFilter()

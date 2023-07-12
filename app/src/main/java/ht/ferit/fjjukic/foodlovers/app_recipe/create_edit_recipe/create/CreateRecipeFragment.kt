@@ -8,7 +8,7 @@ import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.CustomPagerAdap
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.RecipeViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.IngredientStepFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.MainStepFragment
-import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.ReviewRecipeFragment
+import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.ReviewFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.StepsFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentCreateRecipeBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -24,7 +24,7 @@ class CreateRecipeFragment : BaseFragment<RecipeViewModel, FragmentCreateRecipeB
                 MainStepFragment(),
                 IngredientStepFragment(),
                 StepsFragment(),
-                ReviewRecipeFragment()
+                ReviewFragment()
             )
         )
     }

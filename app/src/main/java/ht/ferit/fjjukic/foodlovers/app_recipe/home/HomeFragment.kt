@@ -27,6 +27,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
 
     override fun init() {
         viewModel.init()
+        loader = binding.loaderLayout
 
         binding.searchView.disableSearch()
         binding.searchView.handleViewClicked {

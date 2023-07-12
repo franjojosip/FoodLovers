@@ -28,7 +28,6 @@ import ht.ferit.fjjukic.foodlovers.app_common.utils.showAlertDialog
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentLocationBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLocationBinding>(),
     OnMapReadyCallback, PermissionHandler, LocationHandler {
 

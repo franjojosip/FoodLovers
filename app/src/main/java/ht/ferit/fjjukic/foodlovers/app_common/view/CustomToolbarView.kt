@@ -3,16 +3,14 @@ package ht.ferit.fjjukic.foodlovers.app_common.view
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.LayoutInflater
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
 import ht.ferit.fjjukic.foodlovers.R
-
+import ht.ferit.fjjukic.foodlovers.databinding.LayoutToolbarBinding
 
 class CustomToolbarView @JvmOverloads constructor(
     context: Context,
@@ -20,16 +18,14 @@ class CustomToolbarView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
+    private lateinit var binding: LayoutToolbarBinding
+
     init {
         init(attrs)
     }
 
     private fun init(attrs: AttributeSet?) {
-        View.inflate(context, R.layout.layout_toolbar, this)
-
-        val btnAction = findViewById<ImageView>(R.id.btn_action)
-        val btnEndAction = findViewById<ImageView>(R.id.btn_end_action)
-        val tvTitle = findViewById<TextView>(R.id.tv_title)
+        binding = LayoutToolbarBinding.inflate(LayoutInflater.from(context), this, true)
 
         val ta = context.obtainStyledAttributes(attrs, R.styleable.CustomToolbarView)
         try {
@@ -38,15 +34,20 @@ class CustomToolbarView @JvmOverloads constructor(
             val drawableId = ta.getResourceId(R.styleable.CustomToolbarView_image, 0)
             if (drawableId != 0) {
                 val drawable = AppCompatResources.getDrawable(context, drawableId)
-                btnAction.setImageDrawable(drawable)
+                binding.btnAction.setImageDrawable(drawable)
             }
-            btnAction.setColorFilter(ContextCompat.getColor(context, R.color.color_search_text))
-            tvTitle.text = text
+            binding.btnAction.setColorFilter(
+                ContextCompat.getColor(
+                    context,
+                    R.color.color_search_text
+                )
+            )
+            binding.tvTitle.text = text
         } finally {
             ta.recycle()
         }
 
-        btnEndAction.setOnClickListener {
+        binding.btnEndAction.setOnClickListener {
             /*Create an ACTION_SEND Intent*/
             val intent = Intent(Intent.ACTION_SEND)
             /*This will be the actual content you wish you share.*/
@@ -62,17 +63,17 @@ class CustomToolbarView @JvmOverloads constructor(
     }
 
     fun setTitle(title: String) {
-        findViewById<TextView>(R.id.tv_title).text = title
+        binding.tvTitle.text = title
     }
 
     fun setupAction(action: () -> Unit) {
-        findViewById<ImageView>(R.id.btn_action).setOnClickListener {
+        binding.btnAction.setOnClickListener {
             action()
         }
     }
 
     fun enableEndAction() {
-        findViewById<ImageView>(R.id.btn_end_action).isVisible = true
+        binding.btnEndAction.isVisible = true
     }
 
 }

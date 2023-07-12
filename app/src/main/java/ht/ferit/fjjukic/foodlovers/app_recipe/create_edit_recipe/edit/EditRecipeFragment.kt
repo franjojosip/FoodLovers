@@ -9,7 +9,7 @@ import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.CustomPagerAdap
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.RecipeViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.IngredientStepFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.MainStepFragment
-import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.ReviewRecipeFragment
+import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.ReviewFragment
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.StepsFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentEditRecipeBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -28,7 +28,7 @@ class EditRecipeFragment : BaseFragment<RecipeViewModel, FragmentEditRecipeBindi
                 MainStepFragment(),
                 IngredientStepFragment(),
                 StepsFragment(),
-                ReviewRecipeFragment()
+                ReviewFragment()
             )
         )
     }
@@ -39,6 +39,7 @@ class EditRecipeFragment : BaseFragment<RecipeViewModel, FragmentEditRecipeBindi
     }
 
     override fun init() {
+        loader = binding.loaderLayout
         binding.customStepperLayout.setNumOfSteps(RecipeViewModel.NUM_OF_STEPS)
 
         binding.viewPager.adapter = pagerAdapter

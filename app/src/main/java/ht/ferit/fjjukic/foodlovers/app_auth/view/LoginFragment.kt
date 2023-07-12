@@ -17,6 +17,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     override val viewModel: LoginViewModel by viewModel()
 
     override fun init() {
+        loader = binding.loaderLayout
         setListeners()
     }
 

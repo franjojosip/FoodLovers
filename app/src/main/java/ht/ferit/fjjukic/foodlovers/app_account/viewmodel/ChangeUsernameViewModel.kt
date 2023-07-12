@@ -18,8 +18,8 @@ class ChangeUsernameViewModel(
     private val _user: MutableLiveData<UserModel> = MutableLiveData()
     val user: LiveData<UserModel> = _user
 
-    fun init() {
-        _user.postValue(preferenceManager.user)
+    init {
+        _user.value = preferenceManager.user
     }
 
     fun updateUsername(value: String) {

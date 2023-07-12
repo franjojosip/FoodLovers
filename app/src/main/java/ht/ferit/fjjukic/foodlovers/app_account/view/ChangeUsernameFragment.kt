@@ -16,7 +16,7 @@ class ChangeUsernameFragment :
     override val viewModel: ChangeUsernameViewModel by viewModel()
 
     override fun init() {
-        viewModel.init()
+        loader = binding.loaderLayout
         setScreen()
     }
 

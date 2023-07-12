@@ -21,11 +21,13 @@ import ht.ferit.fjjukic.foodlovers.databinding.ItemNoListItemsBinding
 import ht.ferit.fjjukic.foodlovers.databinding.ItemStepBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class ReviewRecipeFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding>() {
+class ReviewFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding>() {
+
     override val layoutId: Int = R.layout.fragment_review
     override val viewModel: RecipeViewModel by sharedViewModel()
 
     override fun init() {
+        loader = binding.loaderLayout
         if (viewModel.isEditMode) {
             binding.btnRecipeAction.setText(R.string.btn_edit_recipe)
         }

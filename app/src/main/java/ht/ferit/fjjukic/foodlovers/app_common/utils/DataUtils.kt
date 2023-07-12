@@ -21,9 +21,6 @@ import ht.ferit.fjjukic.foodlovers.app_recipe.model.Step
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.TodayChoiceRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.TopRecipe
 
-val Int.dp: Int
-    get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
-
 
 fun List<CategoryModel>.mapToRecipeCategory(): List<RecipeCategory> {
     return map { category ->

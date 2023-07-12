@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
@@ -33,6 +31,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
     protected lateinit var binding: ViewBinding
 
     protected var toolbar: CustomToolbarView? = null
+    protected var loader: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,8 +59,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
             when (screenEvent) {
                 is DialogModel -> context?.showAlertDialog(screenEvent)
                 is LoadingBar -> {
-                    (binding.root.findViewById(R.id.loader_layout) as? View)?.isVisible =
-                        screenEvent.isVisible
+                    loader?.visibility = if (screenEvent.isVisible) View.VISIBLE else View.GONE
                 }
 
                 else -> handleScreenEvent(screenEvent)

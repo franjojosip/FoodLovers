@@ -15,6 +15,7 @@ class ChangeEmailFragment : BaseFragment<ChangeEmailViewModel, FragmentChangeEma
     override val viewModel: ChangeEmailViewModel by viewModel()
 
     override fun init() {
+        loader = binding.loaderLayout
         setScreen()
     }
 

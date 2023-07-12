@@ -18,6 +18,7 @@ class RecipesFragment : BaseFragment<RecipesViewModel, FragmentRecipesBinding>()
     private val recipesAdapter = BasicRecipesAdapter(this)
 
     override fun init() {
+        loader = binding.loaderLayout
         viewModel.loadRecipes()
 
         binding.ivFilter.isSelected = viewModel.isAscending
