@@ -120,22 +120,22 @@ class UserRepositoryImpl(
         return withContext(Dispatchers.IO) {
             try {
                 firebaseAuth.fetchSignInMethodsForEmail(email).await()
-                    ?: return@withContext Result.failure(Exception("FirebaseAuth error - email doesn't exist"))
+                    ?: return@withContext Result.failure(Exception("Email doesn't exist"))
 
                 val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
                 val userId = result?.user?.uid
-                    ?: return@withContext Result.failure(Exception("FirebaseAuth error - sign in failed"))
+                    ?: return@withContext Result.failure(Exception("Sign in failed"))
 
                 preferenceManager.user =
                     getUser(userId).getOrNull() ?: return@withContext Result.failure(
-                        Exception("FirebaseAuth error - user doesn't exist")
+                        Exception("User doesn't exist")
                     )
 
                 favoritesRepository.loadFavorites()
 
                 return@withContext Result.success(true)
             } catch (e: Exception) {
-                Result.failure(Exception("FirebaseAuth server error"))
+                Result.failure(Exception("Invalid credentials"))
             }
         }
     }
@@ -150,7 +150,7 @@ class UserRepositoryImpl(
                 val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
 
                 val userId = result?.user?.uid
-                    ?: return@withContext Result.failure(Exception("FirebaseAuth error - user not retrieved"))
+                    ?: return@withContext Result.failure(Exception("User not retrieved"))
 
                 val userModel = UserModel(
                     userId = userId,
@@ -162,7 +162,7 @@ class UserRepositoryImpl(
 
                 Result.success(true)
             } catch (e: Exception) {
-                Result.failure(Exception("FirebaseAuth server error"))
+                Result.failure(Exception("Error while registering user"))
             }
         }
     }
@@ -174,7 +174,7 @@ class UserRepositoryImpl(
                 Result.success(true)
 
             } catch (e: Exception) {
-                Result.failure(Exception("FirebaseAuth server error"))
+                Result.failure(Exception("Reset password server error"))
             }
         }
     }
@@ -193,7 +193,7 @@ class UserRepositoryImpl(
                     Result.success(true)
                 }
             } catch (e: Exception) {
-                Result.failure(Exception("FirebaseAuth server error"))
+                Result.failure(Exception("Update email server error"))
             }
         }
     }
