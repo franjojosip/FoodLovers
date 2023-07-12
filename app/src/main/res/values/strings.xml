@@ -1,8 +1,8 @@
 <resources>
     <!-- APP -->
     <string name="app_name">FoodLovers</string>
-    <string name="app_channel_id">ht.ferit.fjjukic.foodlovers</string>
-    <string name="app_google_maps_key">AIzaSyD8cBAxBDIJ5qkDhfa_alOhog0otnrn6nw</string>
+    <string name="app_channel_id">@string/donottranslate_channel_id</string>
+    <string name="app_google_maps_key">@string/donottranslate_google_maps_key</string>
     <string name="app_food_lovers_image">Food lovers image</string>
     <string name="app_navigation_activity">Navigation activity</string>
 

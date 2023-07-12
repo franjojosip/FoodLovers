@@ -172,8 +172,8 @@ class FirebaseDBImpl(
                 val recipe = reference.getValue(RecipeModel::class.java)
 
                 if (recipe != null) {
-                    recipe.user?.userId?.let {
-                        getUser(it).getOrNull()?.let {
+                    recipe.user?.userId?.let { userId ->
+                        getUser(userId).getOrNull()?.let {
                             recipe.user = it
                         }
                     }

@@ -73,7 +73,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
                 else -> {}
             }
         }
-        viewModel.actionNavigate.observe(viewLifecycleOwner) { it ->
+        viewModel.actionNavigate.observe(viewLifecycleOwner) {
             when (it) {
                 is ActionNavigate.NavigationWithDirections -> {
                     findNavController().navigate(it.navDirections)

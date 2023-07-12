@@ -93,9 +93,9 @@ class SearchViewModel(
 
                     filter.sorts.firstOrNull()?.let {
                         filteredRecipes = if (it.isAsc) {
-                            filteredRecipes.sortedBy { it.title }
+                            filteredRecipes.sortedBy { recipe -> recipe.title }
                         } else {
-                            filteredRecipes.sortedByDescending { it.title }
+                            filteredRecipes.sortedByDescending { recipe -> recipe.title }
                         }
                     }
                     filteredRecipes

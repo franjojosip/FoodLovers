@@ -101,11 +101,6 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$coreTesting"
     testImplementation "org.robolectric:robolectric:$robolectric"
 
-    //RxJava TODO REMOVE
-    implementation "io.reactivex.rxjava3:rxjava:$rxJava"
-    implementation "io.reactivex.rxjava3:rxandroid:$rxAndroid"
-    implementation "com.jakewharton.rxbinding4:rxbinding:$rxBinding"
-
     implementation 'com.airbnb.android:lottie:3.4.0'
 
 }

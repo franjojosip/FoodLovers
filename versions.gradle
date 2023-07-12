@@ -13,7 +13,7 @@ ext {
     ]
 
     versions = [
-            kotlin        : '1.8.10',
+            kotlin        : '1.8.20',
             gradle        : '7.4.2',
             googleServices: '4.3.10',
             safeArgs      : '2.4.1'
@@ -22,13 +22,13 @@ ext {
     // Android
     cardView = '1.0.0'
     circleImageView = '3.1.0'
-    coreKtx = '1.10.0'
+    coreKtx = '1.10.1'
     constraintLayout = '2.1.4'
     cropImage = '2.2.8-native'
     glide = '4.13.0'
     gson = '2.9.0'
     koin = '3.1.5'
-    material = '1.8.0'
+    material = '1.9.0'
     navigation = '2.6.0'
     room = '2.5.1'
     viewModel = '2.6.1'
@@ -37,8 +37,8 @@ ext {
     // Firebase
     firebaseAuth = '22.0.0'
     firebaseCore = '21.1.1'
-    firebaseDB = '20.2.1'
-    firebaseStorage = '20.2.0'
+    firebaseDB = '20.2.2'
+    firebaseStorage = '20.2.1'
     firebaseUI = '8.0.0'
 
     // Google play services
@@ -52,9 +52,4 @@ ext {
 
     testCore = '1.5.0'
     testJUnit = '1.1.5'
-
-    // RXJava TODO REMOVE
-    rxJava = '3.0.3'
-    rxAndroid = '3.0.0'
-    rxBinding = '4.0.0'
 }
