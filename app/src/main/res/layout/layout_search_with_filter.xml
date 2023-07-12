@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:autofilledHighlight="@android:color/transparent"
             android:background="@android:color/transparent"
-            android:drawableStart="@drawable/ic_baseline_search_24"
+            android:drawableStart="@drawable/ic_search"
             android:drawablePadding="15dp"
             android:hint="@string/title_search_recipes"
             android:fontFamily="@font/playfair_display_regular"

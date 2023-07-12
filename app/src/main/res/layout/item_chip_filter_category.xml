@@ -13,8 +13,8 @@
         android:fontFamily="@font/playfair_display_bold"
         android:minWidth="60dp"
         android:textAlignment="center"
-        android:textColor="@drawable/filter_chip_text_state"
-        app:chipBackgroundColor="@drawable/filter_chip_background_state"
+        android:textColor="@drawable/state_chip_text_filter"
+        app:chipBackgroundColor="@drawable/background_filter_chip_state"
         app:chipMinHeight="30dp"
         tools:ignore="MissingConstraints"
         tools:text="1h" />

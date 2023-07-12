@@ -62,7 +62,7 @@ class ShowRecipeFragment : BaseFragment<ShowRecipeViewModel, FragmentShowRecipeB
 
             Glide.with(binding.root)
                 .load(recipe.imagePath)
-                .placeholder(R.drawable.image_placeholder)
+                .placeholder(R.drawable.background_placeholder)
                 .into(binding.ivRecipe)
 
             binding.llIngredients.removeAllViews()

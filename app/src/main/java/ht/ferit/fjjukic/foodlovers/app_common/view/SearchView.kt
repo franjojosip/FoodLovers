@@ -32,7 +32,7 @@ class SearchView @JvmOverloads constructor(
 
     private fun setUpView() {
         binding.etSearch.setCompoundDrawablesWithIntrinsicBounds(
-            R.drawable.ic_baseline_search_24,
+            R.drawable.ic_search,
             0,
             0,
             0
@@ -53,15 +53,15 @@ class SearchView @JvmOverloads constructor(
                 when {
                     (p0?.length ?: 0) > 0 -> {
                         binding.etSearch.setCompoundDrawablesWithIntrinsicBounds(
-                            R.drawable.ic_baseline_search_24,
+                            R.drawable.ic_search,
                             0,
-                            R.drawable.ic_baseline_close_24,
+                            R.drawable.ic_close,
                             0
                         )
                     }
                     else -> {
                         binding.etSearch.setCompoundDrawablesWithIntrinsicBounds(
-                            R.drawable.ic_baseline_search_24,
+                            R.drawable.ic_search,
                             0,
                             0,
                             0

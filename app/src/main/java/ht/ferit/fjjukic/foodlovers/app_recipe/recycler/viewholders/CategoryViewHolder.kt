@@ -19,11 +19,11 @@ class CategoryViewHolder(private val binding: ItemCategoryBinding) :
         binding.tvTitle.text = data.title
 
         binding.spaceStart.isVisible = data.hasMarginStart
-        val drawable = binding.root.context.getResource(data.title.lowercase())
+        val drawable = binding.root.context.getResource("background_${data.title.lowercase()}")
 
         Glide.with(binding.root)
             .load(drawable)
-            .placeholder(R.drawable.image_placeholder)
+            .placeholder(R.drawable.background_placeholder)
             .into(binding.ivImage)
 
         binding.root.setOnClickListener {

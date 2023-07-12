@@ -24,7 +24,7 @@ class BasicRecipeViewHolder(private val binding: ItemSearchRecipeBinding) :
 
         Glide.with(binding.root)
             .load(recipe.imagePath)
-            .placeholder(R.drawable.image_placeholder)
+            .placeholder(R.drawable.background_placeholder)
             .into(binding.ivRecipe)
 
         binding.root.setOnClickListener {

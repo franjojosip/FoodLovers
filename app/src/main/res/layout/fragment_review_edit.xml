@@ -39,7 +39,7 @@
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/iv_recipe_accessibility"
                     android:scaleType="centerCrop"
-                    tools:background="@drawable/image_sweet_food" />
+                    tools:background="@drawable/background_sweet_food" />
             </androidx.cardview.widget.CardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -139,7 +139,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginTop="14dp"
-                    android:background="@drawable/recipe_book"
+                    android:background="@drawable/ic_recipe_book"
                     android:backgroundTint="@color/color_black"
                     android:contentDescription="@string/ic_people_accessibility"
                     app:layout_constraintStart_toStartOf="@id/iv_servings"
@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:background="@drawable/ic_baseline_star_24"
+                    android:background="@drawable/ic_star"
                     android:backgroundTint="@color/color_dark_gray"
                     app:layout_constraintStart_toStartOf="@id/iv_time"
                     app:layout_constraintTop_toBottomOf="@id/v_line1" />
@@ -240,7 +240,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="35dp"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/rounded_btn_state"
+                    android:background="@drawable/btn_rounded_enabled"
                     android:backgroundTint="@color/color_stepper_item"
                     android:fontFamily="@font/playfair_display_medium"
                     android:paddingBottom="5dp"

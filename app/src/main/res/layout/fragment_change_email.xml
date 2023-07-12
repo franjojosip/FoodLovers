@@ -95,7 +95,7 @@
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="65dp"
-            android:background="@drawable/rounded_btn_state"
+            android:background="@drawable/btn_rounded_enabled"
             android:fontFamily="serif"
             android:text="@string/action_update"
             android:textAllCaps="false"

@@ -40,7 +40,7 @@
                     android:layout_height="90dp"
                     android:layout_gravity="center"
                     android:alpha="0.8"
-                    android:background="@drawable/image_sweet_food"
+                    android:background="@drawable/background_sweet_food"
                     android:contentDescription="@string/recipe_image"
                     android:scaleType="centerCrop" />
             </androidx.cardview.widget.CardView>
@@ -121,7 +121,7 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginStart="15dp"
-                android:background="@drawable/ic_baseline_star_24"
+                android:background="@drawable/ic_star"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_time"
                 app:layout_constraintStart_toEndOf="@id/tv_time"
                 app:layout_constraintTop_toTopOf="@+id/iv_time" />

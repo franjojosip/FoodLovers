@@ -104,7 +104,7 @@ class MainStepFragment : BaseFragment<RecipeViewModel, FragmentMainStepBinding>(
             binding.ivAction.isVisible = false
             Glide.with(binding.root)
                 .load(it.imagePath)
-                .placeholder(R.drawable.image_placeholder)
+                .placeholder(R.drawable.background_placeholder)
                 .into(binding.ivRecipe)
         } else if (it.imagePath.isNotBlank()) {
             binding.ivAction.isVisible = false

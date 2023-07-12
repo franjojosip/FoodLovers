@@ -30,13 +30,13 @@
             android:alpha="0.5"
             android:contentDescription="@string/welcome_screen_background_accessibility"
             android:scaleType="centerCrop"
-            android:src="@drawable/splash_background" />
+            android:src="@drawable/background_splash" />
 
         <Button
             android:id="@+id/btn_start_cooking"
             android:layout_width="180dp"
             android:layout_height="56dp"
-            android:background="@drawable/rounded_btn_state"
+            android:background="@drawable/btn_rounded_enabled"
             android:fontFamily="@font/playfair_display_medium"
             android:paddingBottom="5dp"
             android:text="@string/welcome_screen_btn"

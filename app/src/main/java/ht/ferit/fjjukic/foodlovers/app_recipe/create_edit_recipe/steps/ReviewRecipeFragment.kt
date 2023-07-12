@@ -58,7 +58,7 @@ class ReviewRecipeFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding
         if (data.imagePath.contains("https")) {
             Glide.with(binding.root)
                 .load(data.imagePath)
-                .placeholder(R.drawable.image_placeholder)
+                .placeholder(R.drawable.background_placeholder)
                 .into(binding.ivRecipe)
 
             binding.ivRecipe.scaleType = ImageView.ScaleType.CENTER_CROP

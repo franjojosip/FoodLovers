@@ -145,7 +145,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="35dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/rounded_btn_state"
+                android:background="@drawable/btn_rounded_enabled"
                 android:fontFamily="@font/playfair_display_regular"
                 android:text="@string/action_register"
                 android:textAllCaps="false"

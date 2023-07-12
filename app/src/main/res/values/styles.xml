@@ -44,7 +44,7 @@
 
     <style name="RoundedTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="strokeColor">@color/color_text_input_layout_box_light</item>
-        <item name="boxStrokeColor">@drawable/ingredient_field_box_color</item>
+        <item name="boxStrokeColor">@drawable/state_input_layout_box_stroke</item>
         <item name="hintTextColor">@color/color_text_input_layout_box_light</item>
         <item name="endIconTint">@color/color_text_input_layout_box_light</item>
         <item name="colorControlActivated">@color/color_text_input_layout_box_light</item>
@@ -59,7 +59,7 @@
 
     <style name="IngredientRoundedTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="strokeColor">@color/color_text_input_layout_box_light</item>
-        <item name="boxStrokeColor">@drawable/ingredient_field_box_color</item>
+        <item name="boxStrokeColor">@drawable/state_input_layout_box_stroke</item>
         <item name="hintTextColor">@color/color_dark_gray</item>
         <item name="placeholderTextColor">@color/color_dark_gray</item>
         <item name="endIconTint">@color/color_text_input_layout_box_light</item>
