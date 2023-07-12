@@ -6,6 +6,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_white"
+        android:fillViewport="true"
         android:scrollbars="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,12 +18,8 @@
                 android:id="@+id/loader_layout"
                 layout="@layout/layout_loader"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent"
+                android:visibility="gone" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_recipe"
@@ -59,7 +57,7 @@
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/playfair_display_semi_bold"
-                    android:textColor="@color/color_black"
+                    android:textColor="@color/color_gray_light"
                     android:textSize="18sp"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/ic_people"
-                    android:backgroundTint="@color/color_dark_gray"
+                    android:backgroundTint="@color/color_gray_dark"
                     android:contentDescription="@string/ic_people_accessibility"
                     app:layout_constraintEnd_toStartOf="@id/tv_number_of_servings"
                     app:layout_constraintHorizontal_chainStyle="packed"
@@ -87,7 +85,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/playfair_display_regular"
-                    android:textColor="@color/color_dark_gray"
+                    android:textColor="@color/color_gray_dark"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/iv_servings"
@@ -103,7 +101,7 @@
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/ic_time"
-                    android:backgroundTint="@color/color_dark_gray"
+                    android:backgroundTint="@color/color_gray_dark"
                     android:contentDescription="@string/iv_time_accessibility"
                     app:layout_constraintEnd_toStartOf="@id/tv_time"
                     app:layout_constraintStart_toEndOf="@id/tv_number_of_servings"
@@ -116,7 +114,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="3dp"
                     android:fontFamily="@font/playfair_display_regular"
-                    android:textColor="@color/color_dark_gray"
+                    android:textColor="@color/color_gray_dark"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/iv_servings"
@@ -140,7 +138,7 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="14dp"
                     android:background="@drawable/ic_recipe_book"
-                    android:backgroundTint="@color/color_black"
+                    android:backgroundTint="@color/color_gray_light"
                     android:contentDescription="@string/ic_people_accessibility"
                     app:layout_constraintStart_toStartOf="@id/iv_servings"
                     app:layout_constraintTop_toBottomOf="@id/v_line1" />
@@ -151,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/playfair_display_regular"
-                    android:textColor="@color/color_dark_gray"
+                    android:textColor="@color/color_gray_dark"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/iv_category"
@@ -165,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
                     android:background="@drawable/ic_star"
-                    android:backgroundTint="@color/color_dark_gray"
+                    android:backgroundTint="@color/color_gray_dark"
                     app:layout_constraintStart_toStartOf="@id/iv_time"
                     app:layout_constraintTop_toBottomOf="@id/v_line1" />
 
@@ -175,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/playfair_display_regular"
-                    android:textColor="@color/color_dark_gray"
+                    android:textColor="@color/color_gray_dark"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/iv_difficulty"
@@ -192,7 +190,7 @@
                     android:fontFamily="@font/playfair_display_bold"
                     android:text="@string/title_create_recipe_ingredients"
                     android:textAllCaps="true"
-                    android:textColor="@color/color_black"
+                    android:textColor="@color/color_gray_light"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_selected_category" />
@@ -217,7 +215,7 @@
                     android:fontFamily="@font/playfair_display_bold"
                     android:text="@string/title_create_recipe_steps"
                     android:textAllCaps="true"
-                    android:textColor="@color/color_black"
+                    android:textColor="@color/color_gray_light"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ll_ingredients" />
@@ -240,7 +238,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="35dp"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/btn_rounded_enabled"
+                    android:background="@drawable/shape_round"
                     android:backgroundTint="@color/color_stepper_item"
                     android:fontFamily="@font/playfair_display_medium"
                     android:paddingBottom="5dp"

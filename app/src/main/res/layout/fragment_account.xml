@@ -13,18 +13,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_account_background">
+            android:background="@color/color_background_main">
 
             <include
                 android:id="@+id/loader_layout"
                 layout="@layout/layout_loader"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:visibility="gone" />
 
             <View
                 android:layout_width="match_parent"
@@ -40,8 +36,6 @@
                 android:layout_marginTop="45dp"
                 android:elevation="3dp"
                 app:cardCornerRadius="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +48,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:background="@drawable/shape_circle"
                         android:elevation="8dp"
                         app:cardCornerRadius="25dp"
                         app:layout_constraintBottom_toBottomOf="@id/iv_profile_image"
@@ -65,7 +58,7 @@
                             android:layout_height="24dp"
                             android:layout_margin="5dp"
                             android:background="@drawable/ic_add_photo"
-                            android:backgroundTint="@color/color_splash_btn"
+                            android:backgroundTint="@color/color_account_text_gold"
                             android:contentDescription="@string/icon_image_capture" />
                     </androidx.cardview.widget.CardView>
 
@@ -88,7 +81,7 @@
                         android:layout_marginEnd="20dp"
                         android:fontFamily="@font/playfair_display_regular"
                         android:textAlignment="center"
-                        android:textColor="@color/color_black"
+                        android:textColor="@color/color_gray_light"
                         android:textSize="17sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +95,7 @@
                         android:layout_height="24dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/ic_email"
-                        android:backgroundTint="@color/color_account_icon"
+                        android:backgroundTint="@color/color_account_arrow"
                         android:contentDescription="@string/email_icon"
                         app:layout_constraintEnd_toEndOf="@id/tv_location"
                         app:layout_constraintStart_toStartOf="@id/tv_location"
@@ -119,7 +112,7 @@
                         android:fontFamily="@font/playfair_display_regular"
                         android:maxLines="2"
                         android:textAlignment="center"
-                        android:textColor="@color/color_black"
+                        android:textColor="@color/color_gray_light"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@id/iv_profile_email"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -159,8 +152,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="40dp"
-                        android:textAlignment="center"
                         android:fontFamily="@font/playfair_display_regular"
+                        android:textAlignment="center"
                         android:textSize="15sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tv_location"
@@ -177,15 +170,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="40dp"
-                android:padding="5dp"
                 android:fontFamily="@font/playfair_display_bold"
+                android:padding="5dp"
                 android:text="@string/screen_settings"
                 android:textAllCaps="true"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cv_profile" />
-
 
             <ImageView
                 android:id="@+id/iv_profile_icon"
@@ -194,7 +186,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="11dp"
                 android:background="@drawable/ic_person"
-                android:backgroundTint="@color/color_light_black"
+                android:backgroundTint="@color/color_gray"
                 android:contentDescription="@string/icon_profile"
                 app:layout_constraintEnd_toStartOf="@id/tv_change_username"
                 app:layout_constraintStart_toStartOf="parent"
@@ -206,10 +198,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/playfair_display_semi_bold"
                 android:padding="5dp"
                 android:text="@string/action_change_username"
-                android:fontFamily="@font/playfair_display_semi_bold"
-                android:textColor="@color/color_account_text"
+                android:textColor="@color/color_account_text_gray"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/iv_arrow1"
@@ -245,7 +237,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="13dp"
                 android:background="@drawable/ic_email"
-                android:backgroundTint="@color/color_account_text"
+                android:backgroundTint="@color/color_account_icon"
                 android:contentDescription="@string/icon_email"
                 app:layout_constraintEnd_toStartOf="@id/tv_change_email"
                 app:layout_constraintStart_toStartOf="parent"
@@ -257,10 +249,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/playfair_display_semi_bold"
                 android:padding="5dp"
                 android:text="@string/email_change"
-                android:fontFamily="@font/playfair_display_semi_bold"
-                android:textColor="@color/color_account_text"
+                android:textColor="@color/color_account_text_gray"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/iv_arrow2"
@@ -309,10 +301,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/playfair_display_semi_bold"
                 android:padding="5dp"
                 android:text="@string/action_update_location"
-                android:fontFamily="@font/playfair_display_semi_bold"
-                android:textColor="@color/color_account_text"
+                android:textColor="@color/color_account_text_gray"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/iv_arrow3"
@@ -356,7 +348,7 @@
                     android:layout_height="20dp"
                     android:layout_marginTop="3dp"
                     android:background="@drawable/ic_logout"
-                    android:backgroundTint="@color/color_splash_btn"
+                    android:backgroundTint="@color/color_account_text_gold"
                     android:contentDescription="@string/icon_logout"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tv_logout"
@@ -368,9 +360,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
-                    android:text="@string/action_logout"
                     android:fontFamily="@font/playfair_display_bold"
-                    android:textColor="@color/color_splash_btn"
+                    android:text="@string/action_logout"
+                    android:textColor="@color/color_account_text_gold"
                     android:textSize="17sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_logout"

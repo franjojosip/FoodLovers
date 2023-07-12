@@ -134,6 +134,7 @@ class SearchView @JvmOverloads constructor(
         binding.etSearch.isFocusable = false
     }
 
+    @SuppressLint("RestrictedApi")
     fun showKeyboardAndFocus() {
         requestFocusAndShowKeyboard(binding.etSearch)
     }

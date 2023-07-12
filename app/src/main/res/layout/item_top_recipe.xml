@@ -17,9 +17,7 @@
             android:clipChildren="false"
             android:clipToPadding="false"
             android:padding="4dp"
-            android:paddingStart="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:paddingHorizontal="10dp"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
@@ -66,8 +64,8 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/playfair_display_bold"
                 android:maxLines="1"
-                android:text="Random recipe title"
-                android:textColor="@color/color_recipe_title"
+                android:textColor="@color/color_gray_light"
+                tools:text="@string/recipe_name"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +82,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/playfair_display_regular"
                 android:maxLines="2"
-                android:text="Random title description for special recipe in two rows"
+                tools:text="@string/recipe_description"
                 android:textSize="12sp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toTopOf="@id/iv_time"
@@ -98,8 +96,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
                 android:background="@drawable/ic_time"
-                android:backgroundTint="@color/color_dark_gray"
+                android:backgroundTint="@color/color_gray_dark"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="@string/iv_time_accessibility"
                 app:layout_constraintStart_toEndOf="@id/cv_image" />
 
             <TextView
@@ -109,7 +108,7 @@
                 android:layout_marginHorizontal="5dp"
                 android:layout_marginBottom="3dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="30MIN"
+                tools:text="30MIN"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_time"
@@ -124,6 +123,7 @@
                 android:background="@drawable/ic_star"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_time"
                 app:layout_constraintStart_toEndOf="@id/tv_time"
+                android:contentDescription="@string/ic_difficulty_accessibility"
                 app:layout_constraintTop_toTopOf="@+id/iv_time" />
 
             <TextView
@@ -132,7 +132,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="MEDIUM"
+                android:textAllCaps="true"
+                tools:text="MEDIUM"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_difficulty"

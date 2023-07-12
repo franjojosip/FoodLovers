@@ -25,6 +25,7 @@ import ht.ferit.fjjukic.foodlovers.app_common.view.CustomToolbarView
 import ht.ferit.fjjukic.foodlovers.app_main.main.MainActivity
 import ht.ferit.fjjukic.foodlovers.app_main.prelogin.PreloginActivity
 
+@Suppress("EmptyMethod")
 abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> : Fragment(),
     PermissionHandler {
     protected abstract val layoutId: Int

@@ -1,5 +1,6 @@
 package ht.ferit.fjjukic.foodlovers.app_common.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -38,6 +39,7 @@ class CustomChipGroup @JvmOverloads constructor(
         defaultChipId?.let { check(it) }
     }
 
+    @SuppressLint("InflateParams")
     fun setData(items: List<FilterItem>) {
         chips.clear()
         items.forEach { item ->

@@ -92,7 +92,7 @@ class ShowRecipeFragment : BaseFragment<ShowRecipeViewModel, FragmentShowRecipeB
 
     private fun addStepField(data: StepModel) {
         val view = ItemStepBinding.inflate(LayoutInflater.from(context), null, false)
-        view.tvStep.text = "Step ${data.position}."
+        view.tvStep.text = getString(R.string.step, data.position)
         view.tvDescription.text = data.description
         binding.llSteps.addView(view.root)
     }

@@ -6,26 +6,20 @@
         android:id="@+id/cl_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/home_screen_background">
+        android:background="@color/color_background_main">
 
         <include
             android:id="@+id/loader_layout"
             layout="@layout/layout_loader"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
         <ht.ferit.fjjukic.foodlovers.app_common.view.CustomToolbarView
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:image="@drawable/ic_back"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:text="Recipes" />
 
@@ -46,13 +40,14 @@
             android:layout_width="60dp"
             android:layout_height="38dp"
             android:layout_marginEnd="18dp"
-            android:background="@drawable/background_rounded"
-            android:backgroundTint="@color/home_screen_filter"
+            android:background="@drawable/shape_round"
+            android:backgroundTint="@color/color_filter"
             android:clickable="true"
             app:cardCornerRadius="16dp"
             app:layout_constraintBottom_toBottomOf="@id/search_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/search_view"
+            android:focusable="true"
             app:layout_constraintTop_toTopOf="@id/search_view">
 
             <ImageView
@@ -66,6 +61,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="@string/btn_filter_accessibility"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

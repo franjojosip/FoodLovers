@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.databinding.ItemStepCardBinding
 
@@ -22,7 +23,7 @@ class StepView @JvmOverloads constructor(
     }
 
     fun setStepNumber(value: Int) {
-        stepBinding.tvStep.text = "Step $value."
+        stepBinding.tvStep.text = resources.getString(R.string.step, value)
         step = value
     }
 

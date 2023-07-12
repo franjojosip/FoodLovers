@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <merge xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <merge xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +28,7 @@
                 style="@style/PlaceholderTextAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Ingredient"
+                android:hint="@string/title_create_recipe_ingredients"
                 android:imeOptions="actionNext"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -53,7 +52,7 @@
                 style="@style/PlaceholderTextAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Amount"
+                android:hint="@string/label_amount"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,6 +65,7 @@
             app:backgroundTint="@color/color_primary_dark"
             app:layout_constraintBottom_toBottomOf="@id/til_ingredient_amount"
             app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/btn_close_accessibility"
             app:layout_constraintTop_toTopOf="@id/til_ingredient_amount" />
     </merge>
 </layout>

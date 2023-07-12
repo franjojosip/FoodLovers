@@ -17,6 +17,7 @@
         android:tag="step"
         app:layout_constraintEnd_toStartOf="@id/line1"
         app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/ic_step_accessibility"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -26,7 +27,7 @@
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/playfair_display_regular"
         android:maxWidth="100dp"
-        android:text="Main"
+        android:text="@string/step_main"
         android:textColor="@color/color_stepper_number_current"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,6 +46,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_first"
         app:layout_constraintEnd_toStartOf="@id/iv_second"
         app:layout_constraintStart_toEndOf="@id/iv_first"
+        android:importantForAccessibility="no"
         app:layout_constraintTop_toTopOf="@id/iv_first" />
 
     <ImageView
@@ -57,6 +59,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_first"
         app:layout_constraintEnd_toStartOf="@id/line2"
         app:layout_constraintStart_toEndOf="@id/line1"
+        android:contentDescription="@string/ic_step_accessibility"
         app:layout_constraintTop_toTopOf="@id/iv_first" />
 
     <TextView
@@ -65,7 +68,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/playfair_display_regular"
         android:maxWidth="100dp"
-        android:text="Ingredients"
+        android:text="@string/step_ingredients"
         android:textColor="@color/color_stepper_number_current"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/iv_second"
@@ -83,6 +86,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_first"
         app:layout_constraintEnd_toStartOf="@id/iv_third"
         app:layout_constraintStart_toEndOf="@id/iv_second"
+        android:contentDescription="@string/ic_step_accessibility"
         app:layout_constraintTop_toTopOf="@id/iv_first" />
 
     <ImageView
@@ -95,6 +99,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_first"
         app:layout_constraintEnd_toStartOf="@id/line3"
         app:layout_constraintStart_toEndOf="@id/line2"
+        android:contentDescription="@string/ic_step_accessibility"
         app:layout_constraintTop_toTopOf="@id/iv_first" />
 
     <TextView
@@ -103,7 +108,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/playfair_display_regular"
         android:maxWidth="100dp"
-        android:text="Steps"
+        android:text="@string/step_steps"
         android:textColor="@color/color_stepper_number_current"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/iv_third"
@@ -121,6 +126,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_first"
         app:layout_constraintEnd_toStartOf="@id/iv_fourth"
         app:layout_constraintStart_toEndOf="@+id/iv_third"
+        android:importantForAccessibility="no"
         app:layout_constraintTop_toTopOf="@id/iv_first" />
 
     <ImageView
@@ -134,6 +140,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_first"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/line3"
+        android:contentDescription="@string/ic_step_accessibility"
         app:layout_constraintTop_toTopOf="@id/iv_first" />
 
     <TextView
@@ -142,7 +149,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/playfair_display_regular"
         android:maxWidth="100dp"
-        android:text="Preview"
+        android:text="@string/step_preview"
         android:textColor="@color/color_stepper_number_current"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/iv_fourth"

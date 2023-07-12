@@ -10,10 +10,8 @@
             android:id="@+id/loader_layout"
             layout="@layout/layout_loader"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/iv_icon"
@@ -22,7 +20,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="90dp"
             android:background="@drawable/ic_food_with_love"
-            android:backgroundTint="@color/color_auth_icon"
+            android:backgroundTint="@color/color_gold"
             android:contentDescription="@string/app_food_lovers_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +112,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="25dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/btn_rounded_enabled"
+            android:background="@drawable/shape_round"
             android:fontFamily="@font/playfair_display_regular"
             android:text="@string/action_login"
             android:textAllCaps="false"

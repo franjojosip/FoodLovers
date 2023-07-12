@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:background="@color/home_screen_background">
+        android:background="@color/color_background_main">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -22,8 +22,8 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="6dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="Publish new recipe"
-                android:textColor="@color/color_black"
+                android:text="@string/title_publish_new_recipe"
+                android:textColor="@color/color_gray_light"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
-                android:background="@color/color_dark_underline"
+                android:background="@color/color_underline"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toEndOf="@id/tv_title"
                 app:layout_constraintStart_toStartOf="@id/tv_title"
@@ -46,8 +46,8 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="Name"
-                android:textColor="@color/color_black"
+                android:text="@string/recipe_name"
+                android:textColor="@color/color_gray_light"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:imeOptions="actionDone"
-                    android:hint="Recipe title" />
+                    android:hint="@string/recipe_title" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -78,8 +78,8 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="Cooking time"
-                android:textColor="@color/color_black"
+                android:text="@string/title_create_recipe_cooking_time"
+                android:textColor="@color/color_gray_light"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -92,8 +92,8 @@
                 android:layout_marginEnd="30dp"
                 android:fontFamily="@font/playfair_display_regular"
                 android:padding="5dp"
-                android:text="15min"
-                android:textColor="@color/color_black"
+                android:text="@string/title_create_recipe_cooking_time_default"
+                android:textColor="@color/color_gray_light"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_time"
@@ -122,8 +122,8 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="Image"
-                android:textColor="@color/color_black"
+                android:text="@string/title_create_recipe_image"
+                android:textColor="@color/color_gray_light"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +152,8 @@
                     <ImageView
                         android:id="@+id/iv_recipe"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/iv_recipe_accessibility" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -176,13 +177,12 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="Number of servings"
-                android:textColor="@color/color_black"
+                android:text="@string/title_create_recipe_number_of_servings"
+                android:textColor="@color/color_gray_light"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cl_image" />
-
 
             <ImageView
                 android:id="@+id/btn_decrement"
@@ -193,6 +193,7 @@
                 android:src="@drawable/ic_remove"
                 app:layout_constraintBottom_toBottomOf="@id/tv_number_of_servings"
                 app:layout_constraintStart_toEndOf="@id/tv_number_of_servings"
+                android:contentDescription="@string/btn_decrement_accessibility"
                 app:layout_constraintTop_toTopOf="@id/tv_number_of_servings" />
 
             <TextView
@@ -217,6 +218,7 @@
                 android:src="@drawable/ic_add"
                 app:layout_constraintBottom_toBottomOf="@id/tv_number_of_servings"
                 app:layout_constraintStart_toEndOf="@id/tv_counter"
+                android:contentDescription="@string/btn_increment_accessibility"
                 app:layout_constraintTop_toTopOf="@id/tv_number_of_servings" />
 
             <TextView
@@ -226,8 +228,8 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/playfair_display_regular"
-                android:text="Ingredients"
-                android:textColor="@color/color_black"
+                android:text="@string/title_create_recipe_ingredients"
+                android:textColor="@color/color_gray_light"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -241,10 +243,11 @@
                 android:fontFamily="@font/playfair_display_regular"
                 android:src="@drawable/ic_info"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/color_black"
+                android:contentDescription="@string/iv_info_metrics_accessibility"
                 android:textSize="14sp"
                 app:layout_constraintTop_toTopOf="@id/tv_ingredients"
                 app:layout_constraintBottom_toBottomOf="@id/tv_ingredients"
+                android:textColor="@color/color_gray_light"
                 app:layout_constraintStart_toEndOf="@id/tv_ingredients" />
 
             <LinearLayout
@@ -269,7 +272,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="15dp"
                 android:padding="5dp"
-                android:text="+ Add ingredient"
+                android:text="@string/option_create_recipe_add_ingredient"
                 android:textColor="@color/color_primary_dark"
                 android:textSize="15sp"
                 android:textStyle="bold"

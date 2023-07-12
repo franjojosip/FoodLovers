@@ -17,7 +17,6 @@ class CustomRemovableChipGroup @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : ChipGroup(context, attrs, defStyleAttr) {
-
     interface RemovableClickListener {
         fun onItemClick(item: FilterItem)
     }

@@ -21,7 +21,7 @@
                 android:id="@+id/cl_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/home_screen_background">
+                android:background="@color/color_background_main">
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -31,7 +31,7 @@
                     android:layout_marginTop="6dp"
                     android:fontFamily="@font/playfair_display_regular"
                     android:text="@string/title_discover_new_recipes"
-                    android:textColor="@color/color_black"
+                    android:textColor="@color/color_gray_light"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -44,8 +44,6 @@
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="15dp"
                     android:clipToPadding="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
                 <TextView
@@ -56,7 +54,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/playfair_display_semi_bold"
                     android:text="@string/title_categories"
-                    android:textColor="@color/color_black"
+                    android:textColor="@color/color_gray_light"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@+id/search_view" />
@@ -81,7 +79,7 @@
                     android:layout_marginTop="14dp"
                     android:fontFamily="@font/playfair_display_semi_bold"
                     android:text="@string/title_today_choice"
-                    android:textColor="@color/color_black"
+                    android:textColor="@color/color_gray_light"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@+id/category_recycler_view" />
@@ -102,7 +100,7 @@
                     android:layout_marginHorizontal="20dp"
                     android:fontFamily="@font/playfair_display_semi_bold"
                     android:text="@string/title_recipes_this_week"
-                    android:textColor="@color/color_black"
+                    android:textColor="@color/color_gray_light"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"

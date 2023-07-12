@@ -126,7 +126,7 @@ class ReviewRecipeFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding
 
     private fun addStepField(data: StepModel) {
         val view = ItemStepBinding.inflate(LayoutInflater.from(context), null, false)
-        view.tvStep.text = "Step ${data.position}."
+        view.tvStep.text = getString(R.string.step, data.position)
         view.tvDescription.text = data.description.ifBlank { "Step description placeholder" }
         binding.llSteps.addView(view.root)
     }

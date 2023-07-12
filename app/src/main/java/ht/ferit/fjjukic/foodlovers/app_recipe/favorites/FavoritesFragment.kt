@@ -38,7 +38,8 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         }
 
         viewModel.filteredRecipes.observe(viewLifecycleOwner) { recipes ->
-            binding.tvTotalRecipes.text = "${recipes.count { it.title.isNotBlank() }} total recipes"
+            binding.tvTotalRecipes.text =
+                getString(R.string.recipe_total_recipes, recipes.count { it.title.isNotBlank() })
             recipes?.let { recipesAdapter.setData(it) }
         }
     }

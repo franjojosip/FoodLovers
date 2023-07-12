@@ -6,7 +6,7 @@
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/home_screen_background">
+        android:background="@color/color_background_main">
 
         <TextView
             android:id="@+id/tv_title"

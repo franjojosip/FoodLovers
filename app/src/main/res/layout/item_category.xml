@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/recipe_image"
-                android:src="@color/category_item_shadow"
+                android:src="@color/color_shadow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,13 +51,11 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textAllCaps="true"
-                android:textColor="@color/category_text_color"
+                android:textColor="@color/color_white_light"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Pancakes" />
-
-
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

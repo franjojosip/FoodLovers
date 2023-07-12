@@ -6,7 +6,7 @@
         android:id="@+id/sv_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/home_screen_background"
+        android:background="@color/color_background_main"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/playfair_display_regular"
                 android:text="@string/title_create_recipe_steps"
-                android:textColor="@color/color_black"
+                android:textColor="@color/color_gray_light"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"

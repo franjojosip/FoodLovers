@@ -48,9 +48,7 @@ class CustomToolbarView @JvmOverloads constructor(
 
         btnEndAction.setOnClickListener {
             /*Create an ACTION_SEND Intent*/
-            /*Create an ACTION_SEND Intent*/
             val intent = Intent(Intent.ACTION_SEND)
-            /*This will be the actual content you wish you share.*/
             /*This will be the actual content you wish you share.*/
             val shareBody = "Recipe deeplink example"
             intent.type = "text/plain"

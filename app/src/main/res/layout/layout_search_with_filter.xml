@@ -34,12 +34,12 @@
             android:layout_height="25dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:contentDescription="@string/filter"
+            android:contentDescription="@string/label_filter"
             android:background="@drawable/ic_filter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/et_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:backgroundTint="@color/color_filter_icon" />
+            app:backgroundTint="@color/color_search_icon" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
