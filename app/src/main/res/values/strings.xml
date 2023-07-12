@@ -126,6 +126,13 @@
     <string name="recipe_select_level">Select Level</string>
     <string name="recipe_total_recipes">%d total recipes</string>
 
+    <!-- RECIPES MESSAGE STRINGS -->
+    <string name="message_recipe_created">Successfully created recipe</string>
+    <string name="message_recipe_not_created">Error while creating recipe</string>
+    <string name="message_recipe_updated">Successfully updated recipe</string>
+    <string name="message_recipe_not_updated">Error while updating recipe</string>
+    <string name="message_create_recipe_image_placeholder">Image placeholder</string>
+
     <!-- OPTION STRINGS -->
     <string name="option_all">All</string>
 
@@ -161,22 +168,24 @@
     <string name="find_new_meals">Find new meals</string>
     <string name="new_recipes">New recipes</string>
 
+    <!-- TITLE STRINGS -->
     <string name="title_category">Category</string>
     <string name="title_categories">Categories</string>
-    <string name="title_preparation_time">Preparation time</string>
     <string name="title_difficulty">Difficulty</string>
+    <string name="title_preparation_time">Preparation time</string>
     <string name="title_sort_by">Sort by</string>
 
-    <string name="title_explore_new_recipes">Explore new \ncooking recipes</string>
-    <string name="title_search_recipes">Search recipes</string>
     <string name="title_discover_new_recipes">Discover new recipes</string>
-    <string name="title_today_choice">Today\'s Choice</string>
-    <string name="title_recipes_this_week">Top 3 Recipes This Week</string>
+    <string name="title_edit_recipe">Edit recipe</string>
+    <string name="title_explore_new_recipes">Explore new \ncooking recipes</string>
     <string name="title_filters">Filters</string>
     <string name="title_find_new_recipes">Find new recipes</string>
     <string name="title_publish_new_recipes">Publish new recipe</string>
-    <string name="title_edit_recipe">Edit recipe</string>
+    <string name="title_recipes_this_week">Top 3 Recipes This Week</string>
+    <string name="title_search_recipes">Search recipes</string>
+    <string name="title_today_choice">Today\'s Choice</string>
 
+    <!-- CREATE/EDIT RECIPE SCREEN STRINGS -->
     <string name="title_create_recipe_name">Name</string>
     <string name="title_create_recipe_name_placeholder">Recipe title</string>
     <string name="title_create_recipe_cooking_time">Cooking time</string>
@@ -189,39 +198,38 @@
     <string name="option_create_recipe_add_ingredient">+ Add ingredient</string>
     <string name="option_create_recipe_add_step">Add step</string>
 
-    <string name="message_create_recipe_image_placeholder">Image placeholder</string>
 
+    <!-- BUTTON STRINGS -->
     <string name="btn_done">Done</string>
     <string name="btn_reset">Reset</string>
     <string name="btn_create_recipe">Create</string>
     <string name="btn_edit_recipe">Edit</string>
 
+
+    <!-- DIALOG STRINGS -->
     <string name="dialog_create_recipe_title">Create new recipe?</string>
     <string name="dialog_create_recipe_message">Please check your data before creating the recipe!</string>
-
     <string name="dialog_edit_recipe_title">Do you want to update recipe?</string>
     <string name="dialog_edit_recipe_message">Please check your data before updating the recipe!</string>
-
     <string name="dialog_btn_confirm">Confirm</string>
 
-    <string name="message_recipe_created">Successfully created recipe</string>
-    <string name="message_recipe_not_created">Error while creating recipe</string>
 
-    <string name="message_recipe_updated">Successfully updated recipe</string>
-    <string name="message_recipe_not_updated">Error while updating recipe</string>
-
+    <!-- NAVIGATION MENU STRINGS -->
+    <string name="navigation_home">Home</string>
+    <string name="navigation_recipes">Recipes</string>
+    <string name="navigation_favorites">Favorites</string>
+    <string name="navigation_profile">Profile</string>
 
     <!-- ACCESSIBILITY STRINGS -->
-
-    <string name="btn_filter_accessibility">Filter button</string>
     <string name="btn_add_recipe_accessibility">Add recipe button</string>
-    <string name="iv_favorite_recipe_accessibility">Favorite recipe icon</string>
-    <string name="iv_time_accessibility">Time icon</string>
-    <string name="btn_increment_accessibility">Increment button</string>
     <string name="btn_decrement_accessibility">Decrement button</string>
+    <string name="btn_filter_accessibility">Filter button</string>
+    <string name="btn_increment_accessibility">Increment button</string>
+    <string name="iv_favorite_recipe_accessibility">Favorite recipe icon</string>
     <string name="iv_info_metrics_accessibility">Metrics info</string>
     <string name="iv_recipe_accessibility">Recipe image</string>
-    <string name="ic_people_accessibility">Number of servings icon</string>
+    <string name="iv_time_accessibility">Time icon</string>
     <string name="ic_edit_accessibility">Edit icon</string>
+    <string name="ic_people_accessibility">Number of servings icon</string>
 
 </resources>

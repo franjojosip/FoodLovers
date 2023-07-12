@@ -92,8 +92,4 @@ class RecipesViewModel(
     fun onRecipeClick(navDirections: NavDirections) {
         actionNavigate.postValue(ActionNavigate.NavigationWithDirections(navDirections))
     }
-
-    fun onLongRecipeClick(id: String) {
-
-    }
 }

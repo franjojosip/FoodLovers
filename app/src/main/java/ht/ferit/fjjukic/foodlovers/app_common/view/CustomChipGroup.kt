@@ -41,7 +41,7 @@ class CustomChipGroup @JvmOverloads constructor(
     fun setData(items: List<FilterItem>) {
         chips.clear()
         items.forEach { item ->
-            val chip = LayoutInflater.from(context).inflate(R.layout.chip_filter_item, null) as Chip
+            val chip = LayoutInflater.from(context).inflate(R.layout.item_chip_filter, null) as Chip
             chip.id = View.generateViewId()
             chip.text = item.value
             chip.isChecked = item.isChecked

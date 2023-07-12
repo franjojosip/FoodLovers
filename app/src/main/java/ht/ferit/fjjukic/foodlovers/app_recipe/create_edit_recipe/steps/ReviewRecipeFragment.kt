@@ -16,9 +16,9 @@ import ht.ferit.fjjukic.foodlovers.app_common.utils.getColorStateList
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.RecipeViewModel
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentReviewBinding
-import ht.ferit.fjjukic.foodlovers.databinding.IngredientListItemBinding
-import ht.ferit.fjjukic.foodlovers.databinding.NoItemsListItemBinding
-import ht.ferit.fjjukic.foodlovers.databinding.StepListItemBinding
+import ht.ferit.fjjukic.foodlovers.databinding.ItemIngredientListItemBinding
+import ht.ferit.fjjukic.foodlovers.databinding.ItemNoListItemsBinding
+import ht.ferit.fjjukic.foodlovers.databinding.ItemStepBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ReviewRecipeFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding>() {
@@ -94,7 +94,7 @@ class ReviewRecipeFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding
         binding.llIngredients.removeAllViews()
         if (data.isEmpty()) {
             binding.llIngredients.addView(
-                NoItemsListItemBinding.inflate(LayoutInflater.from(context), null, false).root
+                ItemNoListItemsBinding.inflate(LayoutInflater.from(context), null, false).root
             )
         } else {
             data.forEach {
@@ -108,7 +108,7 @@ class ReviewRecipeFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding
 
         if (data.isEmpty()) {
             binding.llSteps.addView(
-                NoItemsListItemBinding.inflate(LayoutInflater.from(context), null, false).root
+                ItemNoListItemsBinding.inflate(LayoutInflater.from(context), null, false).root
             )
         } else {
             data.forEach {
@@ -118,14 +118,14 @@ class ReviewRecipeFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding
     }
 
     private fun addIngredientField(data: IngredientModel) {
-        val view = IngredientListItemBinding.inflate(LayoutInflater.from(context), null, false)
+        val view = ItemIngredientListItemBinding.inflate(LayoutInflater.from(context), null, false)
         view.tvIngredientAmount.text = data.amount.ifBlank { "XX" }
         view.tvIngredientName.text = data.name.ifBlank { "Ingredient name placeholder" }
         binding.llIngredients.addView(view.root)
     }
 
     private fun addStepField(data: StepModel) {
-        val view = StepListItemBinding.inflate(LayoutInflater.from(context), null, false)
+        val view = ItemStepBinding.inflate(LayoutInflater.from(context), null, false)
         view.tvStep.text = "Step ${data.position}."
         view.tvDescription.text = data.description.ifBlank { "Step description placeholder" }
         binding.llSteps.addView(view.root)

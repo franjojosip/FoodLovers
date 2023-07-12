@@ -7,15 +7,15 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
-import ht.ferit.fjjukic.foodlovers.databinding.IngredientItemBinding
+import ht.ferit.fjjukic.foodlovers.databinding.ItemIngredientBinding
 
 class IngredientView @JvmOverloads constructor(
     context: Context,
-    val attrs: AttributeSet? = null,
-    val defStyleAttr: Int = 0
+    private val attrs: AttributeSet? = null,
+    private val defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    val ingredientBinding = IngredientItemBinding.inflate(LayoutInflater.from(context), this, true)
+    val ingredientBinding = ItemIngredientBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
         setupAttributes()

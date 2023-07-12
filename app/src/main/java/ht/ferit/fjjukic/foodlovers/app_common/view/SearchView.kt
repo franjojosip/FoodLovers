@@ -14,7 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.internal.ViewUtils.requestFocusAndShowKeyboard
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.utils.*
-import ht.ferit.fjjukic.foodlovers.databinding.SearchViewBinding
+import ht.ferit.fjjukic.foodlovers.databinding.LayoutSearchBinding
 
 class SearchView @JvmOverloads constructor(
     context: Context,
@@ -22,8 +22,8 @@ class SearchView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val binding: SearchViewBinding =
-        SearchViewBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding: LayoutSearchBinding =
+        LayoutSearchBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
         setUpView()

@@ -8,9 +8,9 @@ import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_common.utils.getColorStateList
 import ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.TopRecipe
-import ht.ferit.fjjukic.foodlovers.databinding.TopRecipeItemBinding
+import ht.ferit.fjjukic.foodlovers.databinding.ItemTopRecipeBinding
 
-class TopRecipeViewHolder(private val binding: TopRecipeItemBinding) :
+class TopRecipeViewHolder(private val binding: ItemTopRecipeBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun setData(recipe: TopRecipe, listener: HomeListener?) {

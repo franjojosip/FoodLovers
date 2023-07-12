@@ -34,7 +34,7 @@ class IngredientStepFragment : BaseFragment<RecipeViewModel, FragmentIngredients
             MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_rounded)
                 .apply {
                     setView(
-                        LayoutInflater.from(context).inflate(R.layout.allowed_metrics_layout, null)
+                        LayoutInflater.from(context).inflate(R.layout.layout_allowed_metrics, null)
                     )
                 }
                 .show()
@@ -54,7 +54,7 @@ class IngredientStepFragment : BaseFragment<RecipeViewModel, FragmentIngredients
             binding.actCategories.setAdapter(
                 ArrayAdapter(
                     requireContext(),
-                    R.layout.dropdown_item,
+                    R.layout.item_dropdown_choice,
                     categories.map { it.name })
             )
         }
@@ -62,7 +62,7 @@ class IngredientStepFragment : BaseFragment<RecipeViewModel, FragmentIngredients
             binding.actDifficulties.setAdapter(
                 ArrayAdapter(
                     requireContext(),
-                    R.layout.dropdown_item,
+                    R.layout.item_dropdown_choice,
                     difficulties.map { it.name })
             )
         }

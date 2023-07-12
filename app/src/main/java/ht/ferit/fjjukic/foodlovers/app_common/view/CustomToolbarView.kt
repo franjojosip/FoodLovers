@@ -25,7 +25,7 @@ class CustomToolbarView @JvmOverloads constructor(
     }
 
     private fun init(attrs: AttributeSet?) {
-        View.inflate(context, R.layout.toolbar_layout, this)
+        View.inflate(context, R.layout.layout_toolbar, this)
 
         val btnAction = findViewById<ImageView>(R.id.btn_action)
         val btnEndAction = findViewById<ImageView>(R.id.btn_end_action)

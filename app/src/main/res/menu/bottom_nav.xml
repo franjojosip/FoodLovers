@@ -3,24 +3,24 @@
     <item
         android:id="@id/nav_graph_home"
         android:icon="@drawable/ic_home"
-        android:title="Home"
+        android:title="@string/navigation_home"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@id/nav_graph_recipes"
         android:icon="@drawable/ic_plate"
-        android:title="Recipes"
+        android:title="@string/navigation_recipes"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@id/nav_graph_favorites"
         android:icon="@drawable/ic_favorites"
-        android:title="Favorites"
+        android:title="@string/navigation_favorites"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@id/nav_graph_account"
         android:icon="@drawable/ic_profile"
-        android:title="Profile"
+        android:title="@string/navigation_profile"
         app:showAsAction="ifRoom" />
 </menu>

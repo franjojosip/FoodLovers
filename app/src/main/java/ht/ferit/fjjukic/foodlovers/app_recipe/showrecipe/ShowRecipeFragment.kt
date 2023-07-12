@@ -13,8 +13,8 @@ import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToServings
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_common.utils.getColorStateList
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentShowRecipeBinding
-import ht.ferit.fjjukic.foodlovers.databinding.IngredientListItemBinding
-import ht.ferit.fjjukic.foodlovers.databinding.StepListItemBinding
+import ht.ferit.fjjukic.foodlovers.databinding.ItemIngredientListItemBinding
+import ht.ferit.fjjukic.foodlovers.databinding.ItemStepBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ShowRecipeFragment : BaseFragment<ShowRecipeViewModel, FragmentShowRecipeBinding>() {
@@ -84,14 +84,14 @@ class ShowRecipeFragment : BaseFragment<ShowRecipeViewModel, FragmentShowRecipeB
     }
 
     private fun addIngredientField(data: IngredientModel) {
-        val view = IngredientListItemBinding.inflate(LayoutInflater.from(context), null, false)
+        val view = ItemIngredientListItemBinding.inflate(LayoutInflater.from(context), null, false)
         view.tvIngredientAmount.text = data.amount
         view.tvIngredientName.text = data.name
         binding.llIngredients.addView(view.root)
     }
 
     private fun addStepField(data: StepModel) {
-        val view = StepListItemBinding.inflate(LayoutInflater.from(context), null, false)
+        val view = ItemStepBinding.inflate(LayoutInflater.from(context), null, false)
         view.tvStep.text = "Step ${data.position}."
         view.tvDescription.text = data.description
         binding.llSteps.addView(view.root)

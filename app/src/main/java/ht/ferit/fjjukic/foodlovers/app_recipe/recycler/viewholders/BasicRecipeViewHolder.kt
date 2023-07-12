@@ -8,9 +8,9 @@ import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToServings
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_recipe.RecipeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.BasicRecipe
-import ht.ferit.fjjukic.foodlovers.databinding.SearchRecipeItemBinding
+import ht.ferit.fjjukic.foodlovers.databinding.ItemSearchRecipeBinding
 
-class BasicRecipeViewHolder(private val binding: SearchRecipeItemBinding) :
+class BasicRecipeViewHolder(private val binding: ItemSearchRecipeBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun setData(recipe: BasicRecipe, listener: RecipeListener?) {

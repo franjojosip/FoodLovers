@@ -10,8 +10,8 @@ import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.NoRecipePlaceholder
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders.BasicRecipeViewHolder
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.viewholders.NoRecipesViewHolder
-import ht.ferit.fjjukic.foodlovers.databinding.NoRecipesPlaceholderBinding
-import ht.ferit.fjjukic.foodlovers.databinding.SearchRecipeItemBinding
+import ht.ferit.fjjukic.foodlovers.databinding.ItemSearchRecipeBinding
+import ht.ferit.fjjukic.foodlovers.databinding.LayoutNoRecipesPlaceholderBinding
 
 class BasicRecipesAdapter(val listener: RecipeListener? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -22,11 +22,11 @@ class BasicRecipesAdapter(val listener: RecipeListener? = null) :
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             0 -> BasicRecipeViewHolder(
-                SearchRecipeItemBinding.inflate(layoutInflater, parent, false)
+                ItemSearchRecipeBinding.inflate(layoutInflater, parent, false)
             )
 
             1 -> NoRecipesViewHolder(
-                NoRecipesPlaceholderBinding.inflate(layoutInflater, parent, false)
+                LayoutNoRecipesPlaceholderBinding.inflate(layoutInflater, parent, false)
             )
 
             else -> throw Exception("View type doesn't exist")

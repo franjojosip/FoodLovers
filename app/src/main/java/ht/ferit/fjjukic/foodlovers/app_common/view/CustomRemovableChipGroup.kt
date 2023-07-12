@@ -34,7 +34,8 @@ class CustomRemovableChipGroup @JvmOverloads constructor(
     @SuppressLint("InflateParams")
     private fun addChip(item: FilterItem) {
         val chip =
-            LayoutInflater.from(context).inflate(R.layout.chip_filter_with_remove, null) as Chip
+            LayoutInflater.from(context)
+                .inflate(R.layout.item_chip_filter_with_remove, null) as Chip
         chip.id = View.generateViewId()
         chip.text = item.value
 

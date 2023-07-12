@@ -68,7 +68,9 @@ class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLoc
 
     private fun setUpObservers() {
         viewModel.user.observeNotNull(viewLifecycleOwner) {
-            binding.tvLocation.text = getLocation(requireContext(), it.latitude, it.longitude)
+            getLocation(requireContext(), it.latitude, it.longitude) { location ->
+                binding.tvLocation.text = location
+            }
         }
     }
 
@@ -98,10 +100,12 @@ class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLoc
             checkPermissions(requireContext(), permissions) -> {
                 handleNewLocation()
             }
+
             checkShouldShowPermissionRationale(requireActivity(), permissions) -> {
                 showToast(messageId = R.string.location_permission_error)
                 permissionLauncher.launch(permissions)
             }
+
             else -> {
                 showToast(messageId = R.string.general_error_permissions)
                 openSettings(requireContext())
@@ -136,9 +140,11 @@ class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLoc
                         }
                     ))
             }
+
             !requireContext().checkNetworkState() -> {
                 showToast(messageId = R.string.general_error_internet)
             }
+
             else -> {
                 setMarkerLocation()
             }
@@ -173,6 +179,7 @@ class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLoc
                     currentUser != null && location.latitude.toString() == currentUser.latitude && location.longitude.toString() == currentUser.longitude -> {
                         showToast(messageId = R.string.location_already_exist)
                     }
+
                     else -> {
                         map.clear()
                         val latLng = LatLng(location.latitude, location.longitude)

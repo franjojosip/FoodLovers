@@ -10,9 +10,9 @@ import com.bumptech.glide.Glide
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_recipe.CategoryListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.RecipeCategory
-import ht.ferit.fjjukic.foodlovers.databinding.CategoryItemBinding
+import ht.ferit.fjjukic.foodlovers.databinding.ItemCategoryBinding
 
-class CategoryViewHolder(private val binding: CategoryItemBinding) :
+class CategoryViewHolder(private val binding: ItemCategoryBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun setData(data: RecipeCategory, listener: CategoryListener?) {

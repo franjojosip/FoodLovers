@@ -120,8 +120,9 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
         viewModel.user.observeNotNull(viewLifecycleOwner) {
             binding.tvProfileUsername.text = it.name
             binding.tvProfileEmail.text = it.email
-            binding.tvProfileLocation.text =
-                getLocation(requireContext(), it.latitude, it.longitude)
+            getLocation(requireContext(), it.latitude, it.longitude) { location ->
+                binding.tvProfileLocation.text = location
+            }
 
             if (it.imageUrl.isNotEmpty()) {
                 context?.loadImage(it.imageUrl, binding.ivProfileImage)
@@ -149,6 +150,7 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
                     AccountFragmentDirections.actionNavProfileToNavChangeLocation()
                 )
             }
+
             else -> {}
         }
     }

@@ -18,15 +18,15 @@ class RecipeAdapter(val listener: HomeListener? = null) :
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             0 -> TodayRecipeHolder(
-                RecipeListItemBinding.inflate(layoutInflater, parent, false)
+                ItemTodayChoiceBinding.inflate(layoutInflater, parent, false)
             )
 
             1 -> TopRecipeViewHolder(
-                TopRecipeItemBinding.inflate(layoutInflater, parent, false)
+                ItemTopRecipeBinding.inflate(layoutInflater, parent, false)
             )
 
             2 -> NoRecipesViewHolder(
-                NoRecipesPlaceholderBinding.inflate(layoutInflater, parent, false)
+                LayoutNoRecipesPlaceholderBinding.inflate(layoutInflater, parent, false)
             )
 
             else -> throw Exception("View type doesn't exist")

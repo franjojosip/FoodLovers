@@ -7,9 +7,9 @@ import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
 import ht.ferit.fjjukic.foodlovers.app_recipe.home.HomeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.TodayChoiceRecipe
-import ht.ferit.fjjukic.foodlovers.databinding.RecipeListItemBinding
+import ht.ferit.fjjukic.foodlovers.databinding.ItemTodayChoiceBinding
 
-class TodayRecipeHolder(private val binding: RecipeListItemBinding) :
+class TodayRecipeHolder(private val binding: ItemTodayChoiceBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun setData(recipe: TodayChoiceRecipe, listener: HomeListener?) {

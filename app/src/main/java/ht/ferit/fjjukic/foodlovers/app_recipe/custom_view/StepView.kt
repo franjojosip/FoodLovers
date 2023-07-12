@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
-import ht.ferit.fjjukic.foodlovers.databinding.CardStepBinding
+import ht.ferit.fjjukic.foodlovers.databinding.ItemStepCardBinding
 
 class StepView @JvmOverloads constructor(
     context: Context,
-    val attrs: AttributeSet? = null,
-    val defStyleAttr: Int = 0
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    val stepBinding = CardStepBinding.inflate(LayoutInflater.from(context), this, true)
+    val stepBinding = ItemStepCardBinding.inflate(LayoutInflater.from(context), this, true)
     private var step = 1
 
     fun toggleCloseIcon(isVisible: Boolean) {

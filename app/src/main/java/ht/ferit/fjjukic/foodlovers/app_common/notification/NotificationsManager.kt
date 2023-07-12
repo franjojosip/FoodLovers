@@ -33,7 +33,7 @@ class NotificationsManager(
 
         )
 
-        val contentView = RemoteViews(appContext.packageName, R.layout.notification_layout)
+        val contentView = RemoteViews(appContext.packageName, R.layout.layout_notification)
         contentView.setImageViewUri(R.id.iv_picture, imageUri)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

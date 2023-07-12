@@ -18,7 +18,7 @@ class CustomStepperLayout @JvmOverloads constructor(
     private var numOfSteps = 4
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.custom_stepper_layout, this, true)
+        LayoutInflater.from(context).inflate(R.layout.layout_stepper, this, true)
         resetSteps()
     }
 
