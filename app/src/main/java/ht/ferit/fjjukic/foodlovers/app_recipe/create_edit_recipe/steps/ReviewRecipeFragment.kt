@@ -70,7 +70,7 @@ class ReviewRecipeFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding
         }
 
         binding.ivDifficulty.backgroundTintList =
-            getColorStateList(data.difficulty.toString(), resources)
+            getColorStateList(data.difficulty?.name ?: "easy", resources)
 
         binding.tvSelectedCategory.text = data.category?.name
         binding.tvSelectedDifficulty.text = data.difficulty?.name

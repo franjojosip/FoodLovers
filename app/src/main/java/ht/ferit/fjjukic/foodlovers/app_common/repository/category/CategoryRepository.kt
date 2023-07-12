@@ -4,6 +4,7 @@ import ht.ferit.fjjukic.foodlovers.app_common.model.CategoryModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.FilterItem
 
 interface CategoryRepository {
+    fun init()
     suspend fun getCategory(id: String): Result<CategoryModel?>
     suspend fun getFilterCategories(): List<FilterItem.Category>
     suspend fun getCategories(): Result<List<CategoryModel>>

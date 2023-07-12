@@ -20,7 +20,7 @@ class MainActivityViewModel(
         }
     }
 
-    fun isLoggedIn(): Boolean {
+    fun isLogged(): Boolean {
         return preferenceManager.user != null
     }
 }

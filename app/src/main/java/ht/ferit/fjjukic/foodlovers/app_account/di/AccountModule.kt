@@ -7,7 +7,7 @@ import ht.ferit.fjjukic.foodlovers.app_account.viewmodel.ChangeUsernameViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val accountModule = module {
+val AccountModule = module {
     viewModel {
         AccountViewModel(get(), get())
     }

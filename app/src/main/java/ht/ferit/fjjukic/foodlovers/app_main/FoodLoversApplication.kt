@@ -1,11 +1,12 @@
 package ht.ferit.fjjukic.foodlovers.app_main
 
 import android.app.Application
-import ht.ferit.fjjukic.foodlovers.app_account.di.accountModule
-import ht.ferit.fjjukic.foodlovers.app_auth.di.authModule
-import ht.ferit.fjjukic.foodlovers.app_common.module.commonModule
-import ht.ferit.fjjukic.foodlovers.app_main.di.appModule
-import ht.ferit.fjjukic.foodlovers.app_recipe.module.recipeModule
+import ht.ferit.fjjukic.foodlovers.app_account.di.AccountModule
+import ht.ferit.fjjukic.foodlovers.app_auth.di.AuthModule
+import ht.ferit.fjjukic.foodlovers.app_common.module.RepositoryModule
+import ht.ferit.fjjukic.foodlovers.app_main.di.AppModule
+import ht.ferit.fjjukic.foodlovers.app_main.di.MainModule
+import ht.ferit.fjjukic.foodlovers.app_recipe.module.RecipeModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
@@ -25,11 +26,12 @@ class FoodLoversApplication : Application() {
 
     private fun getKoinModules(): List<Module> {
         return listOf(
-            appModule,
-            authModule,
-            commonModule,
-            accountModule,
-            recipeModule
+            AppModule,
+            RepositoryModule,
+            MainModule,
+            AuthModule,
+            RecipeModule,
+            AccountModule
         )
     }
 }

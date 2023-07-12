@@ -22,9 +22,11 @@ class CategoryRepositoryImpl(
     private val preferenceManager: PreferenceManager
 ) : CategoryRepository {
 
-    init {
-        if (preferenceManager.lastUpdatedCategories == 0L && preferenceManager.user != null) {
-            GlobalScope.launch {
+    override fun init() {
+        GlobalScope.launch(Dispatchers.IO) {
+            if (preferenceManager.lastUpdatedCategories == 0L ||
+                db.categoryDao().getAll().isEmpty()
+            ) {
                 getCategories()
             }
         }

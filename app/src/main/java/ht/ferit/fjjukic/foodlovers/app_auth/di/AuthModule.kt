@@ -6,7 +6,7 @@ import ht.ferit.fjjukic.foodlovers.app_auth.viewmodel.ResetPasswordViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val authModule = module {
+val AuthModule = module {
     viewModel {
         LoginViewModel(get())
     }

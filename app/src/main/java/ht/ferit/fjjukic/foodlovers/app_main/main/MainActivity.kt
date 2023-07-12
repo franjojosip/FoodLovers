@@ -25,10 +25,6 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
         R.id.nav_change_location
     )
 
-    private val navController by lazy {
-        (supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment).navController
-    }
-
     private val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +32,13 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
         val binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+        setNavbar(binding)
+    }
+
+    private fun setNavbar(binding: ActivityMainBinding) {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+        val navController = navHostFragment.navController
 
         binding.bottomNav.setupWithNavController(navController)
 
@@ -60,7 +63,7 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
     }
 
     private fun checkUser() {
-        if (!viewModel.isLoggedIn()) {
+        if (!viewModel.isLogged()) {
             navigateToPrelogin()
         }
     }

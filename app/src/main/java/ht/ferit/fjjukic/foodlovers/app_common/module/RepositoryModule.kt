@@ -16,7 +16,7 @@ import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepositoryImpl
 import org.koin.dsl.module
 
-val commonModule = module {
+val RepositoryModule = module {
     factory<ResourceRepository> { ResourceRepositoryImpl(get()) }
 
     factory<UserRepository> { UserRepositoryImpl(get(), get(), get(), get(), get()) }

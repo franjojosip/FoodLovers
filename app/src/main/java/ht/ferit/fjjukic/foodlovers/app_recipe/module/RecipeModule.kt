@@ -10,7 +10,7 @@ import ht.ferit.fjjukic.foodlovers.app_recipe.showrecipe.ShowRecipeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val recipeModule = module {
+val RecipeModule = module {
     viewModel {
         HomeViewModel(get(), get())
     }

@@ -42,7 +42,6 @@
     <color name="color_login_title">#CB353535</color>
     <color name="color_login_text">#B73D3D3D</color>
 
-
     <color name="color_heart_enabled">#DD3D3D</color>
     <color name="color_heart_disabled">#A5A3A3</color>
 
@@ -106,9 +105,9 @@
 
     <color name="btn_create_recipe">#F7D5A853</color>
 
-    <color name="easy_difficulty_color">#A4247C1E</color>
-    <color name="medium_difficulty_color">#B9B68F1D</color>
-    <color name="hard_difficulty_color">#B4AA2222</color>
+    <color name="color_difficulty_easy">#A4247C1E</color>
+    <color name="color_difficulty_medium">#A4B68F1D</color>
+    <color name="color_difficulty_hard">#A4AA2222</color>
 
 
     <color name="category_item_shadow">#6A000000</color>

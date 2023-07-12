@@ -185,7 +185,7 @@ fun getColorStateList(difficulty: String, resources: Resources): ColorStateList 
             ColorStateList.valueOf(
                 ResourcesCompat.getColor(
                     resources,
-                    R.color.easy_difficulty_color,
+                    R.color.color_difficulty_easy,
                     null
                 )
             )
@@ -195,7 +195,7 @@ fun getColorStateList(difficulty: String, resources: Resources): ColorStateList 
             ColorStateList.valueOf(
                 ResourcesCompat.getColor(
                     resources,
-                    R.color.medium_difficulty_color,
+                    R.color.color_difficulty_medium,
                     null
                 )
             )
@@ -205,7 +205,7 @@ fun getColorStateList(difficulty: String, resources: Resources): ColorStateList 
             ColorStateList.valueOf(
                 ResourcesCompat.getColor(
                     resources,
-                    R.color.hard_difficulty_color,
+                    R.color.color_difficulty_hard,
                     null
                 )
             )

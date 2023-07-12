@@ -34,16 +34,22 @@ class HomeViewModel(
 
     private var job: Job? = null
 
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            loadCategories()
+        }
+    }
+
     fun init() {
         job?.cancel()
         job = viewModelScope.launch(Dispatchers.IO) {
-            loadCategories()
             loadRecipes()
         }
     }
 
     private suspend fun loadRecipes() {
-        handleResult({
+        handleResult(
+            {
             recipeRepository.getRecipes()
         }, { data ->
             data?.let {

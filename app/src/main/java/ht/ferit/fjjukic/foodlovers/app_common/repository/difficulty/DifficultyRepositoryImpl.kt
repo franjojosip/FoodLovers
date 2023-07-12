@@ -21,9 +21,11 @@ class DifficultyRepositoryImpl(
     private val firebaseDB: FirebaseDB,
     private val preferenceManager: PreferenceManager
 ) : DifficultyRepository {
-    init {
-        if (preferenceManager.lastUpdatedDifficulties == 0L && preferenceManager.user != null) {
-            GlobalScope.launch {
+    override fun init() {
+        GlobalScope.launch(Dispatchers.IO) {
+            if (preferenceManager.lastUpdatedCategories == 0L ||
+                db.difficultyDao().getAll().isEmpty()
+            ) {
                 getDifficulties()
             }
         }
