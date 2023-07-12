@@ -16,5 +16,3 @@ data class SnackbarModel(
     val messageId: Int? = null,
     val isShortLength: Boolean = true
 ) : ScreenEvent()
-
-data class RefreshFiltersScreenEvent(val value: FilterModel) : ScreenEvent()

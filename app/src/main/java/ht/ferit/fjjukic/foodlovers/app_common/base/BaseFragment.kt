@@ -121,7 +121,7 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
         }
     }
 
-    protected fun showSnackbar(model: SnackbarModel) {
+    private fun showSnackbar(model: SnackbarModel) {
         val length = if (model.isShortLength) Snackbar.LENGTH_SHORT else Snackbar.LENGTH_LONG
         when {
             !model.message.isNullOrBlank() -> {

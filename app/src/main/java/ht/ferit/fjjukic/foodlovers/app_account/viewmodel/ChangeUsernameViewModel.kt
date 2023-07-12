@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
-import ht.ferit.fjjukic.foodlovers.app_common.live_data.SingleLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
@@ -18,10 +17,6 @@ class ChangeUsernameViewModel(
 
     private val _user: MutableLiveData<UserModel> = MutableLiveData()
     val user: LiveData<UserModel> = _user
-
-
-    private val _refreshUser: SingleLiveData<Boolean> = SingleLiveData()
-    val refreshUser: LiveData<Boolean> = _refreshUser
 
     fun init() {
         _user.postValue(preferenceManager.user)
