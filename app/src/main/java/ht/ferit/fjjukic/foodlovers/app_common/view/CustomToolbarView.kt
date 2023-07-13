@@ -30,7 +30,6 @@ class CustomToolbarView @JvmOverloads constructor(
         val ta = context.obtainStyledAttributes(attrs, R.styleable.CustomToolbarView)
         try {
             val text = ta.getString(R.styleable.CustomToolbarView_text)
-            //val actionColor = ta.getResourceId(R.styleable.CustomToolbarView_actionColor, ContextCompat.getColor(context, R.color.color_search_text))
             val drawableId = ta.getResourceId(R.styleable.CustomToolbarView_image, 0)
             if (drawableId != 0) {
                 val drawable = AppCompatResources.getDrawable(context, drawableId)

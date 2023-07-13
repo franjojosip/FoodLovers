@@ -48,7 +48,9 @@ abstract class BaseViewModel : ViewModel() {
                         screenEvent.postValue(LoadingBar(false))
                     }
 
-                    else -> screenEvent.postValue(LoadingBar(false))
+                    else -> {
+                        screenEvent.postValue(LoadingBar(false))
+                    }
                 }
             } catch (e: Exception) {
                 screenEvent.postValue(LoadingBar(false))

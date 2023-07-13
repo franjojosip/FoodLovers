@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_background_main"
-        tools:ignore="Overdraw">
+        tools:ignore="Overdraw"
+        tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
         <ImageView
             android:id="@+id/btn_action"
@@ -56,7 +57,7 @@
             app:layout_constraintEnd_toStartOf="@id/btn_end_action"
             app:layout_constraintStart_toEndOf="@id/btn_action"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Search recipes" />
+            tools:text="Search title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

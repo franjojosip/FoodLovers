@@ -51,17 +51,17 @@ class HomeViewModel(
         handleResult(
             {
             recipeRepository.getRecipes()
-        }, { data ->
-            data?.let {
-                val topRecipes = data.takeLast(3).mapToTopRecipe()
-                val todayChoiceRecipes = data.take(5).mapToTodayChoiceRecipe()
+            }, { data ->
+                data?.let {
+                    val topRecipes = data.takeLast(3).mapToTopRecipe()
+                    val todayChoiceRecipes = data.take(5).mapToTodayChoiceRecipe()
 
-                withContext(Dispatchers.Main) {
-                    _todayChoiceRecipes.value = todayChoiceRecipes
-                    _topRecipes.value = topRecipes
+                    withContext(Dispatchers.Main) {
+                        _todayChoiceRecipes.value = todayChoiceRecipes
+                        _topRecipes.value = topRecipes
+                    }
                 }
-            }
-        }, {}, showLoading = true
+            }, {}
         )
     }
 
