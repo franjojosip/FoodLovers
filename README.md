@@ -19,6 +19,7 @@ This project is an example of a recipe mobile app.<br /> The goal is to work wit
 - Concurrency design pattern ([Coroutines](https://developer.android.com/kotlin/coroutines))
 - Jetpack Navigation ([Navigation](https://developer.android.com/jetpack))
 - Google Maps ([Google Maps](https://developers.google.com/maps/documentation/android-sdk/))
+- Localization ([Localization](https://developer.android.com/guide/topics/resources/localization))
 - Android architecture components to share ViewModels during configuration changes and LiveData
 - Google [Material Design](https://material.io/blog/android-material-theme-color)
 - Notifications [NotificationManager](https://developer.android.com/reference/android/app/NotificationManager)
