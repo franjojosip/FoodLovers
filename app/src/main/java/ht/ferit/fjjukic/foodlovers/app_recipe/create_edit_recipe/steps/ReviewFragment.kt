@@ -51,8 +51,8 @@ class ReviewFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding>() {
     }
 
     private fun setScreen(data: RecipeModel) {
-        binding.tvRecipeTitle.text = data.name.ifBlank { "Here goes your title" }
-        binding.tvNumberOfServings.text = data.servings.convertToServings()
+        binding.tvRecipeTitle.text = data.name.ifBlank { getString(R.string.label_recipe_hint) }
+        binding.tvNumberOfServings.text = data.servings.convertToServings(resources)
         binding.tvTime.text = data.time.convertToTime()
 
         binding.tvRecipeAuthor.isVisible = data.user != null
@@ -121,15 +121,15 @@ class ReviewFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding>() {
 
     private fun addIngredientField(data: IngredientModel) {
         val view = ItemIngredientListItemBinding.inflate(LayoutInflater.from(context), null, false)
-        view.tvIngredientAmount.text = data.amount.ifBlank { "XX" }
-        view.tvIngredientName.text = data.name.ifBlank { "Ingredient name placeholder" }
+        view.tvIngredientAmount.text = data.amount.ifBlank { "X" }
+        view.tvIngredientName.text = data.name.ifBlank { getString(R.string.label_ingredient_hint) }
         binding.llIngredients.addView(view.root)
     }
 
     private fun addStepField(data: StepModel) {
         val view = ItemStepBinding.inflate(LayoutInflater.from(context), null, false)
         view.tvStep.text = getString(R.string.step, data.position)
-        view.tvDescription.text = data.description.ifBlank { "Step description placeholder" }
+        view.tvDescription.text = data.description.ifBlank { getString(R.string.label_step_hint) }
         binding.llSteps.addView(view.root)
     }
 }

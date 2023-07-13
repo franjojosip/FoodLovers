@@ -44,7 +44,7 @@ class ShowRecipeFragment : BaseFragment<ShowRecipeViewModel, FragmentShowRecipeB
             binding.tvRecipeAuthor.text = recipe.user
 
             binding.tvTime.text = recipe.time.toInt().convertToTime()
-            binding.tvNumberOfServings.text = recipe.servings.convertToServings()
+            binding.tvNumberOfServings.text = recipe.servings.convertToServings(resources)
 
             binding.tvSelectedCategory.text = recipe.category
             binding.tvSelectedDifficulty.text = recipe.difficulty

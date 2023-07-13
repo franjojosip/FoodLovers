@@ -18,7 +18,7 @@ class BasicRecipeViewHolder(private val binding: ItemSearchRecipeBinding) :
         binding.tvTime.text = recipe.time.toInt().convertToTime()
         binding.tvRecipeAuthor.text = recipe.user
 
-        binding.tvServings.text = recipe.servings.convertToServings()
+        binding.tvServings.text = recipe.servings.convertToServings(binding.root.resources)
 
         binding.ivFavorite.isVisible = recipe.isFavorite
 
