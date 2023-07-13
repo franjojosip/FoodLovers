@@ -43,9 +43,10 @@ And you're ready to start working on your new app.
 
 <img src="https://github.com/franjojosip/FoodLovers/assets/52075105/86342411-3ec5-4fff-9d56-372c6266a6a1" width="300" height="620">&nbsp;&nbsp;
 <img src="https://github.com/franjojosip/FoodLovers/assets/52075105/7d2c9970-5d30-4fdd-a1d0-01cf6cf0b14f" width="300" height="620">&nbsp;&nbsp;
-<img src="https://github.com/franjojosip/FoodLovers/assets/52075105/cda2e42c-6b14-4064-b6a5-17c9f8ec5290" width="300" height="620">&nbsp;&nbsp;
 
+<img src="https://github.com/franjojosip/FoodLovers/assets/52075105/cda2e42c-6b14-4064-b6a5-17c9f8ec5290" width="300" height="620">&nbsp;&nbsp;
 <img src="https://github.com/franjojosip/FoodLovers/assets/52075105/5a54b1ae-a766-4629-96b2-dfeb4ab6cf96" width="300" height="620">&nbsp;&nbsp;
+
 <img src="https://github.com/franjojosip/FoodLovers/assets/52075105/35e63960-3cc0-4e5f-874e-3746db8256cd" width="300" height="620">&nbsp;&nbsp;
 <img src="https://github.com/franjojosip/FoodLovers/assets/52075105/16b0b997-9dba-4c6a-bf9c-5580daafc324" width="300" height="620">&nbsp;&nbsp;
 
