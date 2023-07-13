@@ -1,9 +1,9 @@
 <resources>
     <!-- APP -->
-    <string name="app_name">FoodLovers</string>
-    <string name="app_channel_id">@string/donottranslate_channel_id</string>
-    <string name="app_google_maps_key">@string/donottranslate_google_maps_key</string>
-    <string name="app_food_lovers_image">Food lovers image</string>
+    <string name="app_name" translatable="false">FoodLovers</string>
+    <string name="app_channel_id" translatable="false">@string/donottranslate_channel_id</string>
+    <string name="app_google_maps_key" translatable="false">@string/donottranslate_google_maps_key</string>
+    <string name="app_food_lovers_image">FoodLovers image</string>
 
     <!-- ACTIONS -->
     <string name="action_update">Update</string>
@@ -85,14 +85,14 @@
     <string name="recipe_name">Name</string>
     <string name="recipe_title">Recipe title</string>
     <string name="recipe_description">Description</string>
-    <string name="recipe_total_recipes">%d total recipes</string>
+    <string name="recipe_total_recipes">Total recipes: %d</string>
 
     <!-- STEP STRINGS -->
     <string name="step_main">Main</string>
     <string name="step_ingredients">Ingredients</string>
     <string name="step_steps">Steps</string>
     <string name="step_preview">Preview</string>
-    <string name="step">"Step %d."</string>
+    <string name="step">Step %d.</string>
 
     <!-- RECIPES MESSAGE STRINGS -->
     <string name="message_recipe_created">Successfully created recipe</string>
@@ -129,6 +129,9 @@
     <string name="label_no_items_in_section">No items added to this section</string>
     <string name="label_first_step">Step 1.</string>
     <string name="label_step_description_hint">Step description is here</string>
+    <string name="label_recipe_hint">Here goes your title</string>
+    <string name="label_ingredient_hint">Ingredient name placeholder</string>
+    <string name="label_step_hint">Step description placeholder</string>
 
     <!-- TITLE STRINGS -->
     <string name="title_category">Category</string>
@@ -154,7 +157,7 @@
     <string name="title_weight">Weight</string>
     <string name="title_weight_metrics">kg | dg | g</string>
     <string name="title_no_recipes_found">No Recipes Found</string>
-    <string name="title_no_recipes_found_message">We can\'t find any item matching\nyour search</string>
+    <string name="title_no_recipes_found_message">We can\'t find any item matching your search</string>
 
     <!-- CREATE/EDIT RECIPE SCREEN STRINGS -->
     <string name="title_create_recipe_name">Name</string>
@@ -203,5 +206,11 @@
     <string name="ic_step_accessibility">Step icon</string>
     <string name="iv_time_accessibility">Time icon</string>
     <string name="background_welcome_screen_accessibility">Cooking app background</string>
+
+    <plurals name="label_num_of_servings">
+        <item quantity="one">%d serving</item>
+        <item quantity="other">%d servings</item>
+        <item quantity="few">%d servings</item>
+    </plurals>
 
 </resources>

@@ -120,12 +120,14 @@ class RecipeViewModel(
         val model = categories.value?.first { it.name.equals(category, true) } ?: return
         _category.postValue(model)
         recipe.category = model
+        dataChanged.value = true
     }
 
     fun onDifficultyChanged(difficulty: String) {
         val model = difficulties.value?.first { it.name.equals(difficulty, true) } ?: return
         _difficulty.postValue(model)
         recipe.difficulty = model
+        dataChanged.value = true
     }
 
     fun onNameChanged(value: String) {

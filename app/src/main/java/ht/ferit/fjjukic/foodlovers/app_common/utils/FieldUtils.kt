@@ -1,5 +1,8 @@
 package ht.ferit.fjjukic.foodlovers.app_common.utils
 
+import android.content.res.Resources
+import ht.ferit.fjjukic.foodlovers.R
+
 fun Int.convertToTime(): String {
     val hours = this / 60
     val mins = this % 60
@@ -8,6 +11,7 @@ fun Int.convertToTime(): String {
         hours > 0 && mins > 0 -> {
             "${hours}h ${mins}min"
         }
+
         hours > 0 -> {
             "$hours h"
         }
@@ -17,9 +21,6 @@ fun Int.convertToTime(): String {
     }
 }
 
-fun Int.convertToServings(): String {
-    return when {
-        this == 1 -> "$this serving"
-        else -> "$this servings"
-    }
+fun Int.convertToServings(resources: Resources): String {
+    return resources.getQuantityString(R.plurals.label_num_of_servings, this, this)
 }
