@@ -1,0 +1,38 @@
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cl_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_search_layout"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofilledHighlight="@android:color/transparent"
+            android:background="@android:color/transparent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:drawableStart="@drawable/ic_search"
+            android:drawableEnd="@drawable/ic_close"
+            android:drawablePadding="15dp"
+            android:fontFamily="@font/playfair_display_regular"
+            android:hint="@string/title_search_recipes"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:clickable="true"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="9dp"
+            android:textColor="@color/color_search_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

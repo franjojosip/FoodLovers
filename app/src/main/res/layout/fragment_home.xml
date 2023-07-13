@@ -1,120 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/recipes_background"
-    tools:context=".ui.main.view.ui.home.HomeFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/recycler_view"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/layout1"
+        <include
+            android:id="@+id/loader_layout"
+            layout="@layout/layout_loader"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
-            <EditText
-                android:id="@+id/et_search"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_weight="0.95"
-                android:background="#D1F8F8F8"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
-                android:fontFamily="serif"
-                android:gravity="center"
-                android:hint="@string/search_for_a_recipes"
-                android:imeOptions="actionSearch"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:singleLine="true"
-                android:textColor="@color/colorSearchFont"
-                android:textSize="19sp"
-                android:textStyle="italic" />
-
-            <ImageView
-                android:id="@+id/iv_search"
-                android:layout_width="50dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="0.05"
-                android:background="#D1C1C0C0"
-                android:padding="14dp"
-                android:src="@drawable/search"
-                android:text="@string/find"
-                android:textAlignment="center"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout1"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/btnSelectDifficulty"
-                android:layout_width="200dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/colorSearch"
-                android:fontFamily="serif"
-                android:gravity="center"
-                android:importantForAutofill="no"
-                android:textSize="15sp"
-                android:textStyle="italic" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_background_main">
 
-            <Button
-                android:id="@+id/btnSelectFoodType"
-                android:layout_width="200dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/colorSearch"
-                android:fontFamily="serif"
-                android:gravity="center"
-                android:importantForAutofill="no"
-                android:textSize="15sp"
-                android:textStyle="italic" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/playfair_display_regular"
+                    android:text="@string/title_discover_new_recipes"
+                    android:textColor="@color/color_gray_light"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ht.ferit.fjjukic.foodlovers.app_common.view.SearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="15dp"
+                    android:clipToPadding="false"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+                <TextView
+                    android:id="@+id/tv_categories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/playfair_display_semi_bold"
+                    android:text="@string/title_categories"
+                    android:textColor="@color/color_gray_light"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/search_view" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/category_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_categories" />
+
+                <TextView
+                    android:id="@+id/tv_today_choice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/playfair_display_semi_bold"
+                    android:text="@string/title_today_choice"
+                    android:textColor="@color/color_gray_light"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/category_recycler_view" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/today_choice_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_today_choice" />
+
+                <TextView
+                    android:id="@+id/tv_top_recipes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:fontFamily="@font/playfair_display_semi_bold"
+                    android:text="@string/title_recipes_this_week"
+                    android:textColor="@color/color_gray_light"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/today_choice_recycler_view" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/top_recipe_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="14dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_top_recipes" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="140dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/recipe_list_item" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="25dp"
-        android:backgroundTint="@color/colorRed"
-        android:onClick="goToAddRecipe"
-        android:src="@drawable/add_icon_foreground"
-        app:backgroundTint="@color/colorWhite"
-        app:borderWidth="2dp"
-        app:fabCustomSize="60dp"
-        app:layout_constraintBottom_toBottomOf="@+id/recycler_view"
-        app:layout_constraintRight_toRightOf="@+id/recycler_view"
-        tools:ignore="OnClick" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

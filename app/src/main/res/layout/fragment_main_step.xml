@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:id="@+id/sv_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_background_main"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/playfair_display_regular"
+                android:text="@string/title_create_recipe_name"
+                android:textColor="@color/color_gray_light"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_name"
+                style="@style/RoundedTextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_name"
+                    style="@style/PlaceholderTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/title_create_recipe_name_placeholder"
+                    android:imeOptions="actionDone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/playfair_display_regular"
+                android:text="@string/title_create_recipe_cooking_time"
+                android:textColor="@color/color_gray_light"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_image" />
+
+            <TextView
+                android:id="@+id/tv_cooking_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/playfair_display_regular"
+                android:padding="5dp"
+                android:text="@string/title_create_recipe_cooking_time_default"
+                android:textColor="@color/color_gray_light"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tv_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_time" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/seekbar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:stepSize="15"
+                android:valueFrom="15"
+                android:valueTo="180"
+                app:labelBehavior="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_time" />
+
+            <TextView
+                android:id="@+id/tv_number_of_servings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/playfair_display_regular"
+                android:text="@string/title_create_recipe_number_of_servings"
+                android:textColor="@color/color_gray_light"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/seekbar" />
+
+            <ImageView
+                android:id="@+id/btn_decrement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/btn_decrement_accessibility"
+                android:padding="5dp"
+                android:src="@drawable/ic_remove"
+                app:layout_constraintBottom_toBottomOf="@id/tv_number_of_servings"
+                app:layout_constraintEnd_toStartOf="@id/tv_counter"
+                app:layout_constraintTop_toTopOf="@id/tv_number_of_servings" />
+
+            <TextView
+                android:id="@+id/tv_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/color_primary_dark"
+                android:textSize="23sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_number_of_servings"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_number_of_servings"
+                app:layout_constraintTop_toTopOf="@id/tv_number_of_servings"
+                tools:text="5" />
+
+            <ImageView
+                android:id="@+id/btn_increment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@string/btn_increment_accessibility"
+                android:padding="5dp"
+                android:src="@drawable/ic_add"
+                app:layout_constraintBottom_toBottomOf="@id/tv_number_of_servings"
+                app:layout_constraintStart_toEndOf="@id/tv_counter"
+                app:layout_constraintTop_toTopOf="@id/tv_number_of_servings" />
+
+            <TextView
+                android:id="@+id/tv_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/playfair_display_regular"
+                android:text="@string/title_create_recipe_image"
+                android:textColor="@color/color_gray_light"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_name" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cl_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="15dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="false"
+                app:layout_constraintDimensionRatio="H,16:10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_image">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_recipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_action"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/ic_add"
+                android:elevation="4dp"
+                android:paddingBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/cl_image"
+                app:layout_constraintEnd_toEndOf="@id/cl_image"
+                app:layout_constraintStart_toStartOf="@id/cl_image"
+                app:layout_constraintTop_toTopOf="@id/cl_image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

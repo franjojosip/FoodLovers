@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@id/nav_graph_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/navigation_home"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@id/nav_graph_recipes"
+        android:icon="@drawable/ic_plate"
+        android:title="@string/navigation_recipes"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@id/nav_graph_favorites"
+        android:icon="@drawable/ic_favorites"
+        android:title="@string/navigation_favorites"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@id/nav_graph_account"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/navigation_profile"
+        app:showAsAction="ifRoom" />
+</menu>

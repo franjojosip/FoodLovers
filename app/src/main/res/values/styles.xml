@@ -1,24 +1,103 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorRed</item>
-        <item name="colorPrimaryDark">@color/colorRed</item>
-        <item name="colorAccent">@color/colorRed</item>
-        <item name="android:statusBarColor">@color/colorRed</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="android:autofilledHighlight" tools:targetApi="o">@android:color/transparent
+        </item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <item name="android:ambientShadowAlpha">0.04</item>
+        <item name="android:spotShadowAlpha">0.04</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:fitsSystemWindows">false</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
-    <style name="AppTheme.NoActionBar.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-    <style name="AppTheme.NoActionBar.AppBarOverlay"
-        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/shape_top_rounded</item>
+    </style>
+
+    <style name="CustomTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="strokeColor">@color/color_text_input_layout_stroke</item>
+        <item name="boxStrokeColor">@color/color_text_input_layout_box</item>
+        <item name="hintTextColor">@color/color_text_input_layout_hint</item>
+        <item name="endIconTint">@color/color_text_input_layout</item>
+        <item name="colorControlActivated">@color/color_text_input_layout</item>
+        <item name="errorTextColor">@color/color_text_input_layout_error</item>
+        <item name="errorIconTint">@color/color_text_input_layout_error</item>
+        <item name="boxStrokeErrorColor">@color/color_text_input_layout_error</item>
+        <item name="boxStrokeWidth">1.5dp</item>
+    </style>
+
+    <style name="RoundedTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="strokeColor">@color/color_text_input_layout_box_light</item>
+        <item name="boxStrokeColor">@drawable/state_input_layout_box_stroke</item>
+        <item name="hintTextColor">@color/color_text_input_layout_box_light</item>
+        <item name="endIconTint">@color/color_text_input_layout_box_light</item>
+        <item name="colorControlActivated">@color/color_text_input_layout_box_light</item>
+        <item name="errorTextColor">@color/color_text_input_layout_error</item>
+        <item name="boxStrokeErrorColor">@color/color_text_input_layout_error</item>
+        <item name="boxStrokeWidthFocused">1.5dp</item>
+        <item name="boxStrokeWidth">1.5dp</item>
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded
+        </item>
+    </style>
+
+    <style name="IngredientRoundedTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="strokeColor">@color/color_text_input_layout_box_light</item>
+        <item name="boxStrokeColor">@drawable/state_input_layout_box_stroke</item>
+        <item name="hintTextColor">@color/color_gray_dark</item>
+        <item name="placeholderTextColor">@color/color_gray_dark</item>
+        <item name="endIconTint">@color/color_text_input_layout_box_light</item>
+        <item name="colorControlActivated">@color/color_text_input_layout_box_light</item>
+        <item name="errorTextColor">@color/color_text_input_layout_error</item>
+        <item name="boxStrokeErrorColor">@color/color_text_input_layout_error</item>
+        <item name="boxStrokeWidthFocused">1.5dp</item>
+        <item name="boxStrokeWidth">1.5dp</item>
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded
+        </item>
+    </style>
+
+    <style name="PlaceholderTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/color_gray_dark</item>
+        <item name="android:textColorHint">@color/color_gray_dark</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+    
+    <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
+        <item name="colorControlActivated">@color/color_text_input_layout</item>
+    </style>
+
+    <style name="MaterialAlertDialog_rounded" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
+    </style>
+
+    <style name="DialogCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <declare-styleable name="CustomStepView">
+        <attr format="string" name="step_text" />
+    </declare-styleable>
+
+    <declare-styleable name="IngredientView">
+        <attr format="boolean" name="has_close_action" />
+    </declare-styleable>
 </resources>

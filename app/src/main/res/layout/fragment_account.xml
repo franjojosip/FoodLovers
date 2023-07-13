@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.main.view.ui.account.AccountFragment">
+    tools:context=".app_account.view.AccountFragment">
 
-    <data
-        android:layout_width="162dp"
-        android:layout_height="76dp">
-
-        <variable
-            name="viewmodel"
-            type="ht.ferit.fjjukic.foodlovers.ui.main.viewmodel.AccountViewModel" />
-    </data>
-
-    <ScrollView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,274 +13,362 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite">
+            android:background="@color/color_background_main">
+
+            <include
+                android:id="@+id/loader_layout"
+                layout="@layout/layout_loader"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/shape_round_bottom"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="8dp"
-                card_view:cardCornerRadius="6dp"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent">
+                android:id="@+id/cv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="45dp"
+                android:elevation="3dp"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:paddingVertical="20dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cl_take_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:elevation="8dp"
+                        app:cardCornerRadius="25dp"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_profile_image"
+                        app:layout_constraintEnd_toEndOf="@id/iv_profile_image">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/ic_add_photo"
+                            android:backgroundTint="@color/color_account_text_gold"
+                            android:contentDescription="@string/icon_image_capture" />
+                    </androidx.cardview.widget.CardView>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_profile_image"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:background="@drawable/ic_account"
+                        android:contentDescription="@string/image_user"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/tv_profile_username"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="25dp"
-                        android:fontFamily="serif"
-                        android:text="@string/change_account_information"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="20dp"
+                        android:fontFamily="@font/playfair_display_regular"
                         android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25sp"
-                        android:textStyle="italic" />
+                        android:textColor="@color/color_gray_light"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_profile_image"
+                        tools:text="RandomUser123" />
+
+                    <ImageView
+                        android:id="@+id/iv_profile_email"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/ic_email"
+                        android:backgroundTint="@color/color_account_arrow"
+                        android:contentDescription="@string/email_icon"
+                        app:layout_constraintEnd_toEndOf="@id/tv_location"
+                        app:layout_constraintStart_toStartOf="@id/tv_location"
+                        app:layout_constraintTop_toBottomOf="@id/tv_profile_username" />
 
                     <TextView
-                        android:id="@+id/tv_user_name"
-                        android:layout_width="match_parent"
+                        android:id="@+id/tv_profile_email"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:fontFamily="serif"
-                        android:text="@string/username"
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20sp"
-                        android:textStyle="italic" />
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="-5dp"
+                        android:layout_marginEnd="20dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/playfair_display_regular"
+                        android:maxLines="2"
+                        android:textAlignment="center"
+                        android:textColor="@color/color_gray_light"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_profile_email"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_profile_email"
+                        app:layout_constraintTop_toTopOf="@+id/iv_profile_email"
+                        tools:text="random.guy.second2@gmail.com" />
 
-                    <EditText
-                        android:id="@+id/et_username"
+                    <View
+                        android:id="@+id/v_line1"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:fontFamily="serif"
-                        android:hint="@string/username"
-                        android:importantForAutofill="no"
-                        android:inputType="text|textCapWords"
-                        android:padding="15dp"
-                        android:text="@={viewmodel.currentUser.name}"
-                        android:textSize="16sp" />
-
-                    <RelativeLayout
-                        android:id="@+id/linearLayout2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/tv_user_image"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginBottom="8dp"
-                            android:fontFamily="serif"
-                            android:text="@string/user_image"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="20sp"
-                            android:textStyle="italic" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/iv_account_image"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_below="@+id/tv_user_image"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginRight="20dp"
-                            android:background="@drawable/ic_account_circle_black_24dp"
-                            android:contentDescription="@string/user_image"/>
-
-                        <Button
-                            android:id="@+id/btn_change_image"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_user_image"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="40dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_toEndOf="@+id/iv_account_image"
-                            android:background="@color/colorSmoke"
-                            android:fontFamily="serif"
-                            android:text="@string/change_image"
-                            android:textColor="@color/colorWhite"
-                            android:textStyle="italic" />
-
-                        <Button
-                            android:id="@+id/btn_take_image"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/btn_change_image"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="40dp"
-                            android:layout_marginTop="25dp"
-                            android:layout_toEndOf="@+id/iv_account_image"
-                            android:background="@color/colorSmoke"
-                            android:fontFamily="serif"
-                            android:text="@string/take_image"
-                            android:textColor="@color/colorWhite"
-                            android:textStyle="italic" />
-
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="30dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:fontFamily="serif"
-                            android:text="Location"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="20sp"
-                            android:textStyle="italic" />
-
-                        <TextView
-                            android:id="@+id/tv_location"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="serif"
-                            android:text="@={viewmodel.location}"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="17sp" />
-
-                        <Button
-                            android:id="@+id/btn_change_location"
-                            android:layout_width="180dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:background="@color/colorSmoke"
-                            android:fontFamily="serif"
-                            android:text="Change location"
-                            android:textColor="@color/colorWhite"
-                            android:textStyle="italic" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginRight="20dp"
-                            android:fontFamily="serif"
-                            android:text="@string/old_email"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="20sp"
-                            android:textStyle="italic" />
-
-                        <TextView
-                            android:id="@+id/tv_old_email"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginBottom="15dp"
-                            android:fontFamily="serif"
-                            android:text="@={viewmodel.currentUser.email}"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="17sp" />
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/color_smoke"
+                        app:layout_constraintTop_toBottomOf="@id/tv_profile_email" />
 
 
-                        <TextView
-                            android:id="@+id/tv_new_email"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:fontFamily="serif"
-                            android:text="@string/new_email"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="20sp"
-                            android:textStyle="italic" />
+                    <TextView
+                        android:id="@+id/tv_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="20dp"
+                        android:fontFamily="@font/playfair_display_semi_bold"
+                        android:text="@string/location"
+                        android:textAlignment="center"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_profile_location"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_profile_location" />
 
-                        <EditText
-                            android:id="@+id/et_new_email"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginBottom="20dp"
-                            android:fontFamily="serif"
-                            android:hint="@string/email"
-                            android:importantForAutofill="no"
-                            android:inputType="textEmailAddress"
-                            android:padding="15dp"
-                            android:text="@={viewmodel.newEmail}"
-                            android:textSize="17sp" />
+                    <TextView
+                        android:id="@+id/tv_profile_location"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="40dp"
+                        android:fontFamily="@font/playfair_display_regular"
+                        android:textAlignment="center"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_location"
+                        app:layout_constraintTop_toBottomOf="@id/v_line1"
+                        tools:text="Osijek, Croatia" />
 
-                        <TextView
-                            android:id="@+id/tv_email"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:fontFamily="serif"
-                            android:text="@string/password"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="20sp"
-                            android:textStyle="italic" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <EditText
-                            android:id="@+id/et_password"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginBottom="20dp"
-                            android:fontFamily="serif"
-                            android:hint="@string/password"
-                            android:importantForAutofill="no"
-                            android:inputType="textPassword"
-                            android:padding="15dp"
-                            android:text="@={viewmodel.password}"
-                            android:textSize="17sp" />
-                    </LinearLayout>
-
-
-                    <Button
-                        android:id="@+id/btn_update"
-                        android:layout_width="250dp"
-                        android:layout_height="55dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/login_btn"
-                        android:fontFamily="serif"
-                        android:onClick="@{(v)-> viewmodel.changeInfo(v)}"
-                        android:text="@string/update"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="20sp"
-                        android:textStyle="italic" />
-                </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/playfair_display_bold"
+                android:padding="5dp"
+                android:text="@string/screen_settings"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_profile" />
+
+            <ImageView
+                android:id="@+id/iv_profile_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="11dp"
+                android:background="@drawable/ic_person"
+                android:backgroundTint="@color/color_gray"
+                android:contentDescription="@string/icon_profile"
+                app:layout_constraintEnd_toStartOf="@id/tv_change_username"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_account" />
+
+            <TextView
+                android:id="@+id/tv_change_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/playfair_display_semi_bold"
+                android:padding="5dp"
+                android:text="@string/action_change_username"
+                android:textColor="@color/color_account_text_gray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/iv_arrow1"
+                app:layout_constraintStart_toEndOf="@id/iv_profile_icon"
+                app:layout_constraintTop_toBottomOf="@id/tv_account" />
+
+            <ImageView
+                android:id="@+id/iv_arrow1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/ic_forward"
+                android:backgroundTint="@color/color_account_arrow"
+                android:contentDescription="@string/icon_navigate"
+                app:layout_constraintBottom_toBottomOf="@id/tv_change_username"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_change_username" />
+
+            <View
+                android:id="@+id/v_line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="25dp"
+                android:background="@color/color_smoke"
+                app:layout_constraintTop_toBottomOf="@id/tv_change_username" />
+
+            <ImageView
+                android:id="@+id/iv_email_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/ic_email"
+                android:backgroundTint="@color/color_account_icon"
+                android:contentDescription="@string/icon_email"
+                app:layout_constraintEnd_toStartOf="@id/tv_change_email"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/v_line2" />
+
+            <TextView
+                android:id="@+id/tv_change_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/playfair_display_semi_bold"
+                android:padding="5dp"
+                android:text="@string/email_change"
+                android:textColor="@color/color_account_text_gray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/iv_arrow2"
+                app:layout_constraintStart_toEndOf="@id/iv_profile_icon"
+                app:layout_constraintTop_toBottomOf="@id/v_line2" />
+
+            <ImageView
+                android:id="@+id/iv_arrow2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/ic_forward"
+                android:backgroundTint="@color/color_account_arrow"
+                android:contentDescription="@string/icon_navigate"
+                app:layout_constraintBottom_toBottomOf="@id/tv_change_email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_change_email" />
+
+            <View
+                android:id="@+id/v_line3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="25dp"
+                android:background="@color/color_smoke"
+                app:layout_constraintTop_toBottomOf="@id/tv_change_email" />
+
+
+            <ImageView
+                android:id="@+id/iv_location_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/ic_location"
+                android:backgroundTint="@color/color_account_location"
+                android:contentDescription="@string/icon_location"
+                app:layout_constraintEnd_toStartOf="@id/tv_change_location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/v_line3" />
+
+            <TextView
+                android:id="@+id/tv_change_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/playfair_display_semi_bold"
+                android:padding="5dp"
+                android:text="@string/action_update_location"
+                android:textColor="@color/color_account_text_gray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/iv_arrow3"
+                app:layout_constraintStart_toEndOf="@id/iv_location_icon"
+                app:layout_constraintTop_toBottomOf="@id/v_line3" />
+
+            <ImageView
+                android:id="@+id/iv_arrow3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/ic_forward"
+                android:backgroundTint="@color/color_account_arrow"
+                android:contentDescription="@string/icon_navigate"
+                app:layout_constraintBottom_toBottomOf="@id/tv_change_location"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_change_location" />
+
+            <View
+                android:id="@+id/v_line4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/color_smoke"
+                app:layout_constraintTop_toBottomOf="@id/tv_change_location" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="19dp"
+                android:layout_marginTop="15dp"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/v_line4">
+
+                <ImageView
+                    android:id="@+id/iv_logout"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/ic_logout"
+                    android:backgroundTint="@color/color_account_text_gold"
+                    android:contentDescription="@string/icon_logout"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_logout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_logout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:text="@string/action_logout"
+                    android:textColor="@color/color_account_text_gold"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_logout"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

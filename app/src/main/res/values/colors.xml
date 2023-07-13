@@ -1,15 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
-    <color name="colorBlack">#595959</color>
-    <color name="colorWhite">#F8F8F8</color>
-    <color name="colorMenu">#D0C1B5B5</color>
-    <color name="colorSmoke">#7CA89D9D</color>
-    <color name="colorRed">#FB5959</color>
-    <color name="menu_color">#F66B6B</color>
-    <color name="itemBackgroundColor">#D8D4D4</color>
-    <color name="colorSearch">#E5C1B5B5</color>
-    <color name="colorSearchFont">#EA686868</color>
+    <!-- MAIN COLORS -->
+    <color name="color_primary">#9AC8BA96</color>
+    <color name="color_primary_dark">#998F8062</color>
+    <color name="color_accent">#9AC8BA96</color>
+
+    <!-- ACCOUNT SCREEN COLORS -->
+    <color name="color_account_arrow">#AAAAAA</color>
+    <color name="color_account_icon">#656565</color>
+    <color name="color_account_location">#555555</color>
+    <color name="color_account_text_gray">#656565</color>
+    <color name="color_account_text_gold">#EB9E7C3A</color>
+
+    <!-- BACKGROUND COLORS -->
+    <color name="color_background_main">#8FFFFFFF</color>
+    <color name="color_background_welcome_screen">#595959</color>
+
+    <!-- BUTTON STATE COLORS -->
+    <color name="color_btn_enabled">#DDC29846</color>
+    <color name="color_btn_add_recipe">#F7D5A853</color>
+
+    <!-- CHIP FILTER COLORS -->
+    <color name="color_chip_filter_background_checked">#ADC8A796</color>
+    <color name="color_chip_filter_background_unchecked">#81D6D6D6</color>
+    <color name="color_chip_filter_text_checked">#FFFFFF</color>
+    <color name="color_chip_filter_text_unchecked">#E6373737</color>
+    <color name="color_chip_filter_search_background">#E4E1C4B5</color>
+
+    <!-- DIFFICULTY COLORS -->
+    <color name="color_difficulty_easy">#A4247C1E</color>
+    <color name="color_difficulty_medium">#A4B68F1D</color>
+    <color name="color_difficulty_hard">#A4AA2222</color>
+
+    <!-- HEART COLORS -->
+    <color name="color_heart_enabled">#DD3D3D</color>
+    <color name="color_heart_disabled">#A5A3A3</color>
+
+    <!-- LOGIN SCREEN COLORS -->
+    <color name="color_login_title">#CB353535</color>
+    <color name="color_login_text">#B73D3D3D</color>
+
+    <!-- NAVBAR COLORS -->
+    <color name="color_navigation_bar_icon_active">#DCA759</color>
+    <color name="color_navigation_bar_icon_inactive">#AFAFAF</color>
+
+    <!-- SEARCH COLORS -->
+    <color name="color_search_icon">#B78C8C8C</color>
+    <color name="color_search_text">#EA686868</color>
+
+    <!-- STEPPER COLORS -->
+    <color name="color_stepper_number_current">#E18E6F60</color>
+    <color name="color_stepper_circle_border">#BC8C8988</color>
+    <color name="color_stepper_item">#D79E8451</color>
+    <color name="color_stepper_item_disabled">#D7A5A29B</color>
+
+    <!-- TEXT INPUT LAYOUT COLORS -->
+    <color name="color_text_input_layout">#B7858383</color>
+    <color name="color_text_input_layout_box">#B7717171</color>
+    <color name="color_text_input_layout_box_light">#B7A1A1A1</color>
+    <color name="color_text_input_layout_error">#B7B62727</color>
+    <color name="color_text_input_layout_hint">#B75A5A5A</color>
+    <color name="color_text_input_layout_search">#B7EFEDED</color>
+    <color name="color_text_input_layout_stroke">#B78C8C8C</color>
+
+    <!-- OTHER COLORS -->
+    <color name="color_filter">#ADC8A796</color>
+    <color name="color_gray">#272727</color>
+    <color name="color_gray_light">#595959</color>
+    <color name="color_gray_dark">#B7434343</color>
+    <color name="color_gold">#DDC29846</color>
+    <color name="color_shadow">#6A000000</color>
+    <color name="color_smoke">#7CA89D9D</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_white_light">#EFEDE8</color>
+    <color name="color_white_transparent">#F5FFFFFF</color>
+    <color name="color_profile_settings">#CEC3A365</color>
+    <color name="color_underline">#B7555555</color>
+
 </resources>

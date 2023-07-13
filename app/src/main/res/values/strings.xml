@@ -1,62 +1,207 @@
 <resources>
+    <!-- APP -->
     <string name="app_name">FoodLovers</string>
-    <string name="title">FoodLovers</string>
-    <string name="password">Password</string>
-    <string name="email">Email</string>
-    <string name="login">Login</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="sign_up">Don\'t have an account? <u>Sign up</u></string>
-    <string name="register">Register</string>
-    <string name="repeat_password">Repeat password</string>
-    <string name="show_password">Show password</string>
-    <string name="food_lovers">Food lovers image</string>
-    <string name="login_text">Remember your log-in details? <u>Login</u></string>
-    <string name="reset_password">Reset password</string>
-    <string name="back_to_login_page">Back to login page</string>
-    <string name="sweet">Sweet</string>
-    <string name="salty">Salty</string>
-    <string name="comment">Comment</string>
-    <string name="title_activity_navigation">NavigationActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">your@email.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_channel_id">@string/donottranslate_channel_id</string>
+    <string name="app_google_maps_key">@string/donottranslate_google_maps_key</string>
+    <string name="app_food_lovers_image">Food lovers image</string>
 
-    <string name="home">Home</string>
-    <string name="account">Account</string>
-    <string name="logout">Logout</string>
-    <string name="menu">Menu</string>
-    <string name="change_email">Change your email</string>
-    <string name="update">Update</string>
-    <string name="old_email">Old email</string>
-    <string name="new_email">New email</string>
-    <string name="description">Description</string>
-    <string name="name">Name</string>
-    <string name="choose_image">Choose image</string>
-    <string name="difficulty_level">Difficulty level</string>
-    <string name="recipe_image">Recipe image</string>
-    <string name="food_type">Food Type</string>
-    <string name="recipe">Recipe</string>
-    <string name="food_image">Food image</string>
-    <string name="add">Add</string>
-    <string name="select_level">Select Level</string>
-    <string name="no_image_chosen">No image chosen</string>
-    <string name="recipe_text">Recipe text</string>
-    <string name="change_account_information">Change account information</string>
-    <string name="user_image">User image</string>
-    <string name="change_image">Change image</string>
+    <!-- ACTIONS -->
+    <string name="action_update">Update</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_login">Login</string>
+    <string name="action_register">Register</string>
+    <string name="action_logout">Log out</string>
+    <string name="action_change_username">Change Username</string>
+    <string name="action_update_location">Update Location</string>
+
+    <!-- GENERAL ERROR STRINGS -->
+    <string name="general_error_internet">Turn on internet before using this service</string>
+    <string name="general_error_permissions">Enable permissions in settings to use this option</string>
+
+    <!-- LOADING STRINGS -->
+    <string name="loading_please_wait">Loading.. please wait</string>
+
+    <!-- SCREEN NAME STRINGS -->
+    <string name="screen_settings">Settings</string>
+
+    <!-- EMAIL STRINGS -->
+    <string name="email">Email</string>
+    <string name="email_icon">Email icon</string>
+    <string name="email_old">Old email</string>
+    <string name="email_new">New email</string>
+    <string name="email_change">Change Email</string>
+    <string name="email_enter_to_reset">Enter an email connected with your profile</string>
+    <string name="email_change_success">Email successfully changed!</string>
+    <string name="email_change_server_error">There has been an error while changing your email!</string>
+    <string name="email_change_field_error">Email already in use!</string>
+    <string name="email_field_error">Check your e-mail format (ex. luka@mail.com)</string>
+    <string name="email_same_as_old_field_error">Email same as the old one!</string>
+    <string name="email_enter_new">Enter your new email</string>
+    <string name="email_logout_required">After successful email change you will be logged out</string>
+
+    <!-- PASSWORD STRINGS -->
+    <string name="password">Password</string>
+    <string name="password_reset">Reset password</string>
+    <string name="password_forgot">Forgot password?</string>
+    <string name="password_repeat">Repeat password</string>
+    <string name="password_reset_success">Reset password link sent to your email</string>
+    <string name="password_not_match_field_error">Invalid repeated password</string>
+    <string name="password_field_error">Check password length &#91;6&#8211;16&#93;</string>
+
+    <!-- USERNAME STRINGS -->
     <string name="username">Username</string>
-    <string name="selected_image">Image selected</string>
-    <string name="select_food_type">Select Food Type</string>
-    <string name="take_image">Take image</string>
-    <string name="channelId">ht.ferit.fjjukic.foodlovers</string>
-    <string name="notificationTitle">Saved image notification</string>
-    <string name="google_maps_key">API_KEY</string>
-    <string name="current_location">Last known location</string>
-    <string name="all_types">All Types</string>
-    <string name="all_levels">All Levels</string>
-    <string name="search_for_a_recipes">Search for a recipes</string>
-    <string name="find">Find</string>
+    <string name="username_change_success">Successfully changed username</string>
+    <string name="username_change_error">There has been an error while changing your username!</string>
+    <string name="username_same_as_old_error">Username same as the old one</string>
+    <string name="username_field_error">Check username length &#91;4&#8211;16&#93;</string>
+    <string name="username_enter_new">Enter your new username</string>
+
+    <!-- LOGIN STRINGS -->
+    <string name="login_go_back">Back to <u>Login</u></string>
+    <string name="login_sign_up">Don\'t have an account? <u>Sign up</u></string>
+
+    <!-- WELCOME SCREEN STRINGS -->
+    <string name="welcome_screen_title">Explore new\ncooking recipes</string>
+    <string name="welcome_screen_btn">Start cooking</string>
+
+    <!-- LOGOUT STRINGS -->
+    <string name="logout_question">Are you sure you want to logout?</string>
+    <string name="logout_message">You will need to authenticate again</string>
+
+    <!-- LOCATION STRINGS -->
+    <string name="location">Location</string>
+    <string name="location_current_location">Current location</string>
+    <string name="location_new_location">New location</string>
+    <string name="location_last_known">Last known location</string>
+    <string name="location_already_exist">New location is same as last known location!</string>
+    <string name="location_change_success">Successfully changed location</string>
+    <string name="location_change_error">There has been an error while changing your location!</string>
+    <string name="location_permission_error">Location permission is required for this functionality</string>
+    <string name="location_permission_question">Do you want to turn on the location?</string>
+    <string name="location_settings_info">Turn location to update your current location</string>
+
+    <!-- RECIPE STRINGS -->
+    <string name="recipe_image">Recipe image</string>
+    <string name="recipe_name">Name</string>
+    <string name="recipe_title">Recipe title</string>
+    <string name="recipe_description">Description</string>
+    <string name="recipe_total_recipes">%d total recipes</string>
+
+    <!-- STEP STRINGS -->
+    <string name="step_main">Main</string>
+    <string name="step_ingredients">Ingredients</string>
+    <string name="step_steps">Steps</string>
+    <string name="step_preview">Preview</string>
+    <string name="step">"Step %d."</string>
+
+    <!-- RECIPES MESSAGE STRINGS -->
+    <string name="message_recipe_created">Successfully created recipe</string>
+    <string name="message_recipe_not_created">Error while creating recipe</string>
+    <string name="message_recipe_updated">Successfully updated recipe</string>
+    <string name="message_recipe_not_updated">Error while updating recipe</string>
+    <string name="message_create_recipe_image_placeholder">Image placeholder</string>
+
+    <!-- OPTION STRINGS -->
+    <string name="option_create_recipe_add_ingredient">+ Add ingredient</string>
+    <string name="option_create_recipe_add_step">Add step</string>
+
+    <!-- IMAGE STRINGS -->
+    <string name="image_change_success">Successfully changed an image</string>
+    <string name="image_change_error">There has been an error while changing your image!</string>
+    <string name="image_capture_permission_error">Storage and camera permissions are required for taking and saving an image!</string>
+    <string name="image_storage_permission_error">Storage permissions are required for picking an image!</string>
+    <string name="image_notification">FoodLovers notification</string>
+    <string name="image_new_saved">Image saved in the gallery. Click here to check it!</string>
+    <string name="image_user">User image</string>
+
+    <!-- ICON STRINGS -->
+    <string name="icon_navigate">Icon navigate</string>
+    <string name="icon_email">Icon email</string>
+    <string name="icon_profile">Icon profile</string>
+    <string name="icon_image_capture">Icon capture image</string>
+    <string name="icon_location">Icon location</string>
+    <string name="icon_logout">Icon logout</string>
+
+    <!-- OTHER STRINGS -->
+    <string name="label_filter">Filter</string>
+    <string name="label_used_filters">Used filters</string>
+    <string name="label_amount">Amount</string>
+    <string name="label_no_items_in_section">No items added to this section</string>
+    <string name="label_first_step">Step 1.</string>
+    <string name="label_step_description_hint">Step description is here</string>
+
+    <!-- TITLE STRINGS -->
+    <string name="title_category">Category</string>
+    <string name="title_categories">Categories</string>
+    <string name="title_difficulty">Difficulty</string>
+    <string name="title_discover_new_recipes">Discover new recipes</string>
+    <string name="title_edit_recipe">Edit recipe</string>
+    <string name="title_favorite_recipes">Favorite recipes</string>
+    <string name="title_filters">Filters</string>
+    <string name="title_find_new_recipes">Find new recipes</string>
+    <string name="title_last_searched">Last searched</string>
+    <string name="title_preparation_time">Preparation time</string>
+    <string name="title_publish_new_recipe">Publish new recipe</string>
+    <string name="title_recipes_this_week">Top 3 Recipes This Week</string>
+    <string name="title_search_recipes">Search recipes</string>
+    <string name="title_sort_by">Sort by</string>
+    <string name="title_today_choice">Today\'s Choice</string>
+    <string name="title_metrics">Ingredient metrics</string>
+    <string name="title_capacity">Capacity</string>
+    <string name="title_capacity_metrics">l | dl | ml</string>
+    <string name="title_quantity">Quantity</string>
+    <string name="title_quantity_metrics">X</string>
+    <string name="title_weight">Weight</string>
+    <string name="title_weight_metrics">kg | dg | g</string>
+    <string name="title_no_recipes_found">No Recipes Found</string>
+    <string name="title_no_recipes_found_message">We can\'t find any item matching\nyour search</string>
+
+    <!-- CREATE/EDIT RECIPE SCREEN STRINGS -->
+    <string name="title_create_recipe_name">Name</string>
+    <string name="title_create_recipe_name_placeholder">Recipe title</string>
+    <string name="title_create_recipe_cooking_time">Cooking time</string>
+    <string name="title_create_recipe_cooking_time_default">15min</string>
+    <string name="title_create_recipe_number_of_servings">Number of servings</string>
+    <string name="title_create_recipe_image">Image</string>
+    <string name="title_create_recipe_ingredients">Ingredients</string>
+    <string name="title_create_recipe_steps">Steps</string>
+
+    <!-- BUTTON STRINGS -->
+    <string name="btn_done">Done</string>
+    <string name="btn_reset">Reset</string>
+    <string name="btn_create_recipe">Create</string>
+    <string name="btn_edit_recipe">Edit</string>
+
+    <!-- DIALOG STRINGS -->
+    <string name="dialog_create_recipe_title">Create new recipe?</string>
+    <string name="dialog_create_recipe_message">Please check your data before creating the recipe!</string>
+    <string name="dialog_edit_recipe_title">Do you want to update recipe?</string>
+    <string name="dialog_edit_recipe_message">Please check your data before updating the recipe!</string>
+    <string name="dialog_btn_confirm">Confirm</string>
+
+    <!-- NAVIGATION MENU STRINGS -->
+    <string name="navigation_home">Home</string>
+    <string name="navigation_recipes">Recipes</string>
+    <string name="navigation_favorites">Favorites</string>
+    <string name="navigation_profile">Profile</string>
+
+    <!-- ACCESSIBILITY STRINGS -->
+    <string name="btn_action_accessibility">Toolbar start action</string>
+    <string name="btn_end_action_accessibility">Toolbar end action</string>
+    <string name="btn_add_recipe_accessibility">Add recipe button</string>
+    <string name="btn_close_accessibility">Close button</string>
+    <string name="btn_check_accessibility">Check button</string>
+    <string name="btn_decrement_accessibility">Decrement button</string>
+    <string name="btn_filter_accessibility">Filter button</string>
+    <string name="btn_increment_accessibility">Increment button</string>
+    <string name="iv_favorite_recipe_accessibility">Favorite recipe icon</string>
+    <string name="iv_info_metrics_accessibility">Metrics info</string>
+    <string name="ic_edit_accessibility">Edit icon</string>
+    <string name="ic_difficulty_accessibility">Difficulty icon</string>
+    <string name="ic_people_accessibility">Number of servings icon</string>
+    <string name="iv_recipe_accessibility">Recipe image</string>
+    <string name="ic_step_accessibility">Step icon</string>
+    <string name="iv_time_accessibility">Time icon</string>
+    <string name="background_welcome_screen_accessibility">Cooking app background</string>
+
 </resources>
