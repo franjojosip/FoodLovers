@@ -9,6 +9,7 @@ import ht.ferit.fjjukic.foodlovers.app_recipe.RecipeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.BasicRecipesAdapter
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentCategoryRecipesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class CategoryRecipesFragment :
     BaseFragment<CategoryRecipesViewModel, FragmentCategoryRecipesBinding>(),
@@ -17,15 +18,20 @@ class CategoryRecipesFragment :
     private val args: CategoryRecipesFragmentArgs by navArgs()
 
     override val layoutId: Int = R.layout.fragment_category_recipes
-    override val viewModel: CategoryRecipesViewModel by viewModel()
+    override val viewModel: CategoryRecipesViewModel by viewModel { parametersOf(args.category) }
 
     private val recipeAdapter: BasicRecipesAdapter = BasicRecipesAdapter(this)
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.logCategoryRecipesScreenEvent()
+    }
 
     override fun init() {
         toolbar = binding.toolbarLayout
         loader = binding.loaderLayout
 
-        viewModel.loadRecipes(args.category)
+        viewModel.loadRecipes()
 
         binding.ivFilter.isSelected = viewModel.isAscending
         binding.toolbarLayout.setTitle("${args.category} recipes")

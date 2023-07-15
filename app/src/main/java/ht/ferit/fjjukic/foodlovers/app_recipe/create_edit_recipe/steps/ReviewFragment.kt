@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
@@ -22,6 +23,8 @@ import ht.ferit.fjjukic.foodlovers.databinding.ItemStepBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ReviewFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding>() {
+
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.REVIEW_STEP
 
     override val layoutId: Int = R.layout.fragment_review
     override val viewModel: RecipeViewModel by sharedViewModel()

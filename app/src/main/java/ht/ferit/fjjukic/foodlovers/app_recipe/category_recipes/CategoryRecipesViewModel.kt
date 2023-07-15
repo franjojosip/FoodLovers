@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.AnalyticsProvider
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipes
@@ -15,8 +16,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CategoryRecipesViewModel(
-    private val recipeRepository: RecipeRepository
-) : BaseViewModel() {
+    private val recipeRepository: RecipeRepository,
+    private val analyticsProvider: AnalyticsProvider,
+    private val category: String
+) : BaseViewModel(analyticsProvider) {
 
     private var recipes: List<HomeScreenRecipe> = listOf(NoRecipePlaceholder)
 
@@ -28,20 +31,18 @@ class CategoryRecipesViewModel(
     var isAscending = true
         private set
 
-    fun loadRecipes(category: String? = null) {
+    fun loadRecipes() {
         handleResult({
             recipeRepository.getRecipes()
         }, {
             viewModelScope.launch(Dispatchers.Default) {
                 var mappedRecipes = it?.mapToBasicRecipes()
 
-                if (!category.isNullOrBlank()) {
-                    mappedRecipes = mappedRecipes?.filter { model ->
-                        model.category.contains(category, true)
-                    }?.ifEmpty { listOf(NoRecipePlaceholder) } ?: listOf(NoRecipePlaceholder)
-                }
+                mappedRecipes = mappedRecipes?.filter { model ->
+                    model.category.contains(category, true)
+                }?.ifEmpty { listOf(NoRecipePlaceholder) } ?: listOf(NoRecipePlaceholder)
 
-                recipes = mappedRecipes ?: listOf(NoRecipePlaceholder)
+                recipes = mappedRecipes
 
                 searchFilter?.let {
                     filterBySearch(it)
@@ -96,5 +97,9 @@ class CategoryRecipesViewModel(
 
     fun onRecipeClick(navDirections: NavDirections) {
         actionNavigate.postValue(ActionNavigate.NavigationWithDirections(navDirections))
+    }
+
+    fun logCategoryRecipesScreenEvent() {
+        analyticsProvider.logCategoryRecipesScreenEvent(category)
     }
 }

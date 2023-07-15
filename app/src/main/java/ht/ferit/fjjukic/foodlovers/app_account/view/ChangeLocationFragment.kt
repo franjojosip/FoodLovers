@@ -1,6 +1,5 @@
 package ht.ferit.fjjukic.foodlovers.app_account.view
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -18,6 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_account.viewmodel.ChangeLocationViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.listener.LocationHandler
 import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
@@ -31,6 +31,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLocationBinding>(),
     OnMapReadyCallback, PermissionHandler, LocationHandler {
 
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.CHANGE_LOCATION
+
     override val viewModel: ChangeLocationViewModel by viewModel()
     override val layoutId = R.layout.fragment_location
 
@@ -42,8 +44,6 @@ class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLoc
             requireActivity()
         )
     }
-
-    private var permissions: Array<String> = arrayOf(ACCESS_COARSE_LOCATION)
 
     private var permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -96,13 +96,13 @@ class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLoc
     @SuppressLint("MissingPermission")
     private fun requestPermissions() {
         when {
-            checkPermissions(requireContext(), permissions) -> {
+            checkPermissions(requireContext(), locationPermissions) -> {
                 handleNewLocation()
             }
 
-            checkShouldShowPermissionRationale(requireActivity(), permissions) -> {
+            checkShouldShowPermissionRationale(requireActivity(), locationPermissions) -> {
                 showToast(messageId = R.string.location_permission_error)
-                permissionLauncher.launch(permissions)
+                permissionLauncher.launch(locationPermissions)
             }
 
             else -> {

@@ -1,10 +1,8 @@
 package ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps
 
-import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.yalantis.ucrop.UCrop
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
@@ -24,17 +23,12 @@ import ht.ferit.fjjukic.foodlovers.databinding.FragmentMainStepBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.io.File
 
-
 class MainStepFragment : BaseFragment<RecipeViewModel, FragmentMainStepBinding>(),
     PermissionHandler {
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.MAIN_STEP
+
     override val layoutId: Int = R.layout.fragment_main_step
     override val viewModel: RecipeViewModel by sharedViewModel()
-
-    private val storagePermissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        arrayOf(Manifest.permission.READ_MEDIA_IMAGES)
-    } else {
-        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-    }
 
     private var permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->

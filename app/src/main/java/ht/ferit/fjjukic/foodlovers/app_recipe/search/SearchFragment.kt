@@ -5,6 +5,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.CustomRemovableChipGroup
 import ht.ferit.fjjukic.foodlovers.app_recipe.RecipeListener
@@ -15,6 +16,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(),
     CustomRemovableChipGroup.RemovableClickListener, RecipeListener {
+
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.SEARCH
 
     override val viewModel: SearchViewModel by sharedViewModel()
     override val layoutId: Int = R.layout.fragment_search

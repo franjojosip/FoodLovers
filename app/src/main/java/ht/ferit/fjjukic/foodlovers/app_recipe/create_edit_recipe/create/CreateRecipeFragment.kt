@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.CustomPagerAdapter
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.RecipeViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.IngredientStepFragment
@@ -14,6 +15,9 @@ import ht.ferit.fjjukic.foodlovers.databinding.FragmentCreateRecipeBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CreateRecipeFragment : BaseFragment<RecipeViewModel, FragmentCreateRecipeBinding>() {
+
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.CREATE_RECIPE
+
     override val layoutId: Int = R.layout.fragment_create_recipe
     override val viewModel: RecipeViewModel by sharedViewModel()
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.AnalyticsProvider
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.FilterModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
@@ -19,8 +20,9 @@ import kotlinx.coroutines.withContext
 
 class SearchViewModel(
     private val recipeRepository: RecipeRepository,
-    private val filterRepository: FilterRepository
-) : BaseViewModel() {
+    private val filterRepository: FilterRepository,
+    analyticsProvider: AnalyticsProvider
+) : BaseViewModel(analyticsProvider) {
 
     private val _selectedFilters = MutableLiveData<List<FilterItem>>()
     val selectedFilters: LiveData<List<FilterItem>> = _selectedFilters

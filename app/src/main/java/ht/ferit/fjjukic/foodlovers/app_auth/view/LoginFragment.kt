@@ -4,6 +4,7 @@ import androidx.core.widget.doOnTextChanged
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_auth.viewmodel.LoginViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.utils.clearFocusAndHideKeyboard
 import ht.ferit.fjjukic.foodlovers.app_common.utils.getValue
 import ht.ferit.fjjukic.foodlovers.app_common.utils.validateField
@@ -12,6 +13,9 @@ import ht.ferit.fjjukic.foodlovers.databinding.FragmentLoginBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
+
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.LOGIN
+
 
     override val layoutId: Int = R.layout.fragment_login
     override val viewModel: LoginViewModel by viewModel()
@@ -40,12 +44,16 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         binding.tvSignUp.setOnClickListener {
             viewModel.handleRegistrationClick()
         }
-        binding.tilEmail.editText?.doOnTextChanged { _, _, _, _ ->
-            binding.tilEmail.validateField(FieldValidator::checkEmail)
+        binding.tilEmail.editText?.doOnTextChanged { text, _, _, _ ->
+            if (!text.isNullOrBlank()) {
+                binding.tilEmail.validateField(FieldValidator::checkEmail)
+            }
         }
 
-        binding.tilPassword.editText?.doOnTextChanged { _, _, _, _ ->
-            binding.tilPassword.validateField(FieldValidator::checkPassword)
+        binding.tilPassword.editText?.doOnTextChanged { text, _, _, _ ->
+            if (!text.isNullOrBlank()) {
+                binding.tilPassword.validateField(FieldValidator::checkPassword)
+            }
         }
     }
 }

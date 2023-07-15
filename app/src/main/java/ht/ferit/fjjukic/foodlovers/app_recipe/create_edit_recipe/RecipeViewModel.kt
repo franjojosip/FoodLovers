@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.AnalyticsProvider
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.CategoryModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
@@ -25,8 +26,9 @@ import kotlinx.coroutines.withContext
 class RecipeViewModel(
     private val recipeRepository: RecipeRepository,
     private val categoryRepository: CategoryRepository,
-    private val difficultyRepository: DifficultyRepository
-) : BaseViewModel() {
+    private val difficultyRepository: DifficultyRepository,
+    analyticsProvider: AnalyticsProvider
+) : BaseViewModel(analyticsProvider) {
     companion object {
         const val NUM_OF_STEPS = 4
 

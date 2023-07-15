@@ -12,29 +12,29 @@ import org.koin.dsl.module
 
 val RecipeModule = module {
     viewModel {
-        HomeViewModel(get(), get())
+        HomeViewModel(get(), get(), get())
     }
     viewModel {
-        SearchViewModel(get(), get())
-    }
-
-    viewModel {
-        RecipeViewModel(get(), get(), get())
+        SearchViewModel(get(), get(), get())
     }
 
     viewModel {
-        ShowRecipeViewModel(get(), get())
+        RecipeViewModel(get(), get(), get(), get())
+    }
+
+    viewModel { (recipeId: String) ->
+        ShowRecipeViewModel(get(), get(), get(), recipeId)
     }
 
     viewModel {
-        RecipesViewModel(get())
+        RecipesViewModel(get(), get())
+    }
+
+    viewModel { (category: String) ->
+        CategoryRecipesViewModel(get(), get(), category)
     }
 
     viewModel {
-        CategoryRecipesViewModel(get())
-    }
-
-    viewModel {
-        FavoritesViewModel(get())
+        FavoritesViewModel(get(), get())
     }
 }

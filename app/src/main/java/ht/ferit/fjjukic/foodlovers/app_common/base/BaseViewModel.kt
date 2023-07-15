@@ -2,6 +2,7 @@ package ht.ferit.fjjukic.foodlovers.app_common.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.AnalyticsProvider
 import ht.ferit.fjjukic.foodlovers.app_common.live_data.SingleLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
@@ -12,10 +13,16 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel(
+    private val analyticsProvider: AnalyticsProvider
+) : ViewModel() {
     val actionNavigate = SingleLiveData<ActionNavigate>()
     val screenEvent = SingleLiveData<ScreenEvent>()
     val messageScreenEvent = SingleLiveData<ScreenEvent>()
+
+    fun logScreenEvent(screenName: String) {
+        analyticsProvider.logScreenEvent(screenName)
+    }
 
     protected fun showSnackbar(message: String? = null, messageId: Int? = null) {
         messageScreenEvent.postValue(SnackbarModel(message, messageId))

@@ -3,6 +3,7 @@ package ht.ferit.fjjukic.foodlovers.app_recipe.showrecipe
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.AnalyticsProvider
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
@@ -14,19 +15,17 @@ import kotlinx.coroutines.withContext
 
 class ShowRecipeViewModel(
     private val preferenceManager: PreferenceManager,
-    private val recipeRepository: RecipeRepository
-) : BaseViewModel() {
+    private val recipeRepository: RecipeRepository,
+    private val analyticsProvider: AnalyticsProvider,
+    private val recipeId: String
+) : BaseViewModel(analyticsProvider) {
 
     private val _recipe: MutableLiveData<BasicRecipe> = MutableLiveData()
     val recipe: LiveData<BasicRecipe> = _recipe
 
-    private var recipeId = ""
-
-    fun loadRecipe(id: String) {
-        recipeId = id
-
+    fun init() {
         handleResult({
-            recipeRepository.getRecipe(id)
+            recipeRepository.getRecipe(recipeId)
         }, {
             if (it != null) {
                 _recipe.postValue(it.mapToBasicRecipe())
@@ -69,5 +68,9 @@ class ShowRecipeViewModel(
 
     fun isAdmin(): Boolean {
         return preferenceManager.user?.admin ?: false
+    }
+
+    fun logShowRecipeScreenEvent() {
+        analyticsProvider.logShowRecipeScreenEvent(recipeId)
     }
 }

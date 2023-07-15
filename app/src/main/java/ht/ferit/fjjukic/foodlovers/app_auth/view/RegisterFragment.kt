@@ -4,6 +4,7 @@ import androidx.core.widget.doOnTextChanged
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_auth.viewmodel.RegisterViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.utils.getValue
 import ht.ferit.fjjukic.foodlovers.app_common.utils.toggleError
 import ht.ferit.fjjukic.foodlovers.app_common.utils.validateField
@@ -12,6 +13,8 @@ import ht.ferit.fjjukic.foodlovers.databinding.FragmentRegisterBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterFragment : BaseFragment<RegisterViewModel, FragmentRegisterBinding>() {
+
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.REGISTER
 
     override val layoutId: Int = R.layout.fragment_register
     override val viewModel: RegisterViewModel by viewModel()

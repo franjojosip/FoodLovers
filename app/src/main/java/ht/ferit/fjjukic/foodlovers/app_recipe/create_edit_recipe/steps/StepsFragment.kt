@@ -6,6 +6,7 @@ import android.view.animation.Animation
 import androidx.core.view.children
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
@@ -15,6 +16,9 @@ import ht.ferit.fjjukic.foodlovers.databinding.FragmentStepsBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class StepsFragment : BaseFragment<RecipeViewModel, FragmentStepsBinding>() {
+
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.STEPS_STEP
+
     override val layoutId: Int = R.layout.fragment_steps
     override val viewModel: RecipeViewModel by sharedViewModel()
 
