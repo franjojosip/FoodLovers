@@ -13,15 +13,15 @@ This project is an example of a recipe mobile app.<br /> The goal is to work wit
 ## Useful features
 - MVVM architecture
 - Dependency injection ([Koin](https://github.com/InsertKoinIO))
-- Network calls ([Retrofit](https://github.com/square/retrofit))
 - Room persistance ([Room](https://developer.android.com/jetpack/androidx/releases/room))
-- Backend cloud ([Firebase](https://firebase.google.com/))
+- Firebase Storage, Analytics and Crashlytics ([Firebase](https://firebase.google.com/))
 - Concurrency design pattern ([Coroutines](https://developer.android.com/kotlin/coroutines))
 - Jetpack Navigation ([Navigation](https://developer.android.com/jetpack))
 - Google Maps ([Google Maps](https://developers.google.com/maps/documentation/android-sdk/))
 - Localization ([Localization](https://developer.android.com/guide/topics/resources/localization))
+- Network calls ([Retrofit](https://github.com/square/retrofit))
 - Android architecture components to share ViewModels during configuration changes and LiveData
-- Google [Material Design](https://material.io/blog/android-material-theme-color)
+- Material Design [Material Design](https://material.io/blog/android-material-theme-color)
 - Notifications [NotificationManager](https://developer.android.com/reference/android/app/NotificationManager)
 - Edge To Edge Configuration
 
