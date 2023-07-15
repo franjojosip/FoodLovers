@@ -2,6 +2,8 @@ package ht.ferit.fjjukic.foodlovers.app_common.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.AnalyticsProvider
 import ht.ferit.fjjukic.foodlovers.app_common.live_data.SingleLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
@@ -60,6 +62,7 @@ abstract class BaseViewModel(
                     }
                 }
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 screenEvent.postValue(LoadingBar(false))
             }
 

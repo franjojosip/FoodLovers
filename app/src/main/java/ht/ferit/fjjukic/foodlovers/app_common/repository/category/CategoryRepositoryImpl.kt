@@ -1,5 +1,7 @@
 package ht.ferit.fjjukic.foodlovers.app_common.repository.category
 
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import ht.ferit.fjjukic.foodlovers.app_common.database.RecipeDatabase
 import ht.ferit.fjjukic.foodlovers.app_common.database.model.Category
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
@@ -24,10 +26,14 @@ class CategoryRepositoryImpl(
 
     override fun init() {
         GlobalScope.launch(Dispatchers.IO) {
-            if (preferenceManager.lastUpdatedCategories == 0L ||
-                db.categoryDao().getAll().isEmpty()
-            ) {
-                getCategories()
+            try {
+                if (preferenceManager.lastUpdatedCategories == 0L ||
+                    db.categoryDao().getAll().isEmpty()
+                ) {
+                    getCategories()
+                }
+            } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
             }
         }
     }

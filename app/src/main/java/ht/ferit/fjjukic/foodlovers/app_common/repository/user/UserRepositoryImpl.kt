@@ -3,6 +3,8 @@ package ht.ferit.fjjukic.foodlovers.app_common.repository.user
 import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
@@ -108,6 +110,7 @@ class UserRepositoryImpl(
                     }
                 }
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Log.d("log", e.message.toString())
                 null
             }
@@ -135,6 +138,7 @@ class UserRepositoryImpl(
 
                 return@withContext Result.success(true)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Invalid credentials"))
             }
         }
@@ -162,6 +166,7 @@ class UserRepositoryImpl(
 
                 Result.success(true)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while registering user"))
             }
         }
@@ -174,6 +179,7 @@ class UserRepositoryImpl(
                 Result.success(true)
 
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Reset password server error"))
             }
         }
@@ -193,6 +199,7 @@ class UserRepositoryImpl(
                     Result.success(true)
                 }
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Update email server error"))
             }
         }

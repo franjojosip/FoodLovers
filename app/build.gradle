@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: "com.google.firebase.crashlytics"
 
 android {
     compileSdk buildVersions.compileSdk
@@ -82,6 +83,7 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson"
 
     // Firebase
+    implementation platform("com.google.firebase:firebase-bom:$firebaseBOM")
     implementation "com.google.firebase:firebase-auth:$firebaseAuth"
     implementation "com.google.firebase:firebase-core:$firebaseCore"
     implementation "com.google.firebase:firebase-database:$firebaseDB"
@@ -89,8 +91,10 @@ dependencies {
     implementation "com.firebaseui:firebase-ui-storage:$firebaseUI"
 
     // FirebaseAnalytics
-    implementation(platform("com.google.firebase:firebase-bom:$firebaseBOM"))
     implementation("com.google.firebase:firebase-analytics-ktx")
+
+    // Firebase Crashlytics
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
 
     // Google maps
     implementation "com.google.android.gms:play-services-maps:$playServicesMaps"

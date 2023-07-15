@@ -41,15 +41,35 @@ class SearchViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            filter = filterRepository.getFilterModel()
-
-
-            recipes = recipeRepository.getRecipes().getOrDefault(listOf()).map {
-                it.mapToBasicRecipe()
-            }
-
-            _filteredRecipes.postValue(recipes.ifEmpty { listOf(NoRecipePlaceholder) })
+            loadFilter()
+            loadRecipes()
         }
+    }
+
+    private suspend fun loadFilter() {
+        handleResult(
+            {
+                Result.success(filterRepository.getFilterModel())
+            }, {
+                if (it != null) {
+                    filter = it
+                }
+            }, {}
+        )
+    }
+
+    private suspend fun loadRecipes() {
+        handleResult(
+            {
+                recipeRepository.getRecipes()
+            }, { data ->
+                recipes = data?.map {
+                    it.mapToBasicRecipe()
+                } ?: listOf()
+                _filteredRecipes.postValue(recipes.ifEmpty { listOf(NoRecipePlaceholder) })
+            }, {
+            }
+        )
     }
 
     fun onConfirmFilterClicked(
@@ -83,14 +103,14 @@ class SearchViewModel(
                 ?.let { filterValues ->
                     var filteredRecipes = recipes.filter {
                         filterValues.contains(it.title.lowercase())
-                                || filterValues.contains(it.time.lowercase())
-                                || filterValues.contains(it.difficulty.lowercase())
-                                || filterValues.contains(it.category.lowercase())
+                            || filterValues.contains(it.time.lowercase())
+                            || filterValues.contains(it.difficulty.lowercase())
+                            || filterValues.contains(it.category.lowercase())
 
-                                || checkSearchHistory(it.title.lowercase(), searchHistory)
-                                || checkSearchHistory(it.time.lowercase(), searchHistory)
-                                || checkSearchHistory(it.difficulty.lowercase(), searchHistory)
-                                || checkSearchHistory(it.category.lowercase(), searchHistory)
+                            || checkSearchHistory(it.title.lowercase(), searchHistory)
+                            || checkSearchHistory(it.time.lowercase(), searchHistory)
+                            || checkSearchHistory(it.difficulty.lowercase(), searchHistory)
+                            || checkSearchHistory(it.category.lowercase(), searchHistory)
                     }
 
                     filter.sorts.firstOrNull()?.let {
@@ -148,9 +168,9 @@ class SearchViewModel(
 
         _filteredRecipes.value = _filteredRecipes.value?.filter {
             it.title.lowercase().contains(value.lowercase()) ||
-                    it.time.lowercase().contains(value.lowercase()) ||
-                    it.difficulty.lowercase().contains(value.lowercase()) ||
-                    it.category.lowercase().contains(value.lowercase())
+                it.time.lowercase().contains(value.lowercase()) ||
+                it.difficulty.lowercase().contains(value.lowercase()) ||
+                it.category.lowercase().contains(value.lowercase())
         }?.ifEmpty { listOf(NoRecipePlaceholder) } ?: listOf(NoRecipePlaceholder)
     }
 

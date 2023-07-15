@@ -37,9 +37,7 @@ class HomeViewModel(
     private var job: Job? = null
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            loadCategories()
-        }
+        loadCategories()
     }
 
     fun init() {
@@ -67,7 +65,7 @@ class HomeViewModel(
         )
     }
 
-    private suspend fun loadCategories() {
+    private fun loadCategories() {
         handleResult({
             categoryRepository.getCategories()
         }, { categories ->

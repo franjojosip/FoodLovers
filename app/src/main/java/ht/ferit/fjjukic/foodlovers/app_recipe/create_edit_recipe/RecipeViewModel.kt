@@ -4,6 +4,8 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.AnalyticsProvider
@@ -27,7 +29,8 @@ class RecipeViewModel(
     private val recipeRepository: RecipeRepository,
     private val categoryRepository: CategoryRepository,
     private val difficultyRepository: DifficultyRepository,
-    analyticsProvider: AnalyticsProvider
+    analyticsProvider: AnalyticsProvider,
+    private val recipeId: String?
 ) : BaseViewModel(analyticsProvider) {
     companion object {
         const val NUM_OF_STEPS = 4
@@ -59,29 +62,44 @@ class RecipeViewModel(
     private val _difficulty = MutableLiveData<DifficultyModel>()
     val difficulty: LiveData<DifficultyModel> = _difficulty
 
-    private var recipeId: String? = null
     val isEditMode by lazy { recipeId != null }
 
-    fun init(id: String?) {
-        recipeId = id
-
+    fun init() {
         viewModelScope.launch(Dispatchers.IO) {
-            val categories = categoryRepository.getCategories().getOrDefault(listOf())
-            val difficulties = difficultyRepository.getDifficulties().getOrDefault(listOf())
-            _categories.postValue(categories)
-            _difficulties.postValue(difficulties)
-            loadRecipe(categories.first(), difficulties.first())
+            try {
+                loadCategories()
+                loadDifficulties()
+                loadRecipe()
+            } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
+            }
         }
-
     }
 
-    private suspend fun loadRecipe(
-        defaultCategory: CategoryModel,
-        defaultDifficulty: DifficultyModel
-    ) {
+    private suspend fun loadCategories() {
+        handleResult({
+            categoryRepository.getCategories()
+        }, {
+            withContext(Dispatchers.Main) {
+                _categories.value = it ?: listOf()
+            }
+        }, {})
+    }
+
+    private suspend fun loadDifficulties() {
+        handleResult({
+            difficultyRepository.getDifficulties()
+        }, {
+            withContext(Dispatchers.Main) {
+                _difficulties.value = it ?: listOf()
+            }
+        }, {})
+    }
+
+    private suspend fun loadRecipe() {
         handleResult({
             when {
-                recipeId != null -> recipeRepository.getRecipe(recipeId!!)
+                recipeId != null -> recipeRepository.getRecipe(recipeId)
                 else -> Result.success(null)
             }
         }, {
@@ -102,8 +120,8 @@ class RecipeViewModel(
                         val model = RecipeModel().apply {
                             ingredients = mutableListOf(IngredientModel(), IngredientModel())
                             steps = mutableListOf(StepModel())
-                            category = defaultCategory
-                            difficulty = defaultDifficulty
+                            category = categories.value?.first()
+                            difficulty = difficulties.value?.first()
                         }
                         _oldRecipe.value = model
                         recipe = model
@@ -217,11 +235,11 @@ class RecipeViewModel(
 
     private fun checkRecipe(): Boolean {
         return recipe.name.isNotBlank() &&
-                recipe.ingredients.isNotEmpty() &&
-                checkList(recipe.ingredients) &&
-                recipe.steps.isNotEmpty() &&
-                checkList(recipe.steps) &&
-                recipe.imagePath.isNotBlank()
+            recipe.ingredients.isNotEmpty() &&
+            checkList(recipe.ingredients) &&
+            recipe.steps.isNotEmpty() &&
+            checkList(recipe.steps) &&
+            recipe.imagePath.isNotBlank()
     }
 
     private fun <T> checkList(data: List<T>): Boolean {
