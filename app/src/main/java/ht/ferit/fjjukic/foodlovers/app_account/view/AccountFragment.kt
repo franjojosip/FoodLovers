@@ -1,11 +1,9 @@
 package ht.ferit.fjjukic.foodlovers.app_account.view
 
-import android.Manifest
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.provider.MediaStore
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,6 +15,7 @@ import ht.ferit.fjjukic.foodlovers.app_account.viewmodel.AccountViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.listener.LocationHandler
+import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
 import ht.ferit.fjjukic.foodlovers.app_common.notification.NotificationsManager
@@ -26,19 +25,13 @@ import ht.ferit.fjjukic.foodlovers.databinding.FragmentAccountBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>(),
-    ActivityCompat.OnRequestPermissionsResultCallback, LocationHandler {
+    ActivityCompat.OnRequestPermissionsResultCallback, LocationHandler, PermissionHandler {
 
     override val layoutId: Int = R.layout.fragment_account
     override val viewModel: AccountViewModel by viewModel()
     override var screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.ACCOUNT
 
     private var imgUri: Uri? = null
-
-    private val storagePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        Manifest.permission.READ_MEDIA_IMAGES
-    } else {
-        Manifest.permission.READ_EXTERNAL_STORAGE
-    }
 
     private var permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -80,7 +73,7 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
         binding.ivProfileImage.setOnClickListener {
             requestRequiredPermissions(
                 action = ::chooseImageFromGallery,
-                permissions = arrayOf(storagePermission),
+                permissions = storagePermissions,
                 messageId = R.string.image_storage_permission_error,
                 permissionLauncher = permissionLauncher
             )
@@ -88,7 +81,7 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
         binding.clTakeImage.setOnClickListener {
             requestRequiredPermissions(
                 action = ::captureImage,
-                permissions = arrayOf(storagePermission, Manifest.permission.CAMERA),
+                permissions = imagePermissions,
                 messageId = R.string.image_capture_permission_error,
                 permissionLauncher = permissionLauncher
 

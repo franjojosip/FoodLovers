@@ -1,6 +1,5 @@
 package ht.ferit.fjjukic.foodlovers.app_account.view
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -45,8 +44,6 @@ class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLoc
             requireActivity()
         )
     }
-
-    private var permissions: Array<String> = arrayOf(ACCESS_COARSE_LOCATION)
 
     private var permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -99,13 +96,13 @@ class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLoc
     @SuppressLint("MissingPermission")
     private fun requestPermissions() {
         when {
-            checkPermissions(requireContext(), permissions) -> {
+            checkPermissions(requireContext(), locationPermissions) -> {
                 handleNewLocation()
             }
 
-            checkShouldShowPermissionRationale(requireActivity(), permissions) -> {
+            checkShouldShowPermissionRationale(requireActivity(), locationPermissions) -> {
                 showToast(messageId = R.string.location_permission_error)
-                permissionLauncher.launch(permissions)
+                permissionLauncher.launch(locationPermissions)
             }
 
             else -> {
