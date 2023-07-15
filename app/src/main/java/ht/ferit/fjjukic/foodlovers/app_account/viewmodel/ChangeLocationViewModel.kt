@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.AnalyticsProvider
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.user.UserRepository
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
@@ -15,8 +16,9 @@ import kotlinx.coroutines.withContext
 
 class ChangeLocationViewModel(
     private val userRepository: UserRepository,
-    preferenceManager: PreferenceManager
-) : BaseViewModel() {
+    preferenceManager: PreferenceManager,
+    analyticsProvider: AnalyticsProvider
+) : BaseViewModel(analyticsProvider) {
 
     private val _user: MutableLiveData<UserModel> = MutableLiveData(preferenceManager.user)
     val user: LiveData<UserModel> = _user

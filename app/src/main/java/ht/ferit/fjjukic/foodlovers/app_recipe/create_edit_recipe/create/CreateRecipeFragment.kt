@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.CustomPagerAdapter
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.RecipeViewModel
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.IngredientStepFragment
@@ -27,6 +28,11 @@ class CreateRecipeFragment : BaseFragment<RecipeViewModel, FragmentCreateRecipeB
                 ReviewFragment()
             )
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.CREATE_RECIPE)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

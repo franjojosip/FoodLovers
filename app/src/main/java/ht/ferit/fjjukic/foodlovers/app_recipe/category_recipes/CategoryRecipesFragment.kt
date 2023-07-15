@@ -4,6 +4,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_recipe.RecipeListener
 import ht.ferit.fjjukic.foodlovers.app_recipe.recycler.BasicRecipesAdapter
@@ -20,6 +21,11 @@ class CategoryRecipesFragment :
     override val viewModel: CategoryRecipesViewModel by viewModel()
 
     private val recipeAdapter: BasicRecipesAdapter = BasicRecipesAdapter(this)
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.CATEGORY_RECIPES)
+    }
 
     override fun init() {
         toolbar = binding.toolbarLayout

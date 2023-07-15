@@ -5,6 +5,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
 import ht.ferit.fjjukic.foodlovers.app_common.view.CustomRemovableChipGroup
 import ht.ferit.fjjukic.foodlovers.app_recipe.RecipeListener
@@ -24,6 +25,11 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         recipeAdapter = BasicRecipesAdapter(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.SEARCH)
     }
 
     override fun init() {

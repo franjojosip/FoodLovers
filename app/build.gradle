@@ -81,12 +81,16 @@ dependencies {
     // Gson
     implementation "com.google.code.gson:gson:$gson"
 
-    //Firebase
+    // Firebase
     implementation "com.google.firebase:firebase-auth:$firebaseAuth"
     implementation "com.google.firebase:firebase-core:$firebaseCore"
     implementation "com.google.firebase:firebase-database:$firebaseDB"
     implementation "com.google.firebase:firebase-storage:$firebaseStorage"
     implementation "com.firebaseui:firebase-ui-storage:$firebaseUI"
+
+    // FirebaseAnalytics
+    implementation(platform("com.google.firebase:firebase-bom:$firebaseBOM"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
     // Google maps
     implementation "com.google.android.gms:play-services-maps:$playServicesMaps"

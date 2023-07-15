@@ -5,8 +5,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.firebase.analytics.FirebaseAnalytics
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToServings
@@ -22,6 +24,14 @@ class ShowRecipeFragment : BaseFragment<ShowRecipeViewModel, FragmentShowRecipeB
 
     override val layoutId: Int = R.layout.fragment_show_recipe
     override val viewModel: ShowRecipeViewModel by viewModel()
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.logScreenEvent(
+            FirebaseAnalyticsConstants.Event.Screen.SHOW_RECIPE,
+            Pair(FirebaseAnalytics.Param.ITEM_ID, args.id)
+        )
+    }
 
     override fun init() {
         toolbar = binding.toolbarLayout

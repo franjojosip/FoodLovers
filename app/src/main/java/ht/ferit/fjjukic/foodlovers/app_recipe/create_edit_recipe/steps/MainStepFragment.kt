@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.yalantis.ucrop.UCrop
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.listener.PermissionHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToTime
@@ -68,6 +69,11 @@ class MainStepFragment : BaseFragment<RecipeViewModel, FragmentMainStepBinding>(
         } else if (resultCode == UCrop.RESULT_ERROR) {
             Toast.makeText(context, "Error while cropping an image!", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.MAIN_STEP)
     }
 
     override fun init() {

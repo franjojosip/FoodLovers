@@ -10,6 +10,7 @@ import androidx.core.view.children
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
@@ -21,6 +22,11 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class IngredientStepFragment : BaseFragment<RecipeViewModel, FragmentIngredientsBinding>() {
     override val layoutId: Int = R.layout.fragment_ingredients
     override val viewModel: RecipeViewModel by sharedViewModel()
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.INGREDIENTS_STEP)
+    }
 
     override fun init() {
         setListeners()

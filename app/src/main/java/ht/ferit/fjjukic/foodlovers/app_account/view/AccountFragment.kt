@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_account.viewmodel.AccountViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.listener.LocationHandler
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.DialogModel
@@ -65,6 +66,11 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
                 }
             }
         }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.ACCOUNT)
+    }
 
     override fun init() {
         loader = binding.loaderLayout

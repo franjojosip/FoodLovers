@@ -3,6 +3,7 @@ package ht.ferit.fjjukic.foodlovers.app_account.view
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_account.viewmodel.ChangeUsernameViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.utils.clearFocusAndHideKeyboard
 import ht.ferit.fjjukic.foodlovers.app_common.utils.getValue
 import ht.ferit.fjjukic.foodlovers.app_common.utils.observeNotNull
@@ -14,6 +15,11 @@ class ChangeUsernameFragment :
     BaseFragment<ChangeUsernameViewModel, FragmentChangeUsernameBinding>() {
     override val layoutId: Int = R.layout.fragment_change_username
     override val viewModel: ChangeUsernameViewModel by viewModel()
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.CHANGE_USERNAME)
+    }
 
     override fun init() {
         loader = binding.loaderLayout

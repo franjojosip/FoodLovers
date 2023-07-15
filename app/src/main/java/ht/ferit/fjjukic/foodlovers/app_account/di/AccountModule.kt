@@ -9,18 +9,18 @@ import org.koin.dsl.module
 
 val AccountModule = module {
     viewModel {
-        AccountViewModel(get(), get())
+        AccountViewModel(get(), get(), get())
     }
 
     viewModel {
-        ChangeUsernameViewModel(get(), get())
+        ChangeUsernameViewModel(get(), get(), get())
     }
 
     viewModel {
-        ChangeEmailViewModel(get(), get())
+        ChangeEmailViewModel(get(), get(), get())
     }
 
     viewModel {
-        ChangeLocationViewModel(get(), get())
+        ChangeLocationViewModel(get(), get(), get())
     }
 }

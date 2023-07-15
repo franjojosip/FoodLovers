@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.AnalyticsProvider
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.model.LoadingBar
 import ht.ferit.fjjukic.foodlovers.app_common.model.UserModel
@@ -16,8 +17,9 @@ import kotlinx.coroutines.launch
 
 class AccountViewModel(
     private val userRepository: UserRepository,
-    private val preferenceManager: PreferenceManager
-) : BaseViewModel() {
+    private val preferenceManager: PreferenceManager,
+    analyticsProvider: AnalyticsProvider
+) : BaseViewModel(analyticsProvider) {
 
     private val _user: MutableLiveData<UserModel> = MutableLiveData()
     val user: LiveData<UserModel> = _user
@@ -35,6 +37,7 @@ class AccountViewModel(
                     _user.postValue(preferenceManager.user)
                     showMessage(messageId = R.string.image_change_success)
                 }
+
                 else -> {
                     showMessage(messageId = R.string.image_change_error)
                 }

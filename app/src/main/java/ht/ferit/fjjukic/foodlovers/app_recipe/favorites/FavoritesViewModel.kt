@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
+import ht.ferit.fjjukic.foodlovers.app_common.firebase.AnalyticsProvider
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipes
@@ -14,8 +15,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class FavoritesViewModel(
-    private val recipeRepository: RecipeRepository
-) : BaseViewModel() {
+    private val recipeRepository: RecipeRepository,
+    analyticsProvider: AnalyticsProvider
+) : BaseViewModel(analyticsProvider) {
+
     private var recipes: List<HomeScreenRecipe> = listOf(NoRecipePlaceholder)
 
     private val _filteredRecipes =
