@@ -17,7 +17,8 @@ import kotlinx.coroutines.withContext
 
 class CategoryRecipesViewModel(
     private val recipeRepository: RecipeRepository,
-    analyticsProvider: AnalyticsProvider
+    private val analyticsProvider: AnalyticsProvider,
+    private val category: String
 ) : BaseViewModel(analyticsProvider) {
 
     private var recipes: List<HomeScreenRecipe> = listOf(NoRecipePlaceholder)
@@ -30,20 +31,18 @@ class CategoryRecipesViewModel(
     var isAscending = true
         private set
 
-    fun loadRecipes(category: String? = null) {
+    fun loadRecipes() {
         handleResult({
             recipeRepository.getRecipes()
         }, {
             viewModelScope.launch(Dispatchers.Default) {
                 var mappedRecipes = it?.mapToBasicRecipes()
 
-                if (!category.isNullOrBlank()) {
-                    mappedRecipes = mappedRecipes?.filter { model ->
-                        model.category.contains(category, true)
-                    }?.ifEmpty { listOf(NoRecipePlaceholder) } ?: listOf(NoRecipePlaceholder)
-                }
+                mappedRecipes = mappedRecipes?.filter { model ->
+                    model.category.contains(category, true)
+                }?.ifEmpty { listOf(NoRecipePlaceholder) } ?: listOf(NoRecipePlaceholder)
 
-                recipes = mappedRecipes ?: listOf(NoRecipePlaceholder)
+                recipes = mappedRecipes
 
                 searchFilter?.let {
                     filterBySearch(it)
@@ -98,5 +97,9 @@ class CategoryRecipesViewModel(
 
     fun onRecipeClick(navDirections: NavDirections) {
         actionNavigate.postValue(ActionNavigate.NavigationWithDirections(navDirections))
+    }
+
+    fun logCategoryRecipesScreenEvent() {
+        analyticsProvider.logCategoryRecipesScreenEvent(category)
     }
 }

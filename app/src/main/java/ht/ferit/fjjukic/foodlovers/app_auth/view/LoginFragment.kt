@@ -47,13 +47,13 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             viewModel.handleRegistrationClick()
         }
         binding.tilEmail.editText?.doOnTextChanged { text, _, _, _ ->
-            if (text.isNullOrBlank()) {
+            if (!text.isNullOrBlank()) {
                 binding.tilEmail.validateField(FieldValidator::checkEmail)
             }
         }
 
         binding.tilPassword.editText?.doOnTextChanged { text, _, _, _ ->
-            if (text.isNullOrBlank()) {
+            if (!text.isNullOrBlank()) {
                 binding.tilPassword.validateField(FieldValidator::checkPassword)
             }
         }

@@ -22,16 +22,16 @@ val RecipeModule = module {
         RecipeViewModel(get(), get(), get(), get())
     }
 
-    viewModel {
-        ShowRecipeViewModel(get(), get(), get())
+    viewModel { (recipeId: String) ->
+        ShowRecipeViewModel(get(), get(), get(), recipeId)
     }
 
     viewModel {
         RecipesViewModel(get(), get())
     }
 
-    viewModel {
-        CategoryRecipesViewModel(get(), get())
+    viewModel { (category: String) ->
+        CategoryRecipesViewModel(get(), get(), category)
     }
 
     viewModel {

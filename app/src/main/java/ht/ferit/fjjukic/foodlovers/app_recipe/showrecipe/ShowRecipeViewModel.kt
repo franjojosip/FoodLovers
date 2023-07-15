@@ -16,19 +16,16 @@ import kotlinx.coroutines.withContext
 class ShowRecipeViewModel(
     private val preferenceManager: PreferenceManager,
     private val recipeRepository: RecipeRepository,
-    analyticsProvider: AnalyticsProvider
+    private val analyticsProvider: AnalyticsProvider,
+    private val recipeId: String
 ) : BaseViewModel(analyticsProvider) {
 
     private val _recipe: MutableLiveData<BasicRecipe> = MutableLiveData()
     val recipe: LiveData<BasicRecipe> = _recipe
 
-    private var recipeId = ""
-
-    fun loadRecipe(id: String) {
-        recipeId = id
-
+    fun init() {
         handleResult({
-            recipeRepository.getRecipe(id)
+            recipeRepository.getRecipe(recipeId)
         }, {
             if (it != null) {
                 _recipe.postValue(it.mapToBasicRecipe())
@@ -71,5 +68,9 @@ class ShowRecipeViewModel(
 
     fun isAdmin(): Boolean {
         return preferenceManager.user?.admin ?: false
+    }
+
+    fun logShowRecipeScreenEvent() {
+        analyticsProvider.logShowRecipeScreenEvent(recipeId)
     }
 }

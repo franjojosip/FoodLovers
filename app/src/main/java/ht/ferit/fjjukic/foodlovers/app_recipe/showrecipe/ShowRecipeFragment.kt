@@ -5,10 +5,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.google.firebase.analytics.FirebaseAnalytics
 import ht.ferit.fjjukic.foodlovers.R
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseFragment
-import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseAnalyticsConstants
 import ht.ferit.fjjukic.foodlovers.app_common.model.IngredientModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.StepModel
 import ht.ferit.fjjukic.foodlovers.app_common.utils.convertToServings
@@ -18,25 +16,24 @@ import ht.ferit.fjjukic.foodlovers.databinding.FragmentShowRecipeBinding
 import ht.ferit.fjjukic.foodlovers.databinding.ItemIngredientListItemBinding
 import ht.ferit.fjjukic.foodlovers.databinding.ItemStepBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class ShowRecipeFragment : BaseFragment<ShowRecipeViewModel, FragmentShowRecipeBinding>() {
     private val args: ShowRecipeFragmentArgs by navArgs()
 
     override val layoutId: Int = R.layout.fragment_show_recipe
-    override val viewModel: ShowRecipeViewModel by viewModel()
+    override val viewModel: ShowRecipeViewModel by viewModel { parametersOf(args.id) }
 
     override fun onResume() {
         super.onResume()
-        viewModel.logScreenEvent(
-            FirebaseAnalyticsConstants.Event.Screen.SHOW_RECIPE,
-            Pair(FirebaseAnalytics.Param.ITEM_ID, args.id)
-        )
+        viewModel.logShowRecipeScreenEvent()
     }
 
     override fun init() {
+        viewModel.init()
+
         toolbar = binding.toolbarLayout
         loader = binding.loaderLayout
-        viewModel.loadRecipe(args.id)
 
         binding.toolbarLayout.enableEndAction()
         binding.ivFavorite.setOnClickListener {

@@ -20,8 +20,8 @@ abstract class BaseViewModel(
     val screenEvent = SingleLiveData<ScreenEvent>()
     val messageScreenEvent = SingleLiveData<ScreenEvent>()
 
-    fun logScreenEvent(screenName: String, additionalInfo: Pair<String, String>?) {
-        analyticsProvider.logScreenEvent(screenName, additionalInfo)
+    fun logScreenEvent(screenName: String) {
+        analyticsProvider.logScreenEvent(screenName)
     }
 
     protected fun showSnackbar(message: String? = null, messageId: Int? = null) {
