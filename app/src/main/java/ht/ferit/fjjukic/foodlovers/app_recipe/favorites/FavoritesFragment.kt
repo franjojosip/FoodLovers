@@ -13,15 +13,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBinding>(),
     RecipeListener {
 
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.FAVORITES
+
     override val layoutId: Int = R.layout.fragment_favorites
     override val viewModel: FavoritesViewModel by viewModel()
 
     private val recipesAdapter = BasicRecipesAdapter(this)
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.FAVORITES)
-    }
 
     override fun init() {
         viewModel.loadRecipes()

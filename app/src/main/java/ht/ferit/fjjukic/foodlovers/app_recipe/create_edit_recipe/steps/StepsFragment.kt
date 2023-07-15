@@ -16,13 +16,11 @@ import ht.ferit.fjjukic.foodlovers.databinding.FragmentStepsBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class StepsFragment : BaseFragment<RecipeViewModel, FragmentStepsBinding>() {
+
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.STEPS_STEP
+
     override val layoutId: Int = R.layout.fragment_steps
     override val viewModel: RecipeViewModel by sharedViewModel()
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.STEPS_STEP)
-    }
 
     override fun init() {
         binding.tvAddStep.setOnClickListener {

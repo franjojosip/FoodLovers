@@ -28,6 +28,8 @@ import java.io.File
 
 class MainStepFragment : BaseFragment<RecipeViewModel, FragmentMainStepBinding>(),
     PermissionHandler {
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.MAIN_STEP
+
     override val layoutId: Int = R.layout.fragment_main_step
     override val viewModel: RecipeViewModel by sharedViewModel()
 
@@ -69,11 +71,6 @@ class MainStepFragment : BaseFragment<RecipeViewModel, FragmentMainStepBinding>(
         } else if (resultCode == UCrop.RESULT_ERROR) {
             Toast.makeText(context, "Error while cropping an image!", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.MAIN_STEP)
     }
 
     override fun init() {

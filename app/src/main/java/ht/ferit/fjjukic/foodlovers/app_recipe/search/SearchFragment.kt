@@ -17,6 +17,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(),
     CustomRemovableChipGroup.RemovableClickListener, RecipeListener {
 
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.SEARCH
+
     override val viewModel: SearchViewModel by sharedViewModel()
     override val layoutId: Int = R.layout.fragment_search
 
@@ -25,11 +27,6 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         recipeAdapter = BasicRecipesAdapter(this)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.SEARCH)
     }
 
     override fun init() {

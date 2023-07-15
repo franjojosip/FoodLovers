@@ -14,13 +14,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.LOGIN
+
+
     override val layoutId: Int = R.layout.fragment_login
     override val viewModel: LoginViewModel by viewModel()
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.LOGIN)
-    }
 
     override fun init() {
         loader = binding.loaderLayout

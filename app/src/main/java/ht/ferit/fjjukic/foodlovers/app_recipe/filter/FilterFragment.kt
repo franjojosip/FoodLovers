@@ -9,13 +9,10 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class FilterFragment : BaseFragment<SearchViewModel, FragmentFilterBinding>() {
 
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.FILTER
+
     override val viewModel: SearchViewModel by sharedViewModel()
     override val layoutId: Int = R.layout.fragment_filter
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.FILTER)
-    }
 
     override fun init() {
         setScreen()

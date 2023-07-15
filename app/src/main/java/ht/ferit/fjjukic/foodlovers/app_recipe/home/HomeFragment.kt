@@ -14,6 +14,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeListener,
     CategoryListener {
+
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.HOME
+
     override val viewModel: HomeViewModel by viewModel()
     override val layoutId: Int = R.layout.fragment_home
 
@@ -24,11 +27,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), HomeLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         categoryAdapter.setListener(this)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.HOME)
     }
 
     override fun init() {

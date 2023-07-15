@@ -14,13 +14,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterFragment : BaseFragment<RegisterViewModel, FragmentRegisterBinding>() {
 
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.REGISTER
+
     override val layoutId: Int = R.layout.fragment_register
     override val viewModel: RegisterViewModel by viewModel()
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.REGISTER)
-    }
 
     override fun init() {
         loader = binding.loaderLayout

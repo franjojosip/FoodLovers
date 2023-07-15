@@ -30,6 +30,7 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
 
     override val layoutId: Int = R.layout.fragment_account
     override val viewModel: AccountViewModel by viewModel()
+    override var screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.ACCOUNT
 
     private var imgUri: Uri? = null
 
@@ -66,11 +67,6 @@ class AccountFragment : BaseFragment<AccountViewModel, FragmentAccountBinding>()
                 }
             }
         }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.ACCOUNT)
-    }
 
     override fun init() {
         loader = binding.loaderLayout

@@ -13,15 +13,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class RecipesFragment : BaseFragment<RecipesViewModel, FragmentRecipesBinding>(),
     RecipeListener {
 
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.RECIPES
+
     override val layoutId: Int = R.layout.fragment_recipes
     override val viewModel: RecipesViewModel by viewModel()
 
     private val recipesAdapter = BasicRecipesAdapter(this)
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.RECIPES)
-    }
 
     override fun init() {
         loader = binding.loaderLayout

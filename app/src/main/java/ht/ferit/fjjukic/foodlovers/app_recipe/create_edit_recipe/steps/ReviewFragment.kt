@@ -24,13 +24,10 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ReviewFragment : BaseFragment<RecipeViewModel, FragmentReviewBinding>() {
 
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.REVIEW_STEP
+
     override val layoutId: Int = R.layout.fragment_review
     override val viewModel: RecipeViewModel by sharedViewModel()
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.REVIEW_STEP)
-    }
 
     override fun init() {
         loader = binding.loaderLayout

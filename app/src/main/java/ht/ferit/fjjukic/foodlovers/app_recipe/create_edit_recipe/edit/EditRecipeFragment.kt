@@ -19,6 +19,8 @@ class EditRecipeFragment : BaseFragment<RecipeViewModel, FragmentEditRecipeBindi
 
     private val args: EditRecipeFragmentArgs by navArgs()
 
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.EDIT_RECIPE
+
     override val layoutId: Int = R.layout.fragment_edit_recipe
     override val viewModel: RecipeViewModel by sharedViewModel()
 
@@ -32,11 +34,6 @@ class EditRecipeFragment : BaseFragment<RecipeViewModel, FragmentEditRecipeBindi
                 ReviewFragment()
             )
         )
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.EDIT_RECIPE)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

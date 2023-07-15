@@ -13,13 +13,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChangeUsernameFragment :
     BaseFragment<ChangeUsernameViewModel, FragmentChangeUsernameBinding>() {
+
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.CHANGE_USERNAME
+
     override val layoutId: Int = R.layout.fragment_change_username
     override val viewModel: ChangeUsernameViewModel by viewModel()
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.CHANGE_USERNAME)
-    }
 
     override fun init() {
         loader = binding.loaderLayout

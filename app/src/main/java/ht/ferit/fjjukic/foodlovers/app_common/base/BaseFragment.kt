@@ -30,8 +30,17 @@ abstract class BaseFragment<VM : BaseViewModel, ViewBinding : ViewDataBinding> :
     protected abstract val viewModel: VM
     protected lateinit var binding: ViewBinding
 
+    protected open val screenConstant: String? = null
+
     protected var toolbar: CustomToolbarView? = null
     protected var loader: View? = null
+
+    override fun onResume() {
+        super.onResume()
+        screenConstant?.let {
+            viewModel.logScreenEvent(it)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

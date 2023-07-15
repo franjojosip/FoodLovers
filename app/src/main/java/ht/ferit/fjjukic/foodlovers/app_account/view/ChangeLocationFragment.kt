@@ -32,6 +32,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLocationBinding>(),
     OnMapReadyCallback, PermissionHandler, LocationHandler {
 
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.CHANGE_LOCATION
+
     override val viewModel: ChangeLocationViewModel by viewModel()
     override val layoutId = R.layout.fragment_location
 
@@ -59,11 +61,6 @@ class ChangeLocationFragment : BaseFragment<ChangeLocationViewModel, FragmentLoc
 
     private var locationLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { checkSettings() }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.CHANGE_LOCATION)
-    }
 
     override fun init() {
         setUpObservers()

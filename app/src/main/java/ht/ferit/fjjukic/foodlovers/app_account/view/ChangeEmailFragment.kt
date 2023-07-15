@@ -12,13 +12,11 @@ import ht.ferit.fjjukic.foodlovers.databinding.FragmentChangeEmailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChangeEmailFragment : BaseFragment<ChangeEmailViewModel, FragmentChangeEmailBinding>() {
+
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.CHANGE_EMAIL
+
     override val layoutId: Int = R.layout.fragment_change_email
     override val viewModel: ChangeEmailViewModel by viewModel()
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.CHANGE_EMAIL)
-    }
 
     override fun init() {
         loader = binding.loaderLayout

@@ -13,13 +13,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ResetPasswordFragment : BaseFragment<ResetPasswordViewModel, FragmentResetPasswordBinding>() {
 
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.RESET_PASSWORD
+
     override val layoutId = R.layout.fragment_reset_password
     override val viewModel: ResetPasswordViewModel by viewModel()
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.RESET_PASSWORD)
-    }
 
     override fun init() {
         loader = binding.loaderLayout

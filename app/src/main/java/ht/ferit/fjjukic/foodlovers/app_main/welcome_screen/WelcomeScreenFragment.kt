@@ -9,13 +9,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WelcomeScreenFragment : BaseFragment<WelcomeScreenViewModel, FragmentWelcomeScreenBinding>() {
 
+    override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.WELCOME
+
     override val layoutId: Int = R.layout.fragment_welcome_screen
     override val viewModel: WelcomeScreenViewModel by viewModel()
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.logScreenEvent(FirebaseAnalyticsConstants.Event.Screen.WELCOME)
-    }
 
     override fun init() {
         if (!viewModel.isFirstTime) {
