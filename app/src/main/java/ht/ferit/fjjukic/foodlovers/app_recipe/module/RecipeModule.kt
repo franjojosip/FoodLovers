@@ -18,8 +18,8 @@ val RecipeModule = module {
         SearchViewModel(get(), get(), get())
     }
 
-    viewModel {
-        RecipeViewModel(get(), get(), get(), get())
+    viewModel { (recipeId: String?) ->
+        RecipeViewModel(get(), get(), get(), get(), recipeId)
     }
 
     viewModel { (recipeId: String) ->

@@ -3,6 +3,8 @@ package ht.ferit.fjjukic.foodlovers.app_common.repository.recipe
 import android.net.Uri
 import android.util.Log
 import androidx.core.net.toUri
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import ht.ferit.fjjukic.foodlovers.app_common.database.RecipeDatabase
@@ -76,6 +78,7 @@ class RecipeRepositoryImpl(
 
     override suspend fun getRecipes(isForceLoad: Boolean): Result<List<RecipeModel>> {
         return withContext(Dispatchers.IO) {
+            throw Exception("TEST")
             val oldRecipes = db.recipeDao().getAll()
 
             when {
@@ -155,6 +158,7 @@ class RecipeRepositoryImpl(
                 try {
                     uploadTask = ref.putFile(value).await()
                 } catch (e: Exception) {
+                    Firebase.crashlytics.recordException(e)
                     return@withContext ref.downloadUrl.await().toString()
                 }
 
@@ -168,6 +172,7 @@ class RecipeRepositoryImpl(
                     }
                 }
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Log.d("log", e.message.toString())
                 null
             }

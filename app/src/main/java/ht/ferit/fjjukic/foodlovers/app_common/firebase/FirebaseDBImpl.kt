@@ -1,7 +1,9 @@
 package ht.ferit.fjjukic.foodlovers.app_common.firebase
 
+import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import ht.ferit.fjjukic.foodlovers.app_common.model.CategoryModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.DifficultyModel
 import ht.ferit.fjjukic.foodlovers.app_common.model.RecipeModel
@@ -54,6 +56,7 @@ class FirebaseDBImpl(
                 reference.setValue(user).await()
                 Result.success(user)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while creating user"))
             }
         }
@@ -67,6 +70,7 @@ class FirebaseDBImpl(
 
                 Result.success(user)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while getting user"))
             }
         }
@@ -88,6 +92,7 @@ class FirebaseDBImpl(
                     else -> Result.failure(Exception("Email doesn't exist!"))
                 }
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while getting user"))
             }
         }
@@ -99,6 +104,7 @@ class FirebaseDBImpl(
                 usersReference.child(user.userId).setValue(user).await()
                 Result.success(true)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while updating user"))
             }
         }
@@ -110,6 +116,7 @@ class FirebaseDBImpl(
                 usersReference.child(id).removeValue().await()
                 Result.success(true)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while deleting user"))
             }
         }
@@ -121,6 +128,7 @@ class FirebaseDBImpl(
                 recipesReference.child(recipe.id).setValue(recipe).await()
                 Result.success(true)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while creating recipe"))
             }
         }
@@ -132,6 +140,7 @@ class FirebaseDBImpl(
                 recipesReference.child(recipe.id).setValue(recipe).await()
                 Result.success(true)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while updating recipe"))
             }
         }
@@ -143,6 +152,7 @@ class FirebaseDBImpl(
                 recipesReference.child(id).removeValue().await()
                 Result.success(true)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while deleting recipe"))
             }
         }
@@ -181,6 +191,7 @@ class FirebaseDBImpl(
 
                 Result.success(recipe)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while getting recipe"))
             }
         }
@@ -193,6 +204,7 @@ class FirebaseDBImpl(
                 reference.setValue(category).await()
                 Result.success(category)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while creating category"))
             }
         }
@@ -205,6 +217,7 @@ class FirebaseDBImpl(
                 val category = reference.getValue(CategoryModel::class.java)
                 Result.success(category)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while deleting category"))
             }
         }
@@ -231,6 +244,7 @@ class FirebaseDBImpl(
                 usersReference.child(category.id).setValue(category).await()
                 Result.success(category)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while updating category"))
             }
         }
@@ -242,6 +256,7 @@ class FirebaseDBImpl(
                 categoriesReference.child(id).removeValue().await()
                 Result.success(true)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while deleting category"))
             }
         }
@@ -254,6 +269,7 @@ class FirebaseDBImpl(
                 reference.setValue(difficulty).await()
                 Result.success(difficulty)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while creating difficulty"))
             }
         }
@@ -266,6 +282,7 @@ class FirebaseDBImpl(
                 val difficulty = reference.getValue(DifficultyModel::class.java)
                 Result.success(difficulty)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while deleting difficulty"))
             }
         }
@@ -292,6 +309,7 @@ class FirebaseDBImpl(
                 usersReference.child(difficulty.id).setValue(difficulty).await()
                 Result.success(difficulty)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while updating difficulty"))
             }
         }
@@ -303,6 +321,7 @@ class FirebaseDBImpl(
                 difficultiesReference.child(id).removeValue().await()
                 Result.success(true)
             } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
                 Result.failure(Exception("Error while deleting difficulty"))
             }
         }

@@ -13,13 +13,16 @@ import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.ReviewFra
 import ht.ferit.fjjukic.foodlovers.app_recipe.create_edit_recipe.steps.StepsFragment
 import ht.ferit.fjjukic.foodlovers.databinding.FragmentCreateRecipeBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.core.parameter.parametersOf
 
 class CreateRecipeFragment : BaseFragment<RecipeViewModel, FragmentCreateRecipeBinding>() {
 
     override val screenConstant: String = FirebaseAnalyticsConstants.Event.Screen.CREATE_RECIPE
 
     override val layoutId: Int = R.layout.fragment_create_recipe
-    override val viewModel: RecipeViewModel by sharedViewModel()
+    override val viewModel: RecipeViewModel by sharedViewModel {
+        parametersOf(null)
+    }
 
     private val pagerAdapter by lazy {
         CustomPagerAdapter(
@@ -35,8 +38,7 @@ class CreateRecipeFragment : BaseFragment<RecipeViewModel, FragmentCreateRecipeB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewModel.init(null)
+        viewModel.init()
     }
 
     override fun init() {

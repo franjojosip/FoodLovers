@@ -37,9 +37,7 @@ class HomeViewModel(
     private var job: Job? = null
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            loadCategories()
-        }
+        loadCategories()
     }
 
     fun init() {
@@ -50,24 +48,23 @@ class HomeViewModel(
     }
 
     private suspend fun loadRecipes() {
-        handleResult(
-            {
+        handleResult({
             recipeRepository.getRecipes()
-            }, { data ->
-                data?.let {
-                    val topRecipes = data.takeLast(3).mapToTopRecipe()
-                    val todayChoiceRecipes = data.take(5).mapToTodayChoiceRecipe()
+        }, { data ->
+            data?.let {
+                val topRecipes = data.takeLast(3).mapToTopRecipe()
+                val todayChoiceRecipes = data.take(5).mapToTodayChoiceRecipe()
 
-                    withContext(Dispatchers.Main) {
-                        _todayChoiceRecipes.value = todayChoiceRecipes
-                        _topRecipes.value = topRecipes
-                    }
+                withContext(Dispatchers.Main) {
+                    _todayChoiceRecipes.value = todayChoiceRecipes
+                    _topRecipes.value = topRecipes
                 }
-            }, {}
-        )
+            }
+        }, {
+        })
     }
 
-    private suspend fun loadCategories() {
+    private fun loadCategories() {
         handleResult({
             categoryRepository.getCategories()
         }, { categories ->
@@ -77,8 +74,9 @@ class HomeViewModel(
                     _categories.value = it
                 }
             }
-        }, {}
-        )
+        }, {
+            showSnackbar(it?.message)
+        })
     }
 
     fun onRecipeClick(navDirections: NavDirections) {

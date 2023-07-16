@@ -1,5 +1,7 @@
 package ht.ferit.fjjukic.foodlovers.app_common.repository.difficulty
 
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import ht.ferit.fjjukic.foodlovers.app_common.database.RecipeDatabase
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.FirebaseDB
 import ht.ferit.fjjukic.foodlovers.app_common.model.DifficultyModel
@@ -23,10 +25,14 @@ class DifficultyRepositoryImpl(
 ) : DifficultyRepository {
     override fun init() {
         GlobalScope.launch(Dispatchers.IO) {
-            if (preferenceManager.lastUpdatedCategories == 0L ||
-                db.difficultyDao().getAll().isEmpty()
-            ) {
-                getDifficulties()
+            try {
+                if (preferenceManager.lastUpdatedCategories == 0L ||
+                    db.difficultyDao().getAll().isEmpty()
+                ) {
+                    getDifficulties()
+                }
+            } catch (e: Exception) {
+                Firebase.crashlytics.recordException(e)
             }
         }
     }

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.AnalyticsProvider
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
+import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipes
 import ht.ferit.fjjukic.foodlovers.app_recipe.model.HomeScreenRecipe
@@ -46,7 +47,11 @@ class FavoritesViewModel(
                     sortData(mappedRecipes)
                 }
             }
-        }, {})
+        }, {
+            screenEvent.postValue(
+                SnackbarModel(message = "Error while loading recipes")
+            )
+        })
     }
 
     fun onSortByClick() {

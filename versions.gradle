@@ -16,7 +16,8 @@ ext {
             kotlin        : '1.8.20',
             gradle        : '7.4.2',
             googleServices: '4.3.10',
-            safeArgs      : '2.4.1'
+            safeArgs      : '2.4.1',
+            crashlytics   : '2.9.7'
     ]
 
     // Android
