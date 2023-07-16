@@ -78,7 +78,6 @@ class RecipeRepositoryImpl(
 
     override suspend fun getRecipes(isForceLoad: Boolean): Result<List<RecipeModel>> {
         return withContext(Dispatchers.IO) {
-            throw Exception("TEST")
             val oldRecipes = db.recipeDao().getAll()
 
             when {
