@@ -47,29 +47,28 @@ class SearchViewModel(
     }
 
     private suspend fun loadFilter() {
-        handleResult(
-            {
-                Result.success(filterRepository.getFilterModel())
-            }, {
-                if (it != null) {
-                    filter = it
-                }
-            }, {}
-        )
+        handleResult({
+            Result.success(filterRepository.getFilterModel())
+        }, {
+            if (it != null) {
+                filter = it
+            }
+        }, {
+            showSnackbar(it?.message)
+        })
     }
 
     private suspend fun loadRecipes() {
-        handleResult(
-            {
-                recipeRepository.getRecipes()
-            }, { data ->
-                recipes = data?.map {
-                    it.mapToBasicRecipe()
-                } ?: listOf()
-                _filteredRecipes.postValue(recipes.ifEmpty { listOf(NoRecipePlaceholder) })
-            }, {
-            }
-        )
+        handleResult({
+            recipeRepository.getRecipes()
+        }, { data ->
+            recipes = data?.map {
+                it.mapToBasicRecipe()
+            } ?: listOf()
+            _filteredRecipes.postValue(recipes.ifEmpty { listOf(NoRecipePlaceholder) })
+        }, {
+            showSnackbar(it?.message)
+        })
     }
 
     fun onConfirmFilterClicked(

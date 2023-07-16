@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import ht.ferit.fjjukic.foodlovers.app_common.base.BaseViewModel
 import ht.ferit.fjjukic.foodlovers.app_common.firebase.AnalyticsProvider
 import ht.ferit.fjjukic.foodlovers.app_common.model.ActionNavigate
-import ht.ferit.fjjukic.foodlovers.app_common.model.SnackbarModel
 import ht.ferit.fjjukic.foodlovers.app_common.repository.recipe.RecipeRepository
 import ht.ferit.fjjukic.foodlovers.app_common.shared_preferences.PreferenceManager
 import ht.ferit.fjjukic.foodlovers.app_common.utils.mapToBasicRecipe
@@ -33,9 +32,7 @@ class ShowRecipeViewModel(
                 actionNavigate.postValue(ActionNavigate.Back)
             }
         }, {
-            screenEvent.postValue(
-                SnackbarModel(message = "Error while loading recipe")
-            )
+            showSnackbar(it?.message)
             actionNavigate.postValue(ActionNavigate.Back)
         })
     }
@@ -51,7 +48,9 @@ class ShowRecipeViewModel(
             withContext(Dispatchers.Main) {
                 _recipe.value = recipe
             }
-        }, {}, showLoading = false)
+        }, {
+            showSnackbar(it?.message)
+        }, showLoading = false)
     }
 
     fun onEditClick() {

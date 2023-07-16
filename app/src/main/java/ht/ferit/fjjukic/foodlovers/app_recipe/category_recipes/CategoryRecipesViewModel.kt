@@ -50,7 +50,9 @@ class CategoryRecipesViewModel(
                     sortData(recipes)
                 }
             }
-        }, {})
+        }, {
+            showSnackbar(it?.message)
+        })
     }
 
     private fun sortData(data: List<HomeScreenRecipe>) {
@@ -81,9 +83,9 @@ class CategoryRecipesViewModel(
 
             val filteredRecipes = recipes.filter {
                 it.title.lowercase().contains(value.lowercase()) ||
-                        it.time.lowercase().contains(value.lowercase()) ||
-                        it.difficulty.lowercase().contains(value.lowercase()) ||
-                        it.user.lowercase().contains(value.lowercase())
+                    it.time.lowercase().contains(value.lowercase()) ||
+                    it.difficulty.lowercase().contains(value.lowercase()) ||
+                    it.user.lowercase().contains(value.lowercase())
             }.ifEmpty { listOf(NoRecipePlaceholder) }
 
             sortData(filteredRecipes)

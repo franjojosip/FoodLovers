@@ -83,7 +83,9 @@ class RecipeViewModel(
             withContext(Dispatchers.Main) {
                 _categories.value = it ?: listOf()
             }
-        }, {})
+        }, {
+            showSnackbar(it?.message)
+        })
     }
 
     private suspend fun loadDifficulties() {
@@ -93,7 +95,9 @@ class RecipeViewModel(
             withContext(Dispatchers.Main) {
                 _difficulties.value = it ?: listOf()
             }
-        }, {})
+        }, {
+            showSnackbar(it?.message)
+        })
     }
 
     private suspend fun loadRecipe() {
@@ -129,9 +133,7 @@ class RecipeViewModel(
                 }
             }
         }, {
-            screenEvent.postValue(
-                SnackbarModel(message = "Error while loading recipe")
-            )
+            showSnackbar(it?.message)
             actionNavigate.postValue(ActionNavigate.Back)
         })
     }
