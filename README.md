@@ -26,20 +26,8 @@ This project is an example of a recipe mobile app.<br /><br /> The goal is to wo
 - Edge To Edge Configuration
 
 ## App Design
-<p align="left">
+<img width="1467" height="767" alt="image_original" src="https://github.com/user-attachments/assets/fb4ba838-189f-4f90-81f6-1de9f9fccc5e" />
 
-### Prelogin and auth
-<img src="https://github.com/franjojosip/FoodLovers/assets/52075105/86342411-3ec5-4fff-9d56-372c6266a6a1" width="20%"/>
-<img src="https://github.com/franjojosip/FoodLovers/assets/52075105/7d2c9970-5d30-4fdd-a1d0-01cf6cf0b14f" width="20%"/>
-
-### Home screen
-<img src="https://github.com/franjojosip/FoodLovers/assets/52075105/cda2e42c-6b14-4064-b6a5-17c9f8ec5290" width="20%"/>
-<img src="https://github.com/franjojosip/FoodLovers/assets/52075105/5a54b1ae-a766-4629-96b2-dfeb4ab6cf96" width="20%"/>
-
-### Filters and Settings
-<img src="https://github.com/franjojosip/FoodLovers/assets/52075105/35e63960-3cc0-4e5f-874e-3746db8256cd" width="20%"/>
-<img src="https://github.com/franjojosip/FoodLovers/assets/52075105/16b0b997-9dba-4c6a-bf9c-5580daafc324" width="20%"/>
-</p>
 
 
 ## Getting started
